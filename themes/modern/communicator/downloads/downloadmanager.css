@@ -95,3 +95,7 @@ treechildren::-moz-tree-image(ActionStop, inactive) {
 .mini-button > .button-box > .button-text {
   margin: 0 !important;
 }
+
+#downloadToolbar {
+  background-image: url("chrome://communicator/skin/toolbar/prtb-bg-noline.gif");
+}
