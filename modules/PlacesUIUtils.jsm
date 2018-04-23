@@ -15,6 +15,7 @@ XPCOMUtils.defineLazyGetter(this, "PlacesUtils", function() {
 
 // This function isn't public both because it's synchronous and because it is
 // going to be removed in bug 1072833.
+
 function IsLivemark(aItemId) {
   // Since this check may be done on each dragover event, it's worth maintaining
   // a cache.
@@ -214,6 +215,13 @@ var PlacesUIUtils = {
     return new PlacesCreateFolderTransaction(aData.title, aContainer,
                                              aIndex, annos,
                                              transactions);
+  },
+
+// Backwards Compatible shim or some dipshit
+  _isLivemark:
+  function PUIU__isLivemark(aItemId)
+  {
+    return IsLivemark(aItemId);
   },
 
    /**
