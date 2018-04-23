@@ -193,11 +193,7 @@
     <command id="feedsMenu" disabled="true"/>
     <commandset id="placesCommands"/>
 
-    <!-- Go Menu -->
-    <command id="Browser:Home"    oncommand="BrowserHome(event);"/>
-    <command id="Browser:Back"    oncommand="BrowserBack();"    observes="canGoBack"/>
-    <command id="Browser:Forward" oncommand="BrowserForward();" observes="canGoForward"/>
-    <command id="Browser:Up"      oncommand="BrowserUp();"      observes="canGoUp"/>
+    <!-- History Menu -->
     <commandset id="viewZoomCommands"/>
     <commandset id="tasksCommands"/>
 
@@ -388,37 +384,21 @@
 
     <menu id="history-menu"
           label="&goMenu.label;"
-          accesskey="&goMenu.accesskey;"
           oncommand="gotoHistoryIndex(event);"
           onclick="checkForMiddleClick(this, event);">
       <menupopup id="goPopup"
                  onpopupshowing="updateGoMenu(event);">
-        <menuitem id="historyMenuBack"
-                  label="&goBackCmd.label;"
-                  accesskey="&goBackCmd.accesskey;"
-                  key="goBackKb"
-                  oncommand="BrowserBack(event);"
-                  onclick="checkForMiddleClick(this, event);"
-                  observes="canGoBack"/>
-        <menuitem id="historyMenuForward"
-                  label="&goForwardCmd.label;"
-                  accesskey="&goForwardCmd.accesskey;"
-                  key="goForwardKb"
-                  oncommand="BrowserForward(event);"
-                  onclick="checkForMiddleClick(this, event);"
-                  observes="canGoForward"/>
-        <menuitem id="historyMenuUp"
-                  label="&goUpCmd.label;"
-                  accesskey="&goUpCmd.accesskey;"
-                  key="goUpKb"
-                  command="Browser:Up"/>
-        <menuitem id="historyMenuHome"
-                  label="&goHomeCmd.label;"
-                  accesskey="&goHomeCmd.accesskey;"
-                  command="Browser:Home"
-                  onclick="checkForMiddleClick(this, event);"
-                  key="goHome"/>
+        <menuitem id="menu_showAllHistory"
+                  label="&historyCmd.label;"
+                  accesskey="&historyCmd.accesskey;"
+                  oncommand="toHistory()"
+                  key="key_gotoHistory"/>
         <menuseparator/>
+        <menuitem id="historyRestoreLastSession"
+                  label="&historyRestoreLastSession.label;"
+                  accesskey="&historyRestoreLastSession.accesskey;"
+                  oncommand="restoreLastSession();"
+                  disabled="true"/>
         <menu id="menu_recentTabs"
               label="&recentTabs.label;"
               accesskey="&recentTabs.accesskey;">
@@ -433,17 +413,6 @@
                      onpopupshowing="event.stopPropagation(); updateRecentWindows(this);"
                      oncommand="undoCloseWindow(event.target.value);"/>
         </menu>
-        <menuitem id="historyRestoreLastSession"
-                  label="&historyRestoreLastSession.label;"
-                  accesskey="&historyRestoreLastSession.accesskey;"
-                  oncommand="restoreLastSession();"
-                  disabled="true"/>
-        <menuseparator/>
-        <menuitem id="menu_showAllHistory"
-                  label="&historyCmd.label;"
-                  accesskey="&historyCmd.accesskey;"
-                  oncommand="toHistory()"
-                  key="key_gotoHistory"/>
         <menuseparator id="startHistorySeparator" hidden="true"/>
         <menuseparator id="endHistorySeparator" hidden="true"/>
         <menuitem id="sync-tabs-menuitem"
