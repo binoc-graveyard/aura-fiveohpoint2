@@ -74,12 +74,14 @@
              oncommand="goDoPlacesCommand('placesCmd_createBookmark');"/>
 
     <!-- Special versions of cut/copy/paste/delete which check for an open context menu. -->
+    <!-- XXXTobin: Fucking busted
     <command id="placesCmd_cut"
              oncommand="goDoPlacesCommand('placesCmd_cut');"/>
     <command id="placesCmd_copy"
              oncommand="goDoPlacesCommand('placesCmd_copy');"/>
     <command id="placesCmd_paste"
              oncommand="goDoPlacesCommand('placesCmd_paste');"/>
+    -->
     <command id="placesCmd_delete"
              oncommand="goDoPlacesCommand('placesCmd_delete');"/>
   </commandset>
@@ -190,6 +192,7 @@
               accesskey="&cmd.bookmarkLink.accesskey;"
               selection="link"
               forcehideselection="bookmark|tagChild"/>
+    <!-- XXXTobin: Fucking busted
     <menuitem id="placesContext_cut"
               command="placesCmd_cut"
               label="&cutCmd.label;"
@@ -211,6 +214,7 @@
               selection="any"
               hideifnoinsertionpoint="true"/>
     <menuseparator id="placesContext_editSeparator"/>
+    -->
     <menuitem id="placesContext_delete"
               command="placesCmd_delete"
               label="&deleteCmd.label;"

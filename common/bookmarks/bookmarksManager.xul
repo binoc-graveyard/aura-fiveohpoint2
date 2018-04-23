@@ -153,6 +153,7 @@
           <menupopup id="menu_EditPopup">
             <menuitem id="menu_undo"/>
             <menuitem id="menu_redo"/>
+            <!-- XXXTobin: Fucking busted
             <menuseparator id="orgCutSeparator"/>
 
             <menuitem id="menu_cut"
@@ -162,6 +163,7 @@
             <menuitem id="menu_paste"
                       selection="mutable"/>
             <menuitem id="menu_delete"/>
+            -->
 
             <menuseparator id="selectAllSeparator"/>
 
