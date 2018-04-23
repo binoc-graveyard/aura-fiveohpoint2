@@ -40,7 +40,8 @@ nsBrowserStatusHandler.prototype =
     this.statusTextField = document.getElementById("statusbar-display");
     this.isImage         = document.getElementById("isImage");
     this.securityButton  = document.getElementById("security-button");
-    this.evButton        = document.getElementById("ev-button");
+    // XXXTobin: This thing is gross
+    // this.evButton        = document.getElementById("ev-button");
     this.feedsMenu       = document.getElementById("feedsMenu");
     this.feedsButton     = document.getElementById("feedsButton");
 
@@ -62,7 +63,7 @@ nsBrowserStatusHandler.prototype =
     this.statusTextField = null;
     this.isImage         = null;
     this.securityButton  = null;
-    this.evButton        = null;
+    // this.evButton        = null;
     this.feedsButton     = null;
     this.feedsMenu       = null;
   },
@@ -412,11 +413,11 @@ nsBrowserStatusHandler.prototype =
                     .QueryInterface(Components.interfaces.nsISSLStatus)
                     .serverCert.organization;
       this.securityButton.setAttribute("label", organization);
-      this.evButton.setAttribute("tooltiptext", organization);
-      this.evButton.hidden = false;
+      // this.evButton.setAttribute("tooltiptext", organization);
+      // this.evButton.hidden = false;
     } else {
       this.securityButton.removeAttribute("label");
-      this.evButton.hidden = true;
+      // this.evButton.hidden = true;
     }
   },
 
