@@ -120,10 +120,6 @@
     <command id="cmd_handleBackspace"  oncommand="BrowserHandleBackspace();" />
     <command id="cmd_handleShiftBackspace"  oncommand="BrowserHandleShiftBackspace();" />
 
-    <command id="cmd_newEditor"/>
-    <!-- NOT IMPLEMENTED
-    <command id="cmd_newEditorTemplate"/>
-    <command id="cmd_newEditorDraft"/> -->
     <command id="Browser:OpenFile"  oncommand="BrowserOpenFileWindow();"/>
     <command id="Browser:SavePage" oncommand="saveDocument(window.content.document, true);"/>
     <command id="Browser:EditPage" oncommand="editPageOrFrame();" observes="isImage"/>
@@ -227,8 +223,6 @@
                       label="&tabCmd.label;" accesskey="&tabCmd.accesskey;"/>
             <menuitem id="menu_newNavigator"/>
             <menuitem id="menu_newPrivateWindow"/>
-            <menuseparator id="navBeginGlobalNewItems"/>
-            <menuitem id="menu_newEditor"    command="cmd_newEditor"/>
           </menupopup>
         </menu>
         <menuitem id="menu_openLocation"
