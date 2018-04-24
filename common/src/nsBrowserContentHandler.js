@@ -178,7 +178,7 @@ function openPreferences()
     win.focus();
   else
     openWindow(null, "chrome://communicator/content/pref/preferences.xul",
-               "chrome,titlebar,dialog=no,resizable", "");
+               "chrome,titlebar,dialog=no,centerscreen", "");
 }
 
 function getMostRecentWindow(aType)

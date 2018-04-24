@@ -246,7 +246,7 @@ function goPreferences(paneID)
     lastPrefWindow.focus();
   else
     openDialog("chrome://communicator/content/pref/preferences.xul",
-               "PrefWindow", "non-private,chrome,titlebar,dialog=no,resizable,centerscreen",
+               "PrefWindow", "non-private,chrome,titlebar,dialog=no,centerscreen",
                paneID);
 }
 
