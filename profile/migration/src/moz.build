@@ -17,5 +17,5 @@ EXTRA_PP_COMPONENTS += [
     'SuiteProfileMigrator.js',
 ]
 
-FINAL_LIBRARY = 'suite'
+FINAL_LIBRARY = 'navigator'
 

@@ -12,7 +12,7 @@ SOURCES += [
     'nsSuiteDirectoryProvider.cpp',
 ]
 
-FINAL_LIBRARY = 'suite'
+FINAL_LIBRARY = 'navigator'
 
 JAR_MANIFESTS += ['jar.mn']
 

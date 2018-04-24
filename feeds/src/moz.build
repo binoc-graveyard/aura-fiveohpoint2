@@ -14,5 +14,5 @@ EXTRA_COMPONENTS += [
     'WebContentConverter.js',
 ]
 
-FINAL_LIBRARY = 'suite'
+FINAL_LIBRARY = 'navigator'
 

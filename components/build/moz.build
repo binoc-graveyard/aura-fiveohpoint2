@@ -4,16 +4,16 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 SOURCES += [
-    'nsSuiteModule.cpp',
+    'nsModule.cpp',
 ]
 
-XPCOMBinaryComponent('suite')
+XPCOMBinaryComponent('navigator')
 
 LOCAL_INCLUDES += [
-    '../feeds/src',
-    '../profile',
-    '../profile/migration/src',
-    '../shell/src',
+    '../../feeds/src',
+    '../../profile',
+    '../../profile/migration/src',
+    '../../shell/src',
 ]
 
 USE_LIBS += [

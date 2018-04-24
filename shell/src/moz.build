@@ -22,6 +22,6 @@ if SOURCES:
         'nsSetDefault.manifest',
     ]
 
-FINAL_LIBRARY = 'suite'
+FINAL_LIBRARY = 'navigator'
 
 CXXFLAGS += CONFIG['TK_CFLAGS']
