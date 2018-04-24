@@ -5,12 +5,14 @@
 
 EXTRA_COMPONENTS += [
     'nsAbout.js',
+    'nsBrowserContentHandler.js',
     'nsDownloadsStartup.js',
     'nsGopherProtocolStubHandler.js',
     'nsSessionStartup.js',
     'nsSidebar.js',
     'nsSuiteDownloadManagerUI.js',
     'nsSuiteGlue.js',
+    'nsTypeAheadFind.js',
     'SuiteCommon.manifest',
 ]
 
