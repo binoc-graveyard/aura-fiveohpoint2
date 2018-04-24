@@ -3268,7 +3268,10 @@
                                 orient="horizontal"
                                 style="min-width: 1px;">
               <children includes="tab"/>
-              <xul:spacer class="tabs-right" flex="1"/>
+              <!-- XXXTobin: This is a VERY cheap hack... Screw it, it works! -->
+              <xul:spacer class="tabs-right" flex="1"
+                          ondblclick="BrowserOpenTabFromTabBarDblClick(event);"
+                          onclick="BrowserOpenTabFromTabBarMiddleClick(event);"/>
             </xul:arrowscrollbox>
             <children/>
             <xul:stack>

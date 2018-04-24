@@ -1452,6 +1452,20 @@ function BrowserOpenTab()
   }
 }
 
+function BrowserOpenTabFromTabBarDblClick(e)
+{
+  if ('object' === typeof e && e.button == 0) {
+    BrowserOpenTab();
+  }
+}
+
+function BrowserOpenTabFromTabBarMiddleClick(e)
+{
+  if ('object' === typeof e && e.button == 1) {
+    BrowserOpenTab();
+  }
+}
+
 function BrowserOpenSyncTabs()
 {
   switchToTabHavingURI("about:sync-tabs", true);
