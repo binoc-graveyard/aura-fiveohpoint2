@@ -19,7 +19,7 @@
 <!ENTITY newPageFromTemplateCmd.accesskey "t">
 <!ENTITY newPageFromDraftCmd.label "Page Using Draft">
 <!ENTITY newPageFromDraftCmd.accesskey "d">
-<!ENTITY newNavigatorCmd.label "Browser Window">
+<!ENTITY newNavigatorCmd.label "Navigator Window">
 <!ENTITY newNavigatorCmd.key "N">
 <!ENTITY newNavigatorCmd.accesskey "B">
 <!ENTITY newPrivateWindowCmd.label "Private Window">
