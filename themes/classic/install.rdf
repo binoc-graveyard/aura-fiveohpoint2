@@ -25,7 +25,7 @@
     </em:targetApplication>
 
     <!-- Front End MetaData -->
-    <em:name>SeaMonkey Default Theme</em:name>
+    <em:name>Basic Theme</em:name>
     <em:description>This theme uses styles and colors from the system to fit in with other applications.</em:description>
 
     <!-- EXTENSION AUTHORS!
@@ -39,8 +39,10 @@
     <em:locked>true</em:locked>
 
     <!-- Front End Integration Hooks (used by Theme Manager)-->
-    <em:creator>Mozilla Contributors</em:creator>
-    <em:contributor>Mozilla Contributors</em:contributor>
+    <em:creator>Open Source Contributors</em:creator>
+    <em:contributor>SeaMonkey Project</em:contributor>
+    <em:contributor>Mozilla Foundation</em:contributor>
+    <em:contributor>Netscape Communications</em:contributor>
 
     <em:internalName>classic/1.0</em:internalName>
   </Description>

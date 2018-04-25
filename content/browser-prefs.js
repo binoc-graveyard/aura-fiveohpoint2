@@ -607,12 +607,6 @@ pref("extensions.dss.enabled", false);          // Dynamic Skin Switching
 pref("extensions.dss.switchPending", false);    // Non-dynamic switch pending after next
                                                 // restart.
 
-pref("extensions.{972ce4c6-7e08-4474-a285-3208198ce6fd}.name", "chrome://navigator/locale/navigator.properties");
-pref("extensions.{972ce4c6-7e08-4474-a285-3208198ce6fd}.description", "chrome://navigator/locale/navigator.properties");
-
-pref("extensions.modern@themes.mozilla.org.name", "chrome://navigator/locale/navigator.properties");
-pref("extensions.modern@themes.mozilla.org.description", "chrome://navigator/locale/navigator.properties");
-
 pref("xpinstall.enabled", true);
 pref("xpinstall.signatures.required", false);
 // Built-in default permissions.
@@ -626,13 +620,13 @@ pref("custtoolbar.personal_toolbar_folder", "");
 pref("toolbar.customization.usesheet", false);
 
 #ifdef XP_WIN
-pref("browser.taskbar.lists.enabled", true);
-pref("browser.taskbar.lists.frequent.enabled", true);
+pref("browser.taskbar.lists.enabled", false);
+pref("browser.taskbar.lists.frequent.enabled", false);
 pref("browser.taskbar.lists.recent.enabled", false);
 pref("browser.taskbar.lists.maxListItemCount", 7);
-pref("browser.taskbar.lists.tasks.enabled", true);
+pref("browser.taskbar.lists.tasks.enabled", false);
 pref("browser.taskbar.lists.refreshInSeconds", 120);
-pref("browser.taskbar.previews.enable", true);
+pref("browser.taskbar.previews.enable", false);
 pref("browser.taskbar.previews.max", 20);
 pref("browser.taskbar.previews.cachetime", 5);
 #endif
