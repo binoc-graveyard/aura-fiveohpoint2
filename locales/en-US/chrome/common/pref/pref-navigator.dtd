@@ -2,11 +2,11 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
-<!ENTITY pref.navigator.title           "Browser">
+<!ENTITY pref.navigator.title           "Navigator">
 
 <!ENTITY navRadio.label                 "Display on">
 <!ENTITY navRadio.accesskey             "n">
-<!ENTITY navStartPageMenu.label         "Browser Startup">
+<!ENTITY navStartPageMenu.label         "Navigator Startup">
 <!ENTITY newWinPageMenu.label           "New Window">
 <!ENTITY newTabPageMenu.label           "New Tab">
 

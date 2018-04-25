@@ -12,7 +12,7 @@
 <!ENTITY colors.label "Colors">
 <!ENTITY spellingPane.label "Spelling">
 
-<!ENTITY navigator.label "Browser">
+<!ENTITY navigator.label "Navigator">
 <!ENTITY history.label "History">
 <!ENTITY languages.label "Languages">
 <!ENTITY applications.label "Helper Applications">
