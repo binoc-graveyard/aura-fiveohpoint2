@@ -10,6 +10,7 @@ DIRS += [
     'content',
     'feeds/public',
     'feeds/src',
+    'defaults',
     'fonts',
     'locales',
     'modules',
