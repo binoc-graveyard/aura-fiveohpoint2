@@ -4,6 +4,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 JS_PREFERENCE_PP_FILES += [
-    'browser-prefs.js',
+    'application-prefs.js',
 ]
 
