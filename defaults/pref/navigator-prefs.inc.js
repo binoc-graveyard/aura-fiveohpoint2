@@ -70,7 +70,7 @@ pref("browser.findbar.enabled", true);
 pref("browser.doorhanger.enabled", false);
 
 // search engines URL
-pref("browser.search.searchEnginesURL", "https://addons.mozilla.org/%LOCALE%/%APP%/search/?atype=4");
+pref("browser.search.searchEnginesURL", "http://addons.palemoon.org/search-plugins/");
 
 // pointer to the default engine name
 pref("browser.search.defaultenginename", "chrome://communicator-region/locale/region.properties");
@@ -82,6 +82,8 @@ pref("browser.search.log", false);
 pref("browser.search.order.1", "chrome://communicator-region/locale/region.properties");
 pref("browser.search.order.2", "chrome://communicator-region/locale/region.properties");
 pref("browser.search.order.3", "chrome://communicator-region/locale/region.properties");
+pref("browser.search.order.4", "chrome://communicator-region/locale/region.properties");
+pref("browser.search.order.4", "chrome://communicator-region/locale/region.properties");
 
 // Search (side)bar results always open in a new tab.
 pref("browser.search.openintab", true);

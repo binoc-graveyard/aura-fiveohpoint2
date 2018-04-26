@@ -6,7 +6,8 @@
 JAR_MANIFESTS += ['jar.mn']
 
 DEFINES['MOZ_APP_MAXVERSION'] = CONFIG['MOZ_APP_MAXVERSION']
+DEFINES['MOZ_APP_DISPLAYNAME'] = CONFIG['MOZ_APP_DISPLAYNAME']
 
-FINAL_TARGET_FILES.defaults.profile += [
-    'generic/profile/mimeTypes.rdf',
+FINAL_TARGET_PP_FILES += [
+  'en-US/updater/updater.ini'
 ]
