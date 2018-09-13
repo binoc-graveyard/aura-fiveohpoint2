@@ -126,6 +126,8 @@ NS_IMETHODIMP nsMsgMailNewsUrl::GetPrincipalUri(nsIURI **aPrincipalURI)
   return m_principal->GetURI(aPrincipalURI);
 }
 
+// NS_IMPL_ISUPPORTS(nsMsgMailNewsUrl, nsIMsgMailNewsUrl, nsIURL, nsIURI)
+
 ////////////////////////////////////////////////////////////////////////////////////
 // Begin nsIMsgMailNewsUrl specific support
 ////////////////////////////////////////////////////////////////////////////////////

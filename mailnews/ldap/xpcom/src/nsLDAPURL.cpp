@@ -724,6 +724,7 @@ nsLDAPURL::GetHasRef(bool *result)
   return mBaseURL->GetHasRef(result);
 }
 
+
 NS_IMETHODIMP
 nsLDAPURL::GetFilePath(nsACString &aFilePath)
 {
