@@ -1,3 +1,14 @@
+/* This file is © Copyright 2020 - Matt A. Tobin of Binary Outcast
+ *
+ * Use of this file outside of an Executable Form of an Official Binary Outcast
+ * Software Project is strictly forbidden.
+ *
+ * Use of this file with in an Executable Form of a Binary Outcast Software
+ * Project may be covered under an accompaning End-User License Agreement.
+ *
+ * Additionally, portions of this file may be © Copyright 2018-2020 Moonchild Productions
+ * and is used with permission from M.C. Straver. -*/
+
 // ===| Site Specific User Agent Overrides |===================================
 
 #define GUAO_PREF general.useragent.override

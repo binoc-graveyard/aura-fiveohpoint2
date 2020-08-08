@@ -1,3 +1,11 @@
+/* This file is © Copyright 2020 - Matt A. Tobin of Binary Outcast
+ *
+ * Use of this file outside of an Executable Form of an Official Binary Outcast
+ * Software Project is strictly forbidden.
+ *
+ * Use of this file with in an Executable Form of a Binary Outcast Software
+ * Project may be covered under an accompaning End-User License Agreement. */
+
 #filter substitution
 
 #define BINOC_URL binaryoutcast.com
@@ -82,4 +90,4 @@ pref("browser.geolocation.warning.infoURL", "https://@BINOC_URL@/@BINOC_PROJECT@
 
 pref("toolkit.mozprotocol.url", "https://@BINOC_URL@/");
 
-#include uaoverrides.inc
+#include uaoverrides.inc.js
