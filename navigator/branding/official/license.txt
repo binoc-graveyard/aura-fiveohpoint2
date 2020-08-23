@@ -2,7 +2,7 @@ MOZILLA PUBLIC LICENSE COMPLIANCE DECLARATION
 -------------------
 1. Source Code for the software used under the following license agreement, unless otherwise stated, is released under the Mozilla Public License 2.0. You can obtain a copy of the MPL 2.0 at http://mozilla.org/MPL/2.0/.
 
-2. The Source Code Form as defined by the MPL 2.0 may be obtained at https://github.com/binaryoutcast/binoc-central/. If the source code is, for any reason, unavailable at that location, you may send an electronic mail (E-mail) message to <support@binaryoutcast.com> requesting a copy of the Source Code Form pursuant to MPL 2.0 Section 3.2 (a).
+2. The Source Code Form as defined by the MPL 2.0 may be obtained by sending an electronic mail (E-mail) message to <support@binaryoutcast.com> requesting a copy of the Source Code Form pursuant to MPL 2.0 Section 3.2 (a).
 
 3. Under the MPL 2.0 Section 3.2 (b) the following license terms are hereby established.
 
