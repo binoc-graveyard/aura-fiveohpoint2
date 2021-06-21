@@ -10,7 +10,7 @@ DIRS += [
     'comm',
     'components',
     'modules',
-    'themes',
+    'themes/classic',
 ]
 
 if CONFIG['MAKENSISU']:
