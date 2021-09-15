@@ -1,6 +1,6 @@
 [submodule "platform"]
 	path = platform
-url=https://repo.palemoon.org/MoonchildProductions/UXP.git
+url=https://repo.palemoon.org/MoonchildProductions/GRE.git
 [submodule "calendar"]
 	path = calendar
 	url = https://repo.palemoon.org/binaryoutcast/calendar.git
