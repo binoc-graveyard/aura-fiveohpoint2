@@ -7,7 +7,6 @@ DIRS += [
     '2d',
     'ycbcr',
     'src',
-    'qcms',
     'gl',
     'layers',
     'thebes',
