@@ -5,7 +5,6 @@
 
 DIRS += [
     '2d',
-    'ycbcr',
     'src',
     'gl',
     'layers',
