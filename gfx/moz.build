@@ -22,9 +22,6 @@ DIRS += [
     'config',
 ]
 
-if CONFIG['MOZ_ENABLE_SKIA']:
-    DIRS += ['skia']
-
 if CONFIG['ENABLE_TESTS']:
     DIRS += ['tests/gtest']
 
