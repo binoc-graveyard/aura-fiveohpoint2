@@ -10,7 +10,6 @@ DIRS += [
     'qcms',
     'gl',
     'layers',
-    'ots/src',
     'thebes',
     'ipc',
     'config',
