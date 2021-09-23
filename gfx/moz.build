@@ -10,7 +10,6 @@ DIRS += [
     'qcms',
     'gl',
     'layers',
-    'graphite2/src',
     'harfbuzz/src',
     'ots/src',
     'thebes',
