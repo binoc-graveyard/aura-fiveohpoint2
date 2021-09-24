@@ -121,7 +121,6 @@ DIRS += [
     '/services',
     '/startupcache',
     '/js/ductwork',
-    '/other-licenses/snappy',
 ]
 
 if CONFIG['MOZ_GIO_COMPONENT']:

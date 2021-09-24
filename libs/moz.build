@@ -20,5 +20,7 @@ if CONFIG['MOZ_ENABLE_SKIA']:
     DIRS += ['skia']
 
 # other-licenses
+DIRS += ['snappy']
+
 if CONFIG['MOZ_UPDATER']:
     DIRS += ['bsdiff']
