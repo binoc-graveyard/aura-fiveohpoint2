@@ -598,15 +598,15 @@ def skia_includes(skia, skia_gpu):
     includes = []
     if skia:
         includes += [
-            '/gfx/skia',
-            '/gfx/skia/skia/include/config',
-            '/gfx/skia/skia/include/core',
+            '/libs/skia',
+            '/libs/skia/skia/include/config',
+            '/libs/skia/skia/include/core',
         ]
 
     if skia_gpu:
         includes += [
-            '/gfx/skia/skia/include/gpu',
-            '/gfx/skia/skia/include/utils',
+            '/libs/skia/skia/include/gpu',
+            '/libs/skia/skia/include/utils',
         ]
 
     return includes

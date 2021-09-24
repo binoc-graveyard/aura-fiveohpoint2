@@ -584,7 +584,7 @@ endif
 endif
 endif
 
-PLY_INCLUDE = -I$(MOZILLA_DIR)/other-licenses/ply
+PLY_INCLUDE = -I$(MOZILLA_DIR)/python/ply
 
 export CL_INCLUDES_PREFIX
 # Make sure that the build system can handle non-ASCII characters

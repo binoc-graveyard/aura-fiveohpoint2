@@ -4558,7 +4558,7 @@ if test "$MOZ_TREE_CAIRO"; then
         MOZ_CAIRO_OSLIBS="$MOZ_CAIRO_OSLIBS $XLDFLAGS -lXrender"
     fi
 
-    CAIRO_FEATURES_H=gfx/cairo/cairo/src/cairo-features.h
+    CAIRO_FEATURES_H=libs/cairo/cairo/src/cairo-features.h
 else
     PKG_CHECK_MODULES(CAIRO, cairo >= $CAIRO_VERSION)
     MOZ_CAIRO_CFLAGS="$CAIRO_CFLAGS"
