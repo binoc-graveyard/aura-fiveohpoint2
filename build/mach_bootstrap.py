@@ -62,7 +62,7 @@ SEARCH_PATHS = [
     'dom/bindings/parser',
     'dom/media/test/external',
     'layout/tools/reftest',
-    'other-licenses/ply',
+    'python/ply',
     'taskcluster',
     'testing',
     'testing/firefox-ui/harness',

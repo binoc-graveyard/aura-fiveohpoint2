@@ -196,7 +196,7 @@ class TupOnly(CommonBackend, PartialBackend):
             ))
             fh.write('PYTHON = $(MOZ_OBJ_ROOT)/_virtualenv/bin/python -B\n')
             fh.write('PYTHON_PATH = $(PYTHON) $(topsrcdir)/config/pythonpath.py\n')
-            fh.write('PLY_INCLUDE = -I$(topsrcdir)/other-licenses/ply\n')
+            fh.write('PLY_INCLUDE = -I$(topsrcdir)/python/ply\n')
             fh.write('IDL_PARSER_DIR = $(topsrcdir)/xpcom/idl-parser\n')
             fh.write('IDL_PARSER_CACHE_DIR = $(MOZ_OBJ_ROOT)/xpcom/idl-parser/xpidl\n')
 
