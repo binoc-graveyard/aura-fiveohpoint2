@@ -115,7 +115,7 @@ LOCAL_INCLUDES += [
     '/layout/generic',
     '/layout/style',
     '/layout/xul',
-    '/other-licenses/atk-1.0',
+    '/libs/atk-1.0',
     '/widget',
 ]
 
