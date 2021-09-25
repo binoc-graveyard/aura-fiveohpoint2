@@ -29,6 +29,7 @@ if CONFIG['MOZ_UPDATER']:
 DIRS += ['kiss_fft',
          'libnestegg',
          'libogg',
+         'libopus',
          'libpng',
          'libwebp',
 ]

@@ -33,15 +33,15 @@
             ['build_with_mozilla==1', {
               # Mozilla provides its own build of the opus library.
               'include_dirs': [
-                '/media/libopus/include',
-                '/media/libopus/src',
-                '/media/libopus/celt',
+                '/libs/libopus/include',
+                '/libs/libopus/src',
+                '/libs/libopus/celt',
               ],
               'direct_dependent_settings': {
                 'include_dirs': [
-                  '/media/libopus/include',
-                  '/media/libopus/src',
-                  '/media/libopus/celt',
+                  '/libs/libopus/include',
+                  '/libs/libopus/src',
+                  '/libs/libopus/celt',
                 ],
               },
             }],
