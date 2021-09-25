@@ -36,6 +36,7 @@ DIRS += ['kiss_fft',
          'libstagefright',
          'libtheora',
          'libwebp',
+         'psshparser',
 ]
 
 # modules

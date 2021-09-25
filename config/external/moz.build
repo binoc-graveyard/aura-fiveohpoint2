@@ -34,10 +34,7 @@ if CONFIG['CPU_ARCH'] == 'arm':
 if CONFIG['MOZ_FFVPX']:
     external_dirs += ['media/ffvpx']
 
-external_dirs += [
-    'media/libcubeb',
-    'media/psshparser'
-]
+external_dirs += ['media/libcubeb']
 
 if CONFIG['MOZ_LINKER']:
     external_dirs += ['modules/xz-embedded']
