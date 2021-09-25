@@ -25,6 +25,9 @@ DIRS += ['snappy']
 if CONFIG['MOZ_UPDATER']:
     DIRS += ['bsdiff']
 
+# media
+DIRS += ['libpng']
+
 # modules
 DIRS += ['brotli',
          'woff2',

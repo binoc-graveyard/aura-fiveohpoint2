@@ -28,8 +28,6 @@ external_dirs += ['media/libvpx']
 if CONFIG['MOZ_AV1']:
     external_dirs += ['media/libaom']
 
-external_dirs += ['media/libpng']
-
 external_dirs += ['media/libwebp']
 
 if CONFIG['CPU_ARCH'] == 'arm':
