@@ -36,7 +36,6 @@ if CONFIG['MOZ_FFVPX']:
 
 external_dirs += [
     'media/libcubeb',
-    'media/libstagefright',
     'media/libsoundtouch',
     'media/psshparser'
 ]

@@ -32,6 +32,7 @@ DIRS += ['kiss_fft',
          'libopus',
          'libpng',
          'libspeex_resampler',
+         'libstagefright',
          'libtheora',
          'libwebp',
 ]
