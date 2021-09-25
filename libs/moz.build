@@ -24,3 +24,6 @@ DIRS += ['snappy']
 
 if CONFIG['MOZ_UPDATER']:
     DIRS += ['bsdiff']
+
+# modules
+DIRS += ['brotli']  
