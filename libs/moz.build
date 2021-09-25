@@ -26,4 +26,6 @@ if CONFIG['MOZ_UPDATER']:
     DIRS += ['bsdiff']
 
 # modules
-DIRS += ['brotli']  
+DIRS += ['brotli',
+         'woff2',
+]

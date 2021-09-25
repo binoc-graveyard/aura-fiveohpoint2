@@ -79,5 +79,5 @@ USE_LIBS += [
 ]
 
 LOCAL_INCLUDES += [
-    '/modules/woff2/src',
+    '/libs/woff2/src',
 ]
