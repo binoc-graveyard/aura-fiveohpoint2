@@ -27,6 +27,7 @@ if CONFIG['MOZ_UPDATER']:
 
 # media
 DIRS += ['kiss_fft',
+         'libnestegg',
          'libpng',
          'libwebp',
 ]
