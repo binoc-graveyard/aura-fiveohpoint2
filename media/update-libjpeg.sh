@@ -14,7 +14,7 @@ rm -rf $srcdir/libjpeg
 repo=$1
 tag=${2-HEAD}
 
-(cd $repo; git archive --prefix=media/libjpeg/ $tag) | (cd $srcdir/..; tar xf -)
+(cd $repo; git archive --prefix=libs/libjpeg/ $tag) | (cd $srcdir/..; tar xf -)
 
 cd $srcdir/libjpeg
 cp win/jsimdcfg.inc simd/

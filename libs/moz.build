@@ -37,6 +37,9 @@ DIRS += [
     'psshparser',
 ]
 
+if not CONFIG['MOZ_SYSTEM_JPEG']:
+    DIRS += ['libjpeg']
+
 # modules
 DIRS += [
     'brotli',

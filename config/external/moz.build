@@ -7,9 +7,6 @@ external_dirs = []
 
 DIRS += ['lgpllibs']
 
-if not CONFIG['MOZ_SYSTEM_JPEG']:
-    external_dirs += ['media/libjpeg']
-
 if CONFIG['MOZ_UPDATER']:
     if not CONFIG['MOZ_SYSTEM_BZ2']:
         external_dirs += ['modules/libbz2']
