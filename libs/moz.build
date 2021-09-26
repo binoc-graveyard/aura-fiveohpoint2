@@ -54,6 +54,9 @@ if CONFIG['MOZ_WEBM_ENCODER']:
 if CONFIG['CPU_ARCH'] == 'arm':
     DIRS += ['openmax_dl']
 
+if CONFIG['MOZ_AV1']:
+    DIRS += ['libaom']
+
 # modules
 DIRS += [
     'brotli',

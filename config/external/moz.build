@@ -7,9 +7,6 @@ external_dirs = []
 
 DIRS += ['lgpllibs']
 
-if CONFIG['MOZ_AV1']:
-    external_dirs += ['media/libaom']
-
 if CONFIG['MOZ_FFVPX']:
     external_dirs += ['media/ffvpx']
 
