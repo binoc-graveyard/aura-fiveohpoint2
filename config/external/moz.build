@@ -7,9 +7,6 @@ external_dirs = []
 
 DIRS += ['lgpllibs']
 
-if CONFIG['MOZ_VORBIS']:
-    external_dirs += ['media/libvorbis']
-
 if CONFIG['MOZ_TREMOR']:
     external_dirs += ['media/libtremor']
 

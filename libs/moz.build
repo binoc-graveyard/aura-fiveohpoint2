@@ -40,6 +40,9 @@ DIRS += [
 if not CONFIG['MOZ_SYSTEM_JPEG']:
     DIRS += ['libjpeg']
 
+if CONFIG['MOZ_VORBIS']:
+    DIRS += ['libvorbis']
+
 # modules
 DIRS += [
     'brotli',
