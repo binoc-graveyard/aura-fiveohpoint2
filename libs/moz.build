@@ -57,6 +57,9 @@ if CONFIG['CPU_ARCH'] == 'arm':
 if CONFIG['MOZ_AV1']:
     DIRS += ['libaom']
 
+if CONFIG['MOZ_FFVPX']:
+    DIRS += ['ffvpx']
+
 # modules
 DIRS += [
     'brotli',
