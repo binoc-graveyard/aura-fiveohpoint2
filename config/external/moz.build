@@ -7,9 +7,6 @@ external_dirs = []
 
 DIRS += ['lgpllibs']
 
-if CONFIG['MOZ_WEBM_ENCODER']:
-    external_dirs += ['media/libmkv']
-
 external_dirs += ['media/libvpx']
 
 if CONFIG['MOZ_AV1']:

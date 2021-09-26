@@ -46,6 +46,9 @@ if CONFIG['MOZ_VORBIS']:
 if CONFIG['MOZ_TREMOR']:
     DIRS += ['libtremor']
 
+if CONFIG['MOZ_WEBM_ENCODER']:
+    DIRS += ['libmkv']
+
 # modules
 DIRS += [
     'brotli',
