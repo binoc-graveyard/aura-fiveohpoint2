@@ -43,6 +43,9 @@ if not CONFIG['MOZ_SYSTEM_JPEG']:
 if CONFIG['MOZ_VORBIS']:
     DIRS += ['libvorbis']
 
+if CONFIG['MOZ_TREMOR']:
+    DIRS += ['libtremor']
+
 # modules
 DIRS += [
     'brotli',
