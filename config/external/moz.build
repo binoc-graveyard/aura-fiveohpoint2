@@ -15,7 +15,4 @@ if CONFIG['MOZ_AV1']:
 if CONFIG['MOZ_FFVPX']:
     external_dirs += ['media/ffvpx']
 
-if CONFIG['MOZ_LINKER']:
-    external_dirs += ['modules/xz-embedded']
-
 DIRS += ['../../' + i for i in external_dirs]
