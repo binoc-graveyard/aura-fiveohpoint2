@@ -7,10 +7,6 @@ external_dirs = []
 
 DIRS += ['lgpllibs']
 
-if CONFIG['MOZ_UPDATER']:
-    if not CONFIG['MOZ_SYSTEM_BZ2']:
-        external_dirs += ['modules/libbz2']
-
 if CONFIG['MOZ_VORBIS']:
     external_dirs += ['media/libvorbis']
 

@@ -46,5 +46,9 @@ DIRS += [
     'woff2',
 ]
 
+if CONFIG['MOZ_UPDATER']:
+    if not CONFIG['MOZ_SYSTEM_BZ2']:
+        DIRS += ['libbz2']
+
 # other-licenses
 DIRS += ['snappy']
