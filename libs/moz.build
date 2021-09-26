@@ -49,6 +49,9 @@ if CONFIG['MOZ_TREMOR']:
 if CONFIG['MOZ_WEBM_ENCODER']:
     DIRS += ['libmkv']
 
+if CONFIG['CPU_ARCH'] == 'arm':
+    DIRS += ['openmax_dl']
+
 # modules
 DIRS += [
     'brotli',
