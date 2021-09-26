@@ -109,8 +109,8 @@ if CONFIG['CLANG_CXX'] or CONFIG['CLANG_CL']:
 ASFLAGS += CONFIG['VPX_ASFLAGS']
 ASFLAGS += [
     '-I.',
-    '-I%s/media/libvpx/' % TOPSRCDIR,
-    '-I%s/media/libvpx/vpx_ports/' % TOPSRCDIR,
+    '-I%s/libs/libvpx/' % TOPSRCDIR,
+    '-I%s/libs/libvpx/vpx_ports/' % TOPSRCDIR,
 ]
 
 if CONFIG['OS_TARGET'] == 'Android':

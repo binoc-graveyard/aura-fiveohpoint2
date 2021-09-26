@@ -34,6 +34,7 @@ DIRS += [
     'libspeex_resampler',
     'libstagefright',
     'libtheora',
+    'libvpx',
     'libwebp',
     'psshparser',
 ]
