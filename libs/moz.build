@@ -25,6 +25,7 @@ if CONFIG['MOZ_UPDATER']:
 # media
 DIRS += [
     'kiss_fft',
+    'libcubeb',
     'libnestegg',
     'libogg',
     'libopus',
