@@ -19,8 +19,29 @@ if CONFIG['MOZ_TREE_CAIRO']:
 if CONFIG['MOZ_ENABLE_SKIA']:
     DIRS += ['skia']
 
-# other-licenses
-DIRS += ['snappy']
-
 if CONFIG['MOZ_UPDATER']:
     DIRS += ['bsdiff']
+
+# media
+DIRS += [
+    'kiss_fft',
+    'libnestegg',
+    'libogg',
+    'libopus',
+    'libpng',
+    'libsoundtouch',
+    'libspeex_resampler',
+    'libstagefright',
+    'libtheora',
+    'libwebp',
+    'psshparser',
+]
+
+# modules
+DIRS += [
+    'brotli',
+    'woff2',
+]
+
+# other-licenses
+DIRS += ['snappy']
