@@ -25,6 +25,7 @@ if CONFIG['MOZ_UPDATER']:
 # media
 DIRS += [
     'kiss_fft',
+    'libcubeb',
     'libnestegg',
     'libogg',
     'libopus',
@@ -33,15 +34,44 @@ DIRS += [
     'libspeex_resampler',
     'libstagefright',
     'libtheora',
+    'libvpx',
     'libwebp',
     'psshparser',
 ]
+
+if not CONFIG['MOZ_SYSTEM_JPEG']:
+    DIRS += ['libjpeg']
+
+if CONFIG['MOZ_VORBIS']:
+    DIRS += ['libvorbis']
+
+if CONFIG['MOZ_TREMOR']:
+    DIRS += ['libtremor']
+
+if CONFIG['MOZ_WEBM_ENCODER']:
+    DIRS += ['libmkv']
+
+if CONFIG['CPU_ARCH'] == 'arm':
+    DIRS += ['openmax_dl']
+
+if CONFIG['MOZ_AV1']:
+    DIRS += ['libaom']
+
+if CONFIG['MOZ_FFVPX']:
+    DIRS += ['ffvpx']
 
 # modules
 DIRS += [
     'brotli',
     'woff2',
 ]
+
+if CONFIG['MOZ_UPDATER']:
+    if not CONFIG['MOZ_SYSTEM_BZ2']:
+        DIRS += ['libbz2']
+
+if CONFIG['MOZ_LINKER']:
+    DIRS += ['xz-embedded']
 
 # other-licenses
 DIRS += ['snappy']

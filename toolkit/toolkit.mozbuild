@@ -42,7 +42,7 @@ DIRS += [
     '/hal',
     '/js/xpconnect',
     '/intl/chardet',
-    '/media/libyuv',
+    '/libs/libyuv',
     '/modules/libjar',
     '/storage',
 ]
@@ -146,7 +146,7 @@ DIRS += [
 
 if CONFIG['MOZ_EME']:
     DIRS += [
-    '/media/gmp-clearkey/0.1',
+    '/libs/gmp-clearkey/0.1',
     ]
 
 if CONFIG['ENABLE_TESTS']:
