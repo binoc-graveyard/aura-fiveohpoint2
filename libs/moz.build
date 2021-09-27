@@ -73,5 +73,12 @@ if CONFIG['MOZ_UPDATER']:
 if CONFIG['MOZ_LINKER']:
     DIRS += ['xz-embedded']
 
+#netwerk
+if CONFIG['MOZ_SCTP']:
+    DIRS += ['sctp']
+
+if CONFIG['MOZ_SRTP']:
+    DIRS += ['srtp/src']
+
 # other-licenses
 DIRS += ['snappy']

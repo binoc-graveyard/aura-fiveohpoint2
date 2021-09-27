@@ -215,8 +215,8 @@
             '../trunk/webrtc',
           ],
           'include_dirs': [
-            '../../../netwerk/srtp/src/include',
-            '../../../netwerk/srtp/src/crypto/include',
+            '../../../libs/srtp/src/include',
+            '../../../libs/srtp/src/crypto/include',
           ],
         }],
         ['moz_webrtc_omx==1', {
