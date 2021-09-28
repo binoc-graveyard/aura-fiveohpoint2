@@ -42,11 +42,9 @@
 
 #include "nsNetCID.h"
 
-#ifndef XP_MACOSX
 #define BUILD_BINHEX_DECODER 1
-#endif
 
-#if defined(XP_MACOSX) || defined(XP_WIN) || defined(XP_LINUX)
+#if defined(XP_WIN) || defined(XP_LINUX)
 #define BUILD_NETWORK_INFO_SERVICE 1
 #endif
 
@@ -696,9 +694,6 @@ static void nsNetShutdown()
 
     // Release global state used by the URL helper module.
     net_ShutdownURLHelper();
-#ifdef XP_MACOSX
-    net_ShutdownURLHelperOSX();
-#endif
     
     // Release DNS service reference.
     nsDNSPrefetch::Shutdown();

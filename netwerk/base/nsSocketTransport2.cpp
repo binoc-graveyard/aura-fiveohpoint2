@@ -2733,7 +2733,7 @@ nsSocketTransport::EnsureKeepaliveValsAreInitialized()
 NS_IMETHODIMP
 nsSocketTransport::SetKeepaliveEnabled(bool aEnable)
 {
-#if defined(XP_WIN) || defined(XP_UNIX) || defined(XP_MACOSX)
+#if defined(XP_WIN) || defined(XP_UNIX)
     MOZ_ASSERT(PR_GetCurrentThread() == gSocketThread, "wrong thread");
 
     if (aEnable == mKeepaliveEnabled) {
@@ -2773,7 +2773,7 @@ nsSocketTransport::SetKeepaliveEnabled(bool aEnable)
     }
 
     return NS_OK;
-#else /* !(defined(XP_WIN) || defined(XP_UNIX) || defined(XP_MACOSX)) */
+#else /* !(defined(XP_WIN) || defined(XP_UNIX) */
     SOCKET_LOG(("nsSocketTransport::SetKeepaliveEnabled unsupported platform"));
     return NS_ERROR_NOT_IMPLEMENTED;
 #endif
@@ -2783,7 +2783,7 @@ NS_IMETHODIMP
 nsSocketTransport::SetKeepaliveVals(int32_t aIdleTime,
                                     int32_t aRetryInterval)
 {
-#if defined(XP_WIN) || defined(XP_UNIX) || defined(XP_MACOSX)
+#if defined(XP_WIN) || defined(XP_UNIX)
     MOZ_ASSERT(PR_GetCurrentThread() == gSocketThread, "wrong thread");
     if (NS_WARN_IF(aIdleTime <= 0 || kMaxTCPKeepIdle < aIdleTime)) {
         return NS_ERROR_INVALID_ARG;
@@ -2996,7 +2996,7 @@ nsSocketTransport::PRFileDescAutoLock::SetKeepaliveVals(bool aEnabled,
                                                         int aRetryInterval,
                                                         int aProbeCount)
 {
-#if defined(XP_WIN) || defined(XP_UNIX) || defined(XP_MACOSX)
+#if defined(XP_WIN) || defined(XP_UNIX)
     MOZ_ASSERT(PR_GetCurrentThread() == gSocketThread, "wrong thread");
     if (NS_WARN_IF(aIdleTime <= 0 || kMaxTCPKeepIdle < aIdleTime)) {
         return NS_ERROR_INVALID_ARG;

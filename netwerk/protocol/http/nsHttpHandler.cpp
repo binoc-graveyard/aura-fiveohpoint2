@@ -71,11 +71,6 @@
 #include <windows.h>
 #endif
 
-#if defined(XP_MACOSX)
-#include <CoreServices/CoreServices.h>
-#include "nsCocoaFeatures.h"
-#endif
-
 //-----------------------------------------------------------------------------
 #include "mozilla/net/HttpChannelChild.h"
 
@@ -786,8 +781,6 @@ nsHttpHandler::InitUserAgentComponents()
     mPlatform.AssignLiteral(
 #if defined(XP_WIN)
     "Windows"
-#elif defined(XP_MACOSX)
-    "Macintosh"
 #elif defined(XP_UNIX)
     // We historically have always had X11 here,
     // and there seems little a webpage can sensibly do
