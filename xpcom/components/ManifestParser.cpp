@@ -13,9 +13,6 @@
 #include "prprf.h"
 #if defined(XP_WIN)
 #include <windows.h>
-#elif defined(MOZ_WIDGET_COCOA)
-#include <CoreServices/CoreServices.h>
-#include "nsCocoaFeatures.h"
 #elif defined(MOZ_WIDGET_GTK)
 #include <gtk/gtk.h>
 #endif

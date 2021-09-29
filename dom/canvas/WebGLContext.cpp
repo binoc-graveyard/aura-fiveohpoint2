@@ -69,10 +69,6 @@
 #include "WebGLVertexArray.h"
 #include "WebGLVertexAttribData.h"
 
-#ifdef MOZ_WIDGET_COCOA
-#include "nsCocoaFeatures.h"
-#endif
-
 #ifdef XP_WIN
 #include "WGLLibrary.h"
 #endif
@@ -1000,14 +996,6 @@ WebGLContext::SetDimensions(int32_t signedWidth, int32_t signedHeight)
 
         if (!mOptions.stencil && gl->Caps().stencil)
             mNeedsFakeNoStencil = true;
-
-#ifdef MOZ_WIDGET_COCOA
-        if (!nsCocoaFeatures::IsAtLeastVersion(10, 12) &&
-            gl->Vendor() == GLVendor::Intel)
-        {
-            mNeedsEmulatedLoneDepthStencil = true;
-        }
-#endif
     }
 
     // Update mOptions.
