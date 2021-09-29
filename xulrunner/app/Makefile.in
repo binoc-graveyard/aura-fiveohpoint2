@@ -38,34 +38,6 @@ endif
 #export:: brand.dtd.in
 #	$(call py_action,preprocessor,$(DEFINES) $(ACDEFINES) $^ -o brand.dtd)
 
-ifeq (cocoa,$(MOZ_WIDGET_TOOLKIT))
-
-FRAMEWORK_NAME = XUL
-FRAMEWORK_VERSION = $(MOZILLA_VERSION)
-
-FRAMEWORK_DIR = \
-   $(DIST)/$(FRAMEWORK_NAME).framework/Versions/$(FRAMEWORK_VERSION)
-
-$(FRAMEWORK_DIR)/Resources:
-	$(NSINSTALL) -D $@
-
-tools:: $(PROGRAM) $(FRAMEWORK_DIR)/Resources
-	$(NSINSTALL) $(srcdir)/macbuild/InfoPlist.strings $(FRAMEWORK_DIR)/Resources
-	sed -e 's/APP_VERSION/$(APP_VERSION)/' $(srcdir)/macbuild/Info.plist.in > $(FRAMEWORK_DIR)/Info.plist
-	rsync -av $(DIST)/bin/ $(FRAMEWORK_DIR) --exclude mangle --exclude shlibsign
-	rm -f $(DIST)/$(FRAMEWORK_NAME).framework/Versions/Current \
-	      $(DIST)/$(FRAMEWORK_NAME).framework/libxpcom.dylib \
-	      $(DIST)/$(FRAMEWORK_NAME).framework/XUL \
-	      $(DIST)/$(FRAMEWORK_NAME).framework/xulrunner
-	ln -s $(FRAMEWORK_VERSION) $(DIST)/$(FRAMEWORK_NAME).framework/Versions/Current
-	ln -s Versions/Current/libxpcom.dylib $(DIST)/$(FRAMEWORK_NAME).framework/libxpcom.dylib
-	ln -s Versions/Current/XUL $(DIST)/$(FRAMEWORK_NAME).framework/XUL
-	ln -s Versions/Current/xulrunner $(DIST)/$(FRAMEWORK_NAME).framework/xulrunner
-
-clean clobber::
-	rm -rf $(DIST)/$(FRAMEWORK_NAME).framework
-endif
-
 README_FILE = $(srcdir)/../README.xulrunner
 
 libs::
