@@ -51,9 +51,7 @@
 @RESPATH@/defaults/profile/panels.rdf
 @RESPATH@/dictionaries/*
 @RESPATH@/hyphenation/*
-#ifdef MOZ_BUNDLED_FONTS
 @RESPATH@/fonts/*
-#endif
 @RESPATH@/searchplugins/*
 #ifdef HAVE_MAKENSISU
 @BINPATH@/uninstall/helper.exe

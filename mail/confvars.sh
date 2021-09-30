@@ -48,11 +48,6 @@ MOZ_CHROME_FILE_FORMAT=omni
 JAR_COMPRESSION=brotli
 OMNIJAR_NAME=${MOZ_APP_NAME}.res
 
-if test "$OS_ARCH" = "WINNT" -o \
-        "$OS_ARCH" = "Linux"; then
-  MOZ_BUNDLED_FONTS=1
-fi
-
 # This should usually be the same as the value MAR_CHANNEL_ID.
 # If more than one ID is needed, then you should use a comma separated list
 # of values.

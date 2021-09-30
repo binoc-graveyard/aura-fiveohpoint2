@@ -44,8 +44,3 @@ NSS_DISABLE_DBM=1
 MOZ_CHROME_FILE_FORMAT=omni
 JAR_COMPRESSION=brotli
 OMNIJAR_NAME=${MOZ_APP_NAME}.res
-
-if test "$OS_ARCH" = "WINNT" -o \
-        "$OS_ARCH" = "Linux"; then
-  MOZ_BUNDLED_FONTS=1
-fi
