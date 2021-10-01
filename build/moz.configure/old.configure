@@ -160,7 +160,6 @@ def old_configure_options(*options):
     '--enable-b2g-bt',
     '--enable-b2g-camera',
     '--enable-b2g-ril',
-    '--enable-bundled-fonts',
     '--enable-chrome-compression',
     '--enable-chrome-format',
     '--enable-clang-plugin',
