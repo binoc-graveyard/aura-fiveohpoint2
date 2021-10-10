@@ -82,3 +82,6 @@ if CONFIG['MOZ_SRTP']:
 
 # other-licenses
 DIRS += ['snappy']
+
+# parser
+DIRS += ['expat']
