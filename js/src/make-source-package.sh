@@ -126,8 +126,8 @@ case $cmd in
         ${tgtpath}/testing
     ${MKDIR} -p ${tgtpath}/modules
     cp -pPR \
-       ${TOPSRCDIR}/modules/fdlibm \
-       ${tgtpath}/modules/fdlibm
+       ${TOPSRCDIR}/libs/fdlibm \
+       ${tgtpath}/libs/fdlibm
     cp -pPR \
         ${TOPSRCDIR}/modules/zlib/src/ \
         ${tgtpath}/modules/zlib

@@ -6,6 +6,4 @@
 with Files('**'):
     BUG_COMPONENT = ('Core', 'JavaScript Engine')
 
-DIRS += [
-    '../../../modules/fdlibm',
-]
+DIRS += ['src']
