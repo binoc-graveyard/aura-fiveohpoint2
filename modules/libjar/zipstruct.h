@@ -103,6 +103,6 @@ typedef struct ZipEnd_
 #define DEFLATED          8
 #define UNSUPPORTED       0xFF
 /* non-standard extension */
-#define MOZ_JAR_BROTLI    0x83
+#define MOZ_JAR_BROTLI    0x81
 
 #endif /* _zipstruct_h */
