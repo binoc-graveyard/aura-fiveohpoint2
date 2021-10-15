@@ -85,3 +85,6 @@ DIRS += ['snappy']
 
 # parser
 DIRS += ['expat']
+
+# toolkit
+DIRS += ['protobuf']

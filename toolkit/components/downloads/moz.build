@@ -34,8 +34,8 @@ if not CONFIG['MOZ_SUITE'] and not CONFIG['BINOC_COMM_DLMGR']:
 FINAL_LIBRARY = 'xul'
 
 LOCAL_INCLUDES += [
-    '../protobuf',
-    '/ipc/chromium/src'
+    '/ipc/chromium/src',
+    '/libs/protobuf',
 ]
 
 DEFINES['GOOGLE_PROTOBUF_NO_RTTI'] = True

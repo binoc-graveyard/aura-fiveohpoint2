@@ -44,7 +44,6 @@ DIRS += [
     'processsingleton',
     'promiseworker',
     'prompts',
-    'protobuf',
     'reader',
     'remotebrowserutils',
     'reflect',
