@@ -70,9 +70,6 @@ if CONFIG['MOZ_UPDATER']:
     if not CONFIG['MOZ_SYSTEM_BZ2']:
         DIRS += ['libbz2']
 
-if CONFIG['MOZ_LINKER']:
-    DIRS += ['xz-embedded']
-
 #netwerk
 if CONFIG['MOZ_SCTP']:
     DIRS += ['sctp']

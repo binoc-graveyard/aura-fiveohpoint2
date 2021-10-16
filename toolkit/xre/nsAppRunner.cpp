@@ -210,10 +210,6 @@ nsString gAbsoluteArgv0Path;
 #include "buildid.h"
 #endif
 
-#ifdef MOZ_LINKER
-extern "C" MFBT_API bool IsSignalHandlingBroken();
-#endif
-
 #ifdef LIBFUZZER
 #include "LibFuzzerRunner.h"
 

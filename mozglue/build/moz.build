@@ -52,9 +52,6 @@ if not CONFIG['JS_STANDALONE']:
     if CONFIG['CPU_ARCH'].startswith('mips'):
         SOURCES += ['mips.cpp']
 
-    if CONFIG['MOZ_LINKER']:
-        USE_LIBS += ['zlib']
-
 USE_LIBS += ['mfbt']
 
 DEFINES['IMPL_MFBT'] = True
