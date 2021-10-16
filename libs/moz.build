@@ -85,3 +85,6 @@ DIRS += ['expat']
 
 # toolkit
 DIRS += ['protobuf']
+
+if CONFIG['MOZ_EME']:
+    DIRS += ['gmp-clearkey/0.1']

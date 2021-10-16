@@ -144,11 +144,6 @@ DIRS += [
     '/tools/quitter',
 ]
 
-if CONFIG['MOZ_EME']:
-    DIRS += [
-    '/libs/gmp-clearkey/0.1',
-    ]
-
 if CONFIG['ENABLE_TESTS']:
     DIRS += [
         '/testing/mochitest',
