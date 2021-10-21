@@ -725,12 +725,10 @@ function escapeKeyHandler() {
   window.close();
 }
 
-#ifdef XP_WIN
-#if defined(MC_BASILISK) || defined(HYPE_ICEWEASEL)
+#if defined(XP_WIN) && defined(MC_BASILISK)
 function OpenMigrator() {
   const { MigrationUtils } = Cu.import("resource:///modules/MigrationUtils.jsm", {});
   // We pass in the type of source we're using for use in telemetry:
   MigrationUtils.showMigrationWizard(window, [MigrationUtils.MIGRATION_ENTRYPOINT_PASSWORDS]);
 }
-#endif
 #endif
