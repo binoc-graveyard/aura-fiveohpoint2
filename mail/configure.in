@@ -9,11 +9,10 @@ dnl Things we need to carry from confvars.sh
 dnl =========================================================
 
 dnl Application defines
-AC_SUBST(MOZ_THUNDERBIRD)
-AC_DEFINE(MOZ_THUNDERBIRD)
-
 AC_SUBST(BINOC_MAIL)
 AC_DEFINE(BINOC_MAIL)
+
+AC_SUBST(BINOC_DOWNLOADS)
 
 AC_DEFINE(MOZ_SEPARATE_MANIFEST_FOR_THEME_OVERRIDES)
 

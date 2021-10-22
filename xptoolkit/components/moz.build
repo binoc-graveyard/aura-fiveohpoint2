@@ -5,7 +5,6 @@
 
 DIRS += [
     'eula',
-    'downloads',
     'profile',
 ]
 
@@ -14,3 +13,6 @@ if CONFIG['BINOC_NAVIGATOR']:
         'devtools',
         'preferences',
     ]
+
+if CONFIG['BINOC_DOWNLOADS']:
+    DIRS += ['downloads']
