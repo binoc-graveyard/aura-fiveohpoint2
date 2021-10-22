@@ -7706,12 +7706,6 @@ WinRegInstallLocation.prototype = {
     let appVendor = Services.appinfo.vendor;
     let appName = Services.appinfo.name;
 
-#ifdef MOZ_THUNDERBIRD
-    // XXX Thunderbird doesn't specify a vendor string
-    if (appVendor == "")
-      appVendor = "Mozilla";
-#endif
-
     // XULRunner-based apps may intentionally not specify a vendor
     if (appVendor != "")
       appVendor += "\\";

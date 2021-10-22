@@ -725,7 +725,7 @@ if CONFIG['MOZ_GAMEPAD']:
         'GamepadEvent.webidl',
     ]
 
-if CONFIG['MOZ_BUILD_APP'] in ['xulrunner'] or CONFIG['MOZ_PHOENIX'] or CONFIG['MOZ_SUITE']:
+if CONFIG['MOZ_BUILD_APP'] in ['xulrunner'] or CONFIG['MOZ_PHOENIX'] or CONFIG['BINOC_NAVIGATOR']:
     WEBIDL_FILES += [
         'BrowserFeedWriter.webidl',
     ]

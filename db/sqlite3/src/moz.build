@@ -50,7 +50,7 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'uikit':
     DEFINES['SQLITE_ENABLE_LOCKING_STYLE'] = 0
 
 # Thunderbird needs the 2-argument version of fts3_tokenizer()
-if CONFIG['MOZ_THUNDERBIRD'] or CONFIG['MOZ_SUITE']:
+if CONFIG['BINOC_MAIL'] or CONFIG['BINOC_NAVIGATOR']:
     DEFINES['SQLITE_ENABLE_FTS3_TOKENIZER'] = 1
 
 # Turn on SQLite's assertions in debug builds.

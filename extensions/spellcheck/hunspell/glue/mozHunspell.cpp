@@ -606,9 +606,9 @@ NS_IMETHODIMP mozHunspell::RemoveDirectory(nsIFile *aDir)
   mDynamicDirectories.RemoveObject(aDir);
   LoadDictionaryList(true);
 
-#ifdef MOZ_THUNDERBIRD
+#ifdef BINOC_MAIL
   /*
-   * This notification is needed for Thunderbird. Thunderbird derives the dictionary
+   * This notification is needed for Interlink. Interlink derives the dictionary
    * from the document's "lang" attribute. If a dictionary is removed,
    * we need to change the "lang" attribute.
    */
