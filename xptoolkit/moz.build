@@ -9,7 +9,7 @@ DIRS += [
     'searchplugins'
 ]
 
-if CONFIG['BINOC_BOREALIS']:
+if CONFIG['BINOC_NAVIGATOR']:
     DIRS += [
         'content',
     ]

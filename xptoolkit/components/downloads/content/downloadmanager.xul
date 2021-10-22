@@ -6,7 +6,7 @@
 <?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://communicator/skin/downloads/downloadmanager.css" type="text/css"?>
 
-#ifdef BINOC_BOREALIS
+#ifdef BINOC_NAVIGATOR
 <?xul-overlay href="chrome://communicator/content/tasksOverlay.xul"?>
 #endif
 <?xul-overlay href="chrome://communicator/content/utilityOverlay.xul"?>
@@ -327,7 +327,7 @@
           </menu>
         </menupopup>
       </menu>
-#ifdef BINOC_BOREALIS
+#ifdef BINOC_NAVIGATOR
       <menu id="tasksMenu">
         <menupopup id="taskPopup">
           <menuitem id="dlMenu_find"
@@ -453,7 +453,7 @@
   </tree>
   <statusbar id="status-bar" class="chromeclass-status">
     <statusbarpanel id="statusbar-display" flex="1"/>
-#ifdef BINOC_BOREALIS
+#ifdef BINOC_NAVIGATOR
     <statusbarpanel class="statusbarpanel-iconic" id="offline-status"/>
 #endif
   </statusbar>

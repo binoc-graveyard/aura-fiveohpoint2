@@ -4,7 +4,7 @@
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); 
 
-%ifdef BINOC_BOREALIS
+%ifdef BINOC_NAVIGATOR
 /* ::::: print preview toolbar ::::: */
 
 toolbar[printpreview="true"] {
@@ -38,7 +38,7 @@ toolbaritem {
 
 /******* toolkit access layer *******/
 /* These rules reintroduce the toolkit bindings overwritten later below */
-%ifdef BINOC_BOREALIS
+%ifdef BINOC_NAVIGATOR
 toolbox[xpfe="false"] { 
   -moz-binding: url("chrome://global/content/bindings/toolbar.xml#toolbox");
 }
@@ -76,7 +76,7 @@ prefpane[xpfe="false"] {
   -moz-binding: url("chrome://global/content/bindings/preferences.xml#prefpane");
 }
 
-%ifdef BINOC_BOREALIS
+%ifdef BINOC_NAVIGATOR
 findbar[xpfe="false"] {
   -moz-binding: url("chrome://global/content/bindings/findbar.xml#findbar");
 }
@@ -89,7 +89,7 @@ prefpane[xpfe="false"] > .content-box {
 
 /******* SeaMonkey XPFE *******/
 /* These bindings reflect SeaMonkey XPFE, modulo new toolkit features. */
-%ifdef BINOC_BOREALIS
+%ifdef BINOC_NAVIGATOR
 toolbox { 
   -moz-binding: url("chrome://communicator/content/bindings/toolbar.xml#grippytoolbox");
 }
@@ -119,7 +119,7 @@ prefpane {
   -moz-binding: url("chrome://communicator/content/bindings/prefwindow.xml#prefpane");
 }
 
-%ifdef BINOC_BOREALIS
+%ifdef BINOC_NAVIGATOR
 findbar {
   -moz-binding: url("chrome://communicator/content/bindings/findbar.xml#findbar");
 }
@@ -135,7 +135,7 @@ prefwindow[overflow="auto"] prefpane > .content-box {
   overflow: auto;
 }
 
-%ifdef BINOC_BOREALIS
+%ifdef BINOC_NAVIGATOR
 .statusbarpanel-backgroundbox {
   -moz-binding: url("chrome://communicator/content/bindings/general.xml#statusbarpanel-backgroundbox");
 }

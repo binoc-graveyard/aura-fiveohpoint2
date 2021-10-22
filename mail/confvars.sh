@@ -17,7 +17,7 @@ MOZ_PROFILE_MIGRATOR=1
 
 # Platform Conditional code for application
 MOZ_THUNDERBIRD=1
-BINOC_INTERLINK=1
+BINOC_MAIL=1
 
 # Comm build options
 MOZ_MAILNEWS=1
