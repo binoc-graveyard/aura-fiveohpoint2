@@ -10,7 +10,6 @@ DIRS += [
     'forgetaboutsite',
     'locales',
     'modules',
-    'mozapps/downloads',
     'mozapps/handling',
     'mozapps/preferences',
     'pluginproblem',
