@@ -7706,7 +7706,7 @@ WinRegInstallLocation.prototype = {
     let appVendor = Services.appinfo.vendor;
     let appName = Services.appinfo.name;
 
-    // XULRunner-based apps may intentionally not specify a vendor
+    // .xulapp-based apps may intentionally not specify a vendor
     if (appVendor != "")
       appVendor += "\\";
 
