@@ -90,6 +90,18 @@ elif [ "$1" == "checkout" ] && [ -n "$BINOC_GIT" ]; then
       "$BINOC_GIT" checkout TRUNK
   elif [ "$2" == "release" ]; then
       "$BINOC_GIT" checkout RELEASE
+  elif [ "$2" == "palemoon" ] && [ -d ./palemoon ]; then
+    printf "Skipping...\n\npalemoon-central:\n"
+    cd ../palemoon-central
+    "$BINOC_GIT" pull
+    "$BINOC_GIT" submodule update -f
+    exit 0
+  elif [ "$2" == "basilisk" ] && [ -d ./basilisk ]; then
+    printf "Skipping...\n\nbasilisk-central:\n"
+    cd ../basilisk-central
+    "$BINOC_GIT" pull
+    "$BINOC_GIT" submodule update -f
+    exit 0
   elif [ -n "$2" ]; then
     printf "Please use git directly for arbitrary branch switching.\n"
     exit 1
@@ -110,7 +122,7 @@ elif [ "$1" == "checkout" ] && [ -n "$BINOC_GIT" ]; then
   fi
 
   if [ "$2" == "absolute-trunk" ]; then
-    printf "\nUnified XUL Platform:\n"
+    printf "\nGoanna Runtime Environment:\n"
     cd $BINOC_PLATFORM
     if [ "$BINOC_PLATFORM_BRANCH" != "master" ]; then
       "$BINOC_GIT" checkout master
