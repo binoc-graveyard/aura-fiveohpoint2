@@ -10,7 +10,6 @@ backends = {
     'FasterMake+RecursiveMake': None,
     'RecursiveMake': 'mozbuild.backend.recursivemake',
     'Tup': 'mozbuild.backend.tup',
-    'VisualStudio': 'mozbuild.backend.visualstudio',
 }
 
 

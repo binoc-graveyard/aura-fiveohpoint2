@@ -24,15 +24,11 @@ from mach.decorators import (
 class MachCommands(MachCommandBase):
     @Command('ide', category='devenv',
         description='Generate a project and launch an IDE.')
-    @CommandArgument('ide', choices=['eclipse', 'visualstudio', 'intellij'])
+    @CommandArgument('ide', choices=['eclipse', 'intellij'])
     @CommandArgument('args', nargs=argparse.REMAINDER)
     def eclipse(self, ide, args):
         if ide == 'eclipse':
             backend = 'CppEclipse'
-        elif ide == 'visualstudio':
-            backend = 'VisualStudio'
-
-        if ide == 'eclipse':
             try:
                 which.which('eclipse')
             except which.WhichError:
@@ -81,9 +77,6 @@ class MachCommands(MachCommandBase):
         if ide == 'eclipse':
             eclipse_workspace_dir = self.get_eclipse_workspace_path()
             process = subprocess.check_call(['eclipse', '-data', eclipse_workspace_dir])
-        elif ide == 'visualstudio':
-            visual_studio_workspace_dir = self.get_visualstudio_workspace_path()
-            process = subprocess.check_call(['explorer.exe', visual_studio_workspace_dir])
         elif ide == 'intellij':
             gradle_dir = None
             if self.is_gradle_project_already_imported():
@@ -95,9 +88,6 @@ class MachCommands(MachCommandBase):
     def get_eclipse_workspace_path(self):
         from mozbuild.backend.cpp_eclipse import CppEclipseBackend
         return CppEclipseBackend.get_workspace_path(self.topsrcdir, self.topobjdir)
-
-    def get_visualstudio_workspace_path(self):
-        return os.path.join(self.topobjdir, 'msvc', 'mozilla.sln')
 
     def get_gradle_project_path(self):
         return os.path.join(self.topobjdir, 'mobile', 'gradle')
