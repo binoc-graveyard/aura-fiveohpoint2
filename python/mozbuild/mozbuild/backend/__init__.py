@@ -7,7 +7,6 @@ backends = {
     'CompileDB': 'mozbuild.compilation.database',
     'CppEclipse': 'mozbuild.backend.cpp_eclipse',
     'RecursiveMake': 'mozbuild.backend.recursivemake',
-    'Tup': 'mozbuild.backend.tup',
 }
 
 

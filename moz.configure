@@ -124,13 +124,6 @@ def possible_makes(make, host):
 
 check_prog('GMAKE', possible_makes)
 
-# tup detection
-# ==============================================================
-def tup_progs():
-    return None
-
-tup = check_prog('TUP', tup_progs)
-
 # Miscellaneous programs
 # ==============================================================
 check_prog('DOXYGEN', ('doxygen',), allow_missing=True)
