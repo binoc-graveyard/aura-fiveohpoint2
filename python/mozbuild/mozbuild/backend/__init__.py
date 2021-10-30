@@ -6,8 +6,6 @@ backends = {
     'ChromeMap': 'mozbuild.codecoverage.chrome_map',
     'CompileDB': 'mozbuild.compilation.database',
     'CppEclipse': 'mozbuild.backend.cpp_eclipse',
-    'FasterMake': 'mozbuild.backend.fastermake',
-    'FasterMake+RecursiveMake': None,
     'RecursiveMake': 'mozbuild.backend.recursivemake',
     'Tup': 'mozbuild.backend.tup',
 }
