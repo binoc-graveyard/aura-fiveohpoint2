@@ -9,11 +9,6 @@ backends = {
 
 
 def get_backend_class(name):
-    if '+' in name:
-        from mozbuild.backend.base import HybridBackend
-        return HybridBackend(*(get_backend_class(name)
-                               for name in name.split('+')))
-
     class_name = '%sBackend' % name
     module = __import__(backends[name], globals(), locals(), [class_name])
     return getattr(module, class_name)
