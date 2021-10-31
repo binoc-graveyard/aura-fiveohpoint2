@@ -13,6 +13,7 @@ import os
 import subprocess
 import sys
 import time
+import random
 
 from argparse import ArgumentParser
 
@@ -30,19 +31,6 @@ from mozbuild.backend import (
 )
 
 log_manager = LoggingManager()
-
-VISUAL_STUDIO_ADVERTISEMENT = '''
-===============================
-Visual Studio Support Available
-
-You are building Firefox on Windows. You can generate Visual Studio
-files by running:
-
-   mach build-backend --backend=VisualStudio
-
-===============================
-'''.strip()
-
 
 def config_status(topobjdir='.', topsrcdir='.', defines=None,
                   non_global_defines=None, substs=None, source=None,
@@ -125,8 +113,25 @@ def config_status(topobjdir='.', topsrcdir='.', defines=None,
     log_manager.add_terminal_logging(level=log_level)
     log_manager.enable_unstructured()
 
-    print('Feeding the hatchlings...', file=sys.stderr)
+    STATUS_MESSAGES = [
+        'Reticulating splines',
+        'Walking the dog',
+        'Feeding the hatchlings',
+        'Pressing play on tape',
+        'Spinning the wheel',
+        'Adjusting flux capacitor',
+        'Granting wishes',
+        'Auditing the taxes',
+        'Twiddling thumbs',
+        'Consulting the manual',
+        'Brewing coffee',
+        'Inserting coin',
+        'What? Hold on',
+    ]
+
+    print('{0}...'.format(random.choice(STATUS_MESSAGES)), file=sys.stderr)
     sys.stderr.flush()
+
     if len(selected_backends) > 1:
         definitions = list(definitions)
 
@@ -155,8 +160,4 @@ def config_status(topobjdir='.', topsrcdir='.', defines=None,
         for the_backend in selected_backends:
             for path, diff in sorted(the_backend.file_diffs.items()):
                 print('\n'.join(diff))
-
-    # Advertise Visual Studio if appropriate.
-    if os.name == 'nt' and 'VisualStudio' not in options.backend:
-        print(VISUAL_STUDIO_ADVERTISEMENT)
 
