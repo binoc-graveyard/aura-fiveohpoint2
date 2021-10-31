@@ -71,7 +71,7 @@
         '../../../dom/media',
         '../../../media/mtransport',
         '../trunk',
-        '../../libyuv/include',
+        '../../../libs/libyuv/include',
         '../../mtransport/third_party/nrappkit/src/util/libekr',
       ],
 

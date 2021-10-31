@@ -21,7 +21,7 @@
         '<(webrtc_root)/system_wrappers/system_wrappers.gyp:system_wrappers',
       ],
       'include_dirs': [
-        '../../../../../../../libyuv/include',
+        '../../../../../../../../libs/libyuv/include',
       ],
       'conditions': [
         ['build_libvpx==1', {
