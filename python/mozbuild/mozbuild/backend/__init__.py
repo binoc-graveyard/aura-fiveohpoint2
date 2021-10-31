@@ -3,6 +3,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 backends = {
+    'ChromeMap': 'mozbuild.codecoverage.chrome_map',
     'CompileDB': 'mozbuild.compilation.database',
     'RecursiveMake': 'mozbuild.backend.recursivemake',
 }
