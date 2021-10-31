@@ -27,15 +27,7 @@ class MachCommands(MachCommandBase):
     @CommandArgument('ide', choices=['eclipse', 'intellij'])
     @CommandArgument('args', nargs=argparse.REMAINDER)
     def eclipse(self, ide, args):
-        if ide == 'eclipse':
-            backend = 'CppEclipse'
-            try:
-                which.which('eclipse')
-            except which.WhichError:
-                print('Eclipse CDT 8.4 or later must be installed in your PATH.')
-                print('Download: http://www.eclipse.org/cdt/downloads.php')
-                return 1
-        elif ide =='intellij':
+        if ide =='intellij':
             studio = ['idea']
             if sys.platform != 'darwin':
                 try:
@@ -74,20 +66,13 @@ class MachCommands(MachCommandBase):
                 return 1
 
 
-        if ide == 'eclipse':
-            eclipse_workspace_dir = self.get_eclipse_workspace_path()
-            process = subprocess.check_call(['eclipse', '-data', eclipse_workspace_dir])
-        elif ide == 'intellij':
+        if ide == 'intellij':
             gradle_dir = None
             if self.is_gradle_project_already_imported():
                 gradle_dir = self.get_gradle_project_path()
             else:
                 gradle_dir = self.get_gradle_import_path()
             process = subprocess.check_call(studio + [gradle_dir])
-
-    def get_eclipse_workspace_path(self):
-        from mozbuild.backend.cpp_eclipse import CppEclipseBackend
-        return CppEclipseBackend.get_workspace_path(self.topsrcdir, self.topobjdir)
 
     def get_gradle_project_path(self):
         return os.path.join(self.topobjdir, 'mobile', 'gradle')
