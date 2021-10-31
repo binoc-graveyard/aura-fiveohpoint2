@@ -458,7 +458,7 @@ LOCAL_INCLUDES += [
 
 if CONFIG['MOZ_WEBRTC']:
     LOCAL_INCLUDES += [
-        '/netwerk/sctp/datachannel',
+        '/libs/sctp/datachannel',
     ]
 
 include('/ipc/chromium/chromium-config.mozbuild')
