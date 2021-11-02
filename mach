@@ -94,13 +94,17 @@ elif [ "$1" == "checkout" ] && [ -n "$BINOC_GIT" ]; then
     printf "Skipping...\n\npalemoon-central:\n"
     cd ../palemoon-central
     "$BINOC_GIT" pull
-    "$BINOC_GIT" submodule update -f
+    if [ "$BINOC_SYSTEM" != 'windows' ]; then
+      "$BINOC_GIT" submodule update -f
+    fi
     exit 0
   elif [ "$2" == "basilisk" ] && [ -d ./basilisk ]; then
     printf "Skipping...\n\nbasilisk-central:\n"
     cd ../basilisk-central
     "$BINOC_GIT" pull
-    "$BINOC_GIT" submodule update -f
+    if [ "$BINOC_SYSTEM" != 'windows' ]; then
+      "$BINOC_GIT" submodule update -f
+    fi
     exit 0
   elif [ -n "$2" ]; then
     printf "Please use git directly for arbitrary branch switching.\n"
