@@ -10,6 +10,7 @@ Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://gre/modules/AddonManager.jsm");
 Components.utils.import("resource://gre/modules/LoginManagerParent.jsm");
 Components.utils.import("resource:///modules/Sanitizer.jsm");
+Components.utils.import("resource:///modules/PolyGHL.jsm");
 
 XPCOMUtils.defineLazyModuleGetter(this, "NetUtil",
                                   "resource://gre/modules/NetUtil.jsm");
@@ -156,6 +157,7 @@ NavigatorGlue.prototype = {
                   .getService(Components.interfaces.nsIMessageListenerManager)
                   .loadFrameScript("chrome://navigator/content/content.js", true);
         Components.utils.import("resource://gre/modules/NotificationDB.jsm");
+        PolyGHL.init();
         break;
       case "sessionstore-windows-restored":
         this._onBrowserStartup(subject);
@@ -170,6 +172,7 @@ NavigatorGlue.prototype = {
         break;
       case "quit-application-granted":
         AutoCompletePopup.uninit();
+        PolyGHL.uninit();
 
         if (this._saveSession) {
           this._setPrefToSaveSession();
