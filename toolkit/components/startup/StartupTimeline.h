@@ -34,9 +34,6 @@ mozilla_StartupTimeline_Event(PROFILE_BEFORE_CHANGE, "profileBeforeChange")
 
 namespace mozilla {
 
-void RecordShutdownEndTimeStamp();
-void RecordShutdownStartTimeStamp();
-
 class StartupTimeline {
 public:
   enum Event {
