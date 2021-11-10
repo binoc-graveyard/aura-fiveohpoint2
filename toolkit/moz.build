@@ -16,9 +16,6 @@ DIRS += [
     'themes',
 ]
 
-if CONFIG['MOZ_JETPACK']:
-    DIRS += ['jetpack']
-
 if CONFIG['MOZ_UPDATER']:
     DIRS += ['mozapps/update']
     if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':

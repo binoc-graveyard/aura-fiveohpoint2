@@ -74,6 +74,9 @@ if CONFIG['BUILD_CTYPES']:
 if CONFIG['MOZ_FEEDS']:
     DIRS += ['feeds']
 
+if CONFIG['MOZ_JETPACK']:
+    DIRS += ['jetpack']
+
 DIRS += ['autocomplete', 'satchel']
 
 if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
