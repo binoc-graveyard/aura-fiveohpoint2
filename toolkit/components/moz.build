@@ -42,6 +42,7 @@ DIRS += [
     'perf',
     'perfmonitoring',
     'places',
+    'preferences',
     'privatebrowsing',
     'processsingleton',
     'promiseworker',
