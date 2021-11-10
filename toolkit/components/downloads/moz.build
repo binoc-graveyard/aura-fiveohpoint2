@@ -3,14 +3,20 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+DEFINES['GOOGLE_PROTOBUF_NO_RTTI'] = True
+DEFINES['GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER'] = True
+
+CXXFLAGS += CONFIG['TK_CFLAGS']
+
+if CONFIG['GNU_CXX']:
+    CXXFLAGS += ['-Wno-shadow']
+
 XPIDL_SOURCES += [
     'public/nsIDownload.idl',
     'public/nsIDownloadManager.idl',
     'public/nsIDownloadManagerUI.idl',
     'public/nsIDownloadProgressListener.idl',
 ]
-
-XPIDL_MODULE = 'downloads'
 
 SOURCES += [
     'src/nsDownloadManager.cpp',
@@ -41,19 +47,11 @@ EXTRA_JS_MODULES += [
 
 EXTRA_PP_JS_MODULES += ['src/DownloadTaskbarProgress.jsm']
 
-FINAL_LIBRARY = 'xul'
-
 LOCAL_INCLUDES += [
     '/ipc/chromium/src',
     '/libs/protobuf',
 ]
 
-DEFINES['GOOGLE_PROTOBUF_NO_RTTI'] = True
-DEFINES['GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER'] = True
-
-CXXFLAGS += CONFIG['TK_CFLAGS']
-
-if CONFIG['GNU_CXX']:
-    CXXFLAGS += ['-Wno-shadow']
-
+XPIDL_MODULE = 'downloads'
+FINAL_LIBRARY = 'xul'
 JAR_MANIFESTS += ['jar.mn']
