@@ -9,7 +9,6 @@ DIRS += [
     'fonts',
     'locales',
     'modules',
-    'mozapps/handling',
     'mozapps/preferences',
     'pluginproblem',
     'profile',

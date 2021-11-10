@@ -30,6 +30,7 @@ DIRS += [
     'formautofill',
     'find',
     'gfx',
+    'handling',
     'jsdownloads',
     'lz4',
     'mediasniffer',
