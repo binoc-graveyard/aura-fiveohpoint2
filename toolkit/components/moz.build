@@ -42,6 +42,7 @@ DIRS += [
     'perf',
     'perfmonitoring',
     'places',
+    'pluginproblem',
     'preferences',
     'privatebrowsing',
     'processsingleton',
