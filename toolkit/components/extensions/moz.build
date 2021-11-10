@@ -33,6 +33,7 @@ EXTRA_COMPONENTS += [
 EXTRA_JS_MODULES += [
     'src/ChromeManifestParser.jsm',
     'src/DeferredSave.jsm',
+    'src/LightweightThemeConsumer.jsm',
     'src/LightweightThemeManager.jsm',
 ]
 

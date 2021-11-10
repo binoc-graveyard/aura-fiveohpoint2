@@ -7,7 +7,6 @@ DIRS += [
     'components',
     'content',
     'fonts',
-    'forgetaboutsite',
     'locales',
     'modules',
     'mozapps/handling',

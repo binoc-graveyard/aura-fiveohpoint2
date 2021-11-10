@@ -6,13 +6,6 @@
 SPHINX_TREES['toolkit_modules'] = 'docs'
 
 EXTRA_JS_MODULES += [
-    'addons/MatchPattern.jsm',
-    'addons/WebNavigation.jsm',
-    'addons/WebNavigationContent.js',
-    'addons/WebNavigationFrames.jsm',
-    'addons/WebRequestCommon.jsm',
-    'addons/WebRequestContent.js',
-    'addons/WebRequestUpload.jsm',
     'AsyncPrefs.jsm',
     'Battery.jsm',
     'BinarySearch.jsm',
@@ -32,6 +25,7 @@ EXTRA_JS_MODULES += [
     'Finder.jsm',
     'FinderHighlighter.jsm',
     'FinderIterator.jsm',
+    'ForgetAboutSite.jsm',
     'FormLikeFactory.jsm',
     'Geometry.jsm',
     'Http.jsm',
@@ -78,16 +72,23 @@ EXTRA_JS_MODULES += [
     'Task.jsm',
     'Timer.jsm',
     'WebChannel.jsm',
+    'webrequest/MatchPattern.jsm',
+    'webrequest/WebNavigation.jsm',
+    'webrequest/WebNavigationContent.js',
+    'webrequest/WebNavigationFrames.jsm',
+    'webrequest/WebRequestCommon.jsm',
+    'webrequest/WebRequestContent.js',
+    'webrequest/WebRequestUpload.jsm',
     'ZipUtils.jsm',
 ]
 EXTRA_JS_MODULES.third_party.jsesc += ['third_party/jsesc/jsesc.js']
 EXTRA_JS_MODULES.sessionstore += ['sessionstore/Utils.jsm']
 
 EXTRA_PP_JS_MODULES += [
-    'addons/WebRequest.jsm',
     'ResetProfile.jsm',
     'Troubleshoot.jsm',
     'UpdateUtils.jsm',
+    'webrequest/WebRequest.jsm',
     'WindowDraggingUtils.jsm',
 ]
 
@@ -100,11 +101,6 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('windows', 'gtk2', 'gtk3'):
 EXTRA_PP_JS_MODULES += [
     'AppConstants.jsm',
     'Services.jsm',
-]
-
-
-EXTRA_JS_MODULES += [
-    'LightweightThemeConsumer.jsm',
 ]
 
 DIRS += [
