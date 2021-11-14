@@ -140,8 +140,8 @@
   locale/@AB_CD@/formautofill/requestAutocomplete.dtd             (../components/formautofill/locale/requestAutocomplete.dtd)
 
 % locale passwordmgr @AB_CD@ %locale/@AB_CD@/passwordmgr/
-  locale/@AB_CD@/passwordmgr/passwordmgr.properties               (%chrome/passwordmgr/passwordmgr.properties)
-  locale/@AB_CD@/passwordmgr/passwordManager.dtd                  (%chrome/passwordmgr/passwordManager.dtd)
+  locale/@AB_CD@/passwordmgr/passwordmgr.properties               (../components/passwordmgr/locale/passwordmgr.properties)
+  locale/@AB_CD@/passwordmgr/passwordManager.dtd                  (../components/passwordmgr/locale/passwordManager.dtd)
 
 % locale autoconfig @AB_CD@ %locale/@AB_CD@/autoconfig/
   locale/@AB_CD@/autoconfig/autoconfig.properties                 (%chrome/autoconfig/autoconfig.properties)
