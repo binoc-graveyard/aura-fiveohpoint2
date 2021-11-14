@@ -86,7 +86,10 @@ if CONFIG['MOZ_JETPACK']:
 DIRS += ['autocomplete', 'satchel']
 
 if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
-    DIRS += ['filepicker']
+    DIRS += [
+        'filepicker',
+        'gservice',
+    ]
 
 if CONFIG['MOZ_TOOLKIT_SEARCH'] and not CONFIG['MC_BASILISK']:
     DIRS += ['search']

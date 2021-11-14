@@ -131,9 +131,6 @@ DIRS += [
     '/toolkit/library',
 ]
 
-if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
-    DIRS += ['/toolkit/system/gnome']
-
 if CONFIG['ENABLE_MARIONETTE'] or True:
     DIRS += [
         '/testing/firefox-ui',
