@@ -32,6 +32,7 @@ DIRS += [
     'finalizationwitness',
     'formautofill',
     'find',
+    'htmlparser',
     'gfx',
     'global',
     'handling',
