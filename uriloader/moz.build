@@ -5,5 +5,4 @@
 
 DIRS += [
     'base',
-    'exthandler',
 ]

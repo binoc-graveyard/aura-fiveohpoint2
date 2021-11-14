@@ -15,8 +15,8 @@ LOCAL_INCLUDES += [
     '../base',
     '../prefetch',
     '../shistory',
+    '/dom/exthandler',
     '/uriloader/base',
-    '/uriloader/exthandler',
 ]
 
 include('/ipc/chromium/chromium-config.mozbuild')
