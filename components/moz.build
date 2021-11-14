@@ -25,6 +25,7 @@ DIRS += [
     'cookie',
     'crashmonitor',
     'downloads',
+    'directory',
     'extensions',
     'exthelper',
     'filewatcher',
