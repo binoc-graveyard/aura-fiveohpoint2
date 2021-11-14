@@ -62,6 +62,7 @@ DIRS += [
     'scache',
     'startup',
     'statusfilter',
+    'storage',
     'thumbnails',
     'timermanager',
     'tooltiptext',

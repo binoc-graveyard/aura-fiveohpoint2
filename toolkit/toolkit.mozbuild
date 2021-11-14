@@ -44,7 +44,6 @@ DIRS += [
     '/intl/chardet',
     '/libs/libyuv',
     '/modules/libjar',
-    '/storage',
 ]
 
 if CONFIG['MOZ_PERMISSIONS']:
