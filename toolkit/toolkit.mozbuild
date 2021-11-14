@@ -53,10 +53,6 @@ if CONFIG['MOZ_PERMISSIONS']:
         '/extensions/permissions',
     ]
 
-DIRS += [
-    '/rdf',
-]
-
 if CONFIG['MOZ_WEBRTC']:
     DIRS += [
         '/media/webrtc',

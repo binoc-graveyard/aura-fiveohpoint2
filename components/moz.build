@@ -53,6 +53,7 @@ DIRS += [
     'profile',
     'promiseworker',
     'prompts',
+    'rdf',
     'reader',
     'remotebrowserutils',
     'reflect',

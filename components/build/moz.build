@@ -3,9 +3,13 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-EXPORTS += ['nsToolkitCompsCID.h']
+EXPORTS += [
+  'nsRDFCID.h',
+  'nsToolkitCompsCID.h'
+]
 
 SOURCES += [
+  'nsRDFModule.cpp',
   'nsToolkitCompsModule.cpp',
   'nsXPFEFactory.cpp'
 ]
@@ -18,6 +22,7 @@ LOCAL_INCLUDES += [
   '../find',
   '../jsdownloads/src',
   '../perfmonitoring',
+  '../rdf/src',
   '../startup',
   '../statusfilter',
   '../typeaheadfind',
