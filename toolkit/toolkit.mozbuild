@@ -63,7 +63,6 @@ if CONFIG['ENABLE_TESTS']:
 
 DIRS += [
     '/testing/gtest',
-    '/uriloader',
     '/caps',
     '/gfx',
     '/image',

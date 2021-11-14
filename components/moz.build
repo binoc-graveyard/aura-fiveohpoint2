@@ -69,6 +69,7 @@ DIRS += [
     'timermanager',
     'tooltiptext',
     'typeaheadfind',
+    'uriloader',
     'utils',
     'urlformatter',
     'viewconfig',
