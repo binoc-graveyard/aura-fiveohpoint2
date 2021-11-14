@@ -9,6 +9,7 @@ XPIDL_SOURCES += [
 ]
 
 EXPORTS += [
+  'src/nsCharsetSource.h',
   'src/nsElementTable.h',
   'src/nsHTMLTagList.h',
   'src/nsHTMLTags.h',
