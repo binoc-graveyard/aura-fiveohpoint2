@@ -31,6 +31,7 @@ DIRS += [
     'formautofill',
     'find',
     'gfx',
+    'global',
     'handling',
     'jsdownloads',
     'lz4',

@@ -347,7 +347,7 @@ include text-svgglyphs/reftest.list
 # text-transform/
 include text-transform/reftest.list
 
-include ../../toolkit/content/tests/reftests/reftest.list
+include ../../toolkit/components/global/content/tests/reftests/reftest.list
 
 # -moz-transform/
 include transform/reftest.list
