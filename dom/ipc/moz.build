@@ -101,7 +101,7 @@ if CONFIG['MOZ_SANDBOX'] and CONFIG['OS_TARGET'] == 'Darwin':
 
 LOCAL_INCLUDES += [
     '/caps',
-    '/chrome',
+    '/components/registry/src',
     '/docshell/base',
     '/dom/base',
     '/dom/events',
