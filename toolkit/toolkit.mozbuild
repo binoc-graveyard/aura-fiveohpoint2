@@ -112,7 +112,6 @@ if CONFIG['MOZ_DEVTOOLS_SERVER']:
 
 DIRS += [
     '/services',
-    '/js/ductwork',
 ]
 
 if CONFIG['MOZ_GIO_COMPONENT']:
