@@ -113,7 +113,6 @@ if CONFIG['MOZ_DEVTOOLS_SERVER']:
 
 DIRS += [
     '/services',
-    '/startupcache',
     '/js/ductwork',
 ]
 
