@@ -97,7 +97,6 @@ DIRS += [
     '/tools/profiler',
     '/tools/memory-profiler',
     '/components',
-    '/xpfe/components',
 ]
 
 if CONFIG['MOZ_ENABLE_XREMOTE']:

@@ -65,6 +65,7 @@ DIRS += [
     'utils',
     'urlformatter',
     'viewconfig',
+    'windowds',
     'workerloader',
     'xulstore'
 ]
