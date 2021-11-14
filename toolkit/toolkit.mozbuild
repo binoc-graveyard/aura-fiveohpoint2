@@ -137,10 +137,6 @@ if CONFIG['ENABLE_MARIONETTE'] or True:
         '/testing/marionette',
     ]
 
-DIRS += [
-    '/tools/quitter',
-]
-
 if CONFIG['ENABLE_TESTS']:
     DIRS += [
         '/testing/mochitest',
