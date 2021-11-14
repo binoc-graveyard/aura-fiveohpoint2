@@ -17,6 +17,7 @@ DIRS += [
     'apppicker',
     'asyncshutdown',
     'blocklist',
+    'bindings',
     'commandlines',
     'console',
     'contentprefs',
