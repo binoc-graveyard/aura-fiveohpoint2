@@ -147,7 +147,7 @@
   locale/@AB_CD@/autoconfig/autoconfig.properties                 (%chrome/autoconfig/autoconfig.properties)
 
 % locale places @AB_CD@ %locale/@AB_CD@/places/
-  locale/@AB_CD@/places/places.properties                         (%chrome/places/places.properties)
+  locale/@AB_CD@/places/places.properties                         (../components/places/locale/places.properties)
 
 # Even though Basilisk has its own private copy of the search service
 # we can't have a global l10n resource there because of DIST_SUBDIR so just
