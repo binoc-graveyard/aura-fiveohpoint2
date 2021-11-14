@@ -15,6 +15,7 @@ DIRS += [
     'addoncompat',
     'alerts',
     'apppicker',
+    'appshell',
     'asyncshutdown',
     'blocklist',
     'bindings',
