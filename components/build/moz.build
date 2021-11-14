@@ -4,29 +4,29 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 EXPORTS += [
-    'nsToolkitCompsCID.h',
+  'nsToolkitCompsCID.h',
 ]
 
 SOURCES += [
-    'nsToolkitCompsModule.cpp',
+  'nsToolkitCompsModule.cpp',
 ]
 
-FINAL_LIBRARY = 'xul'
-
 LOCAL_INCLUDES += [
-    '../../xre',
-    '../alerts/src',
-    '../downloads/src',
-    '../feeds',
-    '../find',
-    '../jsdownloads/src',
-    '../perfmonitoring',
-    '../startup',
-    '../statusfilter',
-    '../typeaheadfind'
+  '../alerts/src',
+  '../downloads/src',
+  '../feeds',
+  '../find',
+  '../jsdownloads/src',
+  '../perfmonitoring',
+  '../startup',
+  '../statusfilter',
+  '../typeaheadfind',
+  '/toolkit/xre',
 ]
 
 if not CONFIG['MOZ_DISABLE_PARENTAL_CONTROLS']:
-    LOCAL_INCLUDES += [
-        '../parentalcontrols',
-    ]
+  LOCAL_INCLUDES += [
+    '../parentalcontrols',
+  ]
+
+FINAL_LIBRARY = 'xul'

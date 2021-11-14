@@ -97,6 +97,7 @@ DIRS += [
     '/tools/power',
     '/tools/profiler',
     '/tools/memory-profiler',
+    '/components',
     '/xpfe/components',
 ]
 

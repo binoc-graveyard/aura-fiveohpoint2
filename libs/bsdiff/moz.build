@@ -23,7 +23,7 @@ if CONFIG['HOST_OS_ARCH'] == 'WINNT':
     USE_STATIC_LIBS = True
 
 LOCAL_INCLUDES += [
-    '/toolkit/components/update/app',
+    '/components/update/app',
 ]
 
 HOST_CXXFLAGS += CONFIG['MOZ_BZ2_CFLAGS']

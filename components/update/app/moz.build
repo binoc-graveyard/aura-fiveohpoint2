@@ -71,7 +71,7 @@ SOURCES += [
 ]
 
 LOCAL_INCLUDES += [
-  '/toolkit/components/update/lib',
+  '/components/update/lib',
   '/xpcom/glue',
 ]
 

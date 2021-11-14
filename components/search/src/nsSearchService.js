@@ -4521,4 +4521,4 @@ var engineUpdateService = {
 
 this.NSGetFactory = XPCOMUtils.generateNSGetFactory([SearchService]);
 
-#include ../../../modules/debug.js
+#include ../../../toolkit/modules/debug.js
