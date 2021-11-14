@@ -81,7 +81,7 @@ EXTRA_JS_MODULES += [
     'webrequest/WebRequestUpload.jsm',
     'ZipUtils.jsm',
 ]
-EXTRA_JS_MODULES.third_party.jsesc += ['third_party/jsesc/jsesc.js']
+
 EXTRA_JS_MODULES.sessionstore += ['sessionstore/Utils.jsm']
 
 EXTRA_PP_JS_MODULES += [

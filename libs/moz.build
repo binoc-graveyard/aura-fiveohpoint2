@@ -9,6 +9,7 @@ DIRS += [
     'expat',
     'graphite2/src',
     'harfbuzz/src',
+    'jsesc',
     'kiss_fft',
     'libcubeb',
     'libmkv',
