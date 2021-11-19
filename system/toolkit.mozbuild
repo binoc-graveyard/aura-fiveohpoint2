@@ -116,8 +116,8 @@ if CONFIG['MOZ_GIO_COMPONENT']:
     DIRS += ['/extensions/gio']
 
 DIRS += [
-    '/toolkit/library/StaticXULComponentsEnd',
-    '/toolkit/library',
+    '/system/evil/StaticXULComponentsEnd',
+    '/system/evil',
 ]
 
 if CONFIG['ENABLE_MARIONETTE'] or True:
