@@ -60,9 +60,7 @@ SOURCES += [
 ALLOW_COMPILER_WARNINGS = True
 
 FINAL_LIBRARY = 'gkmedias'
-LOCAL_INCLUDES += [
-  '../cairo/cairo/src',
-]
+LOCAL_INCLUDES += ['../cairo/src']
 
 if CONFIG['MOZ_USE_PTHREADS']:
   DEFINES['HAVE_PTHREADS'] = True
