@@ -54,6 +54,7 @@ SOURCES += [
   'src/cairo-debug.c',
   'src/cairo-deflate-stream.c',
   'src/cairo-device.c',
+  'src/cairo-dwrite-font.cpp',
   'src/cairo-fixed.c',
   'src/cairo-font-face-twin-data.c',
   'src/cairo-font-face-twin.c',
@@ -143,8 +144,6 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
       '-wd4828', # illegal in the current source character set
       '-wd4838', # requires a narrowing conversion
   ]
-  if CONFIG['MOZ_ENABLE_DWRITE_FONT']:
-    SOURCES += ['src/cairo-dwrite-font.cpp']
   if CONFIG['MOZ_ENABLE_D2D_SURFACE']:
     SOURCES += ['src/cairo-d2d-surface.cpp']
   if CONFIG['NS_PRINTING']:
