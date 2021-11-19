@@ -4,7 +4,3 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 DIRS += ['cairo/src']
-
-if CONFIG['MOZ_TREE_PIXMAN']:
-    DIRS += ['libpixman/src']
-
