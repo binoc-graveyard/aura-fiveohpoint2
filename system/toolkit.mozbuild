@@ -3,15 +3,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-DIRS += ['/libs']
-
-if CONFIG['MOZ_MAILNEWS']:
-    DIRS += [
-        '/ldap',
-        '/db/mork',
-        '/mailnews',
-    ]
-
 DIRS += [
     # Depends on NSS and NSPR
     '/security/certverifier',
@@ -26,7 +17,6 @@ if CONFIG['MOZ_UPDATER']:
 DIRS += [
     '/config/external/freetype2',
     '/xpcom',
-    '/modules/libpref',
     '/intl',
     '/netwerk',
 ]
@@ -44,6 +34,19 @@ DIRS += [
     '/intl/chardet',
     '/libs/libyuv',
 ]
+
+DIRS += [
+    '/libs',
+    '/components',
+    '/system'
+]
+
+if CONFIG['MOZ_MAILNEWS']:
+    DIRS += [
+        '/ldap',
+        '/db/mork',
+        '/mailnews',
+    ]
 
 if CONFIG['MOZ_PERMISSIONS']:
     DIRS += [
@@ -88,7 +91,6 @@ DIRS += [
     '/tools/power',
     '/tools/profiler',
     '/tools/memory-profiler',
-    '/components',
 ]
 
 if CONFIG['MOZ_ENABLE_XREMOTE']:
