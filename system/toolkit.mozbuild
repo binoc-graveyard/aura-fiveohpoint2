@@ -67,7 +67,6 @@ DIRS += [
     '/gfx',
     '/image',
     '/dom',
-    '/view',
     '/widget',
     '/editor',
     '/layout',
