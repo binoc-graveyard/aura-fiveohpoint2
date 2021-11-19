@@ -3,16 +3,14 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+DIRS += ['/libs']
+
 DIRS += [
     # Depends on NSS and NSPR
     '/security/certverifier',
     # Depends on certverifier
     '/security/apps',
 ]
-
-# the signing related bits of libmar depend on nss
-if CONFIG['MOZ_UPDATER']:
-    DIRS += ['/modules/libmar']
 
 DIRS += [
     '/config/external/freetype2',
@@ -36,8 +34,8 @@ DIRS += [
 ]
 
 DIRS += [
-    '/libs',
     '/components',
+    '/modules',
     '/system'
 ]
 

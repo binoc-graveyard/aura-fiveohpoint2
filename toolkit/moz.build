@@ -6,7 +6,6 @@
 DIRS += [
     'fonts',
     'locales',
-    'modules',
     'themes',
 ]
 
