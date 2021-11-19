@@ -43,7 +43,6 @@ DIRS += [
     '/js/xpconnect',
     '/intl/chardet',
     '/libs/libyuv',
-    '/modules/libjar',
 ]
 
 if CONFIG['MOZ_PERMISSIONS']:

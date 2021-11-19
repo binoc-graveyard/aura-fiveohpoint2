@@ -127,9 +127,7 @@ LOCAL_INCLUDES += [
 ]
 
 if CONFIG['OS_ARCH'] != 'WINNT':
-    LOCAL_INCLUDES += [
-        '/modules/libjar',
-    ]
+    LOCAL_INCLUDES += ['/components/jar/src']
 
 DEFINES['BIN_SUFFIX'] = '"%s"' % CONFIG['BIN_SUFFIX']
 

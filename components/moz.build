@@ -37,6 +37,7 @@ DIRS += [
     'gfx',
     'global',
     'handling',
+    'jar',
     'jsdebugger',
     'jsdownloads',
     'jsinspector',
