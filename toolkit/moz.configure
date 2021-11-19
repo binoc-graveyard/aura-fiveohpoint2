@@ -4,4 +4,4 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 # This file is obsolete. Please use the following directly:
-include('/system/moz.configure')
+include('../system/moz.configure')
