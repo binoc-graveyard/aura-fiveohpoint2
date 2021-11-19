@@ -22,7 +22,7 @@ if CONFIG['MOZ_ENABLE_GIO']:
     ]
 
 LOCAL_INCLUDES += [
-    '/toolkit/components/build/',
+    '../build/',
 ]
 
 CXXFLAGS += CONFIG['MOZ_GCONF_CFLAGS']
