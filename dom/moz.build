@@ -47,6 +47,7 @@ DIRS += [
     'crypto',
     'encoding',
     'events',
+    'exthandler',
     'fetch',
     'filehandle',
     'filesystem',

@@ -61,11 +61,9 @@ include ../../libs/libpng/crashtests/crashtests.list
 
 include ../../netwerk/test/crashtests/crashtests.list
 
-include ../../parser/htmlparser/tests/crashtests/crashtests.list
-
 include ../../security/manager/ssl/crashtests/crashtests.list
 
-include ../../view/crashtests/crashtests.list
+include ../../layout/view/crashtests/crashtests.list
 
 include ../../widget/crashtests/crashtests.list
 include ../../widget/gtk/crashtests/crashtests.list

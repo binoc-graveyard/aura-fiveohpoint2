@@ -80,7 +80,7 @@ LOCAL_INCLUDES += [
     '../io',
     '../reflect/xptinfo',
     '../threads',
-    '/chrome',
+    '/components/registry/src',
     '/docshell/base',
 ]
 

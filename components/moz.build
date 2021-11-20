@@ -1,0 +1,125 @@
+# -*- Mode: python; indent-tabs-mode: nil; tab-width: 40 -*-
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+# These component dirs are built for all apps (including suite)
+if CONFIG['MOZ_ENABLE_XREMOTE']:
+    DIRS += ['remote']
+
+DIRS += [
+    'aboutcache',
+    'aboutcheckerboard',
+    'aboutmemory',
+    'aboutperformance',
+    'addoncompat',
+    'alerts',
+    'apppicker',
+    'appshell',
+    'asyncshutdown',
+    'blocklist',
+    'bindings',
+    'commandlines',
+    'console',
+    'contentprefs',
+    'cookie',
+    'crashmonitor',
+    'downloads',
+    'directory',
+    'extensions',
+    'exthelper',
+    'filewatcher',
+    'finalizationwitness',
+    'formautofill',
+    'find',
+    'htmlfive',
+    'htmlparser',
+    'gfx',
+    'global',
+    'handling',
+    'jar',
+    'jsdebugger',
+    'jsdownloads',
+    'jsinspector',
+    'lz4',
+    'mediasniffer',
+    'microformats',
+    'mozprotocol',
+    'osfile',
+    'parentalcontrols',
+    'passwordmgr',
+    'perf',
+    'perfmonitoring',
+    'places',
+    'pluginproblem',
+    'preferences',
+    'privatebrowsing',
+    'processsingleton',
+    'profile',
+    'promiseworker',
+    'prompts',
+    'rdf',
+    'reader',
+    'remotebrowserutils',
+    'reflect',
+    'scache',
+    'startup',
+    'statusfilter',
+    'storage',
+    'thumbnails',
+    'timermanager',
+    'tooltiptext',
+    'typeaheadfind',
+    'uriloader',
+    'utils',
+    'urlformatter',
+    'viewconfig',
+    'windowds',
+    'workerloader',
+    'xmlparser',
+    'xulstore'
+]
+
+DIRS += ['mozintl']
+
+DIRS += ['narrate', 'viewsource'];
+
+if CONFIG['NS_PRINTING']:
+    DIRS += ['printing']
+
+if CONFIG['BUILD_CTYPES']:
+    DIRS += ['ctypes']
+
+if CONFIG['MOZ_FEEDS']:
+    DIRS += ['feeds']
+
+if CONFIG['MOZ_JETPACK']:
+    DIRS += ['jetpack']
+
+DIRS += ['autocomplete', 'satchel']
+
+if CONFIG['MOZ_TOOLKIT_SEARCH'] and not CONFIG['MC_BASILISK']:
+    DIRS += ['search']
+
+if CONFIG['MOZ_UPDATER']:
+    DIRS += ['update']
+
+DIRS += ['captivedetect']
+
+DIRS += ['terminator']
+
+if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
+    DIRS += [
+        'filepicker',
+        'gservice',
+    ]
+
+if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3', 'windows'):
+    DIRS += ['proxy']
+
+DIRS += ['build']
+
+EXTRA_COMPONENTS += [
+    'nsDefaultCLH.js',
+    'nsDefaultCLH.manifest',
+]

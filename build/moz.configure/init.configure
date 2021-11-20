@@ -606,7 +606,7 @@ def include_project_configure(project, external_source_dir, build_env, help):
     if exists(path_project_src_dir_root):
         return path_project_src_dir_root
     else:
-        return os.path.join(build_env.topsrcdir, 'toolkit', 'moz.configure')
+        return os.path.join(build_env.topsrcdir, 'system', 'moz.configure')
 
 @depends('--with-external-source-dir')
 def external_source_dir(value):

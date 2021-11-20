@@ -19,6 +19,7 @@ DIRS += [
     'inspector',
     'tools/recording',
     'reftests',
+    'view',
 ]
 
 

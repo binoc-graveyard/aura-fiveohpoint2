@@ -9,6 +9,7 @@ DIRS += [
     'expat',
     'graphite2/src',
     'harfbuzz/src',
+    'jsesc',
     'kiss_fft',
     'libcubeb',
     'libmkv',
@@ -57,6 +58,9 @@ if not CONFIG['MOZ_SYSTEM_JPEG']:
 
 if CONFIG['MOZ_TREE_CAIRO']:
     DIRS += ['cairo']
+
+if CONFIG['MOZ_TREE_PIXMAN']:
+    DIRS += ['libpixman']
 
 if CONFIG['MOZ_TREMOR']:
     DIRS += ['libtremor']

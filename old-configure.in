@@ -1902,7 +1902,6 @@ MOZ_SPELLCHECK=1
 MOZ_TOOLKIT_SEARCH=1
 MOZ_UI_LOCALE=en-US
 MOZ_UNIVERSALCHARDET=1
-MOZ_ZIPWRITER=1
 MOZ_NO_SMART_CARDS=
 MOZ_NECKO_WIFI=1
 NECKO_COOKIES=1
@@ -3369,15 +3368,6 @@ else
 fi
 
 dnl ========================================================
-dnl = Disable zipwriter
-dnl ========================================================
-MOZ_ARG_DISABLE_BOOL(zipwriter,
-[  --disable-zipwriter     Disable zipwriter component],
-    MOZ_ZIPWRITER=,
-    MOZ_ZIPWRITER=1 )
-AC_SUBST(MOZ_ZIPWRITER)
-
-dnl ========================================================
 dnl = faststripe theme
 dnl ========================================================
 MOZ_ARG_ENABLE_BOOL(faststripe,
@@ -4381,11 +4371,8 @@ if test "$MOZ_TREE_CAIRO"; then
         WIN32_FONT_FEATURE="#define CAIRO_HAS_WIN32_FONT 1"
         WIN32_SURFACE_FEATURE="#define CAIRO_HAS_WIN32_SURFACE 1"
         MOZ_ENABLE_D2D_SURFACE=1
-        MOZ_ENABLE_DWRITE_FONT=1
 
         if test "$COMPILE_ENVIRONMENT"; then
-
-          MOZ_CHECK_HEADER(d3d9.h, MOZ_ENABLE_D3D9_LAYER=1)
 
           dnl D3D10 Layers depend on D2D Surfaces.
           if test -n "$WIN32_D2D_SURFACE_FEATURE"; then
@@ -4398,9 +4385,7 @@ if test "$MOZ_TREE_CAIRO"; then
         FC_FONT_FEATURE="#define CAIRO_HAS_FC_FONT 1"
     fi
     AC_SUBST(MOZ_ENABLE_CAIRO_FT)
-    AC_SUBST(MOZ_ENABLE_DWRITE_FONT)
     AC_SUBST(MOZ_ENABLE_D2D_SURFACE)
-    AC_SUBST(MOZ_ENABLE_D3D9_LAYER)
     AC_SUBST(MOZ_ENABLE_D3D10_LAYER)
 
     AC_SUBST(PS_SURFACE_FEATURE)
@@ -4426,7 +4411,7 @@ if test "$MOZ_TREE_CAIRO"; then
         MOZ_CAIRO_OSLIBS="$MOZ_CAIRO_OSLIBS $XLDFLAGS -lXrender"
     fi
 
-    CAIRO_FEATURES_H=libs/cairo/cairo/src/cairo-features.h
+    CAIRO_FEATURES_H=libs/cairo/src/cairo-features.h
 else
     PKG_CHECK_MODULES(CAIRO, cairo >= $CAIRO_VERSION)
     MOZ_CAIRO_CFLAGS="$CAIRO_CFLAGS"

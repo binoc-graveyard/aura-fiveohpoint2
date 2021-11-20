@@ -25,6 +25,7 @@ LOCAL_INCLUDES += [
     '../mathml',
     '../style',
     '../tables',
+    '../view',
     '../xul',
     '/caps',
     '/docshell/base',
@@ -56,7 +57,6 @@ LOCAL_INCLUDES += [
     '/js/xpconnect/src',
     '/netwerk/base',
     '/netwerk/cookie',
-    '/view',
 ]
 
 if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':

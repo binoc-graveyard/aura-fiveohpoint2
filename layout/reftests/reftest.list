@@ -267,9 +267,6 @@ skip-if(browserIsRemote) include webm-video/reftest.list
 # mp4-video/
 skip-if(browserIsRemote) include mp4-video/reftest.list
 
-# parser/
-include ../../parser/htmlparser/tests/reftest/reftest.list
-
 # percent-overflow-sizing/
 include percent-overflow-sizing/reftest.list
 
@@ -347,7 +344,7 @@ include text-svgglyphs/reftest.list
 # text-transform/
 include text-transform/reftest.list
 
-include ../../toolkit/content/tests/reftests/reftest.list
+include ../../components/global/content/tests/reftests/reftest.list
 
 # -moz-transform/
 include transform/reftest.list

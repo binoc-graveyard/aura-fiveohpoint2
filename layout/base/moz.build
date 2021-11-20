@@ -183,6 +183,7 @@ LOCAL_INCLUDES += [
     '../style',
     '../svg',
     '../tables',
+    '../view',
     '../xul',
     '../xul/tree/',
     '/docshell/base',
@@ -190,7 +191,6 @@ LOCAL_INCLUDES += [
     '/dom/html',
     '/dom/svg',
     '/dom/xbl',
-    '/view',
 ]
 
 FINAL_LIBRARY = 'xul'

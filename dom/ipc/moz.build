@@ -101,10 +101,11 @@ if CONFIG['MOZ_SANDBOX'] and CONFIG['OS_TARGET'] == 'Darwin':
 
 LOCAL_INCLUDES += [
     '/caps',
-    '/chrome',
+    '/components/registry/src',
     '/docshell/base',
     '/dom/base',
     '/dom/events',
+    '/dom/exthandler',
     '/dom/filesystem',
     '/dom/geolocation',
     '/dom/media/webspeech/synth/ipc',
@@ -120,16 +121,13 @@ LOCAL_INCLUDES += [
     '/media/webrtc',
     '/netwerk/base',
     '/toolkit/xre',
-    '/uriloader/exthandler',
     '/widget',
     '/xpcom/base',
     '/xpcom/threads',
 ]
 
 if CONFIG['OS_ARCH'] != 'WINNT':
-    LOCAL_INCLUDES += [
-        '/modules/libjar',
-    ]
+    LOCAL_INCLUDES += ['/components/jar/src']
 
 DEFINES['BIN_SUFFIX'] = '"%s"' % CONFIG['BIN_SUFFIX']
 
