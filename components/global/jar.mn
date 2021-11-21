@@ -28,7 +28,7 @@ toolkit.jar:
   content/global/aboutServiceWorkers.js           (content/aboutServiceWorkers.js)
   content/global/aboutServiceWorkers.xhtml        (content/aboutServiceWorkers.xhtml)
 #ifdef MOZ_OFFICIAL_BRANDING
-* content/global/aboutRights.xhtml
+* content/global/aboutRights.xhtml                (content/aboutRights.xhtml)
 #else
   content/global/aboutRights.xhtml                (content/aboutRights-unbranded.xhtml)
 #endif
