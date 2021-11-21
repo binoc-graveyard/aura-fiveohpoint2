@@ -158,7 +158,7 @@ ifeq ($(MOZ_WIDGET_TOOLKIT),gtk3)
 system/evil/target: widget/gtk/mozgtk/gtk3/target
 endif
 ifdef MOZ_LDAP_XPCOM
-ldap/target: config/external/nss/target mozglue/build/target
+ldap/target: libs/nss/target mozglue/build/target
 system/evil/target: ldap/target
 endif
 ifeq ($(MOZ_REPLACE_MALLOC_LINKAGE),dummy library)
@@ -166,7 +166,7 @@ mozglue/build/target memory/replace/logalloc/replay/target: memory/replace/dummy
 endif
 endif
 ifeq (,$(MOZ_FOLD_LIBS))
-config/external/nss/target: config/external/nspr/pr/target config/external/nspr/ds/target config/external/nspr/libc/target
+libs/nss/target: config/external/nspr/pr/target config/external/nspr/ds/target config/external/nspr/libc/target
 endif
 # Most things are built during compile (target/host), but some things happen during export
 # Those need to depend on config/export for system wrappers.
