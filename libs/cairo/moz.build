@@ -54,7 +54,6 @@ SOURCES += [
   'src/cairo-debug.c',
   'src/cairo-deflate-stream.c',
   'src/cairo-device.c',
-  'src/cairo-dwrite-font.cpp',
   'src/cairo-fixed.c',
   'src/cairo-font-face-twin-data.c',
   'src/cairo-font-face-twin.c',
@@ -122,6 +121,7 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
   DEFINES['DISABLE_SOME_FLOATING_POINT'] = True
   DEFINES['CAIRO_WIN32_STATIC_BUILD'] = True
   SOURCES += [
+    'src/cairo-dwrite-font.cpp',
     'src/cairo-win32-font.c',
     'src/cairo-win32-surface.c',
   ]
@@ -194,7 +194,7 @@ elif 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
     CFLAGS += CONFIG['CAIRO_FT_CFLAGS']
     CXXFLAGS += CONFIG['CAIRO_FT_CFLAGS']
 
-LOCAL_INCLUDES += ['!src']
+LOCAL_INCLUDES += ['!src', 'src']
 
 # We allow warnings for third-party code that can be updated from upstream.
 ALLOW_COMPILER_WARNINGS = True
