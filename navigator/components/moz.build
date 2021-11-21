@@ -18,7 +18,6 @@ DIRS += [
     'sessionstore',
     'shell',
     'sidebar',
-    'smile',
     'toolbar',
 ]
 
