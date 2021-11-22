@@ -18,7 +18,7 @@ DIRS += [
   'python',
   'taskcluster',
   'libs/fdlibm',
-  'config/external/nspr',
+  'libs/nspr/build',
   'config/external/zlib',
   'memory',
   'mfbt',
