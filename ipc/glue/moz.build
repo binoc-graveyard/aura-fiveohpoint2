@@ -162,7 +162,7 @@ IPDL_SOURCES = [
 
 LOCAL_INCLUDES += [
     '/dom/ipc',
-    '/toolkit/xre',
+    '/system/runtime',
     '/xpcom/threads',
 ]
 

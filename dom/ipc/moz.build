@@ -120,7 +120,7 @@ LOCAL_INCLUDES += [
     '/media/webrtc',
     '/netwerk/base',
     '/system/docshell/base',
-    '/toolkit/xre',
+    '/system/runtime',
     '/widget',
     '/xpcom/base',
     '/xpcom/threads',

@@ -23,7 +23,7 @@ if CONFIG['OS_ARCH'] == 'WINNT':
   ]
 
   # Pick up nsWindowsRestart.cpp
-  LOCAL_INCLUDES += ['/toolkit/xre']
+  LOCAL_INCLUDES += ['/system/runtime']
   
   OS_LIBS += [
     'comctl32',

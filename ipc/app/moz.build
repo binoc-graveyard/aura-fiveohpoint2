@@ -12,7 +12,7 @@ SOURCES += [
 include('/ipc/chromium/chromium-config.mozbuild')
 
 LOCAL_INCLUDES += [
-    '/toolkit/xre',
+    '/system/runtime',
     '/xpcom/base',
 ]
 

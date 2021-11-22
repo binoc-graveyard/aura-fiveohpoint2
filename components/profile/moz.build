@@ -18,7 +18,7 @@ SOURCES += [
 if CONFIG['OS_ARCH'] == 'WINNT':
     SOURCES += ['src/ProfileUnlockerWin.cpp']
 
-LOCAL_INCLUDES += ['/toolkit/xre']
+LOCAL_INCLUDES += ['/system/runtime']
 
 XPIDL_MODULE = 'toolkitprofile'
 FINAL_LIBRARY = 'xul'

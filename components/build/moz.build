@@ -26,7 +26,7 @@ LOCAL_INCLUDES += [
   '../startup',
   '../statusfilter',
   '../typeaheadfind',
-  '/toolkit/xre',
+  '/system/runtime',
 ]
 
 if not CONFIG['MOZ_DISABLE_PARENTAL_CONTROLS']:
