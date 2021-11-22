@@ -185,9 +185,7 @@
 #include "mozilla/Hal.h"
 #endif
 
-#ifdef MOZ_PERMISSIONS
 # include "nsPermissionManager.h"
-#endif
 
 #ifdef MOZ_WIDGET_GTK
 #include <gdk/gdk.h>
@@ -2227,7 +2225,6 @@ ContentParent::RecvReadDataStorageArray(const nsString& aFilename,
 bool
 ContentParent::RecvReadPermissions(InfallibleTArray<IPC::Permission>* aPermissions)
 {
-#ifdef MOZ_PERMISSIONS
   nsCOMPtr<nsIPermissionManager> permissionManagerIface =
     services::GetPermissionManager();
   nsPermissionManager* permissionManager =
@@ -2270,7 +2267,6 @@ ContentParent::RecvReadPermissions(InfallibleTArray<IPC::Permission>* aPermissio
 
   // Ask for future changes
   mSendPermissionUpdates = true;
-#endif
 
   return true;
 }

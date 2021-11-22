@@ -328,16 +328,6 @@ set_config('MOZ_FMP4', fmp4)
 set_define('MOZ_FMP4', fmp4)
 add_old_configure_assignment('MOZ_FMP4', fmp4)
 
-# Permissions system
-# ==============================================================
-option(name='--disable-permissions',
-       help='Disable permissions (popup and cookie blocking)')
-
-moz_permissions = depends_if('--disable-permissions')(lambda _: True)
-
-set_config('MOZ_PERMISSIONS', moz_permissions)
-set_define('MOZ_PERMISSIONS', moz_permissions)
-
 # gpsd support
 # ==============================================================
 option('--enable-gpsd', env='MOZ_GPSD',

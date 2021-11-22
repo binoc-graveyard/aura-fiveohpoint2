@@ -123,10 +123,8 @@
 #include "signaling/src/peerconnection/WebrtcGlobalChild.h"
 #endif
 
-#ifdef MOZ_PERMISSIONS
 #include "nsPermission.h"
 #include "nsPermissionManager.h"
-#endif
 
 #include "PermissionMessageUtils.h"
 

@@ -22,7 +22,7 @@ DIRS += [
     'commandlines',
     'console',
     'contentprefs',
-    'cookie',
+    'permissions',
     'crashmonitor',
     'downloads',
     'directory',
