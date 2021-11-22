@@ -313,7 +313,7 @@ CONFIG_STATUS_DEPS := \
   $(wildcard $(TOPSRCDIR)/*/confvars.sh) \
   $(CONFIGURES) \
   $(MOZILLA_DIR)/CLOBBER \
-  $(MOZILLA_DIR)/nsprpub/configure \
+  $(MOZILLA_DIR)/libs/nspr/src/configure \
   $(MOZILLA_DIR)/config/milestone.txt \
   $(MOZILLA_DIR)/build/virtualenv_packages.txt \
   $(MOZILLA_DIR)/python/mozbuild/mozbuild/virtualenv.py \
