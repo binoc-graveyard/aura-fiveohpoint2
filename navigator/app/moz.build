@@ -11,7 +11,7 @@ SOURCES += ['nsNavigatorApp.cpp']
 
 LOCAL_INCLUDES += [
     '!/build',
-    '/platform/toolkit/xre',
+    '/platform/system/runtime',
     '/platform/xpcom/base',
     '/platform/xpcom/build',
 ]

@@ -13,7 +13,7 @@ USE_LIBS += ['mozglue']
 SOURCES += ['nsMailApp.cpp']
 LOCAL_INCLUDES += [
     '!/build',
-    '/platform/toolkit/xre',
+    '/platform/system/runtime',
     '/platform/xpcom/base',
     '/platform/xpcom/build',
 ]
