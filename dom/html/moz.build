@@ -220,7 +220,6 @@ include('/ipc/chromium/chromium-config.mozbuild')
 
 LOCAL_INCLUDES += [
     '/caps',
-    '/docshell/base',
     '/dom/base',
     '/dom/canvas',
     '/dom/media/',
@@ -234,6 +233,7 @@ LOCAL_INCLUDES += [
     '/layout/tables',
     '/layout/xul',
     '/netwerk/base',
+    '/system/docshell/base',
 ]
 
 FINAL_LIBRARY = 'xul'

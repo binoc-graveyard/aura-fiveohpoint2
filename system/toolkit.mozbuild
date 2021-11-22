@@ -64,7 +64,6 @@ DIRS += [
     '/widget',
     '/editor',
     '/layout',
-    '/docshell',
     '/embedding',
 ]
 

@@ -427,7 +427,6 @@ LOCAL_INCLUDES += [
     '../network',
     '../time',
     '/caps',
-    '/docshell/base',
     '/dom/base',
     '/dom/geolocation',
     '/dom/html',
@@ -452,6 +451,7 @@ LOCAL_INCLUDES += [
     '/layout/xul',
     '/netwerk/base',
     '/security/manager/ssl',
+    '/system/docshell/base',
     '/widget',
     '/xpcom/ds',
 ]

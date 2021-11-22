@@ -34,8 +34,8 @@ EXPORTS += [
 FINAL_LIBRARY = 'xul'
 # For nsJSUtils
 LOCAL_INCLUDES += [
-    '/docshell/base',
     '/dom/base',
+    '/system/docshell/base',
 ]
 
 if CONFIG['GNU_CXX']:
