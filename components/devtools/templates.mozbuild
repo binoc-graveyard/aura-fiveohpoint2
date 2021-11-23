@@ -35,6 +35,5 @@ def DevToolsModules(*modules):
         # this abomination back to proper jar manifests.
         if 'components' in dir:
             continue
-        print dir
         base = base[dir]
     base += [m for m in modules]
