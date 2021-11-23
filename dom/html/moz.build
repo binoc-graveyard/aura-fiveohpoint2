@@ -231,8 +231,8 @@ LOCAL_INCLUDES += [
     '/layout/style',
     '/layout/tables',
     '/layout/xul',
-    '/netwerk/base',
     '/system/docshell/base',
+    '/system/network/base',
     '/system/security/script',
 ]
 

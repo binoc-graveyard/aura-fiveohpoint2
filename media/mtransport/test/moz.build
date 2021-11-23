@@ -89,7 +89,7 @@ LOCAL_INCLUDES += [
     '/media/mtransport/third_party/nrappkit/src/stats',
     '/media/mtransport/third_party/nrappkit/src/util/',
     '/media/mtransport/third_party/nrappkit/src/util/libekr',
-    '/netwerk/sctp/src/',
+    '/system/network/sctp/src/',
     '/xpcom/tests/'
 ]
 

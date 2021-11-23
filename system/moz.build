@@ -8,6 +8,7 @@ DIRS += [
   'graphics',
   'hardware',
   'interface',
+  'network',
   'security',
 ]
 

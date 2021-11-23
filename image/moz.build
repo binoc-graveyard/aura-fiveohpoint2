@@ -99,10 +99,10 @@ LOCAL_INCLUDES += [
     '/image/decoders',
     # Because VectorImage.cpp includes nsSVGUtils.h and nsSVGEffects.h
     '/layout/svg',
-    # For URI-related functionality
-    '/netwerk/base',
     # Access to Skia headers for Downscaler
     '/system/graphics/2d',
+    # For URI-related functionality
+    '/system/network/base',
     # DecodePool uses thread-related facilities.
     '/xpcom/threads',
 ]

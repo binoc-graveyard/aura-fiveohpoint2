@@ -73,7 +73,7 @@ LOCAL_INCLUDES += [
     '/layout/base',
     '/layout/generic',
     '/layout/xul',
-    '/netwerk/protocol/viewsource',
+    '/system/network/protocol/viewsource',
     '/tools/profiler',
 ]
 
