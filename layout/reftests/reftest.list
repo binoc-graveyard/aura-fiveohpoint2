@@ -364,7 +364,7 @@ include web-animations/reftest.list
 include webcomponents/reftest.list
 
 # widget/
-include ../../widget/reftests/reftest.list
+include ../../system/interface/reftests/reftest.list
 
 # xml-stylesheet/
 include ../../dom/tests/reftest/xml-stylesheet/reftest.list

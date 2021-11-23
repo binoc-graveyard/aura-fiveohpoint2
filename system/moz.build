@@ -6,6 +6,7 @@
 DIRS += [
   'docshell',
   'graphics',
+  'interface',
 ]
 
 DIRS += ['runtime']

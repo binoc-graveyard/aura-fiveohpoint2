@@ -452,7 +452,7 @@ LOCAL_INCLUDES += [
     '/security/manager/ssl',
     '/system/docshell/base',
     '/system/graphics/2d',
-    '/widget',
+    '/system/interface',
     '/xpcom/ds',
 ]
 

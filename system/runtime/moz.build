@@ -114,7 +114,7 @@ LOCAL_INCLUDES += [
 
 if CONFIG['MOZ_ENABLE_XREMOTE']:
     LOCAL_INCLUDES += [
-        '/widget/xremoteclient',
+        '/system/interface/xremoteclient',
     ]
 
 CXXFLAGS += CONFIG['TK_CFLAGS']

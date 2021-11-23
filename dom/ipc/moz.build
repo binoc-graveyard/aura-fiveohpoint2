@@ -120,8 +120,8 @@ LOCAL_INCLUDES += [
     '/netwerk/base',
     '/system/docshell/base',
     '/system/graphics/2d',
+    '/system/interface',
     '/system/runtime',
-    '/widget',
     '/xpcom/base',
     '/xpcom/threads',
 ]

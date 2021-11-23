@@ -76,7 +76,7 @@ LOCAL_INCLUDES += [
     '/layout/generic',
     '/layout/xul',
     '/netwerk/base',
-    '/widget',
+    '/system/interface',
     '/xpcom/base',
 ]
 

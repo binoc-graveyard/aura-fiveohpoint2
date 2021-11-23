@@ -65,7 +65,7 @@ include ../../security/manager/ssl/crashtests/crashtests.list
 
 include ../../layout/view/crashtests/crashtests.list
 
-include ../../widget/crashtests/crashtests.list
-include ../../widget/gtk/crashtests/crashtests.list
+include ../../system/interface/crashtests/crashtests.list
+include ../../system/interface/gtk/crashtests/crashtests.list
 
 include ../../xpcom/string/crashtests/crashtests.list

@@ -65,7 +65,7 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
     ]
 elif 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
     LOCAL_INCLUDES += [
-        '/widget/gtk',
+        '/system/interface/gtk',
     ]
 
 if CONFIG['MOZ_WEBSPEECH']:
