@@ -96,7 +96,7 @@ SEARCH_PATHS = [
 # Individual files providing mach commands.
 MACH_MODULES = [
     'build/valgrind/mach_commands.py',
-    'devtools/shared/css/generated/mach_commands.py',
+    'components/devtools/shared/css/generated/mach_commands.py',
     'dom/bindings/mach_commands.py',
     'dom/media/test/external/mach_commands.py',
     'layout/tools/reftest/mach_commands.py',

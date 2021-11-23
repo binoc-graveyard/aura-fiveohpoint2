@@ -84,6 +84,9 @@ DIRS += ['mozintl']
 
 DIRS += ['narrate', 'viewsource'];
 
+if CONFIG['MOZ_DEVTOOLS_SERVER']:
+    DIRS += ['devtools']
+
 if CONFIG['NS_PRINTING']:
     DIRS += ['printing']
 
