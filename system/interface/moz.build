@@ -202,6 +202,9 @@ if CONFIG['MOZ_X11']:
         'WindowSurfaceX11SHM.cpp',
     ]
 
+if CONFIG['MOZ_ENABLE_XREMOTE']:
+    DIRS += ['xremoteclient']
+
 if toolkit in ('windows'):
     UNIFIED_SOURCES += [
         'nsBaseClipboard.cpp',

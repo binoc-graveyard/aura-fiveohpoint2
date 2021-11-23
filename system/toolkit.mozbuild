@@ -70,9 +70,6 @@ DIRS += [
     '/tools/memory-profiler',
 ]
 
-if CONFIG['MOZ_ENABLE_XREMOTE']:
-    DIRS += ['/widget/xremoteclient']
-
 if CONFIG['MOZ_SPELLCHECK']:
     DIRS += ['/extensions/spellcheck']
 
