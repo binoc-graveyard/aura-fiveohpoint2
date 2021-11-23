@@ -20,9 +20,9 @@ DIRS += [
   'libs/fdlibm',
   'libs/nspr/build',
   'config/external/zlib',
-  'memory',
-  'mfbt',
-  'mozglue',
+  'system/memory',
+  'system/framework',
+  'system/utils',
 ]
 
 if not CONFIG['JS_STANDALONE']:
@@ -32,7 +32,7 @@ if not CONFIG['JS_STANDALONE']:
   GENERATED_FILES += ['buildid.h', 'source-repo.h']
   GENERATED_FILES['buildid.h'].script = 'build/variables.py:buildid_header'
   GENERATED_FILES['source-repo.h'].script = 'build/variables.py:source_repo_header'
-  DIRS += ['build', 'probes', 'xpcom/xpidl']
+  DIRS += ['build', 'system/dtrace', 'xpcom/xpidl']
 
 if CONFIG['USE_ICU']:
   DIRS += ['config/external/icu']

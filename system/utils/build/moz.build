@@ -31,7 +31,7 @@ if not CONFIG['JS_STANDALONE']:
         SOURCES += ['dummy.cpp']
 
     if CONFIG['OS_TARGET'] == 'WINNT':
-        LOCAL_INCLUDES += ['/memory/build']
+        LOCAL_INCLUDES += ['/system/memory/build']
         SOURCES += ['WindowsDllBlocklist.cpp']
         DISABLE_STL_WRAPPING = True
         OS_LIBS += ['version']
