@@ -426,7 +426,6 @@ LOCAL_INCLUDES += [
     '../media',
     '../network',
     '../time',
-    '/caps',
     '/dom/base',
     '/dom/geolocation',
     '/dom/html',
@@ -449,10 +448,11 @@ LOCAL_INCLUDES += [
     '/layout/svg',
     '/layout/xul',
     '/netwerk/base',
-    '/security/manager/ssl',
     '/system/docshell/base',
     '/system/graphics/2d',
     '/system/interface',
+    '/system/security/manager/ssl',
+    '/system/security/script',
     '/xpcom/ds',
 ]
 

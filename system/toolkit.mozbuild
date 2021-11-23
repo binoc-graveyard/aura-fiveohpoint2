@@ -6,13 +6,6 @@
 DIRS += ['/libs']
 
 DIRS += [
-    # Depends on NSS and NSPR
-    '/security/certverifier',
-    # Depends on certverifier
-    '/security/apps',
-]
-
-DIRS += [
     '/config/external/freetype2',
     '/xpcom',
     '/intl',
@@ -57,7 +50,6 @@ if CONFIG['ENABLE_TESTS']:
 
 DIRS += [
     '/testing/gtest',
-    '/caps',
     '/image',
     '/dom',
     '/editor',
@@ -88,7 +80,6 @@ if CONFIG['MOZ_SPELLCHECK']:
     DIRS += ['/extensions/spellcheck']
 
 DIRS += [
-    '/security/manager',
     '/toolkit',
 ]
 

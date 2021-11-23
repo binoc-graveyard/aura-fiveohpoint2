@@ -140,11 +140,11 @@ if CONFIG['_MSC_VER']:
     SOURCES['BackgroundParentImpl.cpp'].flags += ['-wd4312']
 
 LOCAL_INCLUDES += [
-    '/caps',
     '/dom/broadcastchannel',
     '/dom/indexedDB',
     '/dom/workers',
     '/media/webrtc/trunk',
+    '/system/security/script',
     '/xpcom/build',
 ]
 

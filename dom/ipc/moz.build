@@ -100,7 +100,6 @@ if CONFIG['MOZ_SANDBOX'] and CONFIG['OS_TARGET'] == 'Darwin':
     ]
 
 LOCAL_INCLUDES += [
-    '/caps',
     '/components/permissions/src',
     '/components/registry/src',
     '/dom/base',
@@ -109,7 +108,6 @@ LOCAL_INCLUDES += [
     '/dom/filesystem',
     '/dom/geolocation',
     '/dom/media/webspeech/synth/ipc',
-    '/dom/security',
     '/dom/storage',
     '/dom/workers',
     '/embedding/components/printingui/ipc',
@@ -122,6 +120,8 @@ LOCAL_INCLUDES += [
     '/system/graphics/2d',
     '/system/interface',
     '/system/runtime',
+    '/system/security/content',
+    '/system/security/script',
     '/xpcom/base',
     '/xpcom/threads',
 ]

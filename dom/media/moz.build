@@ -276,11 +276,11 @@ EXTRA_JS_MODULES.media += [
 ]
 
 LOCAL_INCLUDES += [
-    '/caps',
     '/dom/base',
     '/layout/generic',
     '/layout/xul',
     '/netwerk/base',
+    '/system/security/script',
 ]
 
 if CONFIG['MOZ_WEBRTC']:

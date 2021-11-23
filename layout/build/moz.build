@@ -27,7 +27,6 @@ LOCAL_INCLUDES += [
     '../tables',
     '../view',
     '../xul',
-    '/caps',
     '/components/permissions/src',
     '/dom/audiochannel',
     '/dom/base',
@@ -57,6 +56,7 @@ LOCAL_INCLUDES += [
     '/netwerk/base',
     '/netwerk/cookie',
     '/system/docshell/base',
+    '/system/security/script',
 ]
 
 if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':

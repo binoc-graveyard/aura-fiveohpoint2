@@ -284,8 +284,8 @@ LOCAL_INCLUDES += [
     '/dom/base',
     '/netwerk/protocol/http',
     '/netwerk/socket',
-    '/security/pkix/include',
     '/system/docshell/base',
+    '/system/security/pkix/include',
 ]
 
 if 'rtsp' in CONFIG['NECKO_PROTOCOLS']:

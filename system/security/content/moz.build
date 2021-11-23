@@ -5,6 +5,13 @@
 
 TEST_DIRS += ['test']
 
+XPIDL_SOURCES += [
+    'nsIContentSecurityManager.idl',
+    'nsIContentSecurityPolicy.idl'
+]
+
+XPIDL_MODULE = 'dom_security'
+
 EXPORTS.mozilla.dom += [
     'ContentVerifier.h',
     'nsContentSecurityManager.h',
@@ -41,8 +48,8 @@ include('/ipc/chromium/chromium-config.mozbuild')
 
 FINAL_LIBRARY = 'xul'
 LOCAL_INCLUDES += [
-    '/caps',
     '/netwerk/base',
+    '/system/security/script',
 ]
 
 if CONFIG['GNU_CC']:
