@@ -28,10 +28,10 @@ UNIFIED_SOURCES += [
 include('/ipc/chromium/chromium-config.mozbuild')
 
 LOCAL_INCLUDES += [
-    # Access to Skia headers for Downscaler.
-    '/gfx/2d',
     # Decoders need ImageLib headers.
     '/image',
+    # Access to Skia headers for Downscaler.
+    '/system/graphics/2d',
 ]
 
 LOCAL_INCLUDES += CONFIG['SKIA_INCLUDES']

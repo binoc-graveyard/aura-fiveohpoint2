@@ -439,7 +439,6 @@ LOCAL_INCLUDES += [
     '/dom/xml',
     '/dom/xslt/xpath',
     '/dom/xul',
-    '/gfx/2d',
     '/image',
     '/js/xpconnect/src',
     '/js/xpconnect/wrappers',
@@ -452,6 +451,7 @@ LOCAL_INCLUDES += [
     '/netwerk/base',
     '/security/manager/ssl',
     '/system/docshell/base',
+    '/system/graphics/2d',
     '/widget',
     '/xpcom/ds',
 ]

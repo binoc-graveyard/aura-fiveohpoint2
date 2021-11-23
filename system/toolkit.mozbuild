@@ -58,7 +58,6 @@ if CONFIG['ENABLE_TESTS']:
 DIRS += [
     '/testing/gtest',
     '/caps',
-    '/gfx',
     '/image',
     '/dom',
     '/widget',
