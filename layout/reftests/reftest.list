@@ -9,7 +9,7 @@
 include reftest-sanity/reftest.list
 
 # images (if ImageLib is busted, could result in weird failures in other tests)
-include ../../image/test/reftest/reftest.list
+include ../../system/image/test/reftest/reftest.list
 
 # CSSWG tests
 include w3c-css/submitted/reftest.list
