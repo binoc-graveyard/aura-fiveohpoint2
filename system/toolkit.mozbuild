@@ -20,7 +20,6 @@ if CONFIG['MOZ_AUTH_EXTENSION']:
 DIRS += [
     '/ipc',
     '/js/ipc',
-    '/hal',
     '/js/xpconnect',
     '/intl/chardet',
     '/libs/libyuv',
