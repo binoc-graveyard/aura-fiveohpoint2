@@ -39,6 +39,7 @@ DEFINES['TOPOBJDIR'] = TOPOBJDIR
 
 EXTRA_JS_MODULES += [
   'AsyncPrefs.jsm',
+  'Async.jsm',
   'Battery.jsm',
   'BinarySearch.jsm',
   'BrowserUtils.jsm',
