@@ -175,14 +175,14 @@ elif [ "$1" == "webpatch" ] && [ -n "$BINOC_GIT" ] && [ -n "$BINOC_CURL" ]; then
     printf "Patch with what?"
     exit 1
   else
-    if [[ "$3" == *"github.com"* ]]; then
-      $BINOC_CURL -L ${3}.patch | "$BINOC_GIT" apply --reject
-    elif  [[ "$3" == *"repo.palemoon.org"* ]]; then
-      $BINOC_CURL -L -su ${USERNAME} ${3}.patch | "$BINOC_GIT" apply --reject
+    if [[ "$3" == *"github.com"* ]] || [[ "$3" == *"repo.palemoon.org"* ]]; then
+      _patch=$3.patch
     else
-      $BINOC_CURL -L ${3} | "$BINOC_GIT" apply --reject
+      _patch=$3
     fi
   fi
+
+  $BINOC_CURL -L $_patch | "$BINOC_GIT" apply --reject
 else
   # We don't know what the command is but real-mach might so just pass
   # all the args to it
