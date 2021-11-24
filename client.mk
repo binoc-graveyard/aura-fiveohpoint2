@@ -309,7 +309,6 @@ $(CONFIGURES): %: %.in $(EXTRA_CONFIG_DEPS)
 	chmod +x $@
 
 CONFIG_STATUS_DEPS := \
-  $(wildcard $(MOZILLA_DIR)/ldap/sdks/c-sdk/configure) \
   $(wildcard $(TOPSRCDIR)/*/confvars.sh) \
   $(CONFIGURES) \
   $(MOZILLA_DIR)/CLOBBER \

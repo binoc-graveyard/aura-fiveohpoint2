@@ -132,4 +132,4 @@ toolkit.jar:
 % overlay chrome://global/content/customizeToolbar.xul chrome://messenger/content/customizeToolbarOverlay.xul
 % overlay chrome://mozapps/content/downloads/downloads.xul chrome://messenger/content/downloadToolkitOverlay.xul
 % overlay chrome://mozapps/content/extensions/extensions.xul chrome://messenger/content/extensionsOverlay.xul
-  content/global/logopage.xhtml                     (/platform/toolkit/content/logopage.xhtml)
+  content/global/logopage.xhtml                     (/platform/components/global/content/logopage.xhtml)
