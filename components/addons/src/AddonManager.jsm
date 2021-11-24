@@ -54,6 +54,7 @@ const VALID_TYPES_REGEXP = /^[\w\-]+$/;
 
 Cu.import("resource://gre/modules/Services.jsm");
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+Cu.import("resource://gre/modules/Async.jsm");
 Cu.import("resource://gre/modules/AsyncShutdown.jsm");
 
 XPCOMUtils.defineLazyModuleGetter(this, "Task",
@@ -2737,6 +2738,15 @@ this.AddonManager = {
   },
 
   getAddonByID: function(aID, aCallback) {
+    // If no callback is specified in the public function call
+    // then use Async.jsm to provide pseudo-sync functionality.
+    if (!aCallback) {
+      aCallback = Async.makeSyncCallback();
+      AddonManagerInternal.getAddonByID(aID, aCallback);
+      return Async.waitForSyncCallback(aCallback);
+    }
+
+    // Use the mozilla documented asynchronous behavior.
     AddonManagerInternal.getAddonByID(aID, aCallback);
   },
 
@@ -2745,6 +2755,15 @@ this.AddonManager = {
   },
 
   getAddonsByIDs: function(aIDs, aCallback) {
+    // If no callback is specified in the public function call
+    // then use Async.jsm to provide pseudo-sync functionality.
+    if (!aCallback) {
+      aCallback = Async.makeSyncCallback();
+      AddonManagerInternal.getAddonsByIDs(aIDs, aCallback);
+      return Async.waitForSyncCallback(aCallback);
+    }
+
+    // Use the mozilla documented asynchronous behavior.
     AddonManagerInternal.getAddonsByIDs(aIDs, aCallback);
   },
 
@@ -2753,10 +2772,28 @@ this.AddonManager = {
   },
 
   getAddonsByTypes: function(aTypes, aCallback) {
+    // If no callback is specified in the public function call
+    // then use Async.jsm to provide pseudo-sync functionality.
+    if (!aCallback) {
+      aCallback = Async.makeSyncCallback();
+      AddonManagerInternal.getAddonsByTypes(aTypes, aCallback);
+      return Async.waitForSyncCallback(aCallback);
+    }
+
+    // Use the mozilla documented asynchronous behavior.
     AddonManagerInternal.getAddonsByTypes(aTypes, aCallback);
   },
 
   getAllAddons: function(aCallback) {
+    // If no callback is specified in the public function call
+    // then use Async.jsm to provide pseudo-sync functionality.
+    if (!aCallback) {
+      aCallback = Async.makeSyncCallback();
+      AddonManagerInternal.getAllAddons(aCallback);
+      return Async.waitForSyncCallback(aCallback);
+    }
+
+    // Use the mozilla documented asynchronous behavior.
     AddonManagerInternal.getAllAddons(aCallback);
   },
 

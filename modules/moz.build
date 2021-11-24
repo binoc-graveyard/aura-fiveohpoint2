@@ -38,8 +38,8 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('windows', 'gtk2', 'gtk3'):
 DEFINES['TOPOBJDIR'] = TOPOBJDIR
 
 EXTRA_JS_MODULES += [
-  'AsyncPrefs.jsm',
   'Async.jsm',
+  'AsyncPrefs.jsm',
   'Battery.jsm',
   'BinarySearch.jsm',
   'BrowserUtils.jsm',
