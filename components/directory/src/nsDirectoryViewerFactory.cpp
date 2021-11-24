@@ -16,29 +16,29 @@ NS_GENERIC_FACTORY_CONSTRUCTOR(nsDirectoryViewerFactory)
 NS_DEFINE_NAMED_CID(NS_DIRECTORYVIEWERFACTORY_CID);
 NS_DEFINE_NAMED_CID(NS_HTTPINDEX_SERVICE_CID);
 
-static const mozilla::Module::CIDEntry kXPFECIDs[] = {
+static const mozilla::Module::CIDEntry kDirectoryViewerCIDs[] = {
     { &kNS_DIRECTORYVIEWERFACTORY_CID, false, nullptr, nsDirectoryViewerFactoryConstructor },
     { &kNS_HTTPINDEX_SERVICE_CID, false, nullptr, nsHTTPIndexConstructor },
     { nullptr }
 };
 
-static const mozilla::Module::ContractIDEntry kXPFEContracts[] = {
+static const mozilla::Module::ContractIDEntry kDirectoryViewerContracts[] = {
     { "@mozilla.org/xpfe/http-index-format-factory-constructor", &kNS_DIRECTORYVIEWERFACTORY_CID },
     { NS_HTTPINDEX_SERVICE_CONTRACTID, &kNS_HTTPINDEX_SERVICE_CID },
     { NS_HTTPINDEX_DATASOURCE_CONTRACTID, &kNS_HTTPINDEX_SERVICE_CID },
     { nullptr }
 };
 
-static const mozilla::Module::CategoryEntry kXPFECategories[] = {
+static const mozilla::Module::CategoryEntry kDirectoryViewerCategories[] = {
     { "Gecko-Content-Viewers", "application/http-index-format", "@mozilla.org/xpfe/http-index-format-factory-constructor" },
     { nullptr }
 };
 
-static const mozilla::Module kXPFEModule = {
+static const mozilla::Module kDirectoryViewerModule = {
     mozilla::Module::kVersion,
-    kXPFECIDs,
-    kXPFEContracts,
-    kXPFECategories
+    kDirectoryViewerCIDs,
+    kDirectoryViewerContracts,
+    kDirectoryViewerCategories
 };
 
-NSMODULE_DEFN(application) = &kXPFEModule;
+NSMODULE_DEFN(application) = &kDirectoryViewerModule;
