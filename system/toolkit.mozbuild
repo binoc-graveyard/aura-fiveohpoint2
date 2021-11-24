@@ -6,119 +6,111 @@
 DIRS += ['/libs']
 
 DIRS += [
-    '/config/external/freetype2',
-    '/xpcom',
-    '/intl',
+  '/config/external/freetype2',
+  '/xpcom',
+  '/intl',
 ]
 
 if CONFIG['MOZ_AUTH_EXTENSION']:
-    DIRS += ['/extensions/auth']
+  DIRS += ['/extensions/auth']
 
 # Gecko/Core components.
 
 DIRS += [
-    '/ipc',
-    '/js/ipc',
-    '/js/xpconnect',
-    '/intl/chardet',
-    '/libs/libyuv',
+  '/ipc',
+  '/js/ipc',
+  '/js/xpconnect',
+  '/intl/chardet',
+  '/libs/libyuv',
 ]
 
 DIRS += [
-    '/components',
-    '/modules',
-    '/system'
+  '/components',
+  '/modules',
+  '/system'
 ]
 
 if CONFIG['MOZ_MAILNEWS']:
-    DIRS += [
-        '/ldap',
-        '/db/mork',
-        '/mailnews',
-    ]
+  DIRS += ['/mailnews']
 
 if CONFIG['MOZ_WEBRTC']:
-    DIRS += [
-        '/media/webrtc',
-        '/media/mtransport',
-    ]
+  DIRS += [
+    '/media/webrtc',
+    '/media/mtransport',
+  ]
 
 if CONFIG['ENABLE_TESTS']:
-    DIRS += ['/testing/specialpowers']
+  DIRS += ['/testing/specialpowers']
 
 DIRS += [
-    '/testing/gtest',
-    '/dom',
-    '/editor',
-    '/layout',
-    '/embedding',
+  '/testing/gtest',
+  '/dom',
+  '/editor',
+  '/layout',
+  '/embedding',
 ]
 
 if CONFIG['MOZ_UNIVERSALCHARDET']:
-    DIRS += ['/extensions/universalchardet']
+  DIRS += ['/extensions/universalchardet']
 
 if CONFIG['ACCESSIBILITY']:
-    DIRS += ['/accessible']
+  DIRS += ['/accessible']
 else:
-    DIRS += ['/accessible/ipc']
+  DIRS += ['/accessible/ipc']
 
 # toolkit
 
 DIRS += [
-    '/tools/power',
-    '/tools/profiler',
-    '/tools/memory-profiler',
+  '/tools/power',
+  '/tools/profiler',
+  '/tools/memory-profiler',
 ]
 
 if CONFIG['MOZ_SPELLCHECK']:
-    DIRS += ['/extensions/spellcheck']
+  DIRS += ['/extensions/spellcheck']
 
-DIRS += [
-    '/toolkit',
-]
+DIRS += ['/toolkit']
 
 if CONFIG['MOZ_PREF_EXTENSIONS']:
-    DIRS += ['/extensions/pref']
+  DIRS += ['/extensions/pref']
 
-DIRS += [
-    '/services',
-]
+DIRS += ['/services']
 
 if CONFIG['MOZ_GIO_COMPONENT']:
-    DIRS += ['/extensions/gio']
+  DIRS += ['/extensions/gio']
 
 DIRS += [
-    '/system/evil/StaticXULComponentsEnd',
-    '/system/evil',
+  '/system/evil/StaticXULComponentsEnd',
+  '/system/evil',
 ]
 
 if CONFIG['ENABLE_MARIONETTE'] or True:
-    DIRS += [
-        '/testing/firefox-ui',
-        '/testing/marionette',
-    ]
+  DIRS += [
+    '/testing/firefox-ui',
+    '/testing/marionette',
+  ]
 
 if CONFIG['ENABLE_TESTS']:
+  DIRS += [
+    '/testing/mochitest',
+    '/testing/xpcshell',
+    '/testing/tools/minidumpwriter',
+    '/testing/tools/screenshot',
+    '/testing/profiles',
+    '/testing/mozbase',
+    '/testing/modules',
+    '/testing/runtimes',
+    '/testing/web-platform',
+  ]
+
+  if CONFIG['MOZ_MEMORY']:
+    DIRS += ['/memory/gtest']
+
+  if CONFIG['MOZ_WEBRTC'] and not CONFIG['MOZ_TASK_TRACER']:
     DIRS += [
-        '/testing/mochitest',
-        '/testing/xpcshell',
-        '/testing/tools/minidumpwriter',
-        '/testing/tools/screenshot',
-        '/testing/profiles',
-        '/testing/mozbase',
-        '/testing/modules',
-        '/testing/runtimes',
-        '/testing/web-platform',
+      '/media/webrtc/signaling/test',
+      '/media/mtransport/test',
     ]
 
-    if CONFIG['MOZ_MEMORY']:
-        DIRS += ['/memory/gtest']
-
-    if CONFIG['MOZ_WEBRTC'] and not CONFIG['MOZ_TASK_TRACER']:
-        DIRS += [
-            '/media/webrtc/signaling/test',
-            '/media/mtransport/test',
-        ]
-
 if CONFIG['FUZZING']:
-    DIRS += ['/tools/fuzzing']
+  DIRS += ['/tools/fuzzing']

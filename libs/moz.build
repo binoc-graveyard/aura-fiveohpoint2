@@ -4,71 +4,71 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 DIRS += [
-    'angle',
-    'brotli',
-    'expat',
-    'graphite2/src',
-    'harfbuzz/src',
-    'jsesc',
-    'kiss_fft',
-    'libcubeb',
-    'libmkv',
-    'libnestegg',
-    'libogg',
-    'libopus',
-    'libpng',
-    'libsoundtouch',
-    'libspeex_resampler',
-    'libstagefright',
-    'libtheora',
-    'libvpx',
-    'libwebp',
-    'ots/src',
-    'protobuf',
-    'psshparser',
-    'qcms',
-    'snappy',
-    'woff2',
-    'ycbcr',
+  'angle',
+  'brotli',
+  'expat',
+  'graphite2/src',
+  'harfbuzz/src',
+  'jsesc',
+  'kiss_fft',
+  'libcubeb',
+  'libmkv',
+  'libnestegg',
+  'libogg',
+  'libopus',
+  'libpng',
+  'libsoundtouch',
+  'libspeex_resampler',
+  'libstagefright',
+  'libtheora',
+  'libvpx',
+  'libwebp',
+  'ots/src',
+  'protobuf',
+  'psshparser',
+  'qcms',
+  'snappy',
+  'woff2',
+  'ycbcr',
 ]
 
 if CONFIG['CPU_ARCH'] == 'arm':
-    DIRS += ['openmax_dl']
+  DIRS += ['openmax_dl']
 
 if CONFIG['MOZ_AV1']:
-    DIRS += ['libaom']
+  DIRS += ['libaom']
 
 if CONFIG['MOZ_EME']:
-    DIRS += ['gmp-clearkey/0.1']
+  DIRS += ['gmp-clearkey/0.1']
 
 if CONFIG['MOZ_ENABLE_SKIA']:
-    DIRS += ['skia']
+  DIRS += ['skia']
 
 if CONFIG['MOZ_FFVPX']:
-    DIRS += ['ffvpx']
+  DIRS += ['ffvpx']
 
 if CONFIG['MOZ_SCTP']:
-    DIRS += ['sctp']
+  DIRS += ['sctp']
 
 if CONFIG['MOZ_SRTP']:
-    DIRS += ['srtp/src']
+  DIRS += ['srtp/src']
 
 if not CONFIG['MOZ_SYSTEM_JPEG']:
-    DIRS += ['libjpeg']
+  DIRS += ['libjpeg']
 
 if CONFIG['MOZ_TREE_CAIRO']:
-    DIRS += ['cairo']
+  DIRS += ['cairo']
 
 if CONFIG['MOZ_TREE_PIXMAN']:
-    DIRS += ['libpixman']
+  DIRS += ['libpixman']
 
 if CONFIG['MOZ_TREMOR']:
-    DIRS += ['libtremor']
+  DIRS += ['libtremor']
 
 if CONFIG['MOZ_VORBIS']:
-    DIRS += ['libvorbis']
+  DIRS += ['libvorbis']
 
 if CONFIG['MOZ_UPDATER']:
-    DIRS += ['bsdiff']
-    if not CONFIG['MOZ_SYSTEM_BZ2']:
-        DIRS += ['libbz2']
+  DIRS += ['bsdiff']
+  if not CONFIG['MOZ_SYSTEM_BZ2']:
+    DIRS += ['libbz2']

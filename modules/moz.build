@@ -7,6 +7,9 @@ SPHINX_TREES['toolkit_modules'] = 'docs'
 
 DIRS += ['subprocess']
 
+if CONFIG['MOZ_MAILNEWS']:
+  DIRS += ['ldap']
+
 if CONFIG['MOZ_UPDATER']:
   # NOTE: The signing related bits of libmar depend on nss
   DIRS += ['/modules/libmar']
