@@ -47,7 +47,7 @@ fi
 
 tzdata_version=$1
 
-icudata_dir=`dirname "$0"`/../config/external/icu/data
+icudata_dir=`dirname "$0"`/../libs/icu/data
 icu_dir=`dirname "$0"`/icu
 tzdata_dir=`dirname "$0"`/tzdata
 tzdata_files="${tzdata_dir}"/files.txt

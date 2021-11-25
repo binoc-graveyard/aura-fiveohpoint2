@@ -35,7 +35,7 @@ if not CONFIG['JS_STANDALONE']:
   DIRS += ['build', 'system/dtrace', 'xpcom/xpidl']
 
 if CONFIG['USE_ICU']:
-  DIRS += ['config/external/icu']
+  DIRS += ['libs/icu']
 
 if CONFIG['COMPILE_ENVIRONMENT']:
   if not CONFIG['JS_STANDALONE']:
