@@ -63,9 +63,6 @@
       <li><a href="about:license#gpl-3.0">GNU General Public License 3.0</a>
       <br><br>
       </li>
-#ifdef MOZ_WEBRTC
-      <li><a href="about:license#ACE">ACE License</a></li>
-#endif
 #ifdef MOZ_DEVTOOLS_SERVER
       <li><a href="about:license#acorn">acorn License</a></li>
 #endif
@@ -97,9 +94,7 @@
       <li><a href="about:license#gears-istumbler">Google Gears/iStumbler License</a></li>
       <li><a href="about:license#vp8">Google VP8 License</a></li>
       <li><a href="about:license#gsl">GSL License</a></li>
-#ifdef MOZ_WEBRTC
       <li><a href="about:license#gyp">gyp License</a></li>
-#endif
       <li><a href="about:license#halloc">halloc License</a></li>
       <li><a href="about:license#harfbuzz">HarfBuzz License</a></li>
       <li><a href="about:license#icu">ICU License</a></li>
@@ -126,13 +121,7 @@
 #ifdef MOZ_DEVTOOLS
       <li><a href="about:license#naturalSort">naturalSort License</a></li>
 #endif
-#ifdef MOZ_WEBRTC
-      <li><a href="about:license#nicer">nICEr License</a></li>
-#endif
       <li><a href="about:license#node-properties">node-properties License</a></li>
-#ifdef MOZ_WEBRTC
-      <li><a href="about:license#nrappkit">nrappkit License</a></li>
-#endif
 #ifdef MOZ_EME
       <li><a href="about:license#openaes">OpenAES License</a></li>
 #endif
@@ -167,10 +156,6 @@
       <li><a href="about:license#hunspell-en-US">US English Spellchecking Dictionary Licenses</a></li>
       <li><a href="about:license#v8">V8 License</a></li>
       <li><a href="about:license#vtune">VTune License</a></li>
-#ifdef MOZ_WEBRTC
-      <li><a href="about:license#webrtc">WebRTC License</a></li>
-      <li><a href="about:license#x264">x264 License</a></li>
-#endif
       <li><a href="about:license#xiph">Xiph.org Foundation License</a></li>
     </ul>
 
@@ -2070,31 +2055,6 @@ Public License instead of this License.  But first, please read
 &lt;<a href="http://www.gnu.org/philosophy/why-not-lgpl.html">http://www.gnu.org/philosophy/why-not-lgpl.html</a>&gt;.</p>
 
 <hr>
-#ifdef MOZ_WEBRTC
-    <h1><a id="ACE"></a>ACE License</h1>
-
-    <p>This license applies to the file
-    <span class="path">media/webrtc/trunk/webrtc/system_wrappers/source/condition_variable_event_win.cc</span>.</p>
-
-<pre>
-ACE(TM), TAO(TM), CIAO(TM), DAnCE(TM), and CoSMIC(TM)
-(henceforth referred to as "DOC software") are copyrighted by
-Douglas C. Schmidt and his research group at Washington University,
-University of California, Irvine, and Vanderbilt University,
-Copyright (c) 1993-2009, all rights reserved.
-Since DOC software is open-source, freely available software,
-you are free to use, modify, copy, and distribute--perpetually and
-irrevocably--the DOC software source code and object code produced
-from the source, as well as copy and distribute modified versions of
-this software. You must, however, include this copyright statement
-along with any code built using DOC software that you release. No
-copyright statement needs to be provided if you just ship binary
-executables of your software products.
-</pre>
-
-
-    <hr>
-#endif
     <h1><a id="adobecmap"></a>Adobe CMap License</h1>
 
     <p>This license applies to files in application directories for
@@ -3183,7 +3143,6 @@ THE SOFTWARE.
 
 
     <hr>
-#ifdef MOZ_WEBRTC
     <h1><a id="gyp"></a>gyp License</h1>
 
     <p>This license applies to certain files in the directory
@@ -3220,7 +3179,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
     <hr>
-#endif
 
     <h1><a id="halloc"></a>halloc License</h1>
 
@@ -3924,52 +3882,6 @@ THE SOFTWARE.
 
     <hr>
 #endif
-#ifdef MOZ_WEBRTC
-    <h1><a id="nicer"></a>nICEr License</h1>
-
-    <p>This license applies to certain files in the directory
-    <span class="path">media/mtransport/third_party/nICEr</span>.</p>
-
-<pre>
-   Copyright (C) 2007, Adobe Systems Inc.
-   Copyright (C) 2007-2008, Network Resonance, Inc.
-
-Each source file bears an individual copyright notice.
-
-The following license applies to this distribution as a whole.
-
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-* Redistributions of source code must retain the above copyright
-  notice, this list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright
-  notice, this list of conditions and the following disclaimer in the
-  documentation and/or other materials provided with the distribution.
-
-* Neither the name of Adobe Systems, Network Resonance nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-</pre>
-
-
-    <hr>
-#endif
 #ifdef MOZ_EME
     <h1><a id="openaes"></a>OpenAES License</h1>
 
@@ -4067,155 +3979,6 @@ THE SOFTWARE.
 
     <hr>
 #endif
-#ifdef MOZ_WEBRTC
-    <h1><a id="nrappkit"></a>nrappkit License</h1>
-
-    <p>This license applies to certain files in the directory
-    <span class="path">media/mtransport/third_party/nrappkit</span>.</p>
-
-<pre>
-Copyright (C) 2001-2007, Network Resonance, Inc.
-All Rights Reserved
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. Neither the name of Network Resonance, Inc. nor the name of any
-   contributors to this software may be used to endorse or promote
-   products derived from this software without specific prior written
-   permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ``AS IS''
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-</pre>
-
-    <p>This license applies to certain files in the directory
-    <span class="path">media/mtransport/third_party/nrappkit</span>.</p>
-
-<pre>
-Copyright (C) 1999-2003 RTFM, Inc.
-All Rights Reserved
-
-This package is a SSLv3/TLS protocol analyzer written by Eric Rescorla
-<ekr@rtfm.com> and licensed by RTFM, Inc.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-
-   This product includes software developed by Eric Rescorla for
-   RTFM, Inc.
-
-4. Neither the name of RTFM, Inc. nor the name of Eric Rescorla may be
-   used to endorse or promote products derived from this
-   software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE ERIC RESCORLA AND RTFM ``AS IS'' AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-oDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-SUCH DAMAGE.
-</pre>
-
-   <p>Note that RTFM, Inc. has waived clause (3) above as of June 20, 2012
-   for files appearing in this distribution. This waiver applies only to
-   files included in this distribution. it does not apply to any other
-   part of ssldump not included in this distribution.</p>
-
-    <p>This license applies to the file <span class="path">media/mtransport/third_party/nrappkit/src/port/generic/include/sys/queue.h</span>.</p>
-
-<pre>
-Copyright (c) 1991, 1993
-	The Regents of the University of California.  All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-4. Neither the name of the University nor the names of its contributors
-   may be used to endorse or promote products derived from this software
-   without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-SUCH DAMAGE.
-</pre>
-
-
-    <p>This license applies to the file:
-  <span class="path">media/mtransport/third_party/nrappkit/src/util/util.c</span>.</p>
-
-<pre>
-Copyright (c) 1998 Todd C. Miller <Todd.Miller@courtesan.com>
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. The name of the author may not be used to endorse or promote products
-   derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
-INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL
-THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
-OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-</pre>
-
-
-    <hr>
-#endif
-
     <h1><a id="praton"></a>praton License</h1>
 
     <p>This license applies to the file
@@ -5378,76 +5141,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
     <hr>
-#ifdef MOZ_WEBRTC
-    <h1><a id="webrtc"></a>WebRTC License</h1>
-
-    <p>This license applies to certain files in the directory
-    <span class="path">media/webrtc/trunk</span>.</p>
-<pre>
-Copyright (c) 2011, The WebRTC project authors. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-  * Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-
-  * Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the
-    distribution.
-
-  * Neither the name of Google nor the names of its contributors may
-    be used to endorse or promote products derived from this software
-    without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-</pre>
-
-
-    <hr>
-
-    <h1><a id="x264"></a>x264 License</h1>
-
-    <p>This license applies to the file <span class="path">
-    media/webrtc/trunk/third_party/libyuv/source/x86inc.asm</span>.
-    </p>
-
-<pre>
-Copyright (C) 2005-2012 x264 project
-
-Authors: Loren Merritt <lorenm@u.washington.edu>
-         Anton Mitrofanov <BugMaster@narod.ru>
-         Jason Garrett-Glaser <darkshikari@gmail.com>
-         Henrik Gramner <hengar-6@student.ltu.se>
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted, provided that the above
-copyright notice and this permission notice appear in all copies.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-</pre>
-
-    <hr>
-#endif
-
     <h1><a id="xiph"></a>Xiph.org Foundation License</h1>
 
     <p>This license applies to files in the following directories

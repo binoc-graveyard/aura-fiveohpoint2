@@ -130,12 +130,6 @@ EXPORTS += [
     'nsXMLNameSpaceMap.h',
 ]
 
-if CONFIG['MOZ_WEBRTC']:
-    EXPORTS += [
-        'nsDOMDataChannel.h',
-        'nsDOMDataChannelDeclarations.h',
-    ]
-
 EXPORTS.mozilla += [
     'CORSMode.h',
     'FeedWriterEnabled.h',
@@ -374,11 +368,6 @@ SOURCES += [
     'WindowOrientationObserver.cpp',
 ]
 
-if CONFIG['MOZ_WEBRTC']:
-    SOURCES += [
-        'nsDOMDataChannel.cpp',
-    ]
-
 # these files couldn't be in UNIFIED_SOURCES for now for reasons given below:
 SOURCES += [
     # Several conflicts with other bindings.
@@ -455,11 +444,6 @@ LOCAL_INCLUDES += [
     '/system/security/script',
     '/xpcom/ds',
 ]
-
-if CONFIG['MOZ_WEBRTC']:
-    LOCAL_INCLUDES += [
-        '/libs/sctp/datachannel',
-    ]
 
 include('/ipc/chromium/chromium-config.mozbuild')
 

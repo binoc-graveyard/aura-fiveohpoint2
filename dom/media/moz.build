@@ -44,9 +44,6 @@ DIRS += [
 if CONFIG['MOZ_FMP4']:
     DIRS += ['fmp4']
 
-if CONFIG['MOZ_WEBRTC']:
-    DIRS += ['bridge']
-
 if CONFIG['MOZ_EME']:
     DIRS += ['eme']
 
@@ -56,13 +53,7 @@ TEST_DIRS += [
 
 MOCHITEST_MANIFESTS += [
     'test/mochitest.ini',
-    'tests/mochitest/identity/mochitest.ini',
 ]
-
-if CONFIG['MOZ_WEBRTC']:
-    MOCHITEST_MANIFESTS += ['tests/mochitest/mochitest.ini']
-    WEBRTC_SIGNALLING_TEST_MANIFESTS += ['tests/mochitest/steeplechase.ini']
-    WEBRTC_SIGNALLING_TEST_MANIFESTS += ['tests/mochitest/steeplechase_long/steeplechase_long.ini']
 
 XPIDL_SOURCES += [
     'nsIAudioDeviceInfo.idl',
@@ -154,10 +145,9 @@ EXPORTS.mozilla.media.webrtc += [
     'webrtc/WebrtcGlobal.h',
 ]
 
-if not CONFIG['MOZ_WEBRTC']:
-  EXPORTS.mtransport += [
-      '../../media/mtransport/runnable_utils.h',
-  ]
+EXPORTS.mtransport += [
+    '../../media/mtransport/runnable_utils.h',
+]
 
 IPDL_SOURCES += [
     'webrtc/PWebrtcGlobal.ipdl'
@@ -282,12 +272,6 @@ LOCAL_INCLUDES += [
     '/system/network/base',
     '/system/security/script',
 ]
-
-if CONFIG['MOZ_WEBRTC']:
-    LOCAL_INCLUDES += [
-        '/media/webrtc/signaling/src/common',
-        '/media/webrtc/trunk',
-    ]
 
 DEFINES['MOZILLA_INTERNAL_API'] = True
 

@@ -33,12 +33,6 @@ DIRS += [
 if CONFIG['MOZ_MAILNEWS']:
   DIRS += ['/mailnews']
 
-if CONFIG['MOZ_WEBRTC']:
-  DIRS += [
-    '/media/webrtc',
-    '/media/mtransport',
-  ]
-
 if CONFIG['ENABLE_TESTS']:
   DIRS += ['/testing/specialpowers']
 
@@ -105,12 +99,6 @@ if CONFIG['ENABLE_TESTS']:
 
   if CONFIG['MOZ_MEMORY']:
     DIRS += ['/memory/gtest']
-
-  if CONFIG['MOZ_WEBRTC'] and not CONFIG['MOZ_TASK_TRACER']:
-    DIRS += [
-      '/media/webrtc/signaling/test',
-      '/media/mtransport/test',
-    ]
 
 if CONFIG['FUZZING']:
   DIRS += ['/tools/fuzzing']

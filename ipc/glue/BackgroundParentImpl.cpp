@@ -7,9 +7,6 @@
 
 #include "BroadcastChannelParent.h"
 #include "FileDescriptorSetParent.h"
-#ifdef MOZ_WEBRTC
-#include "CamerasParent.h"
-#endif
 #include "mozilla/media/MediaParent.h"
 #include "mozilla/AppProcessChecker.h"
 #include "mozilla/Assertions.h"
@@ -335,29 +332,14 @@ BackgroundParentImpl::DeallocPVsyncParent(PVsyncParent* aActor)
 camera::PCamerasParent*
 BackgroundParentImpl::AllocPCamerasParent()
 {
-  AssertIsInMainProcess();
-  AssertIsOnBackgroundThread();
-
-#ifdef MOZ_WEBRTC
-  RefPtr<mozilla::camera::CamerasParent> actor =
-      mozilla::camera::CamerasParent::Create();
-  return actor.forget().take();
-#else
+  //TODO: Remove this
   return nullptr;
-#endif
 }
 
 bool
 BackgroundParentImpl::DeallocPCamerasParent(camera::PCamerasParent *aActor)
 {
-  AssertIsInMainProcess();
-  AssertIsOnBackgroundThread();
-  MOZ_ASSERT(aActor);
-
-#ifdef MOZ_WEBRTC
-  RefPtr<mozilla::camera::CamerasParent> actor =
-      dont_AddRef(static_cast<mozilla::camera::CamerasParent*>(aActor));
-#endif
+  // TODO: Remove this
   return true;
 }
 

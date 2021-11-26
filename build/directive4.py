@@ -43,7 +43,6 @@ if ('MOZ_OFFICIAL_BRANDING' in listConfig) or (strBrandingDirectory.endswith("br
     if 'MC_PALEMOON' in listConfig:
         listViolations += [
             'MOZ_EME',
-            'MOZ_WEBRTC'
         ]
     
     # Iterate through enabled violations and output 1 to DIRECTIVE4 if any are found

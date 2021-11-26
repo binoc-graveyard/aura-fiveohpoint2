@@ -64,10 +64,6 @@ vpx_codec_get_cx_data
 vpx_codec_enc_config_default
 vpx_img_alloc
 vpx_codec_encode
-#ifdef MOZ_WEBRTC
-vpx_codec_set_frame_buffer_functions
-vpx_codec_enc_init_multi_ver
-#endif
 #ifdef MOZ_AV1
 aom_codec_av1_dx
 aom_codec_dec_init_ver
@@ -188,14 +184,6 @@ opus_encoder_destroy
 opus_encoder_ctl
 opus_encode
 opus_encode_float
-#ifdef MOZ_WEBRTC
-opus_custom_mode_create
-opus_packet_parse
-opus_packet_get_nb_channels
-downmix_int
-tonality_analysis_init
-run_analysis
-#endif
 #ifndef MOZ_NATIVE_PNG
 MOZ_APNG_get_first_frame_is_hidden
 MOZ_APNG_get_next_frame_blend_op

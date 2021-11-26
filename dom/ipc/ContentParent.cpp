@@ -173,10 +173,6 @@
 
 #include "nsLayoutStylesheetCache.h"
 
-#ifdef MOZ_WEBRTC
-#include "signaling/src/peerconnection/WebrtcGlobalParent.h"
-#endif
-
 #if defined(LINUX)
 #include "nsSystemInfo.h"
 #endif
@@ -4052,22 +4048,15 @@ ContentParent::DeallocPOfflineCacheUpdateParent(POfflineCacheUpdateParent* aActo
 PWebrtcGlobalParent *
 ContentParent::AllocPWebrtcGlobalParent()
 {
-#ifdef MOZ_WEBRTC
-  return WebrtcGlobalParent::Alloc();
-#else
+  // TODO: remove this
   return nullptr;
-#endif
 }
 
 bool
 ContentParent::DeallocPWebrtcGlobalParent(PWebrtcGlobalParent *aActor)
 {
-#ifdef MOZ_WEBRTC
-  WebrtcGlobalParent::Dealloc(static_cast<WebrtcGlobalParent*>(aActor));
-  return true;
-#else
+  // TODO: Remove this
   return false;
-#endif
 }
 
 bool

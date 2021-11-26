@@ -3,11 +3,6 @@ toolkit.jar:
 % content global-platform %content/global-platform/ platform
   content/global/gmp-sources/openh264.json        (content/gmp-sources/openh264.json)
   content/global/gmp-sources/widevinecdm.json     (content/gmp-sources/widevinecdm.json)
-#ifdef MOZ_WEBRTC
-  content/global/aboutwebrtc/aboutWebrtc.css      (content/aboutwebrtc/aboutWebrtc.css)
-  content/global/aboutwebrtc/aboutWebrtc.js       (content/aboutwebrtc/aboutWebrtc.js)
-  content/global/aboutwebrtc/aboutWebrtc.html     (content/aboutwebrtc/aboutWebrtc.html)
-#endif
   content/global/XPCNativeWrapper.js              (content/XPCNativeWrapper.js)
   content/global/minimal-xul.css                  (content/minimal-xul.css)
 * content/global/xul.css                          (content/xul.css)
