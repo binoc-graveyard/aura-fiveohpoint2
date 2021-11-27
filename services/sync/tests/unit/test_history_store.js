@@ -3,7 +3,7 @@
 
 Cu.import("resource://gre/modules/PlacesUtils.jsm");
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://services-common/async.js");
+Cu.import("resource://gre/modules/Async.jsm");
 Cu.import("resource://services-sync/engines/history.js");
 Cu.import("resource://services-sync/service.js");
 Cu.import("resource://services-sync/util.js");
