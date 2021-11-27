@@ -80,8 +80,6 @@ LOCAL_INCLUDES += [
     '/layout/xul/tree',
     '/media/mtransport',
     '/media/webrtc/',
-    '/media/webrtc/signaling/src/common/time_profiling',
-    '/media/webrtc/signaling/src/peerconnection',
 ]
 
 SOURCES += [
