@@ -55,8 +55,6 @@
 // Let us turn on and off important assertions in non-debug builds
 #ifdef DEBUG
 #define ASSERT_WEBRTC(x) MOZ_ASSERT((x))
-#elif defined(MOZ_WEBRTC_ASSERT_ALWAYS)
-#define ASSERT_WEBRTC(x) do { if (!(x)) { MOZ_CRASH(); } } while (0)
 #endif
 
 static bool sctp_initialized;
