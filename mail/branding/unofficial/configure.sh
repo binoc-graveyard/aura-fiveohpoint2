@@ -2,4 +2,9 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-MOZ_APP_DISPLAYNAME=MailNews
+MOZ_APP_VENDOR=Generic
+MOZ_APP_BASENAME=MailNews
+MOZ_APP_DISPLAYNAME=$MOZ_APP_BASENAME
+MOZ_CHROME_FILE_FORMAT=omni
+JAR_COMPRESSION=deflate
+OMNIJAR_NAME=omni.ja

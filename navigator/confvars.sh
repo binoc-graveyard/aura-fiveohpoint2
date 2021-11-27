@@ -3,10 +3,10 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-MOZ_APP_BASENAME=Borealis
-MOZ_APP_VENDOR=BinOC
 MOZ_APP_NAME=borealis
-MOZ_APP_DISPLAYNAME=Borealis
+MOZ_APP_VENDOR="Binary Outcast"
+MOZ_APP_BASENAME=Borealis
+MOZ_APP_DISPLAYNAME=$MOZ_APP_BASENAME
 BINOC_NAVIGATOR=1
 BINOC_DOWNLOADS=1
 MOZ_BRANDING_DIRECTORY=navigator/branding/unofficial
