@@ -5,6 +5,7 @@
 
 DIRS += [
   'docshell',
+  'fonts',
   'graphics',
   'hardware',
   'image',
