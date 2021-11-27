@@ -47,6 +47,7 @@ toolkit.jar:
   content/global/findUtils.js                     (content/findUtils.js)
   content/global/filepicker.properties            (content/filepicker.properties)
   content/global/globalOverlay.js                 (content/globalOverlay.js)
+* content/global/license.html                     (content/license.html)
   content/global/mozilla.xhtml                    (content/mozilla.xhtml)
   content/global/process-content.js               (content/process-content.js)
   content/global/resetProfile.css                 (content/resetProfile.css)
