@@ -19,7 +19,7 @@ this.EXPORTED_SYMBOLS = [
 ];
 
 Cu.import("resource://testing-common/httpd.js");
-Cu.import("resource://services-common/async.js");
+Cu.import("resource://gre/modules/Async.jsm");
 Cu.import("resource://gre/modules/Log.jsm");
 Cu.import("resource://services-common/utils.js");
 

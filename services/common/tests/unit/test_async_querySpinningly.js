@@ -2,7 +2,7 @@
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://services-common/async.js");
+Cu.import("resource://gre/modules/Async.jsm");
 Cu.import("resource://services-common/utils.js");
 
 _("Make sure querySpinningly will synchronously fetch rows for a query asyncly");

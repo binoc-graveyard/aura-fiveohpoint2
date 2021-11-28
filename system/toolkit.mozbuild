@@ -20,7 +20,6 @@ DIRS += [
   '/ipc',
   '/js/ipc',
   '/js/xpconnect',
-  '/intl/chardet',
   '/libs/libyuv',
 ]
 
@@ -43,9 +42,6 @@ DIRS += [
   '/layout',
   '/embedding',
 ]
-
-if CONFIG['MOZ_UNIVERSALCHARDET']:
-  DIRS += ['/extensions/universalchardet']
 
 if CONFIG['ACCESSIBILITY']:
   DIRS += ['/accessible']
