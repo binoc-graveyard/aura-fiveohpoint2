@@ -113,7 +113,6 @@ LOCAL_INCLUDES += [
     '/embedding/components/printingui/ipc',
     '/extensions/spellcheck/src',
     '/layout/base',
-    '/media/webrtc',
     '/system/docshell/base',
     '/system/graphics/2d',
     '/system/hardware/sandbox',
