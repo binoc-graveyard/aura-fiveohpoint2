@@ -102,13 +102,6 @@ this.AppConstants = Object.freeze({
   false,
 #endif
 
-  MOZ_WEBRTC:
-#ifdef MOZ_WEBRTC
-  true,
-#else
-  false,
-#endif
-
   MOZ_WIDGET_GTK:
 #ifdef MOZ_WIDGET_GTK
   true,

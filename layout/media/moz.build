@@ -18,9 +18,6 @@ else:
     # on Windows for them to propagate there.
     Library('gkmedias')
 
-if CONFIG['MOZ_WEBRTC']:
-    DIRS += ['webrtc']
-
 if CONFIG['OS_TARGET'] == 'WINNT':
     DEFFILE = 'symbols.def'
     OS_LIBS += [

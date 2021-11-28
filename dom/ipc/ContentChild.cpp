@@ -119,10 +119,6 @@
 #include "nsIScriptSecurityManager.h"
 #include "nsHostObjectProtocolHandler.h"
 
-#ifdef MOZ_WEBRTC
-#include "signaling/src/peerconnection/WebrtcGlobalChild.h"
-#endif
-
 #include "nsPermission.h"
 #include "nsPermissionManager.h"
 
@@ -1653,23 +1649,15 @@ ContentChild::DeallocPSpeechSynthesisChild(PSpeechSynthesisChild* aActor)
 PWebrtcGlobalChild *
 ContentChild::AllocPWebrtcGlobalChild()
 {
-#ifdef MOZ_WEBRTC
-  WebrtcGlobalChild *child = new WebrtcGlobalChild();
-  return child;
-#else
+  // TODO: Remove this
   return nullptr;
-#endif
 }
 
 bool
 ContentChild::DeallocPWebrtcGlobalChild(PWebrtcGlobalChild *aActor)
 {
-#ifdef MOZ_WEBRTC
-  delete static_cast<WebrtcGlobalChild*>(aActor);
-  return true;
-#else
+  // TODO: Remove this
   return false;
-#endif
 }
 
 

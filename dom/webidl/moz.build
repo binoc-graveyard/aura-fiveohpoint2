@@ -590,29 +590,6 @@ if CONFIG['MOZ_AUDIO_CHANNEL_MANAGER']:
         'AudioChannelManager.webidl',
     ]
 
-if CONFIG['MOZ_WEBRTC']:
-    WEBIDL_FILES += [
-        'DataChannel.webidl',
-        'MediaStreamList.webidl',
-        'PeerConnectionImpl.webidl',
-        'PeerConnectionImplEnums.webidl',
-        'PeerConnectionObserver.webidl',
-        'PeerConnectionObserverEnums.webidl',
-        'RTCCertificate.webidl',
-        'RTCConfiguration.webidl',
-        'RTCDTMFSender.webidl',
-        'RTCIceCandidate.webidl',
-        'RTCIdentityAssertion.webidl',
-        'RTCIdentityProvider.webidl',
-        'RTCPeerConnection.webidl',
-        'RTCPeerConnectionStatic.webidl',
-        'RTCRtpReceiver.webidl',
-        'RTCRtpSender.webidl',
-        'RTCSessionDescription.webidl',
-        'WebrtcDeprecated.webidl',
-        'WebrtcGlobalInformation.webidl',
-    ]
-
 if CONFIG['MOZ_WEBSPEECH']:
     WEBIDL_FILES += [
         'SpeechSynthesis.webidl',
@@ -703,14 +680,6 @@ GENERATED_EVENTS_WEBIDL_FILES = [
     'UserProximityEvent.webidl',
     'WebGLContextEvent.webidl',
 ]
-
-if CONFIG['MOZ_WEBRTC']:
-    GENERATED_EVENTS_WEBIDL_FILES += [
-        'RTCDataChannelEvent.webidl',
-        'RTCDTMFToneChangeEvent.webidl',
-        'RTCPeerConnectionIceEvent.webidl',
-        'RTCTrackEvent.webidl',
-    ]
 
 if CONFIG['MOZ_WEBSPEECH']:
     GENERATED_EVENTS_WEBIDL_FILES += [
