@@ -78,7 +78,6 @@ LOCAL_INCLUDES += [
     '/layout/generic',
     '/layout/style',
     '/layout/xul/tree',
-    '/media/mtransport',
 ]
 
 SOURCES += [
