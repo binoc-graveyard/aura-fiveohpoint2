@@ -103,6 +103,10 @@ EXPORTS.mozilla = [
     'XorShift128PlusRNG.h',
 ]
 
+EXPORTS += [
+    'runnable_utils.h'
+]
+
 if CONFIG['OS_ARCH'] == 'WINNT':
     EXPORTS.mozilla += [
         'WindowsVersion.h',

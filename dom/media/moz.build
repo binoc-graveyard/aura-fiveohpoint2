@@ -145,10 +145,6 @@ EXPORTS.mozilla.media.webrtc += [
     'webrtc/WebrtcGlobal.h',
 ]
 
-EXPORTS.mtransport += [
-    '../../media/mtransport/runnable_utils.h',
-]
-
 IPDL_SOURCES += [
     'webrtc/PWebrtcGlobal.ipdl'
 ]
