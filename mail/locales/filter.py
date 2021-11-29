@@ -3,7 +3,7 @@ def test(mod, path, entity=None):
   # ignore anything but Thunderbird
   if mod not in ("netwerk", "dom", "toolkit", "security/manager",
                  "devtools/shared", "devtools/client",
-                 "mail", "chat", "editor/ui", "intl/spellcheck",
+                 "mail", "chat", "editor/ui", "system/intl/spellcheck",
                  "other-licenses/branding/thunderbird"):
     return "ignore"
 
@@ -12,7 +12,7 @@ def test(mod, path, entity=None):
      entity == "MOZ_LANGPACK_CONTRIBUTORS":
     return "ignore"
   # ignore dictionaries
-  if mod == "intl/spellcheck":
+  if mod == "system/intl/spellcheck":
     return "ignore"
 
   if path == "chrome/messenger-region/region.properties":
