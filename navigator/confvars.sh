@@ -11,8 +11,7 @@ BINOC_NAVIGATOR=1
 BINOC_DOWNLOADS=1
 MOZ_BRANDING_DIRECTORY=navigator/branding/unofficial
 MOZ_OFFICIAL_BRANDING_DIRECTORY=navigator/branding/official
-MOZ_EXTENSIONS_DEFAULT=" gio"
-MOZ_UPDATER=1
+MOZ_UPDATER=
 # This should usually be the same as the value MAR_CHANNEL_ID.
 # If more than one ID is needed, then you should use a comma separated list
 # of values.

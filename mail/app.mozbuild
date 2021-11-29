@@ -8,9 +8,6 @@ include('/xpfe/xpfe.mozbuild')
 if not CONFIG['MOZ_INCOMPLETE_EXTERNAL_LINKAGE']:
     DIRS += ['/mail/components']
 
-if CONFIG['MOZ_EXTENSIONS']:
-    DIRS += ['/extensions']
-
 DIRS += ['/%s' % CONFIG['MOZ_BRANDING_DIRECTORY']]
 
 # Never add tier dirs after mail because they apparently won't get
