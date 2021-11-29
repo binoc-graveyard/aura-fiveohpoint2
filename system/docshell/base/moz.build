@@ -14,6 +14,8 @@ XPIDL_SOURCES += [
     'nsIContentViewerContainer.idl',
     'nsIContentViewerEdit.idl',
     'nsIContentViewerFile.idl',
+    'nsIContextMenuListener.idl',
+    'nsIContextMenuListener2.idl',
     'nsIDocCharset.idl',
     'nsIDocShell.idl',
     'nsIDocShellLoadInfo.idl',
@@ -28,6 +30,8 @@ XPIDL_SOURCES += [
     'nsIRefreshURI.idl',
     'nsIScrollable.idl',
     'nsITextScroll.idl',
+    'nsITooltipListener.idl',
+    'nsITooltipTextProvider.idl',
     'nsIURIFixup.idl',
     'nsIWebNavigation.idl',
     'nsIWebNavigationInfo.idl',
@@ -37,6 +41,7 @@ XPIDL_SOURCES += [
 XPIDL_MODULE = 'docshell'
 
 EXPORTS += [
+    'nsCTooltipTextProvider.h',
     'nsDocShellLoadTypes.h',
     'nsILinkHandler.h',
     'nsIScrollObserver.h',
@@ -48,16 +53,18 @@ EXPORTS.mozilla += [
     'IHistory.h',
     'LoadContext.h',
 ]
-
+    
 SOURCES += [
     'LoadContext.cpp',
     'nsAboutRedirector.cpp',
+    'nsContextMenuInfo.cpp',
     'nsDefaultURIFixup.cpp',
     'nsDocShell.cpp',
     'nsDocShellEditorData.cpp',
     'nsDocShellEnumerator.cpp',
     'nsDocShellLoadInfo.cpp',
     'nsDocShellTransferableHooks.cpp',
+    'nsDocShellTreeOwner.cpp',
     'nsDownloadHistory.cpp',
     'nsDSURIContentListener.cpp',
     'nsWebNavigationInfo.cpp',
