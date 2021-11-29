@@ -24,6 +24,7 @@ DIRS += [
   'libtheora',
   'libvpx',
   'libwebp',
+  'libyuv',
   'ots/src',
   'protobuf',
   'psshparser',

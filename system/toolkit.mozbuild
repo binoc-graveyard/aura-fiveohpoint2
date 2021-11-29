@@ -3,40 +3,32 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-DIRS += ['/libs']
-
 DIRS += [
+  '/libs',
   '/config/external/freetype2',
   '/xpcom',
 ]
 
-# Gecko/Core components.
-
 DIRS += [
+  '/components',
+  '/dom',
+  '/editor',
+  '/embedding',
   '/ipc',
   '/js/ipc',
   '/js/xpconnect',
-  '/libs/libyuv',
-]
-
-DIRS += [
-  '/components',
+  '/layout',
   '/modules',
-  '/system'
+  '/services',
+  '/system',
+  '/toolkit',
 ]
-
-if CONFIG['MOZ_MAILNEWS']:
-  DIRS += ['/mailnews']
-
-if CONFIG['ENABLE_TESTS']:
-  DIRS += ['/testing/specialpowers']
 
 DIRS += [
   '/testing/gtest',
-  '/dom',
-  '/editor',
-  '/layout',
-  '/embedding',
+  '/tools/power',
+  '/tools/profiler',
+  '/tools/memory-profiler',
 ]
 
 if CONFIG['ACCESSIBILITY']:
@@ -44,24 +36,18 @@ if CONFIG['ACCESSIBILITY']:
 else:
   DIRS += ['/accessible/ipc']
 
-# toolkit
-
-DIRS += [
-  '/tools/power',
-  '/tools/profiler',
-  '/tools/memory-profiler',
-]
-
-DIRS += ['/toolkit']
-
-DIRS += ['/services']
+if CONFIG['MOZ_MAILNEWS']:
+  DIRS += ['/mailnews']
 
 DIRS += [
   '/system/evil/StaticXULComponentsEnd',
   '/system/evil',
 ]
 
-if CONFIG['ENABLE_MARIONETTE'] or True:
+if CONFIG['FUZZING']:
+  DIRS += ['/tools/fuzzing']
+
+if CONFIG['ENABLE_MARIONETTE']:
   DIRS += [
     '/testing/firefox-ui',
     '/testing/marionette',
@@ -77,11 +63,9 @@ if CONFIG['ENABLE_TESTS']:
     '/testing/mozbase',
     '/testing/modules',
     '/testing/runtimes',
+    '/testing/specialpowers',
     '/testing/web-platform',
   ]
 
   if CONFIG['MOZ_MEMORY']:
     DIRS += ['/memory/gtest']
-
-if CONFIG['FUZZING']:
-  DIRS += ['/tools/fuzzing']
