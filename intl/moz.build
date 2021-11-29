@@ -5,10 +5,8 @@
 
 DIRS += [
     'chardet',
-    'hyphenation/hyphen',
-    'hyphenation/glue',
+    'hyphenation',
     'locale',
-    'locales',
     'lwbrk',
     'strres',
     'unicharutil',
