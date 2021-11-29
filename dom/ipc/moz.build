@@ -111,7 +111,7 @@ LOCAL_INCLUDES += [
     '/dom/storage',
     '/dom/workers',
     '/embedding/components/printingui/ipc',
-    '/extensions/spellcheck/src',
+    '/intl/spellcheck/src',
     '/layout/base',
     '/system/docshell/base',
     '/system/graphics/2d',

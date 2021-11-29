@@ -53,9 +53,6 @@ DIRS += [
   '/tools/memory-profiler',
 ]
 
-if CONFIG['MOZ_SPELLCHECK']:
-  DIRS += ['/extensions/spellcheck']
-
 DIRS += ['/toolkit']
 
 DIRS += ['/services']

@@ -79,7 +79,7 @@ SOURCES += [
 LOCAL_INCLUDES += [
     '/dom/base',
     '/editor/txmgr',
-    '/extensions/spellcheck/src',
+    '/intl/spellcheck/src',
     '/layout/generic',
     '/layout/style',
     '/layout/tables',
