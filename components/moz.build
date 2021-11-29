@@ -78,6 +78,7 @@ DIRS += [
   'urlformatter',
   'viewconfig',
   'viewsource',
+  'windowcreator',
   'windowds',
   'workerloader',
   'xmlparser',

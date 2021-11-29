@@ -3,13 +3,10 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-DIRS += ['components', 'browser']
-
-TEST_DIRS += ['test']
-
-if CONFIG['ENABLE_TESTS']:
-    XPCSHELL_TESTS_MANIFESTS += ['tests/unit/xpcshell.ini']
-
-EXPORTS += [
-    'nsEmbedCID.h',
+XPIDL_SOURCES += [
+  'public/nsIWindowCreator.idl',
+  'public/nsIWindowCreator2.idl',
+  'public/nsIWindowProvider.idl',
 ]
+
+XPIDL_MODULE = 'windowcreator'
