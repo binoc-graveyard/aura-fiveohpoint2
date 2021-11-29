@@ -5,6 +5,8 @@
 
 include('/ipc/chromium/chromium-config.mozbuild')
 
+DIRS += ['locales']
+
 XPIDL_SOURCES += [
   'public/mozIPersonalDictionary.idl',
   'public/mozISpellCheckingEngine.idl',
