@@ -47,12 +47,6 @@ DIRS += [
 if CONFIG['FUZZING']:
   DIRS += ['/tools/fuzzing']
 
-if CONFIG['ENABLE_MARIONETTE']:
-  DIRS += [
-    '/testing/firefox-ui',
-    '/testing/marionette',
-  ]
-
 if CONFIG['ENABLE_TESTS']:
   DIRS += [
     '/testing/mochitest',
