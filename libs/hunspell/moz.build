@@ -18,7 +18,7 @@ SOURCES += [
   'src/suggestmgr.cxx',
 ]
 
-LOCAL_INCLUDES += ['/intl/spellcheck/src']
+LOCAL_INCLUDES += ['/system/intl/spellcheck/src']
 
 # This variable is referenced in configure.in.  Make sure to change that file
 # too if you need to change this variable.

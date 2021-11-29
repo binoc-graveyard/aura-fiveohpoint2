@@ -79,11 +79,11 @@ SOURCES += [
 LOCAL_INCLUDES += [
     '/dom/base',
     '/editor/txmgr',
-    '/intl/spellcheck/src',
     '/layout/generic',
     '/layout/style',
     '/layout/tables',
     '/layout/xul',
+    '/system/intl/spellcheck/src',
 ]
 
 EXTRA_COMPONENTS += [

@@ -10,6 +10,7 @@ DIRS += [
   'hardware',
   'image',
   'interface',
+  'intl',
   'network',
   'security',
 ]

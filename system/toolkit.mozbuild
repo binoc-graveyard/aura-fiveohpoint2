@@ -8,7 +8,6 @@ DIRS += ['/libs']
 DIRS += [
   '/config/external/freetype2',
   '/xpcom',
-  '/intl',
 ]
 
 # Gecko/Core components.

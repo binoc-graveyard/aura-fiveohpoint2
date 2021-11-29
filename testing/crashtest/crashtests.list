@@ -40,8 +40,8 @@ include ../../system/graphics/tests/crashtests/crashtests.list
 
 include ../../system/image/test/crashtests/crashtests.list
 
-include ../../intl/lwbrk/crashtests/crashtests.list
-include ../../intl/uconv/crashtests/crashtests.list
+include ../../system/intl/lwbrk/crashtests/crashtests.list
+include ../../system/intl/uconv/crashtests/crashtests.list
 
 include ../../js/xpconnect/crashtests/crashtests.list
 
