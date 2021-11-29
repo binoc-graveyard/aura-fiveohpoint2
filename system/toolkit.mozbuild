@@ -61,9 +61,6 @@ if CONFIG['MOZ_SPELLCHECK']:
 
 DIRS += ['/toolkit']
 
-if CONFIG['MOZ_PREF_EXTENSIONS']:
-  DIRS += ['/extensions/pref']
-
 DIRS += ['/services']
 
 DIRS += [

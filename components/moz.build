@@ -87,6 +87,9 @@ DIRS += [
 if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
   DIRS += ['filepicker', 'gservice']
 
+if CONFIG['MOZ_PREF_EXTENSIONS']:
+  DIRS += ['autoconfig']
+
 if CONFIG['BUILD_CTYPES']:
   DIRS += ['ctypes']
 
