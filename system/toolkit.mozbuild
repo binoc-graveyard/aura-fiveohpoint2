@@ -11,9 +11,6 @@ DIRS += [
   '/intl',
 ]
 
-if CONFIG['MOZ_AUTH_EXTENSION']:
-  DIRS += ['/extensions/auth']
-
 # Gecko/Core components.
 
 DIRS += [
