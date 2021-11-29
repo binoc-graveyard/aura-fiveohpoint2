@@ -66,9 +66,6 @@ if CONFIG['MOZ_PREF_EXTENSIONS']:
 
 DIRS += ['/services']
 
-if CONFIG['MOZ_GIO_COMPONENT']:
-  DIRS += ['/extensions/gio']
-
 DIRS += [
   '/system/evil/StaticXULComponentsEnd',
   '/system/evil',
