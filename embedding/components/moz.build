@@ -6,7 +6,6 @@
 # You'd think we could skip building ui if XUL is disabled,
 # but we need to export interface headers from those directories.
 DIRS += [
-    'windowwatcher',
     'appstartup',
     'webbrowserpersist',
     'commandhandler',

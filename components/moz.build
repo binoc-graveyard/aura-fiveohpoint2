@@ -81,6 +81,7 @@ DIRS += [
   'webbrowser',
   'windowcreator',
   'windowds',
+  'windowwatcher',
   'workerloader',
   'xmlparser',
   'xulstore'
