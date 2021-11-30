@@ -13,7 +13,6 @@ DIRS += [
   '/components',
   '/dom',
   '/editor',
-  '/embedding',
   '/ipc',
   '/js/ipc',
   '/js/xpconnect',

@@ -17,7 +17,12 @@ EXPORTS += ['src/nsPrintingProxy.h']
 EXPORTS.mozilla.embedding.printingui += ['src/PrintingParent.h']
 
 if CONFIG['NS_PRINTING']:
-  UNIFIED_SOURCES += [
+  if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
+    DIRS += ['src/win']
+  else:
+    DIRS += ['src/unix']
+
+  SOURCES += [
     'src/nsPrintingProxy.cpp',
     'src/PrintDataUtils.cpp',
     'src/PrintingParent.cpp',
@@ -26,21 +31,6 @@ if CONFIG['NS_PRINTING']:
     'src/PrintSettingsDialogChild.cpp',
     'src/PrintSettingsDialogParent.cpp',
   ]
-
-  if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
-    EXPORTS += ['src/win/nsPrintDialogUtil.h']
-    UNIFIED_SOURCES += [
-      'src/win/nsPrintDialogUtil.cpp',
-      'src/win/nsPrintingPromptService.cpp',
-      'src/win/nsPrintProgress.cpp',
-      'src/win/nsPrintProgressParams.cpp',
-    ]
-  else:
-    UNIFIED_SOURCES += [
-      'nsPrintingPromptService.cpp',
-      'nsPrintProgress.cpp',
-      'nsPrintProgressParams.cpp',
-    ]
 
   JAR_MANIFESTS += ['jar.mn']
 

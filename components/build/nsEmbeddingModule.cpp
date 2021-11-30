@@ -6,7 +6,6 @@
 #include "mozilla/ModuleUtils.h"
 #include "nsDialogParamBlock.h"
 #include "nsWindowWatcher.h"
-#include "nsAppStartupNotifier.h"
 #include "nsFind.h"
 #include "nsWebBrowserFind.h"
 #include "nsWebBrowserPersist.h"
@@ -25,7 +24,6 @@
 
 
 NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(nsWindowWatcher, Init)
-NS_GENERIC_FACTORY_CONSTRUCTOR(nsAppStartupNotifier)
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsFind)
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsWebBrowserFind)
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsWebBrowserPersist)
@@ -51,7 +49,6 @@ NS_DEFINE_NAMED_CID(NS_PRINTINGPROMPTSERVICE_CID);
 NS_DEFINE_NAMED_CID(NS_WINDOWWATCHER_CID);
 NS_DEFINE_NAMED_CID(NS_FIND_CID);
 NS_DEFINE_NAMED_CID(NS_WEB_BROWSER_FIND_CID);
-NS_DEFINE_NAMED_CID(NS_APPSTARTUPNOTIFIER_CID);
 NS_DEFINE_NAMED_CID(NS_WEBBROWSERPERSIST_CID);
 NS_DEFINE_NAMED_CID(NS_CONTROLLERCOMMANDTABLE_CID);
 NS_DEFINE_NAMED_CID(NS_COMMAND_MANAGER_CID);
@@ -75,7 +72,6 @@ static const mozilla::Module::CIDEntry kEmbeddingCIDs[] = {
     { &kNS_WINDOWWATCHER_CID, false, nullptr, nsWindowWatcherConstructor },
     { &kNS_FIND_CID, false, nullptr, nsFindConstructor },
     { &kNS_WEB_BROWSER_FIND_CID, false, nullptr, nsWebBrowserFindConstructor },
-    { &kNS_APPSTARTUPNOTIFIER_CID, false, nullptr, nsAppStartupNotifierConstructor },
     { &kNS_WEBBROWSERPERSIST_CID, false, nullptr, nsWebBrowserPersistConstructor },
     { &kNS_CONTROLLERCOMMANDTABLE_CID, false, nullptr, nsControllerCommandTableConstructor },
     { &kNS_COMMAND_MANAGER_CID, false, nullptr, nsCommandManagerConstructor },
@@ -93,7 +89,6 @@ static const mozilla::Module::ContractIDEntry kEmbeddingContracts[] = {
     { NS_WINDOWWATCHER_CONTRACTID, &kNS_WINDOWWATCHER_CID },
     { NS_FIND_CONTRACTID, &kNS_FIND_CID },
     { NS_WEB_BROWSER_FIND_CONTRACTID, &kNS_WEB_BROWSER_FIND_CID },
-    { NS_APPSTARTUPNOTIFIER_CONTRACTID, &kNS_APPSTARTUPNOTIFIER_CID },
     { NS_WEBBROWSERPERSIST_CONTRACTID, &kNS_WEBBROWSERPERSIST_CID },
     { NS_CONTROLLERCOMMANDTABLE_CONTRACTID, &kNS_CONTROLLERCOMMANDTABLE_CID },
     { NS_COMMAND_MANAGER_CONTRACTID, &kNS_COMMAND_MANAGER_CID },

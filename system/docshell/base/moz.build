@@ -76,9 +76,12 @@ include('/ipc/chromium/chromium-config.mozbuild')
 FINAL_LIBRARY = 'xul'
 LOCAL_INCLUDES += [
     '../shistory',
+    '/components/webbrowser/src',
     '/dom/base',
+    '/dom/svg',
     '/layout/base',
     '/layout/generic',
+    '/layout/style',
     '/layout/xul',
     '/system/network/protocol/viewsource',
     '/tools/profiler',
