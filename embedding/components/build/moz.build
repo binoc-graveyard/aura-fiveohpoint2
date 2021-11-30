@@ -10,11 +10,11 @@ SOURCES += [
 FINAL_LIBRARY = 'xul'
 LOCAL_INCLUDES += [
     '../appstartup',
-    '../commandhandler',
-    '../webbrowserpersist',
     '/components/find',
     '/components/printing/src',
     '/components/windowwatcher',
+    '/dom/commandhandler',
+    '/dom/webbrowserpersist',
 ]
 
 if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':

@@ -97,6 +97,8 @@ DIRS += [
     'xhr',
     'worklet',
     'script',
+    'webbrowserpersist',
+    'commandhandler',
 ]
 
 if CONFIG['OS_ARCH'] == 'WINNT':

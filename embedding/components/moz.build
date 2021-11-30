@@ -7,8 +7,6 @@
 # but we need to export interface headers from those directories.
 DIRS += [
     'appstartup',
-    'webbrowserpersist',
-    'commandhandler',
 ]
 
 DIRS += ['build']
