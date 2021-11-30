@@ -36,6 +36,7 @@ LOCAL_INCLUDES += [
   '/dom/svg',
   '/layout/style',
   '/system/docshell/base',
+  'src',
 ]
 
 if CONFIG['GNU_CXX']:

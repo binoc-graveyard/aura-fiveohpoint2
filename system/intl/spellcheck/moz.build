@@ -36,7 +36,10 @@ SOURCES += [
   'src/RemoteSpellCheckEngineParent.cpp',
 ]
 
-LOCAL_INCLUDES += ['/dom/base']
+LOCAL_INCLUDES += [
+  '/dom/base',
+  'src'
+]
 
 if CONFIG['MOZ_SYSTEM_HUNSPELL']:
   CXXFLAGS += CONFIG['MOZ_HUNSPELL_CFLAGS']
