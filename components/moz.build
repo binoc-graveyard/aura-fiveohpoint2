@@ -53,6 +53,7 @@ DIRS += [
   'places',
   'pluginproblem',
   'preferences',
+  'printing',
   'privatebrowsing',
   'processsingleton',
   'profile',
@@ -107,9 +108,6 @@ if CONFIG['MOZ_JETPACK']:
 
 if CONFIG['MOZ_MAILNEWS']:
   DIRS += ['mork']
-
-if CONFIG['NS_PRINTING']:
-  DIRS += ['printing']
 
 if CONFIG['MOZ_ENABLE_XREMOTE']:
   DIRS += ['remote']

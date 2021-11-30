@@ -11,22 +11,22 @@ FINAL_LIBRARY = 'xul'
 LOCAL_INCLUDES += [
     '../appstartup',
     '../commandhandler',
-    '../printingui/ipc',
     '../webbrowserpersist',
     '../windowwatcher',
     '/components/find',
+    '/components/printing/src',
 ]
 
 if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
     DEFINES['PROXY_PRINTING'] = 1
     LOCAL_INCLUDES += [
-        '../printingui/win',
+        '/components/printing/src/win',
     ]
 
 if CONFIG['MOZ_PDF_PRINTING']:
     DEFINES['PROXY_PRINTING'] = 1
     LOCAL_INCLUDES += [
-        '../printingui/unixshared',
+        '/components/printing/src/unix',
     ]
 
 include('/ipc/chromium/chromium-config.mozbuild')

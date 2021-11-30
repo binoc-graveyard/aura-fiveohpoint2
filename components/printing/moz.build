@@ -3,4 +3,45 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-JAR_MANIFESTS += ['jar.mn']
+include('/ipc/chromium/chromium-config.mozbuild')
+
+IPDL_SOURCES += [
+  'public/PPrinting.ipdl',
+  'public/PPrintingTypes.ipdlh',
+  'public/PPrintProgressDialog.ipdl',
+  'public/PPrintSettingsDialog.ipdl',
+]
+
+EXPORTS += ['src/nsPrintingProxy.h']
+
+EXPORTS.mozilla.embedding.printingui += ['src/PrintingParent.h']
+
+if CONFIG['NS_PRINTING']:
+  UNIFIED_SOURCES += [
+    'src/nsPrintingProxy.cpp',
+    'src/PrintDataUtils.cpp',
+    'src/PrintingParent.cpp',
+    'src/PrintProgressDialogChild.cpp',
+    'src/PrintProgressDialogParent.cpp',
+    'src/PrintSettingsDialogChild.cpp',
+    'src/PrintSettingsDialogParent.cpp',
+  ]
+
+  if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
+    EXPORTS += ['src/win/nsPrintDialogUtil.h']
+    UNIFIED_SOURCES += [
+      'src/win/nsPrintDialogUtil.cpp',
+      'src/win/nsPrintingPromptService.cpp',
+      'src/win/nsPrintProgress.cpp',
+      'src/win/nsPrintProgressParams.cpp',
+    ]
+  else:
+    UNIFIED_SOURCES += [
+      'nsPrintingPromptService.cpp',
+      'nsPrintProgress.cpp',
+      'nsPrintProgressParams.cpp',
+    ]
+
+  JAR_MANIFESTS += ['jar.mn']
+
+FINAL_LIBRARY = 'xul'
