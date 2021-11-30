@@ -13,6 +13,7 @@ DIRS += [
   'intl',
   'network',
   'security',
+  'themes',
 ]
 
 DIRS += ['runtime']
