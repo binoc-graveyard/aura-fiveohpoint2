@@ -4,15 +4,15 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 XPIDL_SOURCES += [
-  'public/nsIFindService.idl',
   'public/nsIFind.idl',
+  'public/nsIFindService.idl',
   'public/nsIWebBrowserFind.idl',
 ]
 
 
 SOURCES += [
-  'src/nsFindService.cpp',
   'src/nsFind.cpp',
+  'src/nsFindService.cpp',
   'src/nsWebBrowserFind.cpp',
 ]
 
