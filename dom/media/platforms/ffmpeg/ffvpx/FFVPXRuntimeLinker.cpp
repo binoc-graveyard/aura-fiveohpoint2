@@ -51,8 +51,7 @@ FFVPXRuntimeLinker::Init()
 
   sLinkStatus = LinkStatus_FAILED;
 
-  // We retrieve the path of the lgpllibs library as this is where mozavcodec
-  // and mozavutil libs are located.
+  // We retrieve the path of the lgpllibs library as this is where ffvpx* libs are located.
   char* lgpllibsname = PR_GetLibraryName(nullptr, "lgpllibs");
   if (!lgpllibsname) {
     return false;
@@ -83,13 +82,13 @@ FFVPXRuntimeLinker::Init()
 
   char* libname = NULL;
   /* Get the platform-dependent library name of the module */
-  libname = PR_GetLibraryName(rootPath.get(), "mozavutil");
+  libname = PR_GetLibraryName(rootPath.get(), "ffvpxutil");
   if (!libname) {
     return false;
   }
   sFFVPXLib.mAVUtilLib = MozAVLink(libname);
   PR_FreeLibraryName(libname);
-  libname = PR_GetLibraryName(rootPath.get(), "mozavcodec");
+  libname = PR_GetLibraryName(rootPath.get(), "ffvpxcodec");
   if (libname) {
     sFFVPXLib.mAVCodecLib = MozAVLink(libname);
     PR_FreeLibraryName(libname);
