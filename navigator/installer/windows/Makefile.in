@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-include $(MOZILLA_SRCDIR)/toolkit/mozapps/installer/package-name.mk
+include $(MOZILLA_SRCDIR)/system/installer/package-name.mk
 
 CONFIG_DIR = instgen
 SFX_MODULE = $(topsrcdir)/other-licenses/7zstub/binoc/7zSD.sfx
@@ -40,7 +40,7 @@ uninstaller::
 	$(INSTALL) $(addprefix $(DIST)/branding/,$(BRANDING_FILES)) $(CONFIG_DIR)
 	$(call py_action,preprocessor,-Fsubstitution $(DEFINES) $(ACDEFINES) \
 	  $(srcdir)/nsis/defines.nsi.in -o $(CONFIG_DIR)/defines.nsi)
-	$(PYTHON) $(MOZILLA_SRCDIR)/toolkit/mozapps/installer/windows/nsis/preprocess-locale.py \
+	$(PYTHON) $(MOZILLA_SRCDIR)/system/installer/windows/nsis/preprocess-locale.py \
 	  --preprocess-locale $(MOZILLA_SRCDIR) \
 	  $(topsrcdir)/navigator/installer/windows/locale $(AB_CD) $(CONFIG_DIR)
 
@@ -49,15 +49,15 @@ $(CONFIG_DIR)/setup.exe::
 	$(INSTALL) $(addprefix $(srcdir)/,$(INSTALLER_FILES)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(DIST)/branding/,$(BRANDING_FILES)) $(CONFIG_DIR)
 
-	$(PYTHON) $(MOZILLA_SRCDIR)/toolkit/mozapps/installer/windows/nsis/preprocess-locale.py \
+	$(PYTHON) $(MOZILLA_SRCDIR)/system/installer/windows/nsis/preprocess-locale.py \
 	  --convert-utf8-utf16le $(DIST)/branding/license.txt $(CONFIG_DIR)/license.txt
 
 	$(call py_action,preprocessor,-Fsubstitution $(DEFINES) $(ACDEFINES) \
 	  $(srcdir)/nsis/defines.nsi.in -o $(CONFIG_DIR)/defines.nsi)
 
-	$(PYTHON) $(MOZILLA_SRCDIR)/toolkit/mozapps/installer/windows/nsis/preprocess-locale.py \
+	$(PYTHON) $(MOZILLA_SRCDIR)/system/installer/windows/nsis/preprocess-locale.py \
 	  --preprocess-locale $(MOZILLA_SRCDIR) \
 	  $(topsrcdir)/navigator/installer/windows/locale $(AB_CD) $(CONFIG_DIR)
 
 include $(topsrcdir)/config/rules.mk
-include $(MOZILLA_SRCDIR)/toolkit/mozapps/installer/windows/nsis/makensis.mk
+include $(MOZILLA_SRCDIR)/system/installer/windows/nsis/makensis.mk
