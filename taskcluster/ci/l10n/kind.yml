@@ -40,7 +40,7 @@ job-defaults:
             - testing/mozharness/configs/single_locale/**
             - testing/mozharness/mozharness/mozilla/l10n/locales.py
             - testing/mozharness/scripts/desktop_l10n.py
-            - toolkit/locales/**
+            - system/locales/**
             - toolkit/mozapps/installer/**
 
 jobs:

@@ -146,8 +146,8 @@ repackage-zip-%: $(STAGEDIST)
 APP_DEFINES = $(firstword $(wildcard $(LOCALE_SRCDIR)/defines.inc) \
                           $(srcdir)/en-US/defines.inc)
 TK_DEFINES = $(firstword \
-   $(wildcard $(call EXPAND_LOCALE_SRCDIR,toolkit/locales)/defines.inc) \
-   $(MOZILLA_DIR)/toolkit/locales/en-US/defines.inc)
+   $(wildcard $(call EXPAND_LOCALE_SRCDIR,system/locales)/defines.inc) \
+   $(MOZILLA_DIR)/system/locales/en-US/defines.inc)
 
 # Dealing with app sub dirs: If DIST_SUBDIRS is defined it contains a
 # listing of app sub-dirs we should include in langpack xpis. If not,
@@ -162,7 +162,7 @@ langpack-%: libs-%
 	@echo 'Making langpack $(LANGPACK_FILE)'
 	$(NSINSTALL) -D $(DIST)/$(PKG_LANGPACK_PATH)
 	$(call py_action,preprocessor,$(DEFINES) $(ACDEFINES) \
-	  -DTK_DEFINES=$(TK_DEFINES) -DAPP_DEFINES=$(APP_DEFINES) $(MOZILLA_DIR)/toolkit/locales/generic/install.rdf -o $(DIST)/xpi-stage/$(XPI_NAME)/install.rdf)
+	  -DTK_DEFINES=$(TK_DEFINES) -DAPP_DEFINES=$(APP_DEFINES) $(MOZILLA_DIR)/system/locales/generic/install.rdf -o $(DIST)/xpi-stage/$(XPI_NAME)/install.rdf)
 	$(call py_action,zip,-C $(DIST)/xpi-stage/locale-$(AB_CD) $(LANGPACK_FILE) install.rdf $(PKG_ZIP_DIRS) chrome.manifest)
 
 # This variable is to allow the wget-en-US target to know which ftp server to download from

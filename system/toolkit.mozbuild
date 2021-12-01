@@ -20,7 +20,6 @@ DIRS += [
   '/modules',
   '/services',
   '/system',
-  '/toolkit',
 ]
 
 DIRS += [
