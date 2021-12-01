@@ -126,7 +126,7 @@ endif
 	cd $(DIST)/l10n-stage; \
 	  $(MAKE_PACKAGE)
 ifdef MAKE_COMPLETE_MAR
-	$(MAKE) -C $(MOZDEPTH)/tools/update-packaging full-update AB_CD=$(AB_CD) \
+	$(MAKE) -C $(MOZDEPTH)/system/updater/package full-update AB_CD=$(AB_CD) \
 	  MOZ_PKG_PRETTYNAMES=$(MOZ_PKG_PRETTYNAMES) \
 	  PACKAGE_BASE_DIR='$(ABS_DIST)/l10n-stage'
 endif
@@ -195,7 +195,7 @@ endif
 endif
 
 generate-snippet-%:
-	$(PYTHON) $(MOZILLA_DIR)/tools/update-packaging/generatesnippet.py \
+	$(PYTHON) $(MOZILLA_DIR)/system/updater/package/generatesnippet.py \
           --mar-path=$(ABS_DIST)/update \
           --application-ini-file='$(STAGEDIST)'/application.ini \
           --locale=$* \
