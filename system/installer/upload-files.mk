@@ -151,11 +151,11 @@ ifeq ($(MOZ_PKG_FORMAT),RPM)
   RPMBUILD_RPMDIR=$(ABS_DIST)
   RPMBUILD_SRPMDIR=$(ABS_DIST)
   RPMBUILD_SOURCEDIR=$(RPMBUILD_TOPDIR)/SOURCES
-  RPMBUILD_SPECDIR=$(topsrcdir)/toolkit/mozapps/installer/linux/rpm
+  RPMBUILD_SPECDIR=$(topsrcdir)/system/installer/linux/rpm
   RPMBUILD_BUILDDIR=$(ABS_DIST)/..
 
   SPEC_FILE = $(RPMBUILD_SPECDIR)/mozilla.spec
-  RPM_INCIDENTALS=$(topsrcdir)/toolkit/mozapps/installer/linux/rpm
+  RPM_INCIDENTALS=$(topsrcdir)/system/installer/linux/rpm
 
   RPM_CMD = \
     echo Creating RPM && \
@@ -231,7 +231,7 @@ endif #Create an RPM file
 
 
 ifeq ($(MOZ_PKG_FORMAT),APK)
-include $(MOZILLA_DIR)/toolkit/mozapps/installer/upload-files-$(MOZ_PKG_FORMAT).mk
+include $(MOZILLA_DIR)/system/installer/upload-files-$(MOZ_PKG_FORMAT).mk
 endif
 
 ifeq ($(MOZ_PKG_FORMAT),DMG)

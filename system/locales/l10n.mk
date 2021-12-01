@@ -73,8 +73,8 @@ else
 STAGEDIST = $(ABS_DIST)/l10n-stage/$(MOZ_PKG_DIR)
 endif
 
-include $(MOZILLA_DIR)/toolkit/mozapps/installer/signing.mk
-include $(MOZILLA_DIR)/toolkit/mozapps/installer/packager.mk
+include $(MOZILLA_DIR)/system/installer/signing.mk
+include $(MOZILLA_DIR)/system/installer/packager.mk
 
 PACKAGE_BASE_DIR = $(ABS_DIST)/l10n-stage
 
@@ -112,7 +112,7 @@ repackage-zip: UNPACKAGE='$(ZIP_IN)'
 repackage-zip:  libs-$(AB_CD)
 # call a hook for apps to put their uninstall helper.exe into the package
 	$(UNINSTALLER_PACKAGE_HOOK)
-	$(PYTHON) $(MOZILLA_DIR)/toolkit/mozapps/installer/l10n-repack.py '$(STAGEDIST)' $(DIST)/xpi-stage/locale-$(AB_CD) \
+	$(PYTHON) $(MOZILLA_DIR)/system/installer/l10n-repack.py '$(STAGEDIST)' $(DIST)/xpi-stage/locale-$(AB_CD) \
 		$(MOZ_PKG_EXTRAL10N) \
 		$(if $(filter omni,$(MOZ_PACKAGER_FORMAT)),$(if $(NON_OMNIJAR_FILES),--non-resource $(NON_OMNIJAR_FILES)))
 
