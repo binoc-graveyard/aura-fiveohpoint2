@@ -41,7 +41,7 @@ if CONFIG['COMPILE_ENVIRONMENT']:
   if not CONFIG['JS_STANDALONE']:
     # Hopefully build sqlite before nss
     DIRS += ['libs/sqlite3']
-    DIRS += ['config/external', 'libs/nss']
+    DIRS += ['libs/nss']
 
   if CONFIG['BUILD_CTYPES']:
     DIRS += ['config/external/ffi']

@@ -3,15 +3,14 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# The lgpllibs library stores symbols from third-party LGPL licensed libraries,
+# The lgplmedia library stores symbols from third-party LGPL licensed libraries,
 # such as libav and libsoundtouch. It fulfills the requirement of dynamically
-# linking these symbols into gecko.
+# linking these symbols into gre.
 #
 # Any library added here should also be reflected in the about:license page.
 
-GeckoSharedLibrary('lgpllibs', linkage=None)
-SHARED_LIBRARY_NAME = 'lgpllibs'
+GeckoSharedLibrary('lgplmedia', linkage=None)
+SHARED_LIBRARY_NAME = 'lgplmedia'
 
 if CONFIG['MOZ_LIBAV_FFT']:
-    DIRS += ['/libs/libav']
-    DEFFILE = SRCDIR + '/lgpllibs.def'
+  DEFFILE = SRCDIR + '/lgplmedia.def'

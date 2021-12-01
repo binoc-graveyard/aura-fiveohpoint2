@@ -93,8 +93,8 @@ USE_LIBS += [
 ]
 
 USE_LIBS += [
-    'gkmedias',
-    'lgpllibs',
+    'gremedia',
+    'lgplmedia',
     'nspr',
     'nss',
     'psshparser',

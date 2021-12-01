@@ -59,7 +59,7 @@ SOURCES += [
 # We allow warnings for third-party code that can be updated from upstream.
 ALLOW_COMPILER_WARNINGS = True
 
-FINAL_LIBRARY = 'gkmedias'
+FINAL_LIBRARY = 'gremedia'
 LOCAL_INCLUDES += ['../cairo/src']
 
 if CONFIG['MOZ_USE_PTHREADS']:

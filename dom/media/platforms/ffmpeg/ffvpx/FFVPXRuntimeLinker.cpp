@@ -51,15 +51,15 @@ FFVPXRuntimeLinker::Init()
 
   sLinkStatus = LinkStatus_FAILED;
 
-  // We retrieve the path of the lgpllibs library as this is where ffvpx* libs are located.
-  char* lgpllibsname = PR_GetLibraryName(nullptr, "lgpllibs");
-  if (!lgpllibsname) {
+  // We retrieve the path of the lgplmedia library as this is where ffvpx* libs are located.
+  char* lgplmedianame = PR_GetLibraryName(nullptr, "lgplmedia");
+  if (!lgplmedianame) {
     return false;
   }
   char* path =
-    PR_GetLibraryFilePathname(lgpllibsname,
+    PR_GetLibraryFilePathname(lgplmedianame,
                               (PRFuncPtr)&soundtouch::SoundTouch::getVersionId);
-  PR_FreeLibraryName(lgpllibsname);
+  PR_FreeLibraryName(lgplmedianame);
   if (!path) {
     return false;
   }

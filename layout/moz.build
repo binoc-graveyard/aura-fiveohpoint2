@@ -34,7 +34,7 @@ TEST_DIRS += [
     'tools/reftest',
 ]
 
-DIRS += ['build', 'media']
+DIRS += ['build']
 
 if CONFIG['MOZ_DEBUG']:
     TEST_DIRS += ['tools/layout-debug']

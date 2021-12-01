@@ -18,7 +18,7 @@ SOURCES += [
     'tremor_window.c',
 ]
 
-FINAL_LIBRARY = 'gkmedias'
+FINAL_LIBRARY = 'gremedia'
 
 if CONFIG['OS_ARCH'] == 'AIX':
     DEFINES['alloca'] = '__alloca'

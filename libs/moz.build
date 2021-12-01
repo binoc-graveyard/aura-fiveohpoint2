@@ -49,6 +49,9 @@ if CONFIG['MOZ_ENABLE_SKIA']:
 if CONFIG['MOZ_FFVPX']:
   DIRS += ['ffvpx']
 
+if CONFIG['MOZ_LIBAV_FFT']:
+  DIRS += ['libav']
+
 if not CONFIG['MOZ_SYSTEM_HUNSPELL']:
   DIRS += ['hunspell']
 

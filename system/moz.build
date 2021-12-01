@@ -12,6 +12,7 @@ DIRS += [
   'interface',
   'intl',
   'locales',
+  'multmedia',
   'network',
   'security',
   'themes',
