@@ -10,5 +10,3 @@ toolkit.jar:
   content/mozapps/downloads/DownloadProgressListener.js         (content/DownloadProgressListener.js)
   content/mozapps/downloads/downloads.css                       (content/downloads.css)
   content/mozapps/downloads/download.xml                        (content/download.xml)
-
-# NOTE: Locales are currently packaged from toolkit/locales/jar.mn

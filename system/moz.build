@@ -11,10 +11,14 @@ DIRS += [
   'image',
   'interface',
   'intl',
+  'locales',
   'network',
   'security',
   'themes',
 ]
+
+if CONFIG['MOZ_UPDATER']:
+  DIRS += ['updater']
 
 DIRS += ['runtime']
 

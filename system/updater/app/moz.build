@@ -71,7 +71,7 @@ SOURCES += [
 ]
 
 LOCAL_INCLUDES += [
-  '/components/update/lib',
+  '/system/updater/lib',
   '/xpcom/glue',
 ]
 

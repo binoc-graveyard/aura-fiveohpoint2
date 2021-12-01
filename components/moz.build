@@ -115,9 +115,6 @@ if CONFIG['MOZ_ENABLE_XREMOTE']:
 if CONFIG['MOZ_TOOLKIT_SEARCH']:
   DIRS += ['search']
 
-if CONFIG['MOZ_UPDATER']:
-  DIRS += ['update']
-
 DIRS += ['build']
 
 EXTRA_COMPONENTS += [
