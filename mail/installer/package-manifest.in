@@ -69,7 +69,7 @@
 @BINPATH@/@DLL_PREFIX@mozjs@DLL_SUFFIX@
 #endif
 #ifdef GKMEDIAS_SHARED_LIBRARY
-@BINPATH@/@DLL_PREFIX@gkmedias@DLL_SUFFIX@
+@BINPATH@/@DLL_PREFIX@gremedia@DLL_SUFFIX@
 #endif
 #ifdef MOZ_DMD
 @BINPATH@/@DLL_PREFIX@dmd@DLL_SUFFIX@
@@ -130,7 +130,7 @@
 #ifdef MOZ_UPDATER
 @RESPATH@/update-settings.ini
 #endif
-@BINPATH@/@DLL_PREFIX@lgpllibs@DLL_SUFFIX@
+@BINPATH@/@DLL_PREFIX@lgplmedia@DLL_SUFFIX@
 @RESPATH@/blocklist.xml
 @RESPATH@/platform.ini
 #ifndef MOZ_SYSTEM_SQLITE
