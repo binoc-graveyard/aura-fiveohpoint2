@@ -5,7 +5,7 @@
 
 
 @AB_CD@.jar:
-% locale branding @AB_CD@ %locale/branding/
+% locale branding @AB_CD@ %locale/@AB_CD@/branding/
 # Shredder branding only exists in en-US
-  locale/branding/brand.dtd        (en-US/brand.dtd)
-  locale/branding/brand.properties (en-US/brand.properties)
+  locale/@AB_CD@/branding/brand.dtd        (en-US/brand.dtd)
+  locale/@AB_CD@/branding/brand.properties (en-US/brand.properties)
