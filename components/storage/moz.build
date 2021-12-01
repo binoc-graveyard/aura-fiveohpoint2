@@ -44,9 +44,7 @@ EXPORTS += [
   'src/mozStorageHelper.h',
 ]
 
-EXPORTS.mozilla += [
-  'src/storage.h',
-]
+EXPORTS.mozilla += ['src/storage.h']
 
 # NOTE When adding something to this list, you probably need to add it to the
 #      storage.h file too.
@@ -85,8 +83,8 @@ SOURCES += [
 ]
 
 LOCAL_INCLUDES += [
-  '/db/sqlite3/src',
   '/dom/base',
+  '/libs/sqlite3/src',
 ]
 
 CXXFLAGS += CONFIG['SQLITE_CFLAGS']

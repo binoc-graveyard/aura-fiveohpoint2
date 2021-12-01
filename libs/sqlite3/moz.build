@@ -12,8 +12,8 @@ GeckoSharedLibrary('sqlite', linkage=None, mozglue='library')
 SHARED_LIBRARY_NAME = 'mozsqlite3'
 SYMBOLS_FILE = 'sqlite.symbols'
 
-EXPORTS += ['sqlite3.h']
-SOURCES += ['sqlite3.c']
+EXPORTS += ['src/sqlite3.h']
+SOURCES += ['src/sqlite3.c']
 
 # -DSQLITE_SECURE_DELETE=1 will cause SQLITE to 0-fill delete data so we
 # don't have to vacuum to make sure the data is not visible in the file.
