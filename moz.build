@@ -16,7 +16,6 @@ if CONFIG['ENABLE_CLANG_PLUGIN']:
 DIRS += [
   'config',
   'python',
-  'taskcluster',
   'libs/fdlibm',
   'libs/nspr/build',
   'config/external/zlib',
