@@ -61,12 +61,8 @@
 #include "nss.h"
 #include "pk11pub.h"
 
-/* Using WebRTC backend on Desktops (Mac, Windows, Linux), otherwise default */
+/* Using default backend on Desktops */
 #include "MediaEngineDefault.h"
-#if defined(MOZ_WEBRTC)
-#include "MediaEngineWebRTC.h"
-#include "browser_logging/WebRtcLog.h"
-#endif
 
 #if defined (XP_WIN)
 #include "mozilla/WindowsVersion.h"
@@ -1661,15 +1657,9 @@ MediaManager::MediaManager()
   mPrefs.mExtendedFilter = true;
   mPrefs.mDelayAgnostic = true;
   mPrefs.mFakeDeviceChangeEventOn = false;
-#ifdef MOZ_WEBRTC
-  mPrefs.mAec          = webrtc::kEcUnchanged;
-  mPrefs.mAgc          = webrtc::kAgcUnchanged;
-  mPrefs.mNoise        = webrtc::kNsUnchanged;
-#else
   mPrefs.mAec          = 0;
   mPrefs.mAgc          = 0;
   mPrefs.mNoise        = 0;
-#endif
   mPrefs.mPlayoutDelay = 0;
   mPrefs.mFullDuplex = false;
   nsresult rv;
@@ -1751,16 +1741,6 @@ MediaManager::Get() {
       prefs->AddObserver("media.navigator.video.default_minfps", sSingleton, false);
       prefs->AddObserver("media.navigator.audio.fake_frequency", sSingleton, false);
       prefs->AddObserver("media.navigator.audio.full_duplex", sSingleton, false);
-#ifdef MOZ_WEBRTC
-      prefs->AddObserver("media.getusermedia.aec_enabled", sSingleton, false);
-      prefs->AddObserver("media.getusermedia.aec", sSingleton, false);
-      prefs->AddObserver("media.getusermedia.agc_enabled", sSingleton, false);
-      prefs->AddObserver("media.getusermedia.agc", sSingleton, false);
-      prefs->AddObserver("media.getusermedia.noise_enabled", sSingleton, false);
-      prefs->AddObserver("media.getusermedia.noise", sSingleton, false);
-      prefs->AddObserver("media.getusermedia.playout_delay", sSingleton, false);
-      prefs->AddObserver("media.ondevicechange.fakeDeviceChangeEvent.enabled", sSingleton, false);
-#endif
     }
 
     // Prepare async shutdown
@@ -2313,9 +2293,6 @@ MediaManager::GetUserMedia(nsPIDOMWindowInner* aWindow,
         obs->NotifyObservers(req, "getUserMedia:request", nullptr);
       }
 
-#ifdef MOZ_WEBRTC
-      EnableWebRtcLog();
-#endif
     }, [onFailure](MediaStreamError*& reason) mutable {
       onFailure->OnError(reason);
     });
@@ -2559,11 +2536,7 @@ MediaManager::GetBackend(uint64_t aWindowId)
   // This IS called off main-thread.
   if (!mBackend) {
     MOZ_RELEASE_ASSERT(!sInShutdown);  // we should never create a new backend in shutdown
-#if defined(MOZ_WEBRTC)
-    mBackend = new MediaEngineWebRTC(mPrefs);
-#else
     mBackend = new MediaEngineDefault();
-#endif
   }
   return mBackend;
 }
@@ -2739,18 +2712,6 @@ MediaManager::GetPrefs(nsIPrefBranch *aBranch, const char *aData)
   GetPref(aBranch, "media.navigator.video.default_fps", aData, &mPrefs.mFPS);
   GetPref(aBranch, "media.navigator.video.default_minfps", aData, &mPrefs.mMinFPS);
   GetPref(aBranch, "media.navigator.audio.fake_frequency", aData, &mPrefs.mFreq);
-#ifdef MOZ_WEBRTC
-  GetPrefBool(aBranch, "media.getusermedia.aec_enabled", aData, &mPrefs.mAecOn);
-  GetPrefBool(aBranch, "media.getusermedia.agc_enabled", aData, &mPrefs.mAgcOn);
-  GetPrefBool(aBranch, "media.getusermedia.noise_enabled", aData, &mPrefs.mNoiseOn);
-  GetPref(aBranch, "media.getusermedia.aec", aData, &mPrefs.mAec);
-  GetPref(aBranch, "media.getusermedia.agc", aData, &mPrefs.mAgc);
-  GetPref(aBranch, "media.getusermedia.noise", aData, &mPrefs.mNoise);
-  GetPref(aBranch, "media.getusermedia.playout_delay", aData, &mPrefs.mPlayoutDelay);
-  GetPrefBool(aBranch, "media.getusermedia.aec_extended_filter", aData, &mPrefs.mExtendedFilter);
-  GetPrefBool(aBranch, "media.getusermedia.aec_aec_delay_agnostic", aData, &mPrefs.mDelayAgnostic);
-  GetPrefBool(aBranch, "media.ondevicechange.fakeDeviceChangeEvent.enabled", aData, &mPrefs.mFakeDeviceChangeEventOn);
-#endif
   GetPrefBool(aBranch, "media.navigator.audio.full_duplex", aData, &mPrefs.mFullDuplex);
 }
 
@@ -2778,16 +2739,6 @@ MediaManager::Shutdown()
     prefs->RemoveObserver("media.navigator.video.default_fps", this);
     prefs->RemoveObserver("media.navigator.video.default_minfps", this);
     prefs->RemoveObserver("media.navigator.audio.fake_frequency", this);
-#ifdef MOZ_WEBRTC
-    prefs->RemoveObserver("media.getusermedia.aec_enabled", this);
-    prefs->RemoveObserver("media.getusermedia.aec", this);
-    prefs->RemoveObserver("media.getusermedia.agc_enabled", this);
-    prefs->RemoveObserver("media.getusermedia.agc", this);
-    prefs->RemoveObserver("media.getusermedia.noise_enabled", this);
-    prefs->RemoveObserver("media.getusermedia.noise", this);
-    prefs->RemoveObserver("media.getusermedia.playout_delay", this);
-    prefs->RemoveObserver("media.ondevicechange.fakeDeviceChangeEvent.enabled", this);
-#endif
     prefs->RemoveObserver("media.navigator.audio.full_duplex", this);
   }
 
@@ -2795,9 +2746,6 @@ MediaManager::Shutdown()
   GetActiveWindows()->Clear();
   mActiveCallbacks.Clear();
   mCallIds.Clear();
-#ifdef MOZ_WEBRTC
-  StopWebRtcLog();
-#endif
 
   // Because mMediaThread is not an nsThread, we must dispatch to it so it can
   // clean up BackgroundChild. Continue stopping thread once this is done.

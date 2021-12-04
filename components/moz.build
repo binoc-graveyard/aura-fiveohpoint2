@@ -3,123 +3,121 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# These component dirs are built for all apps (including suite)
-if CONFIG['MOZ_ENABLE_XREMOTE']:
-    DIRS += ['remote']
-
 DIRS += [
-    'aboutcache',
-    'aboutcheckerboard',
-    'aboutmemory',
-    'aboutperformance',
-    'addoncompat',
-    'alerts',
-    'apppicker',
-    'appshell',
-    'asyncshutdown',
-    'blocklist',
-    'bindings',
-    'commandlines',
-    'console',
-    'contentprefs',
-    'cookie',
-    'crashmonitor',
-    'downloads',
-    'directory',
-    'extensions',
-    'exthelper',
-    'filewatcher',
-    'finalizationwitness',
-    'formautofill',
-    'find',
-    'htmlfive',
-    'htmlparser',
-    'gfx',
-    'global',
-    'handling',
-    'jar',
-    'jsdebugger',
-    'jsdownloads',
-    'jsinspector',
-    'lz4',
-    'mediasniffer',
-    'microformats',
-    'mozprotocol',
-    'osfile',
-    'parentalcontrols',
-    'passwordmgr',
-    'perf',
-    'perfmonitoring',
-    'places',
-    'pluginproblem',
-    'preferences',
-    'privatebrowsing',
-    'processsingleton',
-    'profile',
-    'promiseworker',
-    'prompts',
-    'rdf',
-    'reader',
-    'remotebrowserutils',
-    'reflect',
-    'scache',
-    'startup',
-    'statusfilter',
-    'storage',
-    'thumbnails',
-    'timermanager',
-    'tooltiptext',
-    'typeaheadfind',
-    'uriloader',
-    'utils',
-    'urlformatter',
-    'viewconfig',
-    'windowds',
-    'workerloader',
-    'xmlparser',
-    'xulstore'
+  'aboutcache',
+  'aboutcheckerboard',
+  'aboutmemory',
+  'aboutperformance',
+  'addoncompat',
+  'addons',
+  'alerts',
+  'apppicker',
+  'appshell',
+  'asyncshutdown',
+  'autocomplete',
+  'blocklist',
+  'bindings',
+  'captivedetect',
+  'commandlines',
+  'console',
+  'contentprefs',
+  'permissions',
+  'crashmonitor',
+  'downloads',
+  'directory',
+  'exthelper',
+  'filewatcher',
+  'finalizationwitness',
+  'formautofill',
+  'find',
+  'htmlfive',
+  'htmlparser',
+  'gfx',
+  'global',
+  'handling',
+  'jar',
+  'jsdebugger',
+  'jsdownloads',
+  'jsinspector',
+  'lz4',
+  'mediasniffer',
+  'microformats',
+  'mozintl',
+  'mozprotocol',
+  'narrate',
+  'osfile',
+  'parentalcontrols',
+  'passwordmgr',
+  'perf',
+  'perfmonitoring',
+  'places',
+  'pluginproblem',
+  'preferences',
+  'printing',
+  'privatebrowsing',
+  'processsingleton',
+  'profile',
+  'promiseworker',
+  'prompts',
+  'proxy',
+  'rdf',
+  'reader',
+  'remotebrowserutils',
+  'reflect',
+  'satchel',
+  'scache',
+  'startup',
+  'statusfilter',
+  'storage',
+  'terminator',
+  'thumbnails',
+  'timermanager',
+  'tooltiptext',
+  'typeaheadfind',
+  'uriloader',
+  'utils',
+  'urlformatter',
+  'viewconfig',
+  'viewsource',
+  'webbrowser',
+  'windowcreator',
+  'windowds',
+  'windowwatcher',
+  'workerloader',
+  'xmlparser',
+  'xulstore'
 ]
 
-DIRS += ['mozintl']
+if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
+  DIRS += ['filepicker', 'gservice']
 
-DIRS += ['narrate', 'viewsource'];
-
-if CONFIG['NS_PRINTING']:
-    DIRS += ['printing']
+if CONFIG['MOZ_PREF_EXTENSIONS']:
+  DIRS += ['autoconfig']
 
 if CONFIG['BUILD_CTYPES']:
-    DIRS += ['ctypes']
+  DIRS += ['ctypes']
+
+if CONFIG['MOZ_DEVTOOLS_SERVER']:
+  DIRS += ['devtools']
 
 if CONFIG['MOZ_FEEDS']:
-    DIRS += ['feeds']
+  DIRS += ['feeds']
 
 if CONFIG['MOZ_JETPACK']:
-    DIRS += ['jetpack']
+  DIRS += ['jetpack']
 
-DIRS += ['autocomplete', 'satchel']
+if CONFIG['MOZ_MAILNEWS']:
+  DIRS += ['mork']
 
-if CONFIG['MOZ_TOOLKIT_SEARCH'] and not CONFIG['MC_BASILISK']:
-    DIRS += ['search']
+if CONFIG['MOZ_ENABLE_XREMOTE']:
+  DIRS += ['remote']
 
-if CONFIG['MOZ_UPDATER']:
-    DIRS += ['update']
-
-DIRS += ['captivedetect']
-
-DIRS += ['terminator']
-
-if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
-    DIRS += [
-        'filepicker',
-        'gservice',
-    ]
-
-if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3', 'windows'):
-    DIRS += ['proxy']
+if CONFIG['MOZ_TOOLKIT_SEARCH']:
+  DIRS += ['search']
 
 DIRS += ['build']
 
 EXTRA_COMPONENTS += [
-    'nsDefaultCLH.js',
-    'nsDefaultCLH.manifest',
+  'nsDefaultCLH.js',
+  'nsDefaultCLH.manifest',
 ]

@@ -1135,7 +1135,7 @@ class Mar(MachCommandBase):
     @Command('mar', category='post-build',
         description='Create the mar file for the built product for distribution.')
     def mar(self):
-        return self._run_make(directory="./tools/update-packaging/", target='', ensure_exit_code=False)
+        return self._run_make(directory="./system/updater/package/", target='', ensure_exit_code=False)
 
 @CommandProvider
 class Install(MachCommandBase):

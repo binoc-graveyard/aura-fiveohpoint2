@@ -16,6 +16,7 @@ if CONFIG['MOZ_ENABLE_GCONF']:
 
 if CONFIG['MOZ_ENABLE_GIO']:
     SOURCES += [
+        'src/nsGIOProtocolHandler.cpp',
         'src/nsGIOService.cpp',
         'src/nsGSettingsService.cpp',
         'src/nsPackageKitService.cpp'

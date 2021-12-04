@@ -18,34 +18,6 @@ EXPORTS += [
     'MediaTrackConstraints.h',
 ]
 
-if CONFIG['MOZ_WEBRTC']:
-    if CONFIG['OS_TARGET'] == 'WINNT':
-        DEFINES['WEBRTC_WIN'] = True
-    else:
-        DEFINES['WEBRTC_POSIX'] = True
-    EXPORTS += ['AudioOutputObserver.h',
-                'MediaEngineRemoteVideoSource.h',
-                'MediaEngineWebRTC.h']
-    EXPORTS.mozilla.dom += [ 'RTCIdentityProviderRegistrar.h' ]
-    UNIFIED_SOURCES += [
-        'MediaEngineCameraVideoSource.cpp',
-        'MediaEngineRemoteVideoSource.cpp',
-    ]
-    SOURCES += [
-        'MediaEngineTabVideoSource.cpp',
-        'MediaEngineWebRTC.cpp',
-        'MediaEngineWebRTCAudio.cpp',
-        'RTCCertificate.cpp',
-        'RTCIdentityProviderRegistrar.cpp',
-    ]
-    LOCAL_INCLUDES += [
-        '/dom/base',
-        '/libs/libyuv/include',
-        '/media/webrtc/signaling/src/common',
-        '/media/webrtc/signaling/src/common/browser_logging',
-        '/media/webrtc/trunk',
-    ]
-
 XPIDL_SOURCES += [
     'nsITabSource.idl'
 ]

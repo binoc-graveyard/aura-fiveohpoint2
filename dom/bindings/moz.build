@@ -78,10 +78,6 @@ LOCAL_INCLUDES += [
     '/layout/generic',
     '/layout/style',
     '/layout/xul/tree',
-    '/media/mtransport',
-    '/media/webrtc/',
-    '/media/webrtc/signaling/src/common/time_profiling',
-    '/media/webrtc/signaling/src/peerconnection',
 ]
 
 SOURCES += [

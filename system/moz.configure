@@ -328,16 +328,6 @@ set_config('MOZ_FMP4', fmp4)
 set_define('MOZ_FMP4', fmp4)
 add_old_configure_assignment('MOZ_FMP4', fmp4)
 
-# Permissions system
-# ==============================================================
-option(name='--disable-permissions',
-       help='Disable permissions (popup and cookie blocking)')
-
-moz_permissions = depends_if('--disable-permissions')(lambda _: True)
-
-set_config('MOZ_PERMISSIONS', moz_permissions)
-set_define('MOZ_PERMISSIONS', moz_permissions)
-
 # gpsd support
 # ==============================================================
 option('--enable-gpsd', env='MOZ_GPSD',
@@ -472,7 +462,7 @@ set_config('MOZ_IPDL_TESTS',
 @imports('os')
 @imports(_from='__builtin__', _import='sorted')
 def all_necko_protocols(build_env, _):
-    basedir = os.path.join(build_env.topsrcdir, 'netwerk', 'protocol')
+    basedir = os.path.join(build_env.topsrcdir, 'system', 'network', 'protocol')
     return tuple(sorted(p for p in os.listdir(basedir)
                         if os.path.isdir(os.path.join(basedir, p))))
 

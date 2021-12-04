@@ -3,11 +3,6 @@ toolkit.jar:
 % content global-platform %content/global-platform/ platform
   content/global/gmp-sources/openh264.json        (content/gmp-sources/openh264.json)
   content/global/gmp-sources/widevinecdm.json     (content/gmp-sources/widevinecdm.json)
-#ifdef MOZ_WEBRTC
-  content/global/aboutwebrtc/aboutWebrtc.css      (content/aboutwebrtc/aboutWebrtc.css)
-  content/global/aboutwebrtc/aboutWebrtc.js       (content/aboutwebrtc/aboutWebrtc.js)
-  content/global/aboutwebrtc/aboutWebrtc.html     (content/aboutwebrtc/aboutWebrtc.html)
-#endif
   content/global/XPCNativeWrapper.js              (content/XPCNativeWrapper.js)
   content/global/minimal-xul.css                  (content/minimal-xul.css)
 * content/global/xul.css                          (content/xul.css)
@@ -28,7 +23,7 @@ toolkit.jar:
   content/global/aboutServiceWorkers.js           (content/aboutServiceWorkers.js)
   content/global/aboutServiceWorkers.xhtml        (content/aboutServiceWorkers.xhtml)
 #ifdef MOZ_OFFICIAL_BRANDING
-* content/global/aboutRights.xhtml
+* content/global/aboutRights.xhtml                (content/aboutRights.xhtml)
 #else
   content/global/aboutRights.xhtml                (content/aboutRights-unbranded.xhtml)
 #endif
@@ -52,6 +47,7 @@ toolkit.jar:
   content/global/findUtils.js                     (content/findUtils.js)
   content/global/filepicker.properties            (content/filepicker.properties)
   content/global/globalOverlay.js                 (content/globalOverlay.js)
+* content/global/license.html                     (content/license.html)
   content/global/mozilla.xhtml                    (content/mozilla.xhtml)
   content/global/process-content.js               (content/process-content.js)
   content/global/resetProfile.css                 (content/resetProfile.css)

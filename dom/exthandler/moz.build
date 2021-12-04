@@ -95,8 +95,8 @@ FINAL_LIBRARY = 'xul'
 LOCAL_INCLUDES += [
     '/dom/base',
     '/dom/ipc',
-    '/netwerk/base',
-    '/netwerk/protocol/http',
+    '/system/network/base',
+    '/system/network/protocol/http',
 ]
 
 if CONFIG['MOZ_ENABLE_DBUS']:

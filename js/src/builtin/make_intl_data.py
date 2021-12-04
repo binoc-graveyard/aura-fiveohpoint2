@@ -888,7 +888,7 @@ def updateTzdata(args):
         raise RuntimeError("%s must reside in js/src/builtin" % sys.argv[0])
     topsrcdir = "/".join(thisDir.split(os.sep)[:-3])
 
-    icuDir = os.path.join(topsrcdir, "intl/icu/source")
+    icuDir = os.path.join(topsrcdir, "libs/icu/src")
     if not os.path.isdir(icuDir):
         raise RuntimeError("not a directory: %s" % icuDir)
 

@@ -10,7 +10,6 @@ EXTRA_COMPONENTS += [
 ]
 
 EXTRA_JS_MODULES['services-common'] += [
-    'async.js',
     'hawkclient.js',
     'hawkrequest.js',
     'logmanager.js',

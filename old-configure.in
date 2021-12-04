@@ -1063,12 +1063,20 @@ case "$target" in
     fi
     ;;
 
-i*86-*-solaris*)
-    MOZ_FIX_LINK_PATHS="-L${DIST}/bin -R'\$\$ORIGIN':/usr/gcc/7/lib"
-    ;;
+*-solaris*)
+dnl Set NSDISTMODE to copy mode on SunOS automatically. The dynamic linker
+dnl uses the real path of a symlink after resolving it, which breaks the
+dnl default mode that relies on relative symlinks being handled a certain way.
 
-x86_64-*-solaris*)
-    MOZ_FIX_LINK_PATHS="-L${DIST}/bin -R'\$\$ORIGIN':/usr/gcc/7/lib/amd64"
+    if test -z "$NSDISTMODE"; then
+       NSDISTMODE=copy
+    fi
+
+    if test "$CPU_ARCH" = "x86"; then
+       MOZ_FIX_LINK_PATHS="-L${DIST}/bin -R'\$\$ORIGIN':/usr/gcc/7/lib"
+    elif test "$CPU_ARCH" = "x86_64"; then
+       MOZ_FIX_LINK_PATHS="-L${DIST}/bin -R'\$\$ORIGIN':/usr/gcc/7/lib/amd64"
+    fi    
     ;;
 
 esac
@@ -1880,12 +1888,7 @@ MOZ_VORBIS=
 MOZ_TREMOR=
 MOZ_SAMPLE_TYPE_FLOAT32=
 MOZ_SAMPLE_TYPE_S16=
-MOZ_WEBRTC=
-MOZ_PEERCONNECTION=
 MOZ_SRTP=
-MOZ_WEBRTC_SIGNALING=
-MOZ_WEBRTC_ASSERT_ALWAYS=1
-MOZ_WEBRTC_HARDWARE_AEC_NS=
 MOZ_SCTP=
 MOZ_VPX_ERROR_CONCEALMENT=
 VPX_USE_YASM=
@@ -1914,11 +1917,9 @@ MOZ_JETPACK=1
 MOZ_DEVTOOLS_SERVER=1
 MOZ_DEVTOOLS=
 MOZ_PLACES=1
-MOZ_SECURITY_SQLSTORE=
 MOZ_SERVICES_HEALTHREPORT=1
 MOZ_SERVICES_SYNC=1
 MOZ_USERINFO=1
-NSS_DISABLE_DBM=
 MOZ_MAILNEWS=
 MOZ_MAILNEWS_OAUTH2=
 MOZ_LDAP_XPCOM=
@@ -2031,11 +2032,11 @@ esac
 if test "$COMPILE_ENVIRONMENT"; then
   if test "$MOZ_WIDGET_TOOLKIT" = gtk3; then
     PKG_CHECK_MODULES(MOZ_GTK3, gtk+-3.0 >= $GTK3_VERSION gtk+-unix-print-3.0 glib-2.0 gobject-2.0 $GDK_PACKAGES)
-    MOZ_GTK3_CFLAGS="-I${_topsrcdir}/widget/gtk/compat-gtk3 $MOZ_GTK3_CFLAGS"
+    MOZ_GTK3_CFLAGS="-I${_topsrcdir}/system/interface/gtk/compat-gtk3 $MOZ_GTK3_CFLAGS"
     TK_CFLAGS=$MOZ_GTK3_CFLAGS
     TK_LIBS=$MOZ_GTK3_LIBS
     dnl GDK_VERSION_MIN_REQUIRED is not set here as GDK3 deprecated warnings
-    dnl are suppressed by widget/gtk/compat-gtk3/gdk/gdkversionmacros.h.
+    dnl are suppressed by system/interface/gtk/compat-gtk3/gdk/gdkversionmacros.h.
     AC_DEFINE_UNQUOTED(GDK_VERSION_MAX_ALLOWED,$GDK_VERSION_MAX_ALLOWED)
     GLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_32
   fi
@@ -2050,7 +2051,7 @@ if test "$COMPILE_ENVIRONMENT"; then
     AC_DEFINE_UNQUOTED(GLIB_VERSION_MAX_ALLOWED,$GLIB_VERSION_MAX_ALLOWED)
 
     PKG_CHECK_MODULES(MOZ_GTK2, gtk+-2.0 >= $GTK2_VERSION gtk+-unix-print-2.0 glib-2.0 >= $GLIB_VERSION gobject-2.0 $GDK_PACKAGES)
-    MOZ_GTK2_CFLAGS="-I${_topsrcdir}/widget/gtk/compat $MOZ_GTK2_CFLAGS"
+    MOZ_GTK2_CFLAGS="-I${_topsrcdir}/system/interface/gtk/compat $MOZ_GTK2_CFLAGS"
   fi
   if test "$MOZ_WIDGET_TOOLKIT" = gtk2; then
     TK_CFLAGS=$MOZ_GTK2_CFLAGS
@@ -2367,73 +2368,6 @@ if test "${MOZ_WIDGET_TOOLKIT}" = "linuxgl" -a "$ACCESSIBILITY" != "1"; then
     AC_MSG_ERROR(["Accessibility is required for the linuxgl widget backend"])
 fi
 
-dnl Turn off webrtc for OS's we don't handle yet, but allow
-dnl --enable-webrtc to override.  Can disable for everything in
-dnl the master list above.
-if test -n "$MOZ_WEBRTC"; then
-    case "$target" in
-    *-linux*|*-mingw*|*-dragonfly*|*-freebsd*|*-netbsd*|*-openbsd*)
-        dnl Leave enabled
-        ;;
-    *)
-        dnl default to disabled for all others
-        MOZ_WEBRTC=
-        ;;
-    esac
-fi
-
-AC_TRY_COMPILE([#include <linux/ethtool.h>],
-               [ struct ethtool_cmd cmd; cmd.speed_hi = 0; ],
-               MOZ_WEBRTC_HAVE_ETHTOOL_SPEED_HI=1)
-
-AC_SUBST(MOZ_WEBRTC_HAVE_ETHTOOL_SPEED_HI)
-
-# target_arch is from {ia32|x64|arm|ppc}
-case "$CPU_ARCH" in
-x86_64 | arm | aarch64 | x86 | ppc* | ia64)
-    :
-    ;;
-*)
-# unsupported arch for webrtc
-    MOZ_WEBRTC=
-    ;;
-
-esac
-
-dnl =========================================================
-dnl = NSS DBM (BerkeleyDB) Support
-dnl = NOTE: Because we don't expressly control the name of
-dnl = this var --disable-dbm means NSS_DISABLE_DBM=1
-dnl =========================================================
-MOZ_ARG_DISABLE_BOOL(dbm,
-[  --disable-dbm         Disable DBM support in nss],
-    NSS_DISABLE_DBM=1,
-    NSS_DISABLE_DBM=)
-
-if test -n "$NSS_DISABLE_DBM"; then
-  AC_DEFINE(NSS_DISABLE_DBM)
-fi
-
-AC_SUBST(NSS_DISABLE_DBM)
-
-dnl =========================================================
-dnl = NSS SQL storage format
-dnl =========================================================
-MOZ_ARG_ENABLE_BOOL(security-sqlstore,
-[  --enable-security-sqlstore Enable the use of SQL storage for NSS],
-    MOZ_SECURITY_SQLSTORE=1,
-    MOZ_SECURITY_SQLSTORE=)
-
-if test -n "$NSS_DISABLE_DBM" -a -z "$MOZ_SECURITY_SQLSTORE"; then
-  AC_MSG_ERROR([DBM storage support is required if not using NSS SQL storage])
-fi
-
-if test -n "$MOZ_SECURITY_SQLSTORE"; then
-  AC_DEFINE(MOZ_SECURITY_SQLSTORE)
-fi
-
-AC_SUBST(MOZ_SECURITY_SQLSTORE)
-
 dnl =========================================================
 dnl = Don't fold mailnews related comps into libXUL
 dnl =========================================================
@@ -2529,56 +2463,8 @@ fi
 
 AC_SUBST(MOZ_CAN_DRAW_IN_TITLEBAR)
 
-dnl ========================================================
-dnl = Enable WebRTC code
-dnl ========================================================
-MOZ_ARG_ENABLE_BOOL(webrtc,
-[  --enable-webrtc        Enable support for WebRTC],
-    MOZ_WEBRTC=1,
-    MOZ_WEBRTC=)
+MOZ_SYNTH_PICO=
 
-if test -n "$MOZ_WEBRTC"; then
-    AC_DEFINE(MOZ_WEBRTC)
-    dnl MOZ_WEBRTC_ASSERT_ALWAYS turns on a number of safety asserts in
-    dnl opt/production builds (via MOZ_CRASH())
-    AC_DEFINE(MOZ_WEBRTC_ASSERT_ALWAYS)
-    MOZ_RAW=1
-    MOZ_VPX_ERROR_CONCEALMENT=1
-
-dnl enable once Signaling lands
-    MOZ_WEBRTC_SIGNALING=1
-    AC_DEFINE(MOZ_WEBRTC_SIGNALING)
-dnl enable once PeerConnection lands
-    MOZ_PEERCONNECTION=1
-    AC_DEFINE(MOZ_PEERCONNECTION)
-    MOZ_SCTP=1
-    MOZ_SRTP=1
-    AC_DEFINE(MOZ_SCTP)
-    AC_DEFINE(MOZ_SRTP)
-    if test -n "$MOZ_X11"; then
-      MOZ_WEBRTC_X11_LIBS="-lXext -lXdamage -lXfixes -lXcomposite"
-    fi
-else
-    MOZ_SYNTH_PICO=
-fi
-
-dnl ========================================================
-dnl = Force hardware AEC, disable webrtc.org AEC
-dnl ========================================================
-MOZ_ARG_ENABLE_BOOL(hardware-aec-ns,
-[  --enable-hardware-aec-ns   Enable support for hardware AEC and noise suppression],
-    MOZ_WEBRTC_HARDWARE_AEC_NS=1,
-    MOZ_WEBRTC_HARDWARE_AEC_NS=)
-
-if test -n "$MOZ_WEBRTC_HARDWARE_AEC_NS"; then
-    AC_DEFINE(MOZ_WEBRTC_HARDWARE_AEC_NS)
-fi
-
-AC_SUBST(MOZ_WEBRTC)
-AC_SUBST(MOZ_WEBRTC_SIGNALING)
-AC_SUBST(MOZ_PEERCONNECTION)
-AC_SUBST(MOZ_WEBRTC_ASSERT_ALWAYS)
-AC_SUBST(MOZ_WEBRTC_HARDWARE_AEC_NS)
 AC_SUBST(MOZ_SCTP)
 AC_SUBST(MOZ_SRTP)
 AC_SUBST_LIST(MOZ_WEBRTC_X11_LIBS)
@@ -3196,48 +3082,6 @@ if test -n "$MOZ_FFVPX"; then
 fi
 
 dnl ========================================================
-dnl = Enable compilation of specific extension modules
-dnl ========================================================
-
-MOZ_ARG_ENABLE_STRING(extensions,
-[  --enable-extensions     Enable extensions],
-[ for option in `echo $enableval | sed 's/,/ /g'`; do
-    if test "$option" = "yes" -o "$option" = "all"; then
-        AC_MSG_ERROR([--enable-extensions=$option is no longer supported.])
-    elif test "$option" = "no" -o "$option" = "none"; then
-        MOZ_EXTENSIONS=""
-    elif test "$option" = "default"; then
-        MOZ_EXTENSIONS="$MOZ_EXTENSIONS $MOZ_EXTENSIONS_DEFAULT"
-    elif test `echo "$option" | grep -c \^-` != 0; then
-        option=`echo $option | sed 's/^-//'`
-        MOZ_EXTENSIONS=`echo "$MOZ_EXTENSIONS" | sed "s/ ${option}//"`
-    else
-        MOZ_EXTENSIONS="$MOZ_EXTENSIONS $option"
-    fi
-done],
-    MOZ_EXTENSIONS="$MOZ_EXTENSIONS_DEFAULT")
-
-if test -z "$MOZ_ENABLE_GIO" -a `echo "$MOZ_EXTENSIONS" | grep -c gio` -ne 0; then
-    # Suppress warning on non-X11 platforms
-    if test -n "$MOZ_X11"; then
-        AC_MSG_WARN([Removing gio from MOZ_EXTENSIONS due to --disable-gio.])
-    fi
-    MOZ_EXTENSIONS=`echo $MOZ_EXTENSIONS | sed -e 's|gio||'`
-fi
-
-if test `echo "$MOZ_EXTENSIONS" | grep -c gio` -ne 0; then
-    MOZ_GIO_COMPONENT=1
-    MOZ_EXTENSIONS=`echo $MOZ_EXTENSIONS | sed -e 's|gio||'`
-fi
-AC_SUBST(MOZ_GIO_COMPONENT)
-
-dnl Ensure every extension exists, to avoid mostly-inscrutable error messages
-dnl when trying to build a nonexistent extension.
-for extension in $MOZ_EXTENSIONS; do
-    if test ! -d "${srcdir}/extensions/${extension}"; then
-        AC_MSG_ERROR([Unrecognized extension provided to --enable-extensions: ${extension}.])
-    fi
-done
 
 if test -n "$MOZ_USE_NATIVE_POPUP_WINDOWS"; then
   AC_DEFINE(MOZ_USE_NATIVE_POPUP_WINDOWS)
@@ -4360,11 +4204,6 @@ if test "$MOZ_TREE_CAIRO"; then
     fi
 
     case "$MOZ_WIDGET_TOOLKIT" in
-      cocoa | uikit)
-        QUARTZ_SURFACE_FEATURE="#define CAIRO_HAS_QUARTZ_SURFACE 1"
-        QUARTZ_IMAGE_SURFACE_FEATURE="#define CAIRO_HAS_QUARTZ_IMAGE_SURFACE 1"
-        QUARTZ_FONT_FEATURE="#define CAIRO_HAS_QUARTZ_FONT 1"
-        ;;
       windows)
         WIN32_D2D_SURFACE_FEATURE="#define CAIRO_HAS_D2D_SURFACE 1"
         WIN32_DWRITE_FONT_FEATURE="#define CAIRO_HAS_DWRITE_FONT 1"
@@ -4392,8 +4231,6 @@ if test "$MOZ_TREE_CAIRO"; then
     AC_SUBST(SVG_SURFACE_FEATURE)
     AC_SUBST(XLIB_SURFACE_FEATURE)
     AC_SUBST(XLIB_XRENDER_SURFACE_FEATURE)
-    AC_SUBST(QUARTZ_SURFACE_FEATURE)
-    AC_SUBST(QUARTZ_IMAGE_SURFACE_FEATURE)
     AC_SUBST(WIN32_SURFACE_FEATURE)
     AC_SUBST(OS2_SURFACE_FEATURE)
     AC_SUBST(DIRECTFB_SURFACE_FEATURE)
@@ -4402,7 +4239,6 @@ if test "$MOZ_TREE_CAIRO"; then
     AC_SUBST(WIN32_FONT_FEATURE)
     AC_SUBST(WIN32_DWRITE_FONT_FEATURE)
     AC_SUBST(WIN32_D2D_SURFACE_FEATURE)
-    AC_SUBST(QUARTZ_FONT_FEATURE)
     AC_SUBST(PNG_FUNCTIONS_FEATURE)
     AC_SUBST(QT_SURFACE_FEATURE)
     AC_SUBST(TEE_SURFACE_FEATURE)
@@ -4479,12 +4315,6 @@ if test "$NECKO_COOKIES"; then
     _NON_GLOBAL_ACDEFINES="$_NON_GLOBAL_ACDEFINES NECKO_COOKIES"
 fi
 
-dnl
-dnl Always build Marionette
-dnl
-AC_DEFINE(ENABLE_MARIONETTE)
-AC_SUBST(ENABLE_MARIONETTE)
-
 dnl ========================================================
 dnl =
 dnl = Miscellaneous (former toolkit/moz.configure)
@@ -4495,12 +4325,6 @@ dnl Build Places if required
 AC_SUBST(MOZ_PLACES)
 if test "$MOZ_PLACES"; then
   AC_DEFINE(MOZ_PLACES)
-fi
-
-dnl Build Firefox Health Reporter Service
-AC_SUBST(MOZ_SERVICES_HEALTHREPORT)
-if test -n "$MOZ_SERVICES_HEALTHREPORT"; then
-  AC_DEFINE(MOZ_SERVICES_HEALTHREPORT)
 fi
 
 dnl Build Sync Services if required
@@ -4539,7 +4363,6 @@ AC_SUBST(MOZ_PREF_EXTENSIONS)
 AC_SUBST(MOZ_DEBUG)
 AC_SUBST(MOZ_DEBUG_LDFLAGS)
 AC_SUBST(WARNINGS_AS_ERRORS)
-AC_SUBST_SET(MOZ_EXTENSIONS)
 AC_SUBST(LIBICONV)
 AC_SUBST(MOZ_TOOLKIT_SEARCH)
 AC_SUBST(MOZ_FEEDS)
@@ -4568,6 +4391,7 @@ AC_SUBST(INCREMENTAL_LINKER)
 AC_SUBST(MOZ_COMPONENTS_VERSION_SCRIPT_LDFLAGS)
 
 AC_SUBST(MOZ_FIX_LINK_PATHS)
+AC_SUBST(NSDISTMODE)
 
 AC_SUBST(MOZ_POST_PROGRAM_COMMAND)
 
@@ -4712,24 +4536,6 @@ fi
 AC_SUBST(MOZ_SOURCE_REPO)
 AC_SUBST(MOZ_SOURCE_CHANGESET)
 AC_SUBST(MOZ_INCLUDE_SOURCE_INFO)
-
-if test "$MOZ_TELEMETRY_REPORTING"; then
-    AC_DEFINE(MOZ_TELEMETRY_REPORTING)
-
-    # Enable Telemetry by default for nightly and aurora channels
-    if test -z "$RELEASE_OR_BETA"; then
-      AC_DEFINE(MOZ_TELEMETRY_ON_BY_DEFAULT)
-    fi
-fi
-
-dnl If we have any service that uploads data (and requires data submission
-dnl policy alert), set MOZ_DATA_REPORTING.
-dnl We need SUBST for build system and DEFINE for xul preprocessor.
-if test -n "$MOZ_TELEMETRY_REPORTING" || test -n "$MOZ_SERVICES_HEALTHREPORT"; then
-  MOZ_DATA_REPORTING=1
-  AC_DEFINE(MOZ_DATA_REPORTING)
-  AC_SUBST(MOZ_DATA_REPORTING)
-fi
 
 dnl win32 options
 AC_SUBST(WIN32_REDIST_DIR)
@@ -4956,7 +4762,6 @@ MOZ_BRANDING_DIRECTORY=$MOZ_BRANDING_DIRECTORY
 MC_BASILISK=$MC_BASILISK
 MC_PALEMOON=$MC_PALEMOON
 MOZ_EME=$MOZ_EME
-MOZ_WEBRTC=$MOZ_WEBRTC
 MOZ_SYSTEM_JPEG=$MOZ_SYSTEM_JPEG
 MOZ_SYSTEM_ZLIB=$MOZ_SYSTEM_ZLIB
 MOZ_SYSTEM_BZ2=$MOZ_SYSTEM_BZ2

@@ -68,7 +68,7 @@ UNIFIED_SOURCES += [
 
 LOCAL_INCLUDES += [
     '../build',
-    '/caps',
+    '/system/security/script',
     '/tools/profiler',
 ]
 

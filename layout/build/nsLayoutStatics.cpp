@@ -273,9 +273,8 @@ nsLayoutStatics::Initialize()
 
   ProcessPriorityManager::Init();
 
-#ifdef MOZ_PERMISSIONS
   nsPermissionManager::ClearOriginDataObserverInit();
-#endif
+
   nsCookieService::AppClearDataObserverInit();
   nsApplicationCacheService::AppClearDataObserverInit();
 

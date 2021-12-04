@@ -3,149 +3,61 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-DIRS += ['/libs']
-
 DIRS += [
-    # Depends on NSS and NSPR
-    '/security/certverifier',
-    # Depends on certverifier
-    '/security/apps',
+  '/libs',
+  '/config/external/freetype2',
+  '/xpcom',
 ]
 
 DIRS += [
-    '/config/external/freetype2',
-    '/xpcom',
-    '/intl',
-    '/netwerk',
-]
-
-if CONFIG['MOZ_AUTH_EXTENSION']:
-    DIRS += ['/extensions/auth']
-
-# Gecko/Core components.
-
-DIRS += [
-    '/ipc',
-    '/js/ipc',
-    '/hal',
-    '/js/xpconnect',
-    '/intl/chardet',
-    '/libs/libyuv',
+  '/components',
+  '/dom',
+  '/editor',
+  '/ipc',
+  '/js/ipc',
+  '/js/xpconnect',
+  '/layout',
+  '/modules',
+  '/services',
+  '/system',
 ]
 
 DIRS += [
-    '/components',
-    '/modules',
-    '/system'
+  '/testing/gtest',
+  '/tools/power',
+  '/tools/profiler',
+  '/tools/memory-profiler',
 ]
-
-if CONFIG['MOZ_MAILNEWS']:
-    DIRS += [
-        '/ldap',
-        '/db/mork',
-        '/mailnews',
-    ]
-
-if CONFIG['MOZ_PERMISSIONS']:
-    DIRS += [
-        '/extensions/cookie',
-        '/extensions/permissions',
-    ]
-
-if CONFIG['MOZ_WEBRTC']:
-    DIRS += [
-        '/media/webrtc',
-        '/media/mtransport',
-    ]
-
-if CONFIG['ENABLE_TESTS']:
-    DIRS += ['/testing/specialpowers']
-
-DIRS += [
-    '/testing/gtest',
-    '/caps',
-    '/gfx',
-    '/image',
-    '/dom',
-    '/widget',
-    '/editor',
-    '/layout',
-    '/docshell',
-    '/embedding',
-]
-
-if CONFIG['MOZ_UNIVERSALCHARDET']:
-    DIRS += ['/extensions/universalchardet']
 
 if CONFIG['ACCESSIBILITY']:
-    DIRS += ['/accessible']
+  DIRS += ['/accessible']
 else:
-    DIRS += ['/accessible/ipc']
+  DIRS += ['/accessible/ipc']
 
-# toolkit
-
-DIRS += [
-    '/tools/power',
-    '/tools/profiler',
-    '/tools/memory-profiler',
-]
-
-if CONFIG['MOZ_ENABLE_XREMOTE']:
-    DIRS += ['/widget/xremoteclient']
-
-if CONFIG['MOZ_SPELLCHECK']:
-    DIRS += ['/extensions/spellcheck']
+if CONFIG['MOZ_MAILNEWS']:
+  DIRS += ['/mailnews']
 
 DIRS += [
-    '/security/manager',
-    '/toolkit',
+  '/system/evil/StaticXULComponentsEnd',
+  '/system/evil',
 ]
-
-if CONFIG['MOZ_PREF_EXTENSIONS']:
-    DIRS += ['/extensions/pref']
-
-if CONFIG['MOZ_DEVTOOLS_SERVER']:
-    DIRS += ['/devtools']
-
-DIRS += [
-    '/services',
-]
-
-if CONFIG['MOZ_GIO_COMPONENT']:
-    DIRS += ['/extensions/gio']
-
-DIRS += [
-    '/system/evil/StaticXULComponentsEnd',
-    '/system/evil',
-]
-
-if CONFIG['ENABLE_MARIONETTE'] or True:
-    DIRS += [
-        '/testing/firefox-ui',
-        '/testing/marionette',
-    ]
-
-if CONFIG['ENABLE_TESTS']:
-    DIRS += [
-        '/testing/mochitest',
-        '/testing/xpcshell',
-        '/testing/tools/minidumpwriter',
-        '/testing/tools/screenshot',
-        '/testing/profiles',
-        '/testing/mozbase',
-        '/testing/modules',
-        '/testing/runtimes',
-        '/testing/web-platform',
-    ]
-
-    if CONFIG['MOZ_MEMORY']:
-        DIRS += ['/memory/gtest']
-
-    if CONFIG['MOZ_WEBRTC'] and not CONFIG['MOZ_TASK_TRACER']:
-        DIRS += [
-            '/media/webrtc/signaling/test',
-            '/media/mtransport/test',
-        ]
 
 if CONFIG['FUZZING']:
-    DIRS += ['/tools/fuzzing']
+  DIRS += ['/tools/fuzzing']
+
+if CONFIG['ENABLE_TESTS']:
+  DIRS += [
+    '/testing/mochitest',
+    '/testing/xpcshell',
+    '/testing/tools/minidumpwriter',
+    '/testing/tools/screenshot',
+    '/testing/profiles',
+    '/testing/mozbase',
+    '/testing/modules',
+    '/testing/runtimes',
+    '/testing/specialpowers',
+    '/testing/web-platform',
+  ]
+
+  if CONFIG['MOZ_MEMORY']:
+    DIRS += ['/memory/gtest']

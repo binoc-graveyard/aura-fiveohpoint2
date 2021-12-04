@@ -7,6 +7,9 @@ SPHINX_TREES['toolkit_modules'] = 'docs'
 
 DIRS += ['subprocess']
 
+if CONFIG['MOZ_MAILNEWS']:
+  DIRS += ['ldap']
+
 if CONFIG['MOZ_UPDATER']:
   # NOTE: The signing related bits of libmar depend on nss
   DIRS += ['/modules/libmar']
@@ -35,6 +38,7 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('windows', 'gtk2', 'gtk3'):
 DEFINES['TOPOBJDIR'] = TOPOBJDIR
 
 EXTRA_JS_MODULES += [
+  'Async.jsm',
   'AsyncPrefs.jsm',
   'Battery.jsm',
   'BinarySearch.jsm',

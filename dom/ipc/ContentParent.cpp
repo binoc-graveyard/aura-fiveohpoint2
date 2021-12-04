@@ -173,10 +173,6 @@
 
 #include "nsLayoutStylesheetCache.h"
 
-#ifdef MOZ_WEBRTC
-#include "signaling/src/peerconnection/WebrtcGlobalParent.h"
-#endif
-
 #if defined(LINUX)
 #include "nsSystemInfo.h"
 #endif
@@ -185,9 +181,7 @@
 #include "mozilla/Hal.h"
 #endif
 
-#ifdef MOZ_PERMISSIONS
 # include "nsPermissionManager.h"
-#endif
 
 #ifdef MOZ_WIDGET_GTK
 #include <gdk/gdk.h>
@@ -2227,7 +2221,6 @@ ContentParent::RecvReadDataStorageArray(const nsString& aFilename,
 bool
 ContentParent::RecvReadPermissions(InfallibleTArray<IPC::Permission>* aPermissions)
 {
-#ifdef MOZ_PERMISSIONS
   nsCOMPtr<nsIPermissionManager> permissionManagerIface =
     services::GetPermissionManager();
   nsPermissionManager* permissionManager =
@@ -2270,7 +2263,6 @@ ContentParent::RecvReadPermissions(InfallibleTArray<IPC::Permission>* aPermissio
 
   // Ask for future changes
   mSendPermissionUpdates = true;
-#endif
 
   return true;
 }
@@ -4056,22 +4048,15 @@ ContentParent::DeallocPOfflineCacheUpdateParent(POfflineCacheUpdateParent* aActo
 PWebrtcGlobalParent *
 ContentParent::AllocPWebrtcGlobalParent()
 {
-#ifdef MOZ_WEBRTC
-  return WebrtcGlobalParent::Alloc();
-#else
+  // TODO: remove this
   return nullptr;
-#endif
 }
 
 bool
 ContentParent::DeallocPWebrtcGlobalParent(PWebrtcGlobalParent *aActor)
 {
-#ifdef MOZ_WEBRTC
-  WebrtcGlobalParent::Dealloc(static_cast<WebrtcGlobalParent*>(aActor));
-  return true;
-#else
+  // TODO: Remove this
   return false;
-#endif
 }
 
 bool

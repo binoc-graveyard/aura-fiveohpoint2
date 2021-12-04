@@ -3,15 +3,18 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+include('/ipc/chromium/chromium-config.mozbuild')
+
 EXPORTS += [
+  'nsEmbedCID.h',
   'nsRDFCID.h',
   'nsToolkitCompsCID.h'
 ]
 
 SOURCES += [
+  'nsEmbeddingModule.cpp',
   'nsRDFModule.cpp',
   'nsToolkitCompsModule.cpp',
-  'nsXPFEFactory.cpp'
 ]
 
 LOCAL_INCLUDES += [
@@ -19,19 +22,35 @@ LOCAL_INCLUDES += [
   '../directory/src',
   '../downloads/src',
   '../feeds',
-  '../find',
+  '../find/src',
   '../jsdownloads/src',
   '../perfmonitoring',
+  '../printing/src',
   '../rdf/src',
-  '../startup',
+  '../startup/src',
   '../statusfilter',
   '../typeaheadfind',
-  '/toolkit/xre',
+  '../windowwatcher/src',
+  '/dom/commandhandler',
+  '/dom/webbrowserpersist',
+  '/system/runtime',
 ]
 
 if not CONFIG['MOZ_DISABLE_PARENTAL_CONTROLS']:
   LOCAL_INCLUDES += [
     '../parentalcontrols',
+  ]
+
+if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
+  DEFINES['PROXY_PRINTING'] = 1
+  LOCAL_INCLUDES += [
+    '../printing/src/win',
+  ]
+
+if CONFIG['MOZ_PDF_PRINTING']:
+  DEFINES['PROXY_PRINTING'] = 1
+  LOCAL_INCLUDES += [
+    '../printing/src/unix',
   ]
 
 FINAL_LIBRARY = 'xul'

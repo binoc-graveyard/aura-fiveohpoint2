@@ -19,10 +19,6 @@
 #include "nsIPrefService.h"
 #include "nsIPrefBranch.h"
 
-#ifdef MOZ_WEBRTC
-#include "YuvStamper.h"
-#endif
-
 #define AUDIO_RATE mozilla::MediaEngine::DEFAULT_SAMPLE_RATE
 #define DEFAULT_AUDIO_TIMER_MS 10
 namespace mozilla {
@@ -35,11 +31,7 @@ NS_IMPL_ISUPPORTS(MediaEngineDefaultVideoSource, nsITimerCallback)
  */
 
 MediaEngineDefaultVideoSource::MediaEngineDefaultVideoSource()
-#ifdef MOZ_WEBRTC
-  : MediaEngineCameraVideoSource("FakeVideo.Monitor")
-#else
   : MediaEngineVideoSource()
-#endif
   , mTimer(nullptr)
   , mMonitor("Fake video")
   , mCb(16), mCr(16)
@@ -71,12 +63,6 @@ MediaEngineDefaultVideoSource::GetBestFitnessDistance(
     const nsString& aDeviceId) const
 {
   uint32_t distance = 0;
-#ifdef MOZ_WEBRTC
-  for (const auto* cs : aConstraintSets) {
-    distance = GetMinimumFitnessDistance(*cs, aDeviceId);
-    break; // distance is read from first entry only
-  }
-#endif
   return distance;
 }
 
@@ -256,14 +242,6 @@ MediaEngineDefaultVideoSource::Notify(nsITimer* aTimer)
   layers::PlanarYCbCrData data;
   AllocateSolidColorFrame(data, mOpts.mWidth, mOpts.mHeight, 0x80, mCb, mCr);
 
-#ifdef MOZ_WEBRTC
-  uint64_t timestamp = PR_Now();
-  YuvStamper::Encode(mOpts.mWidth, mOpts.mHeight, mOpts.mWidth,
-		     data.mYChannel,
-		     reinterpret_cast<unsigned char*>(&timestamp), sizeof(timestamp),
-		     0, 0);
-#endif
-
   bool setData = ycbcr_image->CopyData(data);
   MOZ_ASSERT(setData);
 
@@ -392,12 +370,6 @@ MediaEngineDefaultAudioSource::GetBestFitnessDistance(
     const nsString& aDeviceId) const
 {
   uint32_t distance = 0;
-#ifdef MOZ_WEBRTC
-  for (const auto* cs : aConstraintSets) {
-    distance = GetMinimumFitnessDistance(*cs, aDeviceId);
-    break; // distance is read from first entry only
-  }
-#endif
   return distance;
 }
 

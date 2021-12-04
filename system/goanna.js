@@ -19,7 +19,7 @@
  *  - Computed values (e.g. 50 * 1024) don't work.
  */
 
-#include ../netwerk/base/security-prefs.js
+#include network/base/security-prefs.js
 
 pref("keyword.enabled", false);
 pref("general.useragent.locale", "chrome://global/locale/intl.properties");
@@ -452,104 +452,6 @@ pref("media.suspend-bkgnd-video.enabled", false);
 // Delay, in ms, from time window goes to background to suspending
 // video decoders. Defaults to 10 seconds.
 pref("media.suspend-bkgnd-video.delay-ms", 10000);
-
-#ifdef MOZ_WEBRTC
-pref("media.navigator.enabled", true);
-pref("media.navigator.video.enabled", true);
-pref("media.navigator.load_adapt", true);
-pref("media.navigator.load_adapt.encoder_only", true);
-pref("media.navigator.load_adapt.measure_interval",1000);
-pref("media.navigator.load_adapt.avg_seconds",3);
-pref("media.navigator.load_adapt.high_load","0.90");
-pref("media.navigator.load_adapt.low_load","0.40");
-pref("media.navigator.video.default_fps",30);
-pref("media.navigator.video.default_minfps",10);
-pref("media.navigator.video.use_remb", true);
-pref("media.navigator.video.use_tmmbr", false);
-pref("media.navigator.audio.use_fec", true);
-pref("media.navigator.video.red_ulpfec_enabled", false);
-
-pref("media.peerconnection.dtmf.enabled", true);
-
-pref("media.webrtc.debug.trace_mask", 0);
-pref("media.webrtc.debug.multi_log", false);
-pref("media.webrtc.debug.aec_log_dir", "");
-pref("media.webrtc.debug.log_file", "");
-pref("media.webrtc.debug.aec_dump_max_size", 4194304); // 4MB
-
-pref("media.navigator.video.default_width",0);  // adaptive default
-pref("media.navigator.video.default_height",0); // adaptive default
-pref("media.peerconnection.enabled", true);
-pref("media.peerconnection.video.enabled", true);
-pref("media.navigator.video.max_fs", 12288); // Enough for 2048x1536
-pref("media.navigator.video.max_fr", 60);
-pref("media.navigator.video.h264.level", 31); // 0x42E01f - level 3.1
-pref("media.navigator.video.h264.max_br", 0);
-pref("media.navigator.video.h264.max_mbps", 0);
-pref("media.peerconnection.video.h264_enabled", false);
-pref("media.peerconnection.video.vp9_enabled", true);
-pref("media.getusermedia.aec", 1);
-pref("media.getusermedia.browser.enabled", true);
-
-// Desktop is typically VGA capture or more; and qm_select will not drop resolution
-// below 1/2 in each dimension (or so), so QVGA (320x200) is the lowest here usually.
-pref("media.peerconnection.video.min_bitrate", 0);
-pref("media.peerconnection.video.start_bitrate", 0);
-pref("media.peerconnection.video.max_bitrate", 0);
-pref("media.peerconnection.video.min_bitrate_estimate", 0);
-pref("media.navigator.audio.fake_frequency", 1000);
-pref("media.navigator.permission.disabled", false);
-pref("media.peerconnection.simulcast", true);
-pref("media.peerconnection.default_iceservers", "[]");
-pref("media.peerconnection.ice.loopback", false); // Set only for testing in offline environments.
-pref("media.peerconnection.ice.tcp", false);
-pref("media.peerconnection.ice.tcp_so_sock_count", 0); // Disable SO gathering
-pref("media.peerconnection.ice.link_local", false); // Set only for testing IPV6 in networks that don't assign IPV6 addresses
-pref("media.peerconnection.ice.force_interface", ""); // Limit to only a single interface
-pref("media.peerconnection.ice.relay_only", false); // Limit candidates to TURN
-pref("media.peerconnection.use_document_iceservers", true);
-pref("media.peerconnection.identity.enabled", true);
-pref("media.peerconnection.identity.timeout", 10000);
-pref("media.peerconnection.ice.stun_client_maximum_transmits", 7);
-pref("media.peerconnection.ice.trickle_grace_period", 5000);
-pref("media.peerconnection.ice.no_host", false);
-pref("media.peerconnection.ice.default_address_only", false);
-pref("media.peerconnection.ice.proxy_only", false);
-
-// These values (aec, agc, and noice) are from media/webrtc/trunk/webrtc/common_types.h
-// kXxxUnchanged = 0, kXxxDefault = 1, and higher values are specific to each
-// setting (for Xxx = Ec, Agc, or Ns).  Defaults are all set to kXxxDefault here.
-pref("media.peerconnection.turn.disable", false);
-#if defined(MOZ_WEBRTC_HARDWARE_AEC_NS)
-pref("media.getusermedia.aec_enabled", false);
-pref("media.getusermedia.noise_enabled", false);
-#else
-pref("media.getusermedia.aec_enabled", true);
-pref("media.getusermedia.noise_enabled", true);
-#endif
-pref("media.getusermedia.aec_extended_filter", true);
-pref("media.getusermedia.aec_delay_agnostic", true);
-pref("media.getusermedia.noise", 1);
-pref("media.getusermedia.agc_enabled", false);
-pref("media.getusermedia.agc", 1);
-// capture_delay: Adjustments for OS-specific input delay (lower bound)
-// playout_delay: Adjustments for OS-specific AudioStream+cubeb+output delay (lower bound)
-// full_duplex: enable cubeb full-duplex capture/playback
-#if defined(XP_WIN)
-pref("media.peerconnection.capture_delay", 50);
-pref("media.getusermedia.playout_delay", 40);
-pref("media.navigator.audio.full_duplex", false);
-#elif defined(XP_LINUX)
-pref("media.peerconnection.capture_delay", 70);
-pref("media.getusermedia.playout_delay", 50);
-pref("media.navigator.audio.full_duplex", true);
-#else
-// *BSD, others - merely a guess for now
-pref("media.peerconnection.capture_delay", 50);
-pref("media.getusermedia.playout_delay", 50);
-pref("media.navigator.audio.full_duplex", false);
-#endif
-#endif
 
 pref("dom.webaudio.enabled", true);
 

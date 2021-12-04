@@ -87,7 +87,7 @@ case $cmd in
     cp -pPR ${TOPSRCDIR}/Makefile.in ${TOPSRCDIR}/moz.build ${tgtpath}
 
     # copy nspr.
-    cp -pPR ${SRCDIR}/../../nsprpub ${tgtpath}
+    cp -pPR ${SRCDIR}/../../libs/nspr/src ${tgtpath}
 
     # copy top-level build and config files.
     cp -p ${TOPSRCDIR}/configure.py ${TOPSRCDIR}/moz.configure ${tgtpath}

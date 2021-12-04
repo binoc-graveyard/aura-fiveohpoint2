@@ -31,10 +31,7 @@
 #include "VideoFrameContainer.h"
 #include "mozilla/Unused.h"
 #include "mozilla/media/MediaUtils.h"
-#ifdef MOZ_WEBRTC
-#include "AudioOutputObserver.h"
-#endif
-#include "mtransport/runnable_utils.h"
+#include "runnable_utils.h"
 
 #include "webaudio/blink/HRTFDatabaseLoader.h"
 
@@ -472,11 +469,6 @@ MediaStreamGraphImpl::AudioTrackPresent(bool& aNeedsAEC)
   for (uint32_t i = 0; i < mStreams.Length() && audioTrackPresent == false; ++i) {
     MediaStream* stream = mStreams[i];
     SourceMediaStream* source = stream->AsSourceStream();
-#ifdef MOZ_WEBRTC
-    if (source && source->NeedsMixing()) {
-      aNeedsAEC = true;
-    }
-#endif
     // If this is a AudioNodeStream, force a AudioCallbackDriver.
     if (stream->AsAudioNodeStream()) {
       audioTrackPresent = true;
@@ -497,9 +489,6 @@ MediaStreamGraphImpl::AudioTrackPresent(bool& aNeedsAEC)
   if (!audioTrackPresent && mInputDeviceUsers.Count() != 0) {
     NS_WARNING("No audio tracks, but full-duplex audio is enabled!!!!!");
     audioTrackPresent = true;
-#ifdef MOZ_WEBRTC
-    aNeedsAEC = true;
-#endif
   }
 
   return audioTrackPresent;
@@ -542,26 +531,6 @@ MediaStreamGraphImpl::UpdateStreamOrder()
       CurrentDriver()->SwitchAtNextIteration(driver);
     }
   }
-
-#ifdef MOZ_WEBRTC
-  // Whenever we change AEC state, notify the current driver, which also
-  // will sample the state when the driver inits
-  if (shouldAEC && !mFarendObserverRef && gFarendObserver) {
-    mFarendObserverRef = gFarendObserver;
-    mMixer.AddCallback(mFarendObserverRef);
-    if (CurrentDriver()->AsAudioCallbackDriver()) {
-      CurrentDriver()->AsAudioCallbackDriver()->SetMicrophoneActive(true);
-    }
-  } else if (!shouldAEC && mFarendObserverRef){
-    if (mMixer.FindCallback(mFarendObserverRef)) {
-      mMixer.RemoveCallback(mFarendObserverRef);
-      mFarendObserverRef = nullptr;
-      if (CurrentDriver()->AsAudioCallbackDriver()) {
-        CurrentDriver()->AsAudioCallbackDriver()->SetMicrophoneActive(false);
-      }
-    }
-  }
-#endif
 
   if (!mStreamOrderDirty) {
     return;
@@ -3333,9 +3302,6 @@ MediaStreamGraphImpl::MediaStreamGraphImpl(GraphDriverType aDriverRequested,
   , mNonRealtimeProcessing(false)
   , mStreamOrderDirty(false)
   , mLatencyLog(AsyncLatencyLogger::Get())
-#ifdef MOZ_WEBRTC
-  , mFarendObserverRef(nullptr)
-#endif
   , mSelfRef(this)
 #ifdef DEBUG
   , mCanRunMessagesSynchronously(false)

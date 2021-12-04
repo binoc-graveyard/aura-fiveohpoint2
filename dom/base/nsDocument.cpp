@@ -258,9 +258,6 @@
 #include "nsISpeculativeConnect.h"
 
 #include "mozilla/MediaManager.h"
-#ifdef MOZ_WEBRTC
-#include "IPeerConnection.h"
-#endif // MOZ_WEBRTC
 
 using namespace mozilla;
 using namespace mozilla::dom;
@@ -8093,20 +8090,6 @@ nsDocument::CanSavePresentation(nsIRequest *aNewRequest)
       MediaManager::Get()->IsWindowStillActive(win->WindowID())) {
     return false;
   }
-
-#ifdef MOZ_WEBRTC
-  // Check if we have active PeerConnections
-  nsCOMPtr<IPeerConnectionManager> pcManager =
-    do_GetService(IPEERCONNECTION_MANAGER_CONTRACTID);
-
-  if (pcManager && win) {
-    bool active;
-    pcManager->HasActivePeerConnection(win->WindowID(), &active);
-    if (active) {
-      return false;
-    }
-  }
-#endif // MOZ_WEBRTC
 
 #ifdef MOZ_EME
   // Don't save presentations for documents containing EME content, so that

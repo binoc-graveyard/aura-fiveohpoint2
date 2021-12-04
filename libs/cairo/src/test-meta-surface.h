@@ -10,9 +10,9 @@
 CAIRO_BEGIN_DECLS
 
 cairo_surface_t *
-_cairo_test_meta_surface_create (cairo_content_t	content,
-			   int			width,
-			   int			height);
+_cairo_test_meta_surface_create (cairo_content_t    content,
+               int            width,
+               int            height);
 
 CAIRO_END_DECLS
 
