@@ -9,10 +9,6 @@ with Files('*'):
 component_signaling = ('Core', 'WebRTC: Signaling')
 with Files('IdpSandbox.jsm'):
     BUG_COMPONENT = component_signaling
-with Files('PeerConnection*'):
-    BUG_COMPONENT = component_signaling
-with Files('RTC*'):
-    BUG_COMPONENT = component_signaling
 
 component_av = ('Core', 'WebRTC: Audio/Video')
 with Files('GetUserMedia*'):
@@ -242,14 +238,8 @@ if CONFIG['OS_TARGET'] == 'WINNT':
 if CONFIG['GNU_CC'] or CONFIG['CLANG_CL']:
   SOURCES['DecoderTraits.cpp'].flags += ['-Wno-error=multichar']
 
-EXTRA_COMPONENTS += [
-    'PeerConnection.js',
-    'PeerConnection.manifest',
-]
-
 EXTRA_JS_MODULES.media += [
     'IdpSandbox.jsm',
-    'PeerConnectionIdp.jsm',
     'RTCStatsReport.jsm',
 ]
 

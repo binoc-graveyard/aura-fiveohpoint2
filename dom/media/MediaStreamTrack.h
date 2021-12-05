@@ -28,8 +28,6 @@ class MediaStreamGraph;
 class MediaStreamGraphImpl;
 class MediaStreamTrackListener;
 class DirectMediaStreamTrackListener;
-class PeerConnectionImpl;
-class PeerConnectionMedia;
 class PeerIdentity;
 class ProcessedMediaStream;
 class RemoteSourceStreamInfo;
@@ -77,7 +75,7 @@ public:
   virtual void Destroy() {}
 
   /**
-   * Gets the source's MediaSourceEnum for usage by PeerConnections.
+   * Gets the source's MediaSourceEnum.
    */
   virtual MediaSourceEnum GetMediaSource() const = 0;
 
@@ -248,9 +246,7 @@ class MediaStreamTrack : public DOMEventTargetHelper,
   // some internal state, e.g., GetInputStream(), GetOwnedStream().
   friend class mozilla::DOMMediaStream;
 
-  // PeerConnection and friends need to know our owning DOMStream and track id.
-  friend class mozilla::PeerConnectionImpl;
-  friend class mozilla::PeerConnectionMedia;
+  // To know our owning DOMStream and track id.
   friend class mozilla::SourceStreamInfo;
   friend class mozilla::RemoteSourceStreamInfo;
 

@@ -1337,9 +1337,9 @@ bool
 Navigator::HasUserMediaSupport(JSContext* /* unused */,
                                JSObject* /* unused */)
 {
-  // Make enabling peerconnection enable getUserMedia() as well
-  return Preferences::GetBool("media.navigator.enabled", false) ||
-         Preferences::GetBool("media.peerconnection.enabled", false);
+  // We no longer support this, so always false.
+  // TODO: Remove this.
+  return false;
 }
 
 /* static */
