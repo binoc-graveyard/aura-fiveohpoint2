@@ -48,7 +48,6 @@
 #include "nsCSSRules.h"
 #include "nsStyleSet.h"
 #include "mozilla/dom/Element.h"
-#include "mozilla/dom/ShadowRoot.h"
 #include "nsNthIndexCache.h"
 #include "mozilla/ArrayUtils.h"
 #include "mozilla/EventStates.h"
@@ -1322,17 +1321,9 @@ struct NodeMatchContext {
   // mForStyling is false, we have to assume we don't know.)
   const bool mIsRelevantLink;
 
-  // If the node should be considered featureless (as specified in
-  // selectors 4), then mIsFeature should be set to true to prevent
-  // matching unless the selector is a special pseudo class or pseudo
-  // element that matches featureless elements.
-  const bool mIsFeatureless;
-
-  NodeMatchContext(EventStates aStateMask, bool aIsRelevantLink,
-                   bool aIsFeatureless = false)
+  NodeMatchContext(EventStates aStateMask, bool aIsRelevantLink)
     : mStateMask(aStateMask)
     , mIsRelevantLink(aIsRelevantLink)
-    , mIsFeatureless(aIsFeatureless)
   {
   }
 };
@@ -1619,11 +1610,6 @@ StateSelectorMatches(Element* aElement,
   return true;
 }
 
-static bool AnySelectorInArgListMatches(Element* aElement,
-                                     nsPseudoClassList* aList,
-                                     NodeMatchContext& aNodeMatchContext,
-                                     TreeMatchContext& aTreeMatchContext);
-
 static bool
 StateSelectorMatches(Element* aElement,
                      nsCSSSelector* aSelector,
@@ -1645,17 +1631,6 @@ StateSelectorMatches(Element* aElement,
   return true;
 }
 
-// Returns whether aSelector can match featureless elements.
-static bool CanMatchFeaturelessElement(nsCSSSelector* aSelector)
-{
-  if (aSelector->HasFeatureSelectors()) {
-    return false;
-  }
-
-  return false;
-}
-
-
 // |aDependence| has two functions:
 //  * when non-null, it indicates that we're processing a negation,
 //    which is done only when SelectorMatches calls itself recursively
@@ -1675,11 +1650,6 @@ static bool SelectorMatches(Element* aElement,
              "mIsRelevantLink should be set to false when mForStyling "
              "is false since we don't know how to set it correctly in "
              "Has(Attribute|State)DependentStyle");
-
-  if (aNodeMatchContext.mIsFeatureless &&
-      !CanMatchFeaturelessElement(aSelector)) {
-    return false;
-  }
 
   // namespace/tag match
   // optimization : bail out early if we can
@@ -1879,9 +1849,18 @@ static bool SelectorMatches(Element* aElement,
 
       case CSSPseudoClassType::any:
         {
-          if (!AnySelectorInArgListMatches(aElement, pseudoClass,
-                                           aNodeMatchContext,
-                                           aTreeMatchContext)) {
+          nsCSSSelectorList *l;
+          for (l = pseudoClass->u.mSelectors; l; l = l->mNext) {
+            nsCSSSelector *s = l->mSelectors;
+            MOZ_ASSERT(!s->mNext && !s->IsPseudoElement(),
+                       "parser failed");
+            if (SelectorMatches(
+                  aElement, s, aNodeMatchContext, aTreeMatchContext,
+                  SelectorMatchesFlags::IS_PSEUDO_CLASS_ARGUMENT)) {
+              break;
+            }
+          }
+          if (!l) {
             return false;
           }
         }
@@ -2263,26 +2242,6 @@ static bool SelectorMatches(Element* aElement,
   return result;
 }
 
-static bool AnySelectorInArgListMatches(Element* aElement,
-                                     nsPseudoClassList* aList,
-                                     NodeMatchContext& aNodeMatchContext,
-                                     TreeMatchContext& aTreeMatchContext)
-{
-  nsCSSSelectorList *l;
-  for (l = aList->u.mSelectors; l; l = l->mNext) {
-    nsCSSSelector *s = l->mSelectors;
-    MOZ_ASSERT(!s->mNext && !s->IsPseudoElement(),
-           "parser failed");
-    if (SelectorMatches(
-          aElement, s, aNodeMatchContext, aTreeMatchContext,
-          SelectorMatchesFlags::IS_PSEUDO_CLASS_ARGUMENT)) {
-      break;
-    }
-  }
-
-  return !!l;
-}
-
 #undef STATE_CHECK
 
 #ifdef DEBUG
@@ -2372,9 +2331,7 @@ SelectorMatchesTree(Element* aPrevElement,
   MOZ_ASSERT(!aSelector || !aSelector->IsPseudoElement());
   nsCSSSelector* selector = aSelector;
   Element* prevElement = aPrevElement;
-  bool crossedShadowRootBoundary = false;
   while (selector) { // check compound selectors
-    bool contentIsFeatureless = false;
     NS_ASSERTION(!selector->mNext ||
                  selector->mNext->mOperator != char16_t(0),
                  "compound selector without combinator");
@@ -2405,20 +2362,6 @@ SelectorMatchesTree(Element* aPrevElement,
     // to test against is the parent
     else {
       nsIContent *content = prevElement->GetParent();
-
-      // In the shadow tree, the shadow host behaves as if it
-      // is a featureless parent of top-level elements of the shadow
-      // tree. Only cross shadow root boundary when the selector is the
-      // left most selector because ancestors of the host are not in
-      // the selector match list.
-      ShadowRoot* shadowRoot = content ?
-        ShadowRoot::FromNode(content) : nullptr;
-      if (shadowRoot && !selector->mNext && !crossedShadowRootBoundary) {
-      content = shadowRoot->GetHost();
-      crossedShadowRootBoundary = true;
-      contentIsFeatureless = true;
-      }
-
       // GetParent could return a document fragment; we only want
       // element parents.
       if (content && content->IsElement()) {
@@ -2470,8 +2413,7 @@ SelectorMatchesTree(Element* aPrevElement,
     }
     const bool isRelevantLink = (aFlags & eLookForRelevantLink) &&
                                 nsCSSRuleProcessor::IsLink(element);
-
-    NodeMatchContext nodeContext(EventStates(), isRelevantLink, contentIsFeatureless);
+    NodeMatchContext nodeContext(EventStates(), isRelevantLink);
     if (isRelevantLink) {
       // If we find an ancestor of the matched node that is a link
       // during the matching process, then it's the relevant link (see
@@ -2541,20 +2483,6 @@ void ContentEnumFunc(const RuleValue& value, nsCSSSelector* aSelector,
     // We won't match; nothing else to do here
     return;
   }
-  // If mOnlyMatchHostPseudo is set, then we only want to match against
-  // selectors that contain a :host-context pseudo class.
-  if (data->mTreeMatchContext.mOnlyMatchHostPseudo) {
-    nsCSSSelector* selector = aSelector;
-    while (selector && selector->mNext != nullptr) {
-      selector = selector->mNext;
-    }
-
-    bool seenHostPseudo = false;
-
-    if (!seenHostPseudo) {
-      return;
-    }
-  }
   if (!data->mTreeMatchContext.SetStyleScopeForSelectorMatching(data->mElement,
                                                                 data->mScope)) {
     // The selector is for a rule in a scoped style sheet, and the subject
@@ -2614,8 +2542,7 @@ nsCSSRuleProcessor::RulesMatching(ElementRuleProcessorData *aData)
 
   if (cascade) {
     NodeMatchContext nodeContext(EventStates(),
-                                 nsCSSRuleProcessor::IsLink(aData->mElement),
-				 aData->mElementIsFeatureless);
+                                 nsCSSRuleProcessor::IsLink(aData->mElement));
     cascade->mRuleHash.EnumerateAllRules(aData->mElement, aData, nodeContext);
   }
 }
@@ -2897,24 +2824,6 @@ AttributeEnumFunc(nsCSSSelector* aSelector,
   nsRestyleHint possibleChange =
     RestyleHintForSelectorWithAttributeChange(aData->change,
                                               aSelector, aRightmostSelector);
-  // If mOnlyMatchHostPseudo is set, then we only want to match against
-  // selectors that contain a :host-context pseudo class.
-  if (data->mTreeMatchContext.mOnlyMatchHostPseudo) {
-    nsCSSSelector* selector = aSelector;
-    while (selector && selector->mNext != nullptr) {
-      selector = selector->mNext;
-    }
-
-    bool seenHostPseudo = false;
-    break;
-      }
-    }
-
-    if (!seenHostPseudo) {
-      return;
-    }
-  }
-
 
   // If, ignoring eRestyle_SomeDescendants, enumData->change already includes
   // all the bits of possibleChange, don't bother calling SelectorMatches, since
@@ -3386,7 +3295,7 @@ AddSelector(RuleCascadeData* aCascade,
       }
     }
 
-    // Recur through any :-moz-any or :host-context selectors
+    // Recur through any :-moz-any selectors
     for (nsPseudoClassList* pseudoClass = negation->mPseudoClassList;
          pseudoClass; pseudoClass = pseudoClass->mNext) {
       if (pseudoClass->mType == CSSPseudoClassType::any) {
@@ -4034,7 +3943,6 @@ TreeMatchContext::InitAncestors(Element *aElement)
     for (uint32_t i = ancestors.Length(); i-- != 0; ) {
       mAncestorFilter.PushAncestor(ancestors[i]);
       PushStyleScope(ancestors[i]);
-      PushShadowHost(ancestors[i]);
     }
   }
 }

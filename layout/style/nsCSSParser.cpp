@@ -5639,7 +5639,6 @@ CSSParserImpl::ParseTypeOrUniversalSelector(int32_t&       aDataMask,
         aSelector.SetTag(mToken.mIdent);
       }
       else if (mToken.IsSymbol('*')) {  // universal selector
-	aSelector.SetHasExplicitUniversal();
         aDataMask |= SEL_MASK_ELEM;
         // don't set tag
       }
@@ -5651,7 +5650,6 @@ CSSParserImpl::ParseTypeOrUniversalSelector(int32_t&       aDataMask,
     }
     else {  // was universal element selector
       SetDefaultNamespaceOnSelector(aSelector);
-      aSelector.SetHasExplicitUniversal();
       aDataMask |= SEL_MASK_ELEM;
       // don't set any tag in the selector
     }
@@ -6091,8 +6089,7 @@ CSSParserImpl::ParsePseudoSelector(int32_t&       aDataMask,
        CSSPseudoClassType::negation == pseudoClassType ||
        nsCSSPseudoClasses::HasStringArg(pseudoClassType) ||
        nsCSSPseudoClasses::HasNthPairArg(pseudoClassType) ||
-       nsCSSPseudoClasses::HasSelectorListArg(pseudoClassType)) &&
-       !nsCSSPseudoClasses::HasOptionalSelectorListArg(pseudoClassType)) {
+       nsCSSPseudoClasses::HasSelectorListArg(pseudoClassType))) {
     // There are no other function pseudos
     REPORT_UNEXPECTED_TOKEN(PEPseudoSelNonFunc);
     UngetToken();
