@@ -4045,20 +4045,6 @@ ContentParent::DeallocPOfflineCacheUpdateParent(POfflineCacheUpdateParent* aActo
   return true;
 }
 
-PWebrtcGlobalParent *
-ContentParent::AllocPWebrtcGlobalParent()
-{
-  // TODO: remove this
-  return nullptr;
-}
-
-bool
-ContentParent::DeallocPWebrtcGlobalParent(PWebrtcGlobalParent *aActor)
-{
-  // TODO: Remove this
-  return false;
-}
-
 bool
 ContentParent::RecvSetOfflinePermission(const Principal& aPrincipal)
 {

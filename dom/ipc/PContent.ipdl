@@ -41,7 +41,6 @@ include protocol PTestShell;
 include protocol PJavaScript;
 include protocol PRemoteSpellcheckEngine;
 include protocol PWebBrowserPersistDocument;
-include protocol PWebrtcGlobal;
 include protocol PVideoDecoderManager;
 include DOMTypes;
 include JavaScriptTypes;
@@ -255,7 +254,6 @@ nested(upto inside_cpow) sync protocol PContent
     manages PJavaScript;
     manages PRemoteSpellcheckEngine;
     manages PWebBrowserPersistDocument;
-    manages PWebrtcGlobal;
 
 both:
     // Depending on exactly how the new browser is being created, it might be
@@ -661,8 +659,6 @@ parent:
     nested(inside_cpow) async PStorage();
 
     async PMedia();
-
-    async PWebrtcGlobal();
 
     // Services remoting
 

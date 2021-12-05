@@ -991,10 +991,6 @@ private:
   virtual bool
   DeallocPFileDescriptorSetParent(PFileDescriptorSetParent*) override;
 
-  virtual PWebrtcGlobalParent* AllocPWebrtcGlobalParent() override;
-  virtual bool DeallocPWebrtcGlobalParent(PWebrtcGlobalParent *aActor) override;
-
-
   virtual bool RecvUpdateDropEffect(const uint32_t& aDragAction,
                                     const uint32_t& aDropEffect) override;
 

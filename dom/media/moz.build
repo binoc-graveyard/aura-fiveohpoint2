@@ -141,14 +141,6 @@ EXPORTS.mozilla += [
     'MediaManager.h',
 ]
 
-EXPORTS.mozilla.media.webrtc += [
-    'webrtc/WebrtcGlobal.h',
-]
-
-IPDL_SOURCES += [
-    'webrtc/PWebrtcGlobal.ipdl'
-]
-
 EXPORTS.mozilla.dom += [
     'AudioDeviceInfo.h',
     'AudioStreamTrack.h',

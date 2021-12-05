@@ -1646,21 +1646,6 @@ ContentChild::DeallocPSpeechSynthesisChild(PSpeechSynthesisChild* aActor)
 #endif
 }
 
-PWebrtcGlobalChild *
-ContentChild::AllocPWebrtcGlobalChild()
-{
-  // TODO: Remove this
-  return nullptr;
-}
-
-bool
-ContentChild::DeallocPWebrtcGlobalChild(PWebrtcGlobalChild *aActor)
-{
-  // TODO: Remove this
-  return false;
-}
-
-
 bool
 ContentChild::RecvRegisterChrome(InfallibleTArray<ChromePackage>&& packages,
                                  InfallibleTArray<SubstitutionMapping>&& resources,
