@@ -669,13 +669,25 @@ nsBindingManager::WalkRules(nsIStyleRuleProcessor::EnumFunc aFunc,
   aData->mElementIsFeatureless = true;
 
   ShadowRoot* currentShadow = aData->mElement->GetShadowRoot();
+  // XXX: Obviously not the right approach for Shadow DOM v1.
+  // Per spec, rules from younger shadow DOM win over rules from older shadow 
+  // DOM. Iterate to the oldest shadow root on the host then walk back to the 
+  // youngest when walking rules.
+  while (currentShadow) {
+    ShadowRoot* olderShadow = currentShadow->GetOlderShadowRoot();
+    if (!olderShadow) {
+      break;
+    }
+    currentShadow = olderShadow;
+  }
 
-  if (currentShadow) {
+  while (currentShadow) {
     nsXBLBinding* associatedBinding = currentShadow->GetAssociatedBinding();
     if (associatedBinding) {
       aData->mTreeMatchContext.mScopedRoot = aData->mElement;
       associatedBinding->WalkRules(aFunc, aData);
     }
+    currentShadow = currentShadow->GetYoungerShadowRoot();
   }
 
   aData->mElementIsFeatureless = false;
@@ -721,10 +733,24 @@ nsBindingManager::WalkRules(nsIStyleRuleProcessor::EnumFunc aFunc,
 
 typedef nsTHashtable<nsPtrHashKey<nsIStyleRuleProcessor> > RuleProcessorSet;
 
+// XXX: Figure out what the anonymous namespace is for. Is this even appropriate now that we're using iterators instead of enumerators?
+
+namespace {
+
+struct RuleProcessorsData {
+  RuleProcessorSet* mSet;
+  bool mOnlyWalkShadowHosts;
+};
+
+} // anonymous namespace
+
+
 static RuleProcessorSet*
-GetContentSetRuleProcessors(nsTHashtable<nsRefPtrHashKey<nsIContent>>* aContentSet, bool aOnlyWalkShadowRootRules)
+GetContentSetRuleProcessors(nsTHashtable<nsRefPtrHashKey<nsIContent>>* aContentSet)
 {
-  RuleProcessorSet* set = nullptr;
+  RuleProcessorsData* data = nullptr;	
+  RuleProcessorSet* set = data->mSet;
+
 
   for (auto iter = aContentSet->Iter(); !iter.Done(); iter.Next()) {
     nsIContent* boundContent = iter.Get()->GetKey();
@@ -732,7 +758,7 @@ GetContentSetRuleProcessors(nsTHashtable<nsRefPtrHashKey<nsIContent>>* aContentS
   // If we are only walking rules for shadow root hosts, skip other types
   // of bound content.
   ShadowRoot *shadowRoot = boundContent->GetShadowRoot();
-  if (aOnlyWalkShadowRootRules && !shadowRoot) {
+  if (data->mOnlyWalkShadowHosts && !shadowRoot) {
     return set;
   }
 
@@ -741,7 +767,7 @@ GetContentSetRuleProcessors(nsTHashtable<nsRefPtrHashKey<nsIContent>>* aContentS
   // inheritance chain. Additionally, a bound content may host multiple
   // shadow roots, each with its own rule processor.
   nsXBLBinding *binding = boundContent->GetXBLBinding();
-  if (binding) {
+  while (binding) {
       nsIStyleRuleProcessor* ruleProc =
         binding->PrototypeBinding()->GetRuleProcessor();
       if (ruleProc) {
@@ -752,14 +778,23 @@ GetContentSetRuleProcessors(nsTHashtable<nsRefPtrHashKey<nsIContent>>* aContentS
       }
 
       binding = binding->GetBaseBinding();
-      if (shadowRoot) {
-        binding = shadowRoot->GetAssociatedBinding();
+      // XXX: Obviously not the right approach for Shadow DOM v1.
+      // If there isn't a base binding, start walking the binding of the
+      // next older shadow root hosted by the bound content (if any).
+      if (!binding && shadowRoot) {
+        shadowRoot = shadowRoot->GetOlderShadowRoot();
+        if (shadowRoot) {
+          binding = shadowRoot->GetAssociatedBinding();
         }
       }
     }
+  }
 
   return set;
 }
+
+// XXX: I think since this calls GetContentSetRuleProcessors directly now, no changes should be needed here? The original enumerator patch used the RuleProcessorsData function from the anonymous namespace here.
+
 
 void
 nsBindingManager::WalkAllRules(nsIStyleRuleProcessor::EnumFunc aFunc,
@@ -771,7 +806,7 @@ nsBindingManager::WalkAllRules(nsIStyleRuleProcessor::EnumFunc aFunc,
   }
 
   nsAutoPtr<RuleProcessorSet> set;
-  set = GetContentSetRuleProcessors(mBoundContentSet, aOnlyWalkShadowRootRules);
+  set = GetContentSetRuleProcessors(mBoundContentSet);
   if (!set) {
     return;
   }
@@ -793,6 +828,8 @@ nsBindingManager::WalkAllShadowRootHostRules(nsIStyleRuleProcessor::EnumFunc aFu
    aData->mTreeMatchContext.mOnlyMatchHostPseudo = false;
  }
 
+//XXX: I think since this calls GetContentSetRuleProcessors directly now, no changes should be needed here? The original enumerator patch used the RuleProcessorsData function from the anonymous namespace here.
+
 nsresult
 nsBindingManager::MediumFeaturesChanged(nsPresContext* aPresContext,
                                         bool* aRulesChanged)
@@ -803,7 +840,7 @@ nsBindingManager::MediumFeaturesChanged(nsPresContext* aPresContext,
   }
 
   nsAutoPtr<RuleProcessorSet> set;
-  set = GetContentSetRuleProcessors(mBoundContentSet, false);
+  set = GetContentSetRuleProcessors(mBoundContentSet);
   if (!set) {
     return NS_OK;
   }
