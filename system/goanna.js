@@ -419,10 +419,6 @@ pref("media.ogg.enabled", true);
 pref("media.opus.enabled", true);
 pref("media.wave.enabled", true);
 pref("media.webm.enabled", true);
-#ifdef MOZ_APPLEMEDIA
-pref("media.apple.mp3.enabled", true);
-pref("media.apple.mp4.enabled", true);
-#endif
 
 // GMP storage version number. At startup we check the version against
 // media.gmp.storage.version.observed, and if the versions don't match,

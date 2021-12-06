@@ -150,11 +150,7 @@ static int64_t DurationToUsecs(TimeDuration aDuration) {
 
 static const uint32_t MIN_VIDEO_QUEUE_SIZE = 3;
 static const uint32_t MAX_VIDEO_QUEUE_SIZE = 10;
-#ifdef MOZ_APPLEMEDIA
-static const uint32_t HW_VIDEO_QUEUE_SIZE = 10;
-#else
 static const uint32_t HW_VIDEO_QUEUE_SIZE = 3;
-#endif
 static const uint32_t VIDEO_QUEUE_SEND_TO_COMPOSITOR_SIZE = 9999;
 
 static uint32_t sVideoQueueDefaultSize = MAX_VIDEO_QUEUE_SIZE;
