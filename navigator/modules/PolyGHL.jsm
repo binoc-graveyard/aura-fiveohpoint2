@@ -65,7 +65,7 @@ f.push(d.textContent);return f.join("")},set:function(f){for(;this.firstChild;)u
 const hashCElements = "'sha256-rWWOwtKo7HU91YBF/nwZe2B2qiwVkRbtgbN0jJqfqXs='";
 
 // Known GitLab instances based on https://gitlab.com/vednoc/dark-gitlab/-/blob/master/gitlab.user.css
-const glmask = "^gitlab.|^((0xacab|framagit)\.org|code\.(briarproject\.org|foxkit\.us|videolan\.org)|dev\.gajim\.org|forge\.tedomum\.net|git\.(callpipe\.com|cardiff\.ac\.uk|cit\.bcit\.ca|coop|drk\.sc|drupalcode\.org|empiresmod\.com|feneas\.org|fosscommunity\.in|gnu\.io|happy-dev\.fr|immc\.ucl\.ac\.be|jami\.net|ligo\.org|linux-kernel\.at|najer\.info|nzoss\.org\.nz|oeru\.org|pleroma\.social|pwmt\.org|silence\.dev|synz\.io)|gitgud\.io|gitplac\.si|invent\.kde\.org|lab\.libreho\.st|mau\.dev|mpeg\.expert|opencode\.net|repo\.getmonero\.org|salsa\.debian\.org|skylab\.vc\.h-brs\.de|source\.(joinmastodon\.org|puri\.sm|small-tech\.org))$";
+const glmask = "^gitlab.|^((0xacab|framagit)\.org|code\.(briarproject\.org|foxkit\.us|videolan\.org)|dev\.gajim\.org|forge\.tedomum\.net|git\.(alchemyviewer\.org|callpipe\.com|cardiff\.ac\.uk|cit\.bcit\.ca|coop|drk\.sc|drupalcode\.org|empiresmod\.com|feneas\.org|fosscommunity\.in|gnu\.io|happy-dev\.fr|immc\.ucl\.ac\.be|jami\.net|ligo\.org|linux-kernel\.at|najer\.info|nzoss\.org\.nz|oeru\.org|pleroma\.social|pwmt\.org|rockylinux\.org|silence\.dev|synz\.io)|gitgud\.io|gitplac\.si|invent\.kde\.org|lab\.libreho\.st|mau\.dev|mpeg\.expert|opencode\.net|repo\.getmonero\.org|salsa\.debian\.org|skylab\.vc\.h-brs\.de|source\.(joinmastodon\.org|puri\.sm|small-tech\.org))$";
 
 const githost = new RegExp("^(gist\.)?github\.com$|" + glmask);
 const gitlab = new RegExp(glmask);
@@ -150,7 +150,7 @@ this.PolyGHL = {
     return rv;
   },
   init: function() {
-    if (!this.usingExtension()) {
+    if (!this.usingExtension() && !Services.prefs.getBoolPref("dom.webcomponents.enabled", false)) {
       this.log("PolyGHL: Observers set");
       Services.obs.addObserver(this, "http-on-examine-response", false);
       Services.obs.addObserver(this, "http-on-examine-cached-response", false);
@@ -169,10 +169,16 @@ this.PolyGHL = {
         subject instanceof Components.interfaces.nsIHttpChannel && githost.test(subject.URI.host) &&
         (subject.responseStatus == 200 || subject.responseStatus == 304)) {
       this.log("PolyGHL: Observer fired");
- 
+
       if (this.usingExtension()) {
         this.log("PolyGHL: The extension has been detected during runtime, removing observers.\n" +
                  "This module will not be active again until the extension is disabled/removed and the application is restarted.");
+        this.uninit();
+      }
+ 
+      if (Services.prefs.getBoolPref("dom.webcomponents.enabled", false)) {
+        this.log("PolyGHL: Platform WebComponents has been enabled at runtime.\n" +
+                 "This module will not be active again until the preference is set to false and the application is restarted.");
         this.uninit();
       }
 
