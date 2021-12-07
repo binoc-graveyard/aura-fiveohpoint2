@@ -6,14 +6,6 @@
 with Files('*'):
     BUG_COMPONENT = ('Core', 'Video/Audio')
 
-component_signaling = ('Core', 'WebRTC: Signaling')
-with Files('IdpSandbox.jsm'):
-    BUG_COMPONENT = component_signaling
-
-component_av = ('Core', 'WebRTC: Audio/Video')
-with Files('GetUserMedia*'):
-    BUG_COMPONENT = component_av
-
 DIRS += [
     'encoder',
     'flac',
@@ -252,11 +244,6 @@ LOCAL_INCLUDES += [
 ]
 
 DEFINES['MOZILLA_INTERNAL_API'] = True
-
-if CONFIG['OS_TARGET'] == 'WINNT':
-    DEFINES['WEBRTC_WIN'] = True
-else:
-    DEFINES['WEBRTC_POSIX'] = True
 
 include('/ipc/chromium/chromium-config.mozbuild')
 

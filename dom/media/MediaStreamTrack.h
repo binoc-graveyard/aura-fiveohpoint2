@@ -28,7 +28,6 @@ class MediaStreamGraph;
 class MediaStreamGraphImpl;
 class MediaStreamTrackListener;
 class DirectMediaStreamTrackListener;
-class PeerIdentity;
 class ProcessedMediaStream;
 class RemoteSourceStreamInfo;
 class SourceStreamInfo;
@@ -90,17 +89,6 @@ public:
    * PrincipalChanged().
    */
   virtual CORSMode GetCORSMode() const { return CORS_NONE; }
-
-  /**
-   * This is used in WebRTC. A peerIdentity constrained MediaStreamTrack cannot
-   * be sent across the network to anything other than a peer with the provided
-   * identity. If this is set, then GetPrincipal() should return an instance of
-   * nsNullPrincipal.
-   *
-   * A track's PeerIdentity is immutable and will not change during the track's
-   * lifetime.
-   */
-  virtual const PeerIdentity* GetPeerIdentity() const { return nullptr; }
 
   /**
    * MediaStreamTrack::GetLabel (see spec) calls through to here.
@@ -335,11 +323,6 @@ public:
    */
   CORSMode GetCORSMode() const { return GetSource().GetCORSMode(); }
 
-  /**
-   * Get this track's PeerIdentity.
-   */
-  const PeerIdentity* GetPeerIdentity() const { return GetSource().GetPeerIdentity(); }
-
   MediaStreamGraph* Graph();
   MediaStreamGraphImpl* GraphImpl();
 
@@ -349,8 +332,7 @@ public:
     return *mSource;
   }
 
-  // Webrtc allows the remote side to name tracks whatever it wants, and we
-  // need to surface this to content.
+  // We need to surface custom named tracks to content.
   void AssignId(const nsAString& aID) { mID = aID; }
 
   // Implementation of MediaStreamTrackSource::Sink

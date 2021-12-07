@@ -2308,6 +2308,31 @@ private:
   }
 };
 
+class GenerateAsymmetricKeyTask : public WebCryptoTask
+{
+public:
+  GenerateAsymmetricKeyTask(nsIGlobalObject* aGlobal, JSContext* aCx,
+                            const ObjectOrString& aAlgorithm, bool aExtractable,
+                            const Sequence<nsString>& aKeyUsages);
+protected:
+  ScopedPLArenaPool mArena;
+  UniquePtr<CryptoKeyPair> mKeyPair;
+  nsString mAlgName;
+  CK_MECHANISM_TYPE mMechanism;
+  PK11RSAGenParams mRsaParams;
+  SECKEYDHParams mDhParams;
+  nsString mNamedCurve;
+
+  virtual void ReleaseNSSResources() override;
+  virtual nsresult DoCrypto() override;
+  virtual void Resolve() override;
+  virtual void Cleanup() override;
+
+private:
+  ScopedSECKEYPublicKey mPublicKey;
+  ScopedSECKEYPrivateKey mPrivateKey;
+};
+
 GenerateAsymmetricKeyTask::GenerateAsymmetricKeyTask(
     nsIGlobalObject* aGlobal, JSContext* aCx, const ObjectOrString& aAlgorithm,
     bool aExtractable, const Sequence<nsString>& aKeyUsages)
