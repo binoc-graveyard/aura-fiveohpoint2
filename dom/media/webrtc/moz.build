@@ -6,9 +6,6 @@
 with Files('*'):
     BUG_COMPONENT = ('Core', 'WebRTC: Audio/Video')
 
-with Files('PeerIdentity.*'):
-    BUG_COMPONENT = ('Core', 'WebRTC: Signaling')
-
 XPIDL_MODULE = 'content_webrtc'
 
 EXPORTS += [
@@ -27,12 +24,8 @@ UNIFIED_SOURCES += [
 ]
 SOURCES += [
     'MediaEngineDefault.cpp',
-    'PeerIdentity.cpp',
 ]
 
-EXPORTS.mozilla += [
-    'PeerIdentity.h',
-]
 EXPORTS.mozilla.dom += [
     'RTCCertificate.h',
 ]

@@ -32,7 +32,6 @@
 #include "nsIInputStream.h"
 #include "nsILineInputStream.h"
 #include "mozilla/Types.h"
-#include "mozilla/PeerIdentity.h"
 #include "mozilla/dom/ContentChild.h"
 #include "mozilla/dom/File.h"
 #include "mozilla/dom/MediaStreamBinding.h"
@@ -976,15 +975,13 @@ public:
     const nsCString& aOrigin,
     const MediaStreamConstraints& aConstraints,
     AudioDevice* aAudioDevice,
-    VideoDevice* aVideoDevice,
-    PeerIdentity* aPeerIdentity)
+    VideoDevice* aVideoDevice)
     : mConstraints(aConstraints)
     , mAudioDevice(aAudioDevice)
     , mVideoDevice(aVideoDevice)
     , mWindowID(aWindowID)
     , mListener(aListener)
     , mOrigin(aOrigin)
-    , mPeerIdentity(aPeerIdentity)
     , mManager(MediaManager::GetInstance())
   {
     mOnSuccess.swap(aOnSuccess);
@@ -1080,19 +1077,15 @@ public:
                          const nsString& aLabel,
                          GetUserMediaCallbackMediaStreamListener* aListener,
                          const MediaSourceEnum aSource,
-                         const TrackID aTrackID,
-                         const PeerIdentity* aPeerIdentity)
-          : MediaStreamTrackSource(aPrincipal, aLabel), mListener(aListener),
-            mSource(aSource), mTrackID(aTrackID), mPeerIdentity(aPeerIdentity) {}
+                         const TrackID aTrackID)
+          : MediaStreamTrackSource(aPrincipal, aLabel)
+          , mListener(aListener)
+          , mSource(aSource)
+          , mTrackID(aTrackID) {}
 
         MediaSourceEnum GetMediaSource() const override
         {
           return mSource;
-        }
-
-        const PeerIdentity* GetPeerIdentity() const override
-        {
-          return mPeerIdentity;
         }
 
         already_AddRefed<PledgeVoid>
@@ -1131,15 +1124,10 @@ public:
         RefPtr<GetUserMediaCallbackMediaStreamListener> mListener;
         const MediaSourceEnum mSource;
         const TrackID mTrackID;
-        const RefPtr<const PeerIdentity> mPeerIdentity;
       };
 
       nsCOMPtr<nsIPrincipal> principal;
-      if (mPeerIdentity) {
-        principal = nsNullPrincipal::CreateWithInheritedAttributes(window->GetExtantDoc()->NodePrincipal());
-      } else {
-        principal = window->GetExtantDoc()->NodePrincipal();
-      }
+      principal = window->GetExtantDoc()->NodePrincipal();
 
       // Normal case, connect the source stream to the track union stream to
       // avoid us blocking. Pass a simple TrackSourceGetter for potential
@@ -1155,7 +1143,7 @@ public:
           mAudioDevice->GetSource()->GetMediaSource();
         RefPtr<MediaStreamTrackSource> audioSource =
           new LocalTrackSource(principal, audioDeviceName, mListener, source,
-                               kAudioTrack, mPeerIdentity);
+                               kAudioTrack);
         MOZ_ASSERT(IsOn(mConstraints.mAudio));
         RefPtr<MediaStreamTrack> track =
           domStream->CreateDOMTrack(kAudioTrack, MediaSegment::AUDIO, audioSource,
@@ -1169,7 +1157,7 @@ public:
           mVideoDevice->GetSource()->GetMediaSource();
         RefPtr<MediaStreamTrackSource> videoSource =
           new LocalTrackSource(principal, videoDeviceName, mListener, source,
-                               kVideoTrack, mPeerIdentity);
+                               kVideoTrack);
         MOZ_ASSERT(IsOn(mConstraints.mVideo));
         RefPtr<MediaStreamTrack> track =
           domStream->CreateDOMTrack(kVideoTrack, MediaSegment::VIDEO, videoSource,
@@ -1234,7 +1222,6 @@ private:
   uint64_t mWindowID;
   RefPtr<GetUserMediaCallbackMediaStreamListener> mListener;
   nsCString mOrigin;
-  RefPtr<PeerIdentity> mPeerIdentity;
   RefPtr<MediaManager> mManager; // get ref to this when creating the runnable
 };
 
@@ -1461,16 +1448,11 @@ public:
       }
       return NS_OK;
     }
-    PeerIdentity* peerIdentity = nullptr;
-    if (!mConstraints.mPeerIdentity.IsEmpty()) {
-      peerIdentity = new PeerIdentity(mConstraints.mPeerIdentity);
-    }
 
     NS_DispatchToMainThread(do_AddRef(
         new GetUserMediaStreamRunnable(mOnSuccess, mOnFailure, mWindowID,
                                        mListener, mOrigin,
-                                       mConstraints, mAudioDevice, mVideoDevice,
-                                       peerIdentity)));
+                                       mConstraints, mAudioDevice, mVideoDevice)));
     MOZ_ASSERT(!mOnSuccess);
     MOZ_ASSERT(!mOnFailure);
     return NS_OK;
