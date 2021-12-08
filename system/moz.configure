@@ -262,17 +262,6 @@ add_old_configure_assignment('FT2_LIBS',
 add_old_configure_assignment('FT2_CFLAGS',
                              delayed_getattr(ft2_info, 'cflags'))
 
-# Apple platform decoder support
-# ==============================================================
-@depends(toolkit)
-def applemedia(toolkit):
-    if toolkit in ('uikit'):
-        return True
-
-set_config('MOZ_APPLEMEDIA', applemedia)
-set_define('MOZ_APPLEMEDIA', applemedia)
-add_old_configure_assignment('MOZ_APPLEMEDIA', applemedia)
-
 # Windows Media Foundation support
 # ==============================================================
 option('--disable-wmf',
@@ -316,11 +305,11 @@ imply_option('--enable-fmp4', ffmpeg, '--enable-ffmpeg')
 option('--disable-fmp4', env='MOZ_FMP4',
        help='Disable support for in built Fragmented MP4 parsing')
 
-@depends('--disable-fmp4', target, wmf, applemedia)
-def fmp4(value, target, wmf, applemedia):
+@depends('--disable-fmp4', target, wmf)
+def fmp4(value, target, wmf):
     enabled = bool(value)
     if value.origin == 'default':
-        enabled = wmf or applemedia
+        enabled = wmf
     if enabled:
         return True
 

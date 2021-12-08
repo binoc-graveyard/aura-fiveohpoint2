@@ -420,14 +420,6 @@ pref("media.opus.enabled", true);
 pref("media.wave.enabled", true);
 pref("media.webm.enabled", true);
 
-#ifdef MOZ_APPLEMEDIA
-#ifdef MOZ_WIDGET_UIKIT
-pref("media.mp3.enabled", true);
-#endif
-pref("media.apple.mp3.enabled", true);
-pref("media.apple.mp4.enabled", true);
-#endif
-
 // GMP storage version number. At startup we check the version against
 // media.gmp.storage.version.observed, and if the versions don't match,
 // we clear storage and set media.gmp.storage.version.observed=expected.
@@ -598,9 +590,7 @@ pref("apz.y_stationary_size_multiplier", "3.5");
 pref("apz.zoom_animation_duration_ms", 250);
 pref("apz.scale_repaint_delay_ms", 500);
 
-#if !defined(MOZ_WIDGET_UIKIT)
 pref("apz.desktop.enabled", false);
-#endif
 
 // Use containerless scrolling for now.
 pref("layout.scroll.root-frame-containers", false);

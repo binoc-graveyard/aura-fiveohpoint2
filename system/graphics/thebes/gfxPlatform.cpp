@@ -2152,7 +2152,7 @@ bool
 gfxPlatform::AccelerateLayersByDefault()
 {
   // Note: add any new platform defines here that should get HWA by default.
-#if defined(XP_WIN) || defined(MOZ_WIDGET_GTK) || defined(MOZ_WIDGET_UIKIT)
+#if defined(XP_WIN) || defined(MOZ_WIDGET_GTK)
   return true;
 #elif defined(MOZ_GL_PROVIDER)
   // GL provider manually declared
@@ -2299,7 +2299,6 @@ gfxPlatform::GetTilesSupportInfo(mozilla::widget::InfoObject& aObj)
 /*static*/ bool
 gfxPlatform::AsyncPanZoomEnabled()
 {
-#if !defined(MOZ_WIDGET_UIKIT)
   // For XUL applications (everything but Firefox on Android) we only want
   // to use APZ when E10S is enabled or when the user explicitly enable it.
   if (BrowserTabsRemoteAutostart() || gfxPrefs::APZDesktopEnabled()) {
@@ -2307,9 +2306,6 @@ gfxPlatform::AsyncPanZoomEnabled()
   } else {
     return false;
   }
-#else
-  return gfxPrefs::AsyncPanZoomEnabledDoNotUseDirectly();
-#endif
 }
 
 /*static*/ bool

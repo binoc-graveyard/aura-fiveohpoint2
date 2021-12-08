@@ -16,9 +16,6 @@
 #ifdef MOZ_FFMPEG
 #include "FFmpegRuntimeLinker.h"
 #endif
-#ifdef MOZ_APPLEMEDIA
-#include "AppleDecoderModule.h"
-#endif
 #include "GMPDecoderModule.h"
 
 #include "mozilla/ClearOnShutdown.h"
@@ -57,9 +54,6 @@ public:
   {
 #ifdef XP_WIN
     WMFDecoderModule::Init();
-#endif
-#ifdef MOZ_APPLEMEDIA
-    AppleDecoderModule::Init();
 #endif
 #ifdef MOZ_FFVPX
     FFVPXRuntimeLinker::Init();
@@ -375,10 +369,6 @@ PDMFactory::CreatePDMs()
   } else {
     mFFmpegFailedToLoad = false;
   }
-#endif
-#ifdef MOZ_APPLEMEDIA
-  m = new AppleDecoderModule();
-  StartupPDM(m);
 #endif
 
   m = new AgnosticDecoderModule();
