@@ -8,17 +8,18 @@ EXPORTS += ['!necko-config.h']
 
 DIRS += [
   'base',
-  'cookie',
-  'dns',
-  'socket',
-  'mime',
-  'streamconv',
   'cache',
   'cache2',
-  'locales',
-  'protocol',
-  'system',
+  'cookie',
+  'dns',
+  'exthandler',
   'ipc',
+  'locales',
+  'mime',
+  'protocol',
+  'socket',
+  'streamconv',
+  'system',
 ]
 
 if CONFIG['MOZ_AUTH_EXTENSION']:
