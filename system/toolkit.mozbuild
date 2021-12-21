@@ -37,6 +37,9 @@ else:
 if CONFIG['MOZ_MAILNEWS']:
   DIRS += ['/mailnews']
 
+if CONFIG['MOZ_DEVTOOLS_SERVER']:
+    DIRS += ['/devtools']
+
 DIRS += [
   '/system/evil/StaticXULComponentsEnd',
   '/system/evil',

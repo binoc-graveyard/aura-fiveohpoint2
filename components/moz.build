@@ -97,9 +97,6 @@ if CONFIG['MOZ_PREF_EXTENSIONS']:
 if CONFIG['BUILD_CTYPES']:
   DIRS += ['ctypes']
 
-if CONFIG['MOZ_DEVTOOLS_SERVER']:
-  DIRS += ['devtools']
-
 if CONFIG['MOZ_FEEDS']:
   DIRS += ['feeds']
 
