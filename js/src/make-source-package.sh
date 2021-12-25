@@ -116,10 +116,6 @@ case $cmd in
     cp -pPR \
         ${TOPSRCDIR}/dom/bindings/mozwebidlcodegen \
         ${tgtpath}/dom/bindings
-    ${MKDIR} -p ${tgtpath}/media/webrtc/trunk/tools
-    cp -pPR \
-        ${TOPSRCDIR}/media/webrtc/trunk/tools/gyp \
-        ${tgtpath}/media/webrtc/trunk/tools
     ${MKDIR} -p ${tgtpath}/testing
     cp -pPR \
         ${TOPSRCDIR}/testing/mozbase \

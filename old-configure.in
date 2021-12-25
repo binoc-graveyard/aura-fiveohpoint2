@@ -2457,7 +2457,6 @@ MOZ_SYNTH_PICO=
 
 AC_SUBST(MOZ_SCTP)
 AC_SUBST(MOZ_SRTP)
-AC_SUBST_LIST(MOZ_WEBRTC_X11_LIBS)
 
 dnl Use integers over floats for audio on ARM
 dnl because it's more efficient.

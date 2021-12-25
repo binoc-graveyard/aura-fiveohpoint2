@@ -396,29 +396,11 @@ BackgroundParentImpl::RecvPUDPSocketConstructor(PUDPSocketParent* aActor,
   AssertIsInMainProcess();
   AssertIsOnBackgroundThread();
 
-  if (aOptionalPrincipal.type() == OptionalPrincipalInfo::TPrincipalInfo) {
-    // Support for checking principals (for non-mtransport use) will be handled in
-    // bug 1167039
-    return false;
-  }
-  // No principal - This must be from mtransport (WebRTC/ICE) - We'd want
-  // to DispatchToMainThread() here, but if we do we must block RecvBind()
-  // until Init() gets run.  Since we don't have a principal, and we verify
-  // we have a filter, we can safely skip the Dispatch and just invoke Init()
-  // to install the filter.
-
-  // For mtransport, this will always be "stun", which doesn't allow outbound
-  // packets if they aren't STUN packets until a STUN response is seen.
-  if (!aFilter.EqualsASCII(NS_NETWORK_SOCKET_FILTER_HANDLER_STUN_SUFFIX)) {
-    return false;
-  }
-
-  IPC::Principal principal;
-  if (!static_cast<UDPSocketParent*>(aActor)->Init(principal, aFilter)) {
-    MOZ_CRASH("UDPSocketCallback - failed init");
-  }
-
-  return true;
+  // Support for checking principals was never implemented (not even in Mozilla land)
+  // Non-principal use was only a thing for mtransport. Since WebRTC is no longer a
+  // thing, this means that this will always return false and no further checking is
+  // required.
+  return false;
 }
 
 bool
