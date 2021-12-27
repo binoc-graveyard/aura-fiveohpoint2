@@ -39,10 +39,9 @@ if ('MOZ_OFFICIAL_BRANDING' in listConfig) or (strBrandingDirectory.endswith("br
             'MOZ_SYSTEM_JEMALLOC'
         ]
         
-    # Applies to Pale Moon Only
+    # Anything that applies to Pale Moon only goes here
     if 'MC_PALEMOON' in listConfig:
         listViolations += [
-            'MOZ_EME',
         ]
     
     # Iterate through enabled violations and output 1 to DIRECTIVE4 if any are found
