@@ -60,6 +60,11 @@ this.AppConstants = Object.freeze({
   false,
 #endif
 
+  MOZ_SERVICES_HEALTHREPORT: false,
+  MOZ_DATA_REPORTING: false,
+  MOZ_TELEMETRY_REPORTING: false,
+  MOZ_TELEMETRY_ON_BY_DEFAULT: false,
+
   MOZ_UPDATER:
 #ifdef MOZ_UPDATER
   true,
