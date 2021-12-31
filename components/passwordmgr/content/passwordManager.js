@@ -716,7 +716,7 @@ function escapeKeyHandler() {
   window.close();
 }
 
-#if defined(XP_WIN) && defined(MC_BASILISK)
+#if defined(XP_WIN) && defined(MOZ_AUSTRALIS)
 function OpenMigrator() {
   const { MigrationUtils } = Cu.import("resource:///modules/MigrationUtils.jsm", {});
   // We pass in the type of source we're using:

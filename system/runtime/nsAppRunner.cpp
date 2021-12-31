@@ -1308,7 +1308,7 @@ DumpHelp()
          "  -v or --version                              Print %s version.\n"
          "  -P <profile>                                 Start with <profile>.\n"
          "  --profile <path>                             Start with profile at <path>.\n"
-#ifdef MC_BASILISK
+#ifdef MOZ_AUSTRALIS
          "  --migration                                  Start with migration wizard.\n"
 #endif
          "  --ProfileManager                             Start with ProfileManager.\n"

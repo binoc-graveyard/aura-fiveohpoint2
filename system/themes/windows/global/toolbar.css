@@ -58,7 +58,7 @@ toolbox:-moz-lwtheme,
 toolbar:-moz-lwtheme {
   -moz-appearance: none;
   background: none;
-%ifdef MC_BASILISK
+%ifdef MOZ_AUSTRALIS
   border-color: transparent;
 %else
   border-style: none;

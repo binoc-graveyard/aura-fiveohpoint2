@@ -36,7 +36,7 @@ menubar:-moz-lwtheme,
 toolbar:-moz-lwtheme {
   -moz-appearance: none;
   color: inherit;
-%ifndef MC_BASILISK
+%ifndef MOZ_AUSTRALIS
   border-style: none;
 %endif
 }
