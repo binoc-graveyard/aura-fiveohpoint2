@@ -15,6 +15,4 @@ else:
         #     'mozglue'
         # ]
         pass
-    DIRS += [
-        '../../../modules/zlib',
-    ]
+    DIRS += ['src']

@@ -18,7 +18,7 @@ DIRS += [
   'python',
   'libs/fdlibm',
   'libs/nspr/build',
-  'config/external/zlib',
+  'libs/zlib',
   'system/memory',
   'system/framework',
   'system/utils',
