@@ -6207,7 +6207,7 @@ UpdateChecker.prototype = {
     if ((this.appVersion &&
          Services.vc.compare(this.appVersion, Services.appinfo.version) != 0) ||
         (this.platformVersion &&
-         Services.vc.compare(this.platformVersion, Services.appinfo.platformVersion) != 0)) {
+         Services.vc.compare(this.platformVersion, Services.appinfo.greVersion) != 0)) {
       compatUpdate = AUC.getCompatibilityUpdate(aUpdates, this.addon.version,
                                                 false, this.appVersion,
                                                 this.platformVersion,
@@ -6400,7 +6400,7 @@ AddonInternal.prototype = {
     if (!aAppVersion)
       aAppVersion = Services.appinfo.version;
     if (!aPlatformVersion)
-      aPlatformVersion = Services.appinfo.platformVersion;
+      aPlatformVersion = Services.appinfo.greVersion;
 
     let version;
     if (app.id == Services.appinfo.ID) {

@@ -496,7 +496,7 @@ function parseJSONManifest(aId, aUpdateKey, aRequest, aManifestData) {
   }
 
   let appID = Services.appinfo.ID;
-  let platformVersion = Services.appinfo.platformVersion;
+  let platformVersion = Services.appinfo.greVersion;
 
   // The list of available updates
   let updates = getProperty(addon, "updates", "array", []);
@@ -858,7 +858,7 @@ this.AddonUpdateChecker = {
     if (!aAppVersion)
       aAppVersion = Services.appinfo.version;
     if (!aPlatformVersion)
-      aPlatformVersion = Services.appinfo.platformVersion;
+      aPlatformVersion = Services.appinfo.greVersion;
 
     for (let update of aUpdates) {
       if (Services.vc.compare(update.version, aVersion) == 0) {
@@ -901,7 +901,7 @@ this.AddonUpdateChecker = {
     if (!aAppVersion)
       aAppVersion = Services.appinfo.version;
     if (!aPlatformVersion)
-      aPlatformVersion = Services.appinfo.platformVersion;
+      aPlatformVersion = Services.appinfo.greVersion;
 
     let blocklist = Cc["@mozilla.org/extensions/blocklist;1"].
                     getService(Ci.nsIBlocklistService);

@@ -387,7 +387,7 @@ Blocklist.prototype = {
     if (!appVersion)
       appVersion = gApp.version;
     if (!toolkitVersion)
-      toolkitVersion = gApp.platformVersion;
+      toolkitVersion = gApp.greVersion;
 
     var blItem = this._findMatchingAddonEntry(addonEntries, addon);
     if (!blItem)
@@ -529,7 +529,7 @@ Blocklist.prototype = {
     dsURI = dsURI.replace(/%OS_VERSION%/g, gOSVersion);
     dsURI = dsURI.replace(/%LOCALE%/g, getLocale());
     dsURI = dsURI.replace(/%CHANNEL%/g, "@MOZ_UPDATE_CHANNEL@");
-    dsURI = dsURI.replace(/%PLATFORM_VERSION%/g, gApp.platformVersion);
+    dsURI = dsURI.replace(/%PLATFORM_VERSION%/g, gApp.greVersion);
     dsURI = dsURI.replace(/%DISTRIBUTION%/g,
                       getDistributionPrefValue(PREF_APP_DISTRIBUTION));
     dsURI = dsURI.replace(/%DISTRIBUTION_VERSION%/g,
@@ -1137,7 +1137,7 @@ Blocklist.prototype = {
     if (!appVersion)
       appVersion = gApp.version;
     if (!toolkitVersion)
-      toolkitVersion = gApp.platformVersion;
+      toolkitVersion = gApp.greVersion;
 
     for (var blockEntry of pluginEntries) {
       var matchFailed = false;
