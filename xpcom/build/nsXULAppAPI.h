@@ -18,7 +18,6 @@
 #include "mozilla/Assertions.h"
 #include "mozilla/Vector.h"
 #include "mozilla/TimeStamp.h"
-#include "XREChildData.h"
 
 /**
  * A directory service key which provides the platform-correct "application
@@ -423,8 +422,7 @@ XRE_API(void,
 
 XRE_API(nsresult,
         XRE_InitChildProcess, (int aArgc,
-                               char* aArgv[],
-                               const XREChildData* aChildData))
+                               char* aArgv[]))
 
 XRE_API(GeckoProcessType,
         XRE_GetProcessType, ())
