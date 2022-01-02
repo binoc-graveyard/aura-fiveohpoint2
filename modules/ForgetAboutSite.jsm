@@ -84,15 +84,6 @@ this.ForgetAboutSite = {
       throw new Error("Exception thrown while clearning cookies: " + ex);
     }));
 
-    // EME
-    promises.push(Task.spawn(function*() {
-      let mps = Cc["@mozilla.org/gecko-media-plugin-service;1"].
-                getService(Ci.mozIGeckoMediaPluginChromeService);
-      mps.forgetThisSite(aDomain, JSON.stringify({}));
-    }).catch(ex => {
-      throw new Error("Exception thrown while clearing Encrypted Media Extensions: " + ex);
-    }));
-
     // Plugin data
     const phInterface = Ci.nsIPluginHost;
     const FLAG_CLEAR_ALL = phInterface.FLAG_CLEAR_ALL;

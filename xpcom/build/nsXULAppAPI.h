@@ -397,8 +397,6 @@ enum GeckoProcessType
 
   GeckoProcessType_IPDLUnitTest,
 
-  GeckoProcessType_GMPlugin, // Gecko Media Plugin
-
   GeckoProcessType_GPU,      // GPU and compositor process
 
   GeckoProcessType_End,
@@ -410,7 +408,6 @@ static const char* const kGeckoProcessTypeString[] = {
   "plugin",
   "tab",
   "ipdlunittest",
-  "geckomediaplugin",
   "gpu"
 };
 
@@ -423,12 +420,6 @@ XRE_API(const char*,
 
 XRE_API(void,
         XRE_SetProcessType, (const char* aProcessTypeString))
-
-namespace mozilla {
-namespace gmp {
-class GMPLoader;
-} // namespace gmp
-} // namespace mozilla
 
 XRE_API(nsresult,
         XRE_InitChildProcess, (int aArgc,
