@@ -1807,7 +1807,7 @@ this.DownloadSaver.fromSerializable = function (aSerializable) {
       saver = DownloadPDFSaver.fromSerializable(serializable);
       break;
     default:
-      throw new Error("Unrecoginzed download saver type.");
+      throw new Error("Unrecognized download saver type.");
   }
   return saver;
 };
@@ -2126,7 +2126,8 @@ this.DownloadCopySaver.prototype = {
         // We will wait on this promise in case no error occurred while setting
         // up the chain of objects for the download.
         yield deferSaveComplete.promise;
-
+        
+        yield this._moveFinalDownload(aSetPropertiesFn);
       } catch (ex) {
         // Ensure we always remove the placeholder for the final target file on
         // failure, independently of which code path failed.  In some cases, the
@@ -2148,6 +2149,26 @@ this.DownloadCopySaver.prototype = {
     }.bind(this));
   },
 
+  /**
+   * If the download passes the reputation check and is using a part file we
+   * will move it to the target path.
+   *
+   * @param aSetPropertiesFn
+   *        Function provided to the "execute" method.
+   *
+   * @return {Promise}
+   * @resolves When the cleanup is complete.
+   */
+  _moveFinalDownload: Task.async(function* (aSetPropertiesFn) {
+    let download = this.download;
+    let targetPath = this.download.target.path;
+    let partFilePath = this.download.target.partFilePath;
+
+    if (partFilePath) {
+      yield OS.File.move(partFilePath, targetPath);
+    }
+  }),
+  
   /**
    * Implements "DownloadSaver.cancel".
    */
@@ -2474,6 +2495,9 @@ this.DownloadLegacySaver.prototype = {
             }
           }
         }
+        
+        yield this._moveFinalDownload(aSetPropertiesFn);
+        
       } catch (ex) {
         // Ensure we always remove the final target file on failure,
         // independently of which code path failed.  In some cases, the
@@ -2504,6 +2528,11 @@ this.DownloadLegacySaver.prototype = {
         this.firstExecutionFinished = true;
       }
     }.bind(this));
+  },
+
+  _moveFinalDownload: function () {
+    return DownloadCopySaver.prototype._moveFinalDownload
+                                      .apply(this, arguments);
   },
 
   /**
