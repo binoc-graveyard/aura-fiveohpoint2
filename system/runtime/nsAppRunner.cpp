@@ -1008,29 +1008,16 @@ nsXULAppInfo::GetWindowsDLLBlocklistStatus(bool* aResult)
 }
 
 #ifdef XP_WIN
-// Matches the enum in WinNT.h for the Vista SDK but renamed so that we can
-// safely build with the Vista SDK and without it.
-typedef enum
-{
-  VistaTokenElevationTypeDefault = 1,
-  VistaTokenElevationTypeFull,
-  VistaTokenElevationTypeLimited
-} VISTA_TOKEN_ELEVATION_TYPE;
-
-// avoid collision with TokeElevationType enum in WinNT.h
-// of the Vista SDK
-#define VistaTokenElevationType static_cast< TOKEN_INFORMATION_CLASS >( 18 )
-
 NS_IMETHODIMP
 nsXULAppInfo::GetUserCanElevate(bool *aUserCanElevate)
 {
   HANDLE hToken;
 
-  VISTA_TOKEN_ELEVATION_TYPE elevationType;
+  TOKEN_ELEVATION_TYPE elevationType;
   DWORD dwSize;
 
   if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken) ||
-      !GetTokenInformation(hToken, VistaTokenElevationType, &elevationType,
+      !GetTokenInformation(hToken, TokenElevationType, &elevationType,
                            sizeof(elevationType), &dwSize)) {
     *aUserCanElevate = false;
   }
@@ -1044,7 +1031,7 @@ nsXULAppInfo::GetUserCanElevate(bool *aUserCanElevate)
     //   TokenElevationTypeLimited: The token is linked to a limited token
     //     (e.g. UAC is enabled and the user is not elevated, so they can be
     //      elevated)
-    *aUserCanElevate = (elevationType == VistaTokenElevationTypeLimited);
+    *aUserCanElevate = (elevationType == TokenElevationTypeLimited);
   }
 
   if (hToken)
