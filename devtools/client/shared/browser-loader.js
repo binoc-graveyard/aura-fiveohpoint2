@@ -9,7 +9,6 @@ const { devtools } = Cu.import("resource://devtools/shared/Loader.jsm", {});
 const { joinURI } = devtools.require("devtools/shared/path");
 const { assert } = devtools.require("devtools/shared/DevToolsUtils");
 const Services = devtools.require("Services");
-const { AppConstants } = devtools.require("resource://gre/modules/AppConstants.jsm");
 
 const BROWSER_BASED_DIRS = [
   "resource://devtools/client/inspector/layout",
@@ -89,11 +88,6 @@ function BrowserLoaderBuilder({ baseURI, window, useOnlyShared }) {
   const loaderOptions = devtools.require("@loader/options");
   const dynamicPaths = {};
   const componentProxies = new Map();
-
-  if (AppConstants.DEBUG || AppConstants.DEBUG_JS_MODULES) {
-    dynamicPaths["devtools/client/shared/vendor/react"] =
-      "resource://devtools/client/shared/vendor/react-dev";
-  }
 
   const opts = {
     id: "browser-loader",

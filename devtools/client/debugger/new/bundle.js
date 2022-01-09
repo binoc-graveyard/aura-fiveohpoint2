@@ -1013,7 +1013,6 @@ var Debugger =
 	var _require3 = __webpack_require__(28);
 	
 	var DevToolsUtils = _require3.DevToolsUtils;
-	var AppConstants = _require3.AppConstants;
 	
 	var _require4 = __webpack_require__(88);
 	
@@ -1076,7 +1075,6 @@ var Debugger =
 	  var actions = bindActionCreators(__webpack_require__(236), store.dispatch);
 	
 	  if (isDevelopment()) {
-	    AppConstants.DEBUG_JS_MODULES = true;
 	    injectGlobals({ store });
 	  }
 	
@@ -1870,7 +1868,6 @@ var Debugger =
 	var TargetFactory = _require4.TargetFactory;
 	
 	var DevToolsUtils = __webpack_require__(68);
-	var AppConstants = __webpack_require__(70);
 	var EventEmitter = __webpack_require__(60);
 	var WebsocketTransport = __webpack_require__(85);
 	var Menu = __webpack_require__(86);
@@ -1883,7 +1880,6 @@ var Debugger =
 	  DebuggerTransport,
 	  TargetFactory,
 	  DevToolsUtils,
-	  AppConstants,
 	  EventEmitter,
 	  WebsocketTransport,
 	  Menu,
@@ -8798,11 +8794,7 @@ var Debugger =
 	    return e;
 	  }
 	};
-	
-	var _require4 = __webpack_require__(70);
-	
-	var AppConstants = _require4.AppConstants;
-	
+
 	/**
 	 * No operation. The empty function.
 	 */
@@ -8837,7 +8829,7 @@ var Debugger =
 	 * fatal behavior, and is therefore much easier to accidentally ignore.
 	 */
 	Object.defineProperty(exports, "assert", {
-	  get: () => AppConstants.DEBUG || AppConstants.DEBUG_JS_MODULES || _this.testing ? reallyAssert : exports.noop
+	  get: () => _this.testing ? reallyAssert : exports.noop
 	});
 	
 	/**
@@ -9179,15 +9171,6 @@ var Debugger =
 
 /***/ },
 /* 70 */
-/***/ function(module, exports) {
-
-	/*
-	 * A sham for https://dxr.mozilla.org/mozilla-central/source/toolkit/modules/AppConstants.jsm
-	 */
-	
-	module.exports = { AppConstants: {} };
-
-/***/ },
 /* 71 */
 /***/ function(module, exports) {
 

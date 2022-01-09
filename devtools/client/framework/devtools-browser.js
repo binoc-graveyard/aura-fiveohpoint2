@@ -27,7 +27,6 @@ loader.lazyRequireGetter(this, "DebuggerServer", "devtools/server/main", true);
 loader.lazyRequireGetter(this, "DebuggerClient", "devtools/shared/client/main", true);
 loader.lazyRequireGetter(this, "BrowserMenus", "devtools/client/framework/browser-menus");
 
-loader.lazyImporter(this, "AppConstants", "resource://gre/modules/AppConstants.jsm");
 #ifdef MOZ_AUSTRALIS
 loader.lazyImporter(this, "CustomizableUI", "resource:///modules/CustomizableUI.jsm");
 #endif
