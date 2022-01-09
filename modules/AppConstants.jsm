@@ -10,9 +10,10 @@ Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 XPCOMUtils.defineLazyModuleGetter(this, "Services", "resource://gre/modules/Services.jsm");
 
 #ifndef BINOC_MAIL
-XPCOMUtils.defineLazyModuleGetter(this, "Deprecated", "resource://gre/modules/Deprecated.jsm");
-Deprecated.warning("AppConstants.jsm is deprecated and should not be trusted for accurate" +
-                   "application or platform state information.",
+Components.utils.import("resource://gre/modules/Deprecated.jsm");
+Deprecated.warning("AppConstants.jsm is deprecated and will not provide accurate information" + " " +
+                   "about the application or platform." + "\n" +
+                   "Please use the standard Toolkit API instead.",
                    "http://developer.palemoon.org/");
 #endif
 
