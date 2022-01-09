@@ -31,9 +31,6 @@
 #include "nsSHistory.h"
 #include "nsSHTransaction.h"
 
-// download history
-#include "nsDownloadHistory.h"
-
 using mozilla::dom::ContentHandlerService;
 
 static bool gInitialized = false;
@@ -87,9 +84,6 @@ NS_GENERIC_FACTORY_CONSTRUCTOR(nsSHEntry)
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsSHTransaction)
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsSHistory)
 
-// download history
-NS_GENERIC_FACTORY_CONSTRUCTOR(nsDownloadHistory)
-
 NS_DEFINE_NAMED_CID(NS_DOCSHELL_CID);
 NS_DEFINE_NAMED_CID(NS_DEFAULTURIFIXUP_CID);
 NS_DEFINE_NAMED_CID(NS_WEBNAVIGATION_INFO_CID);
@@ -109,7 +103,6 @@ NS_DEFINE_NAMED_CID(NS_SHENTRY_CID);
 NS_DEFINE_NAMED_CID(NS_SHTRANSACTION_CID);
 NS_DEFINE_NAMED_CID(NS_SHISTORY_CID);
 NS_DEFINE_NAMED_CID(NS_SHISTORY_INTERNAL_CID);
-NS_DEFINE_NAMED_CID(NS_DOWNLOADHISTORY_CID);
 NS_DEFINE_NAMED_CID(NS_CONTENTHANDLERSERVICE_CID);
 
 const mozilla::Module::CIDEntry kDocShellCIDs[] = {
@@ -134,7 +127,6 @@ const mozilla::Module::CIDEntry kDocShellCIDs[] = {
   { &kNS_SHTRANSACTION_CID, false, nullptr, nsSHTransactionConstructor },
   { &kNS_SHISTORY_CID, false, nullptr, nsSHistoryConstructor },
   { &kNS_SHISTORY_INTERNAL_CID, false, nullptr, nsSHistoryConstructor },
-  { &kNS_DOWNLOADHISTORY_CID, false, nullptr, nsDownloadHistoryConstructor },
   { nullptr }
 };
 
@@ -188,7 +180,6 @@ const mozilla::Module::ContractIDEntry kDocShellContracts[] = {
   { NS_SHTRANSACTION_CONTRACTID, &kNS_SHTRANSACTION_CID },
   { NS_SHISTORY_CONTRACTID, &kNS_SHISTORY_CID },
   { NS_SHISTORY_INTERNAL_CONTRACTID, &kNS_SHISTORY_INTERNAL_CID },
-  { NS_DOWNLOADHISTORY_CONTRACTID, &kNS_DOWNLOADHISTORY_CID },
   { nullptr }
 };
 

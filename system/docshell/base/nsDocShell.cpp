@@ -174,8 +174,6 @@
 
 #include "nsISelectionDisplay.h"
 
-#include "nsIGlobalHistory2.h"
-
 #include "nsIFrame.h"
 #include "nsSubDocumentFrame.h"
 
@@ -4399,27 +4397,15 @@ nsDocShell::AddChildSHEntryToParent(nsISHEntry* aNewEntry, int32_t aChildOffset,
 NS_IMETHODIMP
 nsDocShell::SetUseGlobalHistory(bool aUseGlobalHistory)
 {
-  nsresult rv;
-
   mUseGlobalHistory = aUseGlobalHistory;
 
   if (!aUseGlobalHistory) {
-    mGlobalHistory = nullptr;
     return NS_OK;
   }
 
-  // No need to initialize mGlobalHistory if IHistory is available.
   nsCOMPtr<IHistory> history = services::GetHistoryService();
-  if (history) {
-    return NS_OK;
-  }
 
-  if (mGlobalHistory) {
-    return NS_OK;
-  }
-
-  mGlobalHistory = do_GetService(NS_GLOBALHISTORY2_CONTRACTID, &rv);
-  return rv;
+  return history ? NS_OK : NS_ERROR_FAILURE;
 }
 
 NS_IMETHODIMP
@@ -6490,8 +6476,6 @@ nsDocShell::SetTitle(const char16_t* aTitle)
     nsCOMPtr<IHistory> history = services::GetHistoryService();
     if (history) {
       history->SetURITitle(mCurrentURI, mTitle);
-    } else if (mGlobalHistory) {
-      mGlobalHistory->SetPageTitle(mCurrentURI, nsString(mTitle));
     }
   }
 
@@ -10381,8 +10365,6 @@ nsDocShell::InternalLoad(nsIURI* aURI,
         nsCOMPtr<IHistory> history = services::GetHistoryService();
         if (history) {
           history->SetURITitle(aURI, mTitle);
-        } else if (mGlobalHistory) {
-          mGlobalHistory->SetPageTitle(aURI, mTitle);
         }
       }
 
@@ -12209,8 +12191,6 @@ nsDocShell::UpdateURLAndHistory(nsIDocument* aDocument, nsIURI* aNewURI,
       nsCOMPtr<IHistory> history = services::GetHistoryService();
       if (history) {
         history->SetURITitle(aNewURI, mTitle);
-      } else if (mGlobalHistory) {
-        mGlobalHistory->SetPageTitle(aNewURI, mTitle);
       }
     }
 
@@ -13185,12 +13165,6 @@ nsDocShell::AddURIVisit(nsIURI* aURI,
     }
 
     (void)history->VisitURI(aURI, aPreviousURI, visitURIFlags);
-  } else if (mGlobalHistory) {
-    // Falls back to sync global history interface.
-    (void)mGlobalHistory->AddURI(aURI,
-                                 !!aChannelRedirectFlags,
-                                 !IsFrame(),
-                                 aReferrerURI);
   }
 }
 

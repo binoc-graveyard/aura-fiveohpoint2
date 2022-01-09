@@ -15,6 +15,7 @@ if CONFIG['MOZ_PLACES']:
         'public/mozIPlacesPendingOperation.idl',
         'public/nsIAnnotationService.idl',
         'public/nsIBrowserHistory.idl',
+        'public/nsIDownloadHistory.idl',
         'public/nsIFaviconService.idl',
         'public/nsINavBookmarksService.idl',
         'public/nsITaggingService.idl',
