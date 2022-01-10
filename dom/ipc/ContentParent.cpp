@@ -21,7 +21,6 @@
 #include "AppProcessChecker.h"
 #include "AudioChannelService.h"
 #include "BlobParent.h"
-#include "GMPServiceParent.h"
 #include "HandlerServiceParent.h"
 #include "IHistory.h"
 #include "imgIContainer.h"
@@ -220,7 +219,6 @@ using namespace mozilla::dom::power;
 using namespace mozilla::media;
 using namespace mozilla::embedding;
 using namespace mozilla::gfx;
-using namespace mozilla::gmp;
 using namespace mozilla::hal;
 using namespace mozilla::ipc;
 using namespace mozilla::layers;
@@ -857,12 +855,6 @@ static nsIDocShell* GetOpenerDocShellHelper(Element* aFrameElement)
 }
 
 bool
-ContentParent::RecvCreateGMPService()
-{
-  return PGMPService::Open(this);
-}
-
-bool
 ContentParent::RecvLoadPlugin(const uint32_t& aPluginId, nsresult* aRv, uint32_t* aRunID)
 {
   *aRv = NS_OK;
@@ -1257,9 +1249,6 @@ ContentParent::Init()
 #endif
   }
 #endif
-
-  RefPtr<GeckoMediaPluginServiceParent> gmps(GeckoMediaPluginServiceParent::GetSingleton());
-  gmps->UpdateContentProcessGMPCapabilities();
 }
 
 void
@@ -2524,13 +2513,6 @@ ContentParent::Observe(nsISupports* aSubject,
     Unused << SendNotifyEmptyHTTPCache();
   }
   return NS_OK;
-}
-
-PGMPServiceParent*
-ContentParent::AllocPGMPServiceParent(mozilla::ipc::Transport* aTransport,
-                                      base::ProcessId aOtherProcess)
-{
-  return GMPServiceParent::Create(aTransport, aOtherProcess);
 }
 
 PBackgroundParent*

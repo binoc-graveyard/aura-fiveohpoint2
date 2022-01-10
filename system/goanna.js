@@ -409,9 +409,6 @@ pref("media.libavcodec.allow-obsolete", false);
 #if defined(MOZ_FFVPX)
 pref("media.ffvpx.enabled", true);
 #endif
-pref("media.gmp.decoder.enabled", false);
-pref("media.gmp.decoder.aac", 0);
-pref("media.gmp.decoder.h264", 0);
 #ifdef MOZ_RAW
 pref("media.raw.enabled", true);
 #endif
@@ -419,13 +416,6 @@ pref("media.ogg.enabled", true);
 pref("media.opus.enabled", true);
 pref("media.wave.enabled", true);
 pref("media.webm.enabled", true);
-
-// GMP storage version number. At startup we check the version against
-// media.gmp.storage.version.observed, and if the versions don't match,
-// we clear storage and set media.gmp.storage.version.observed=expected.
-// This provides a mechanism to clear GMP storage when non-compatible
-// changes are made.
-pref("media.gmp.storage.version.expected", 1);
 
 // Filter what triggers user notifications.
 // See DecoderDoctorDocumentWatcher::ReportAnalysis for details.
@@ -4382,42 +4372,6 @@ pref("browser.search.reset.whitelist", "");
 // {moz:official} expands to "official"
 pref("browser.search.official", true);
 #endif
-
-// GMPInstallManager prefs
-
-// User-settable override to media.gmp-manager.url for testing purposes.
-//pref("media.gmp-manager.url.override", "");
-
-// Update service URL for GMP install/updates:
-pref("media.gmp-manager.url", "https://aus5.mozilla.org/update/3/GMP/60.0/%BUILD_ID%/%BUILD_TARGET%/%LOCALE%/%CHANNEL%/%OS_VERSION%/%DISTRIBUTION%/%DISTRIBUTION_VERSION%/update.xml");
-
-// When |media.gmp-manager.cert.requireBuiltIn| is true or not specified the
-// final certificate and all certificates the connection is redirected to before
-// the final certificate for the url specified in the |media.gmp-manager.url|
-// preference must be built-in.
-pref("media.gmp-manager.cert.requireBuiltIn", true);
-
-// The |media.gmp-manager.certs.| preference branch contains branches that are
-// sequentially numbered starting at 1 that contain attribute name / value
-// pairs for the certificate used by the server that hosts the update xml file
-// as specified in the |media.gmp-manager.url| preference. When these preferences are
-// present the following conditions apply for a successful update check:
-// 1. the uri scheme must be https
-// 2. the preference name must exist as an attribute name on the certificate and
-//    the value for the name must be the same as the value for the attribute name
-//    on the certificate.
-// If these conditions aren't met it will be treated the same as when there is
-// no update available. This validation will not be performed when the
-// |media.gmp-manager.url.override| user preference has been set for testing updates or
-// when the |media.gmp-manager.cert.checkAttributes| preference is set to false. Also,
-// the |media.gmp-manager.url.override| preference should ONLY be used for testing.
-// IMPORTANT! app.update.certs.* prefs should also be updated if these
-// are updated.
-pref("media.gmp-manager.cert.checkAttributes", true);
-pref("media.gmp-manager.certs.1.issuerName", "CN=DigiCert SHA2 Secure Server CA,O=DigiCert Inc,C=US");
-pref("media.gmp-manager.certs.1.commonName", "aus5.mozilla.org");
-pref("media.gmp-manager.certs.2.issuerName", "CN=thawte SSL CA - G2,O=\"thawte, Inc.\",C=US");
-pref("media.gmp-manager.certs.2.commonName", "aus5.mozilla.org");
 
 // Whether or not to perform reader mode article parsing on page load.
 // If this pref is disabled, we will never show a reader mode icon in the toolbar.
