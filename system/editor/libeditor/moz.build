@@ -77,8 +77,8 @@ SOURCES += [
 ]
 
 LOCAL_INCLUDES += [
+    '../txmgr',
     '/dom/base',
-    '/editor/txmgr',
     '/layout/generic',
     '/layout/style',
     '/layout/tables',
