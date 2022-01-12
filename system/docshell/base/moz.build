@@ -54,7 +54,6 @@ EXPORTS.mozilla += [
     
 SOURCES += [
     'LoadContext.cpp',
-    'nsAboutRedirector.cpp',
     'nsContextMenuInfo.cpp',
     'nsDefaultURIFixup.cpp',
     'nsDocShell.cpp',
