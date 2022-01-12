@@ -164,7 +164,19 @@ static RedirEntry kRedirMap[] = {
     "support",
     "chrome://global/content/aboutSupport.xhtml",
     nsIAboutModule::ALLOW_SCRIPT
-  }
+  },
+#ifdef MOZ_SERVICES_SYNC
+  {
+    "sync-progress",
+    "chrome://weave/content/progress.xhtml",
+    nsIAboutModule::ALLOW_SCRIPT
+  },
+  {
+    "sync-tabs",
+    "chrome://weave/content/aboutSyncTabs.xul",
+    nsIAboutModule::ALLOW_SCRIPT
+  },
+#endif
 };
 static const int kRedirTotal = mozilla::ArrayLength(kRedirMap);
 

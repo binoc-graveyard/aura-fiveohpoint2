@@ -28,9 +28,9 @@
         onload="gSyncSetup.init()">
 
   <script type="application/javascript"
-          src="chrome://browser/content/sync/setup.js"/>
+          src="chrome://weave/content/setup.js"/>
   <script type="application/javascript"
-          src="chrome://browser/content/sync/utils.js"/>
+          src="chrome://weave/content/utils.js"/>
   <script type="application/javascript"
           src="chrome://browser/content/utilityOverlay.js"/>
   <script type="application/javascript"

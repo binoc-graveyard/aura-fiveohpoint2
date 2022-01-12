@@ -28,9 +28,9 @@
         onload="gSyncAddDevice.init();">
 
   <script type="application/javascript"
-          src="chrome://browser/content/sync/addDevice.js"/>
+          src="chrome://weave/content/addDevice.js"/>
   <script type="application/javascript"
-          src="chrome://browser/content/sync/utils.js"/>
+          src="chrome://weave/content/utils.js"/>
   <script type="application/javascript"
           src="chrome://browser/content/utilityOverlay.js"/>
   <script type="application/javascript"

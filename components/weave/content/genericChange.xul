@@ -25,9 +25,9 @@
         onwizardfinish="return Change.onDialogAccept();">
 
   <script type="application/javascript"
-          src="chrome://browser/content/sync/genericChange.js"/>
+          src="chrome://weave/content/genericChange.js"/>
   <script type="application/javascript"
-          src="chrome://browser/content/sync/utils.js"/>
+          src="chrome://weave/content/utils.js"/>
   <script type="application/javascript"
           src="chrome://global/content/printUtils.js"/>
 

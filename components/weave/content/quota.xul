@@ -27,7 +27,7 @@
         ondialogaccept="return gSyncQuota.onAccept();">
 
   <script type="application/javascript"
-          src="chrome://browser/content/sync/quota.js"/>
+          src="chrome://weave/content/quota.js"/>
 
   <stringbundleset id="stringbundleset">
     <stringbundle id="quotaStrings"
