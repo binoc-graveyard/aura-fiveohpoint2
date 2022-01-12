@@ -95,7 +95,6 @@ MACH_MODULES = [
     'python/mozbuild/mozbuild/mach_commands.py',
     'python/mozbuild/mozbuild/compilation/codecomplete.py',
     'python/mozbuild/mozbuild/frontend/mach_commands.py',
-    'services/common/tests/mach_commands.py',
     'testing/mach_commands.py',
     'testing/mochitest/mach_commands.py',
     'testing/talos/mach_commands.py',

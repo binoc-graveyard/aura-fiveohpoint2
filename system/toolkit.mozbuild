@@ -17,7 +17,6 @@ DIRS += [
   '/js/xpconnect',
   '/layout',
   '/modules',
-  '/services',
   '/system',
 ]
 
