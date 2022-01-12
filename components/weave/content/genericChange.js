@@ -49,7 +49,7 @@ var Change = {
     this._dialog.getButton("back").hidden = true;
 
     this._stringBundle =
-      Services.strings.createBundle("chrome://browser/locale/syncGenericChange.properties");
+      Services.strings.createBundle("chrome://weave/locale/syncGenericChange.properties");
 
     switch (this._dialogType) {
       case "UpdatePassphrase":

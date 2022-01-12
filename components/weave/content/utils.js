@@ -11,7 +11,7 @@ const PERMISSIONS_RWUSR = 0x180;
 var gSyncUtils = {
   get bundle() {
     delete this.bundle;
-    return this.bundle = Services.strings.createBundle("chrome://browser/locale/syncSetup.properties");
+    return this.bundle = Services.strings.createBundle("chrome://weave/locale/syncSetup.properties");
   },
 
   // opens in a new window if we're in a modal prefwindow world, in a new tab otherwise

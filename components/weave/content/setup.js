@@ -1067,5 +1067,5 @@ XPCOMUtils.defineLazyGetter(gSyncSetup, "nextFocusEl", function() {
           pin3: this.wizard.getButton("next")};
 });
 XPCOMUtils.defineLazyGetter(gSyncSetup, "_stringBundle", function() {
-  return Services.strings.createBundle("chrome://browser/locale/syncSetup.properties");
+  return Services.strings.createBundle("chrome://weave/locale/syncSetup.properties");
 });

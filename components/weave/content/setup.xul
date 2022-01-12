@@ -11,7 +11,7 @@
 <!DOCTYPE window [
 <!ENTITY % brandDTD SYSTEM "chrome://branding/locale/brand.dtd">
 <!ENTITY % syncBrandDTD SYSTEM "chrome://branding/locale/syncBrand.dtd">
-<!ENTITY % syncSetupDTD SYSTEM "chrome://browser/locale/syncSetup.dtd">
+<!ENTITY % syncSetupDTD SYSTEM "chrome://weave/locale/syncSetup.dtd">
 %brandDTD;
 %syncBrandDTD;
 %syncSetupDTD;

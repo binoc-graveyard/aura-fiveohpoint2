@@ -10,7 +10,7 @@
 <!DOCTYPE dialog [
 <!ENTITY % brandDTD SYSTEM "chrome://branding/locale/brand.dtd">
 <!ENTITY % syncBrandDTD SYSTEM "chrome://branding/locale/syncBrand.dtd">
-<!ENTITY % syncQuotaDTD SYSTEM "chrome://browser/locale/syncQuota.dtd">
+<!ENTITY % syncQuotaDTD SYSTEM "chrome://weave/locale/syncQuota.dtd">
 %brandDTD;
 %syncBrandDTD;
 %syncQuotaDTD;
@@ -31,7 +31,7 @@
 
   <stringbundleset id="stringbundleset">
     <stringbundle id="quotaStrings"
-                  src="chrome://browser/locale/syncQuota.properties"/>
+                  src="chrome://weave/locale/syncQuota.properties"/>
   </stringbundleset>
 
   <vbox flex="1">
