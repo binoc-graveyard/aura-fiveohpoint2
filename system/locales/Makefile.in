@@ -7,13 +7,13 @@ include $(topsrcdir)/config/rules.mk
 libs-%:
 	@$(MAKE) -C ../../dom/locales/ libs AB_CD=$* XPI_NAME=locale-$*
 ifdef MOZ_DEVTOOLS_SERVER
-	@$(MAKE) -C ../../components/devtools/shared/locales/ libs AB_CD=$* XPI_NAME=locale-$*
+	@$(MAKE) -C ../../devtools/shared/locales/ libs AB_CD=$* XPI_NAME=locale-$*
 endif
 ifdef MOZ_DEVTOOLS
-	@$(MAKE) -C ../../components/devtools/client/locales AB_CD=$* XPI_NAME=locale-$*
+	@$(MAKE) -C ../../devtools/client/locales AB_CD=$* XPI_NAME=locale-$*
 endif
 ifdef MOZ_SERVICES_SYNC
-	@$(MAKE) -C ../../services/sync/locales AB_CD=$* XPI_NAME=locale-$*
+	@$(MAKE) -C ../../components/weave/locales AB_CD=$* XPI_NAME=locale-$*
 endif
 	@$(MAKE) -C ../intl/hyphenation/locales AB_CD=$* XPI_NAME=locale-$*
 	@$(MAKE) -C ../intl/spellcheck/locales AB_CD=$* XPI_NAME=locale-$*
