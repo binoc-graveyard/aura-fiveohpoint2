@@ -4,8 +4,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
-<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://browser/skin/aboutSyncTabs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://weave/skin/aboutSyncTabs.css" type="text/css"?>
 <?xml-stylesheet href="chrome://weave/content/aboutSyncTabs.css" type="text/css"?>
 
 <!DOCTYPE window [
@@ -22,7 +21,7 @@
   <script type="application/javascript;version=1.8" src="chrome://weave/content/aboutSyncTabs.js"/>
   <script type="application/javascript" src="chrome://browser/content/utilityOverlay.js"/>
   <html:head>
-    <html:link rel="icon" href="chrome://browser/skin/sync-16.png"/>
+    <html:link rel="icon" href="chrome://weave/skin/sync-16.png"/>
   </html:head>
 
   <popupset id="contextmenus">
