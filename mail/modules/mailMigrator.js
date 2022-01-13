@@ -133,10 +133,8 @@ var MailMigrator = {
           xulStore.removeValue(MESSENGER_DOCURL, "folderPaneBox", "collapsed");
         }
 
-        // We want to remove the throbber from the menubar on Linux and
-        // Windows, and from the mail-toolbar on OSX.
-        let mailBarId = (Services.appinfo.OS == "Darwin") ?
-          "mail-bar3" : "mail-toolbar-menubar2";
+        // We want to remove the throbber from the menubar.
+        let mailBarId = "mail-toolbar-menubar2";
         let cs = xulStore.getValue(MESSENGER_DOCURL, mailBarId, "currentset");
 
         if (cs && cs.includes("throbber-box")) {

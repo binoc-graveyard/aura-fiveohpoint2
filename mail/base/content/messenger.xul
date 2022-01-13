@@ -20,9 +20,6 @@
 <?xul-overlay href="chrome://messenger/content/specialTabs.xul"?>
 <?xul-overlay href="chrome://messenger/content/preferences/preferencesTab.xul"?>
 <?xul-overlay href="chrome://messenger/content/quickFilterBar.xul"?>
-#ifdef XP_MACOSX
-<?xul-overlay href="chrome://messenger/content/macMessengerOverlay.xul"?>
-#endif
 
 <!DOCTYPE window [
 <!ENTITY % brandDTD SYSTEM "chrome://branding/locale/brand.dtd" >
@@ -114,9 +111,6 @@
         events="focus"
         oncommandupdate="FocusRingUpdate_Mail()"/>
   <commandset id="tasksCommands"/>
-#ifdef XP_MACOSX
-  <commandset id="macWindowMenuItems"/>
-#endif
   <command id="cmd_close" oncommand="CloseTabOrWindow();"/>
 </commandset>
 

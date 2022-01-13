@@ -516,10 +516,6 @@
       <prefs/>
       <versionRange minVersion="0" maxVersion="*" severity="1"/>
     </emItem>
-    <emItem blockID="i568" id="thunder@xunlei.com" os="Darwin">
-      <prefs/>
-      <versionRange minVersion="0" maxVersion="2.0.6" severity="1"/>
-    </emItem>
     <emItem blockID="i768" id="{f2548724-373f-45fe-be6a-3a85e87b7711}">
       <prefs>
         <pref>browser.startup.homepage</pref>

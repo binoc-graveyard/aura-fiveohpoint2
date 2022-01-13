@@ -56,9 +56,6 @@ var ToolbarIconColor = {
     }
 
     let toolbarSelector = "toolbox > toolbar:not([collapsed=true])";
-#ifdef XP_MACOSX
-    toolbarSelector += ":not([type=menubar])";
-#endif
 
     for (let toolbar of document.querySelectorAll(toolbarSelector)) {
       let [r, g, b] = parseRGB(getComputedStyle(toolbar).color);

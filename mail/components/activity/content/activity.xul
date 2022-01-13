@@ -6,9 +6,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #ifdef XP_UNIX
-#ifndef XP_MACOSX
 #define XP_GNOME 1
-#endif
 #endif
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
@@ -61,10 +59,6 @@
   <keyset id="activityKeys">
     <key id="key_removeFromList"  keycode="VK_DELETE"
          oncommand="performCommand('cmd_removeFromList');"/>
-#ifdef XP_MACOSX
-    <key id="key_removeFromList2" keycode="VK_BACK"
-         oncommand="performCommand('cmd_removeFromList');"/>
-#endif
     <key id="key_close" key="&cmd.close.commandkey;"
          oncommand="closeWindow(true);" modifiers="accel"/>
 #ifdef XP_GNOME

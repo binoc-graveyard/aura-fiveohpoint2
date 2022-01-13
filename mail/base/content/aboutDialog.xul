@@ -23,11 +23,7 @@
 #ifdef MOZ_UPDATER
         onunload="onUnload(event);"
 #endif
-#ifdef XP_MACOSX
-        inwindowmenu="false"
-#else
         title="&aboutDialog.title;"
-#endif
         role="dialog"
         aria-describedby="version distribution distributionId currentChannelText communityDesc contributeDesc trademark"
         >
@@ -67,9 +63,5 @@
 
   <keyset id="mainKeyset">
     <key keycode="VK_ESCAPE" oncommand="window.close();"/>
-#ifdef XP_MACOSX
-    <key id="key_close" modifiers="accel" key="&cmdCloseMac.commandKey;"
-         oncommand="window.close();"/>
-#endif
   </keyset>
 </window>

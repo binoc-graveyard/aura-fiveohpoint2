@@ -17,9 +17,6 @@ if CONFIG['OS_ARCH'] == 'WINNT':
 if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
     SOURCES += ['nsMailGNOMEIntegration.cpp']
 
-if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'cocoa':
-    SOURCES += ['nsMailMacIntegration.cpp']
-
 EXTRA_COMPONENTS += [
     'nsSetDefaultMail.js',
     'shell.manifest',

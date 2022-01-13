@@ -31,13 +31,6 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
       'wizHeaderRTL.bmp',
       'wizWatermark.bmp',
   ]
-elif CONFIG['MOZ_WIDGET_TOOLKIT'] == 'cocoa':
-  BRANDING_FILES += [
-      'background.png',
-      'disk.icns',
-      'dsstore',
-      'thunderbird.icns'
-  ]
 elif 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
   BRANDING_FILES += [
       'default16.png',

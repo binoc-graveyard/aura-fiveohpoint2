@@ -5,12 +5,6 @@
 
 #filter substitution
 
-#ifdef XP_UNIX
-#ifndef XP_MACOSX
-#define UNIX_BUT_NOT_MAC
-#endif
-#endif
-
 pref("signon.startup.prompt", true);
 
 pref("general.useragent.locale", "@AB_CD@");
@@ -21,11 +15,6 @@ pref("mailnews.header.toolbar", false);
 
 // override double-click word selection behavior.
 pref("layout.word_select.eat_space_to_next_word", false);
-
-#ifdef XP_MACOSX
-pref("browser.chromeURL", "chrome://messenger/content/messengercompose/messengercompose.xul");
-pref("mail.biff.animate_dock_icon", false);
-#endif
 
 pref("mail.rights.version", 0);
 
@@ -104,8 +93,6 @@ pref("app.update.staging.enabled", true);
 // Update service URL:
 #ifdef XP_LINUX
 #define AUS_OS linux
-#elif XP_MACOSX
-#define AUS_OS mac
 #else
 #define AUS_OS win
 #endif
@@ -217,7 +204,7 @@ pref("extensions.install.requireBuiltInCerts", false);
 pref("extensions.install.requireSecureOrigin", false);
 
 pref("general.smoothScroll", true);
-#ifdef UNIX_BUT_NOT_MAC
+#ifdef XP_UNIX
 pref("general.autoScroll", false);
 #else
 pref("general.autoScroll", true);
@@ -249,11 +236,8 @@ pref("browser.preferences.instantApply", false);
 #else
 pref("browser.preferences.instantApply", true);
 #endif
-#ifdef XP_MACOSX
-pref("browser.preferences.animateFadeIn", true);
-#else
 pref("browser.preferences.animateFadeIn", false);
-#endif
+
 
 // load the Preferences in a tab
 pref("mail.preferences.inContent", false);
@@ -347,7 +331,7 @@ pref("offline.send.unsent_messages",            0);
 // 2 Never synchronize the offline store when going offline
 pref("offline.download.download_messages",  0);
 
-#ifdef UNIX_BUT_NOT_MAC
+#ifdef XP_UNIX
 pref("offline.autoDetect", false);
 #else
 // Windows and Mac can automatically move the user offline or online based on
@@ -422,9 +406,7 @@ pref("spellchecker.dictionaries.download.url", "http://@AM_DOMAIN@/dictionaries/
 pref("profile.force.migration", "");
 
 // prefs to control the mail alert notification
-#ifndef XP_MACOSX
 pref("alerts.totalOpenTime", 10000);
-#endif
 
 // analyze urls in mail messages for scams
 pref("mail.phishing.detection.enabled", true);
@@ -466,11 +448,7 @@ pref("mail.tabs.closeButtons", 1);
 pref("breakpad.reportURL", "https://crash-stats.mozilla.com/report/index/");
 
 // Whether to use a panel that looks like an OS X sheet for customization
-#ifdef XP_MACOSX
-pref("toolbar.customization.usesheet", true);
-#else
 pref("toolbar.customization.usesheet", false);
-#endif
 
 // Number of recipient rows shown by default
 pref("mail.compose.addresswidget.numRowsShownDefault", 3);
@@ -527,41 +505,11 @@ pref("font.default.x-western", "sans-serif");
 pref("font.default.x-cyrillic", "sans-serif");
 pref("font.default.el", "sans-serif");
 
-#ifdef XP_MACOSX
-pref("font.name.sans-serif.x-unicode", "Lucida Grande");
-pref("font.name.monospace.x-unicode", "Menlo");
-pref("font.name-list.sans-serif.x-unicode", "Lucida Grande");
-pref("font.name-list.monospace.x-unicode", "Menlo, Monaco");
-pref("font.size.variable.x-unicode", 15);
-pref("font.size.fixed.x-unicode", 12);
-
-pref("font.name.sans-serif.x-western", "Lucida Grande");
-pref("font.name.monospace.x-western", "Menlo");
-pref("font.name-list.sans-serif.x-western", "Lucida Grande");
-pref("font.name-list.monospace.x-western", "Menlo, Monaco");
-pref("font.size.variable.x-western", 15);
-pref("font.size.fixed.x-western", 12);
-
-pref("font.name.sans-serif.x-cyrillic", "Lucida Grande");
-pref("font.name.monospace.x-cyrillic", "Menlo");
-pref("font.name-list.sans-serif.x-cyrillic", "Lucida Grande");
-pref("font.name-list.monospace.x-cyrillic", "Menlo, Monaco");
-pref("font.size.variable.x-cyrillic", 15);
-pref("font.size.fixed.x-cyrillic", 12);
-
-pref("font.name.sans-serif.el", "Lucida Grande");
-pref("font.name.monospace.el", "Menlo");
-pref("font.name-list.sans-serif.el", "Lucida Grande");
-pref("font.name-list.monospace.el", "Menlo, Monaco");
-pref("font.size.variable.el", 15);
-pref("font.size.fixed.el", 12);
-#endif
-
 // Since different versions of Windows need different settings, we'll handle
 // this in mailMigrator.js.
 
 // Linux, in other words.  Other OSes may wish to override.
-#ifdef UNIX_BUT_NOT_MAC
+#ifdef XP_UNIX
 // The font.name-list fallback is defined in case font.name isn't
 // present -- e.g. in case a profile that's been used on Windows Vista or above
 // is used on Linux.
@@ -669,28 +617,7 @@ pref("browser.urlbar.restrict.openpage", "%");
 
 // The default for this pref reflects whether the build is capable of IPC.
 // (Turning it on in a no-IPC build will have no effect.)
-#ifdef XP_MACOSX
-// i386 ipc preferences
-pref("dom.ipc.plugins.enabled.i386", false);
-pref("dom.ipc.plugins.enabled.i386.flash player.plugin", true);
-pref("dom.ipc.plugins.enabled.i386.javaplugin2_npapi.plugin", true);
-pref("dom.ipc.plugins.enabled.i386.javaappletplugin.plugin", true);
-// x86_64 ipc preferences
-pref("dom.ipc.plugins.enabled.x86_64", true);
-#else
 pref("dom.ipc.plugins.enabled", true);
-#endif
-
-// This pref governs whether we attempt to work around problems caused by
-// plugins using OS calls to manipulate the cursor while running out-of-
-// process.  These workarounds all involve intercepting (hooking) certain
-// OS calls in the plugin process, then arranging to make certain OS calls
-// in the browser process.  Eventually plugins will be required to use the
-// NPAPI to manipulate the cursor, and these workarounds will be removed.
-// See bug 621117.
-#ifdef XP_MACOSX
-pref("dom.ipc.plugins.nativeCursorSupport", true);
-#endif
 
 // plugin finder service url
 pref("pfs.datasource.url", "https://pfs.mozilla.org/plugins/PluginFinderService.
@@ -700,11 +627,6 @@ php?mimetype=%PLUGIN_MIMETYPE%&appID=%APP_ID%&appVersion=%APP_VERSION%&clientOS=
 // By default we show an infobar message when pages require plugins that are
 // outdated.
 pref("plugins.hide_infobar_for_outdated_plugin", false);
-
-#ifdef XP_MACOSX
-pref("plugins.use_layers", false);
-pref("plugins.hide_infobar_for_carbon_failure_plugin", false);
-#endif
 
 pref("plugins.update.url", "https://www.mozilla.org/%LOCALE%/plugincheck/");
 pref("plugins.update.notifyUser", false);

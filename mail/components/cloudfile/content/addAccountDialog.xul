@@ -28,9 +28,7 @@
   <script type="application/javascript;version=1.8"
           src="chrome://messenger/content/cloudfile/addAccountDialog.js"/>
 
-#ifdef XP_MACOSX
   <description id="createAccountTitle">&addAccountDialog.title;</description>
-#endif
   <description id="createAccountText">&addAccountDialog.createAccountText2;</description>
   <description id="noAccountText" hidden="true">&addAccountDialog.noAccountText;</description>
 

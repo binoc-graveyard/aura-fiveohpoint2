@@ -17,10 +17,6 @@
 
   <command id="cmd_highlightSyntax" disabled="true"/>
   <menubar id="viewSource-main-menubar">
-#ifdef XP_MACOSX
-    <menu id="windowMenu"/>
-    <menupopup id="taskPopup"/>
-#endif
     <menu id="helpMenu"/>
   </menubar>
   <browser id="content" disablehistory="true"/>

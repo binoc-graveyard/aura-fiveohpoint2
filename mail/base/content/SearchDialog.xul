@@ -57,16 +57,8 @@
     <key id="key_delete" oncommand="goDoCommand('cmd_delete');"/>
     <key key="&closeCmd.key;" modifiers="accel" oncommand="window.close();"/>
     <key keycode="VK_ESCAPE" oncommand="window.close();"/>
-#ifdef XP_MACOSX
-      <key id="key_delete2" oncommand="goDoCommand('cmd_delete');"/>
-      <key id="cmd_shiftDelete" keycode="VK_BACK"
-           oncommand="goDoCommand('cmd_shiftDelete');" modifiers="shift"/>
-      <key id="cmd_shiftDelete2" keycode="VK_DELETE"
-           oncommand="goDoCommand('cmd_shiftDelete');" modifiers="shift"/>
-#else
       <key id="cmd_shiftDelete" keycode="VK_DELETE"
            oncommand="goDoCommand('cmd_shiftDelete');" modifiers="shift"/>
-#endif
   </keyset>
 
   <dummy class="usesMailWidgets"/>

@@ -7,9 +7,6 @@
 <?xml-stylesheet href="chrome://messenger/skin/folderMenus.css" type="text/css"?>
 <?xml-stylesheet href="chrome://messenger/skin/attachmentList.css" type="text/css"?>
 <?xul-overlay href="chrome://editor/content/editorOverlay.xul"?>
-#ifdef XP_MACOSX
-<?xul-overlay href="chrome://messenger/content/macMenuOverlay.xul"?>
-#endif
 <?xul-overlay href="chrome://messenger/content/baseMenuOverlay.xul"?>
 <?xul-overlay href="chrome://communicator/content/charsetOverlay.xul"?>
 
@@ -157,14 +154,6 @@
   <command id="cmd_quoteMessage" oncommand="goDoCommand('cmd_quoteMessage')"/>
   <command id="cmd_insert"/>
 
-#ifdef XP_MACOSX
-  <!-- Mac Window menu -->
-  <command id="minimizeWindow" label="&minimizeWindow.label;" oncommand="window.minimize();"/>
-  <command id="zoomWindow" label="&zoomWindow.label;" oncommand="zoomWindow();"/>
-  <command id="Tasks:Mail" oncommand="toMessengerWindow();"/>
-  <command id="Tasks:AddressBook" oncommand="toAddressBook();"/>
-#endif
-
   <command id="cmd_CustomizeComposeToolbar"
            oncommand="CustomizeMailToolbar('compose-toolbox', 'CustomizeComposeToolbar')"/>
 
@@ -184,17 +173,8 @@
 
 <keyset id="tasksKeys">
   <!-- File Menu -->
-#ifdef XP_MACOSX
-  <!-- Mac has Command+M as system shortcut to minimize current window, so we offer Command+Shift+M for New Message,
-       in addition to cross-platform Command+N. With goOpenNewMessage(), pass null instead of event because
-       we don't allow Shift in *keyboard shortcuts* for toggling HTML vs. plaintext format, see bug 672475.
-    -->
-  <key id="key_newMessage" key="&newMessage.key;" oncommand="goOpenNewMessage(null);" modifiers="accel,shift"/>
-  <key id="key_newMessage2" key="&newMessageCmd2.key;" oncommand="goOpenNewMessage(null);" modifiers="accel"/>
-#else
   <key id="key_newMessage" key="&newMessage.key;" oncommand="goOpenNewMessage(null);" modifiers="accel"/>
   <key id="key_newMessage2" key="&newMessageCmd2.key;" oncommand="goOpenNewMessage(null);" modifiers="accel"/>
-#endif
   <key id="key_attachFile" key="&attachFileCmd.key;" command="cmd_attachFile"
        modifiers="accel,shift"/>
   <key id="key_close" key="&closeCmd.key;" command="cmd_close"  modifiers="accel"/>
@@ -222,18 +202,11 @@
   <key id="pastenoformattingkb" key="&pasteNoFormattingCmd.key;"
        modifiers="accel, shift" observes="cmd_pasteNoFormatting"/>
   <key id="key_rewrap" key="&editRewrapCmd.key;" command="cmd_rewrap" modifiers="accel"/>
-#ifdef XP_MACOSX
-  <key id="key_delete" keycode="VK_BACK" command="cmd_delete"/>
-  <key id="key_delete2" keycode="VK_DELETE" command="cmd_delete"/>
-#else
   <key id="key_delete" keycode="VK_DELETE" command="cmd_delete"/>
   <key id="key_renameAttachment" keycode="VK_F2" oncommand="goDoCommand('cmd_renameAttachment');"/>
-#endif
   <key id="key_selectAll" key="&selectAllCmd.key;" modifiers="accel"/>
   <key id="key_find" key="&findBarCmd.key;" command="cmd_find" modifiers="accel"/>
-#ifndef XP_MACOSX
   <key id="key_findReplace" key="&findReplaceCmd.key;" command="cmd_findReplace" modifiers="accel"/>
-#endif
   <key id="key_findNext" key="&findAgainCmd.key;" command="cmd_findNext" modifiers="accel"/>
   <key id="key_findPrev" key="&findPrevCmd.key;" command="cmd_findPrev" modifiers="accel, shift"/>
   <key keycode="&findAgainCmd.key2;" command="cmd_findNext"/>
@@ -280,11 +253,6 @@
   <key keycode="VK_F6" oncommand="SwitchElementFocus(event);" modifiers="control,shift"/>
   <key keycode="VK_F6" oncommand="SwitchElementFocus(event);" modifiers="shift"/>
   <key keycode="VK_F6" oncommand="SwitchElementFocus(event);"/>
-
-#ifdef XP_MACOSX
-  <!-- Mac Window Menu -->
-  <key id="key_minimizeWindow" command="minimizeWindow" key="&minimizeWindow.key;" modifiers="accel"/>
-#endif
 
   <key keycode="VK_ESCAPE" oncommand="handleEsc();"/>
 </keyset>
@@ -421,41 +389,17 @@
            onpopupshowing="onBlockedContentOptionsShowing(event);">
 </menupopup>
 
-#ifdef XP_MACOSX
-  <vbox id="titlebar">
-    <hbox id="titlebar-content">
-      <spacer id="titlebar-spacer" flex="1"/>
-      <hbox id="titlebar-buttonbox-container" align="start">
-        <hbox id="titlebar-buttonbox">
-          <toolbarbutton class="titlebar-button" id="titlebar-min" oncommand="window.minimize();"/>
-          <toolbarbutton class="titlebar-button" id="titlebar-max" oncommand="onTitlebarMaxClick();"/>
-          <toolbarbutton class="titlebar-button" id="titlebar-close" oncommand="window.close()"/>
-        </hbox>
-      </hbox>
-      <hbox id="titlebar-fullscreen-button"/>
-    </hbox>
-  </vbox>
-#endif
-
   <toolbox id="compose-toolbox"
            class="toolbox-top"
            mode="full"
            defaultmode="full"
-#ifdef XP_MACOSX
-           iconsize="small"
-           defaulticonsize="small"
-#endif
            labelalign="end"
            defaultlabelalign="end">
 
   <!-- Menu -->
   <!-- if you change the id of the menubar, be sure to update mailCore.js::CustomizeMailToolbar and MailToolboxCustomizeDone -->
   <toolbar type="menubar" id="compose-toolbar-menubar2" class="chromeclass-menubar" customizable="true"
-#ifdef XP_MACOSX
-           defaultset="menubar-items"
-#else
           defaultset="menubar-items,spring"
-#endif
 #ifdef XP_WIN
           toolbarname="&menubarCmd.label;"
           accesskey="&menubarCmd.accesskey;"
@@ -513,9 +457,7 @@
           <menuitem label="&sendLaterCmd.label;" accesskey="&sendLaterCmd.accesskey;" key="key_sendLater" command="cmd_sendLater"/>
           <menuseparator/>
           <menuitem id="printSetupMenuItem" label="&printSetupCmd.label;" accesskey="&printSetupCmd.accesskey;" command="cmd_printSetup"/>
-#ifndef XP_MACOSX
           <menuitem id="printPreviewMenuItem" label="&printPreviewCmd.label;" accesskey="&printPreviewCmd.accesskey;" command="cmd_printPreview"/>
-#endif
           <menuitem id="printMenuItem" label="&printCmd.label;" accesskey="&printCmd.accesskey;" key="key_print" command="cmd_print"/>
           <menuseparator id="menu_FileCloseSeparator"/>
           <menuitem id="menu_close"
@@ -552,18 +494,11 @@
                     accesskey="&findBarCmd.accesskey;"
                     key="key_find"
                     command="cmd_find"/>
-#ifndef XP_MACOSX
           <menuitem id="menu_findReplace"
                     label="&findReplaceCmd.label;"
                     accesskey="&findReplaceCmd.accesskey;"
                     key="key_findReplace"
                     command="cmd_findReplace"/>
-#else
-          <menuitem id="menu_findReplace"
-                    label="&findReplaceCmd.label;"
-                    accesskey="&findReplaceCmd.accesskey;"
-                    command="cmd_findReplace"/>
-#endif
           <menuitem id="menu_findNext"
                     label="&findAgainCmd.label;"
                     accesskey="&findAgainCmd.accesskey;"
@@ -695,8 +630,6 @@
 
       <menu id="tasksMenu" label="&tasksMenu.label;" accesskey="&tasksMenu.accesskey;">
           <menupopup id="taskPopup">
-            <!-- Moving the first two items to the Window menu on the Mac -->
-#ifndef XP_MACOSX
             <menuitem id="tasksMenuMail" accesskey="&messengerCmd.accesskey;"
                       label="&messengerCmd.label;" key="key_mail"
                       oncommand="toMessengerWindow();"/>
@@ -705,14 +638,8 @@
                       accesskey="&addressBookCmd.accesskey;"
                       key="key_addressbook"
                       oncommand="toAddressBook();"/>
-#endif
          </menupopup>
       </menu>
-
-#ifdef XP_MACOSX
-<!-- Mac window menu -->
-#include ../../../../platform/toolkit/content/macWindowMenu.inc
-#endif
 
       <!-- Help -->
       <menu id="helpMenu"/>
@@ -801,13 +728,6 @@
          </menupopup>
     </toolbarbutton>
 
-#ifdef XP_MACOSX
-    <toolbarbutton id="button-print"
-                   class="toolbarbutton-1"
-                   label="&printButton.label;"
-                   command="cmd_print"
-                   tooltiptext="&printButton.tooltip;"/>
-#else
     <toolbarbutton id="button-print"
                    class="toolbarbutton-1"
                    label="&printButton.label;"
@@ -827,7 +747,6 @@
                   command="cmd_printPreview"/>
       </menupopup>
     </toolbarbutton>
-#endif
     <toolbarbutton class="toolbarbutton-1"
                id="quoteButton" label="&quoteButton.label;"
                tooltiptext="&quoteButton.tooltip;"

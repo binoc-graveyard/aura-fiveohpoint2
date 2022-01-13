@@ -118,11 +118,7 @@
 #ifdef XP_WIN
               &aboutSupport.appBasicsProfileDirWinMac;
 #else
-#ifdef XP_MACOSX
-              &aboutSupport.appBasicsProfileDirWinMac;
-#else
               &aboutSupport.appBasicsProfileDir;
-#endif
 #endif
             </th>
 
@@ -132,11 +128,7 @@
 #ifdef XP_WIN
                   &aboutSupport.showWin2.label;
 #else
-#ifdef XP_MACOSX
-                  &aboutSupport.showMac.label;
-#else
                   &aboutSupport.showDir.label;
-#endif
 #endif
                 </button>
               </div>

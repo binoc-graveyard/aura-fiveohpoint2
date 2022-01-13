@@ -253,7 +253,6 @@ function buildHelpMenu()
   else
     checkForUpdates.removeAttribute("loading");
 #else
-#ifndef XP_MACOSX
   // Some extensions may rely on these being present so only hide the about
   // separator when there are no elements besides the check for updates menuitem
   // in between the about separator and the updates separator.
@@ -263,7 +262,6 @@ function buildHelpMenu()
   if (updatesSeparator.nextSibling === checkForUpdates &&
       checkForUpdates.nextSibling === aboutSeparator)
     updatesSeparator.hidden = true;
-#endif
 #endif
 }
 

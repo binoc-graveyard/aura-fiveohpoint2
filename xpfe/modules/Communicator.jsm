@@ -15,8 +15,6 @@ this.Communicator = {
     "linux",
 #elif XP_WIN
     "win",
-#elif XP_MACOSX
-    "macosx",
 #elif MOZ_WIDGET_ANDROID
     "android",
 #elif XP_LINUX

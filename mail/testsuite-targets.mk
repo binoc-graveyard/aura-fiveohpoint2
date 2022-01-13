@@ -10,17 +10,8 @@ VIRTUALENV_BIN = $(MOZMILLDIR)/../mozmill-virtualenv/bin
 endif
 MOZMILLPYTHON = $(abspath $(VIRTUALENV_BIN)/python$(BIN_SUFFIX))
 
-ifeq (cocoa,$(MOZ_WIDGET_TOOLKIT))
-# Mac options
-APP_NAME = $(MOZ_APP_DISPLAYNAME)
-ifdef MOZ_DEBUG
-APP_NAME := $(APP_NAME)Debug
-endif
-BINARY = $(DIST)/$(APP_NAME).app/
-else
-# Non-mac options
+# Options
 BINARY = $(DIST)/bin/thunderbird$(BIN_SUFFIX)
-endif
 
 check-no-solo = $(foreach solo,SOLO_TEST SOLO_FILE,$(if $($(solo)),$(error $(subst SOLOVAR,$(solo),$(1)))))
 find-solo-test = $(if $(and $(SOLO_TEST),$(SOLO_FILE)),$(error Both SOLO_TEST and SOLO_FILE are specified. You may only specify one.),$(if $(SOLO_TEST),$(SOLO_TEST),$(if $(SOLO_FILE),$(SOLO_FILE),$(error SOLO_TEST or SOLO_FILE needs to be specified.))))
