@@ -11,6 +11,8 @@ loader.lazyRequireGetter(this, "promise");
 loader.lazyRequireGetter(this, "defer", "devtools/shared/defer");
 loader.lazyRequireGetter(this, "OS", "resource://gre/modules/commonjs/node/os.js");
 loader.lazyRequireGetter(this, "DebuggerServer", "devtools/server/main", true);
+loader.lazyRequireGetter(this, "AppConstants",
+  "resource://gre/modules/AppConstants.jsm", true);
 loader.lazyGetter(this, "screenManager", () => {
   return Cc["@mozilla.org/gfx/screenmanager;1"].getService(Ci.nsIScreenManager);
 });
@@ -164,7 +166,7 @@ function* getSystemInfo() {
     profile: getProfileLocation(),
 
     // Update channel
-    channel: Services.prefs.getCharPref("app.update.channel", "default"),
+    channel: AppConstants.MOZ_UPDATE_CHANNEL,
 
     dpi,
     useragent,
@@ -333,3 +335,4 @@ exports.getAppIniString = getAppIniString;
 exports.getSetting = getSetting;
 exports.getScreenDimensions = getScreenDimensions;
 exports.getOSCPU = getOSCPU;
+exports.constants = AppConstants;

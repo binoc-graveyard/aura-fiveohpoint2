@@ -30,9 +30,9 @@ exports.executeSoon = function executeSoon(aFn) {
     setImmediate(aFn);
   } else {
     let executor;
-    // Only enable async stack reporting when flags.testing is set
+    // Only enable async stack reporting when DEBUG_JS_MODULES is set
     // (customized local builds) to avoid a performance penalty.
-    if (flags.testing) {
+    if (AppConstants.DEBUG_JS_MODULES || flags.testing) {
       let stack = getStack();
       executor = () => {
         callFunctionWithAsyncStack(aFn, stack, "DevToolsUtils.executeSoon");
@@ -272,6 +272,15 @@ exports.defineLazyGetter = function defineLazyGetter(aObject, aName, aLambda) {
   });
 };
 
+exports.defineLazyGetter(this, "AppConstants", () => {
+  if (isWorker) {
+    return {};
+  }
+  const scope = {};
+  Cu.import("resource://gre/modules/AppConstants.jsm", scope);
+  return scope.AppConstants;
+});
+
 /**
  * No operation. The empty function.
  */
@@ -301,6 +310,8 @@ function reallyAssert(condition, message) {
  * @param String message
  *
  * Assertions are enabled when any of the following are true:
+ *   - This is a DEBUG_JS_MODULES build
+ *   - This is a DEBUG build
  *   - flags.testing is set to true
  *
  * If assertions are enabled, then `condition` is checked and if false-y, the
@@ -309,7 +320,7 @@ function reallyAssert(condition, message) {
  * If assertions are not enabled, then this function is a no-op.
  */
 Object.defineProperty(exports, "assert", {
-  get: () => (flags.testing)
+  get: () => (AppConstants.DEBUG || AppConstants.DEBUG_JS_MODULES || flags.testing)
     ? reallyAssert
     : exports.noop,
 });
