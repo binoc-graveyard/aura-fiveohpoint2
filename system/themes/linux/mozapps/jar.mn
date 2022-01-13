@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-toolkit.jar:
+classic.jar:
 #include ../../shared/mozapps.inc.mn
   skin/classic/mozapps/downloads/downloadIcon.png          (downloads/downloadIcon.png)
   skin/classic/mozapps/downloads/downloads.css             (downloads/downloads.css)

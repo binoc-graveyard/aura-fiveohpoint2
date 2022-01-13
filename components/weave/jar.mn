@@ -22,6 +22,7 @@ toolkit.jar:
   content/weave/progress.js                   (content/progress.js)
   content/weave/progress.xhtml                (content/progress.xhtml)
 
+classic.jar:
 % skin weave classic/1.0 %skin/classic/weave/
   skin/classic/weave/aboutSyncTabs.css        (skin/aboutSyncTabs.css)
   skin/classic/weave/sync-16.png              (skin/sync-16.png)
