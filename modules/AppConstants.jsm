@@ -6,16 +6,12 @@
 
 "use strict";
 
+// XXXTobin: This file is deprecated but too much annoying shit still uses it.
+// Half of what it provides is just hard-coded to false.
+// So don't fuckin trust it, moron.
+
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 XPCOMUtils.defineLazyModuleGetter(this, "Services", "resource://gre/modules/Services.jsm");
-
-#ifndef BINOC_MAIL
-Components.utils.import("resource://gre/modules/Deprecated.jsm");
-Deprecated.warning("AppConstants.jsm is deprecated and will not provide accurate information" + " " +
-                   "about the application or platform." + "\n" +
-                   "Please use the standard Toolkit API instead.",
-                   "http://developer.palemoon.org/");
-#endif
 
 this.EXPORTED_SYMBOLS = ["AppConstants"];
 
