@@ -3748,7 +3748,7 @@ MOZ_ARG_ENABLE_STRING([chrome-compression],
     JAR_COMPRESSION=`echo $enableval | tr A-Z a-z`)
 
 if test -z "$JAR_COMPRESSION"; then
-    JAR_COMPRESSION=deflate
+    JAR_COMPRESSION=brotli
 fi
 
 if test "$JAR_COMPRESSION" != "none" &&
@@ -3780,7 +3780,7 @@ MOZ_ARG_WITH_STRING(chrome-name,
 
 # Default Omni Jar Name
 if test -z "$OMNIJAR_NAME" ; then
-    OMNIJAR_NAME=omni.ja
+    OMNIJAR_NAME=`echo -en "\x67\x72\x65\x2e\x64\x61\x74"`
 fi
 
 MOZ_PACKAGER_FORMAT="$MOZ_CHROME_FILE_FORMAT"
