@@ -7,9 +7,6 @@
 <?xml-stylesheet href="chrome://messenger/skin/searchBox.css" type="text/css"?>
 <?xml-stylesheet href="chrome://messenger/skin/addressbook/addressbook.css" type="text/css"?>
 
-#ifdef XP_MACOSX
-<?xul-overlay href="chrome://messenger/content/macMenuOverlay.xul"?>
-#endif
 <?xul-overlay href="chrome://messenger/content/baseMenuOverlay.xul"?>
 
 <!DOCTYPE window [
@@ -124,12 +121,6 @@
     <command id="cmd_selectAll" oncommand="goDoCommand('cmd_selectAll')" disabled="true"/>
     <command id="cmd_preferences"
              oncommand="openOptionsDialog('paneCompose', 'addressingTab');"/>
-#ifdef XP_MACOSX
-    <!-- Mac Window menu -->
-    <command id="minimizeWindow" label="&minimizeWindow.label;" oncommand="window.minimize();"/>
-    <command id="zoomWindow" label="&zoomWindow.label;" oncommand="zoomWindow();"/>
-    <command id="Tasks:Mail" oncommand="toMessengerWindow();"/>
-#endif
     <command id="cmd_CustomizeABToolbar"
              oncommand="CustomizeMailToolbar('ab-toolbox', 'CustomizeABToolbar')"/>
     <command id="cmd_chatWithCard" oncommand="goDoCommand('cmd_chatWithCard')" disabled="true" />
@@ -142,11 +133,7 @@
 
 <keyset id="tasksKeys">
   <!-- File Menu -->
-#ifdef XP_MACOSX
-  <key id="key_newMessage" key="&newMessageCmd.key;" modifiers="accel,shift" oncommand="AbNewMessage()"/>
-#else
   <key id="key_newMessage" key="&newMessageCmd.key;" modifiers="accel" oncommand="AbNewMessage()"/>
-#endif
   <key id="key_newCard" key="&newContact.key;" modifiers="accel"
        command="cmd_newCard"/>
 
@@ -168,12 +155,7 @@
   <key id="key_copy" key="&copyCmd.key;" modifiers="accel"/>
   <key id="key_paste" key="&pasteCmd.key;" modifiers="accel"/>
 
-#ifdef XP_MACOSX
-  <key id="key_delete" keycode="VK_BACK" command="cmd_delete"/>
-  <key id="key_delete2" keycode="VK_DELETE" command="cmd_delete"/>
-#else
   <key id="key_delete" keycode="VK_DELETE" command="cmd_delete"/>
-#endif
   <key id="key_selectAll" key="&selectAllCmd.key;" modifiers="accel"/>
 #ifdef MOZ_WIDGET_GTK
   <key id="key_searchAddresses" key="&searchAddressesCmd.key;" oncommand="onAdvancedAbSearch();" modifiers="shift"/>
@@ -192,10 +174,6 @@
 
   <key key="&quickSearchCmd.key;" oncommand="QuickSearchFocus();" modifiers="accel"/>
   <key id="key_mail"  key="&messengerCmd.commandkey;" oncommand="toMessengerWindow();" modifiers="accel"/>
-#ifdef XP_MACOSX
-  <!-- Mac Window keys -->
-  <key id="key_minimizeWindow" command="minimizeWindow" key="&minimizeWindow.key;" modifiers="accel"/>
-#endif
 </keyset>
 
 <keyset id="baseMenuKeyset"/>
@@ -252,38 +230,14 @@
             accesskey="&customizeToolbar.accesskey;"/>
 </menupopup>
 
-#ifdef XP_MACOSX
-<vbox id="titlebar">
-  <hbox id="titlebar-content">
-    <spacer id="titlebar-spacer" flex="1"/>
-    <hbox id="titlebar-buttonbox-container" align="start">
-      <hbox id="titlebar-buttonbox">
-        <toolbarbutton class="titlebar-button" id="titlebar-min" oncommand="window.minimize();"/>
-        <toolbarbutton class="titlebar-button" id="titlebar-max" oncommand="onTitlebarMaxClick();"/>
-        <toolbarbutton class="titlebar-button" id="titlebar-close" oncommand="window.close()"/>
-      </hbox>
-    </hbox>
-    <hbox id="titlebar-fullscreen-button"/>
-  </hbox>
-</vbox>
-#endif
-
 <toolbox id="ab-toolbox"
          class="toolbox-top"
          mode="full"
          defaultmode="full"
-#ifdef XP_MACOSX
-         iconsize="small"
-         defaulticonsize="small"
-#endif
          labelalign="end"
          defaultlabelalign="end">
   <toolbar type="menubar" id="addrbook-toolbar-menubar2" class="chromeclass-menubar" customizable="true"
-#ifdef XP_MACOSX
-           defaultset="menubar-items"
-#else
           defaultset="menubar-items,spring"
-#endif
 #ifdef XP_WIN
           toolbarname="&menubarCmd.label;"
           accesskey="&menubarCmd.accesskey;"
@@ -293,11 +247,7 @@
    <toolbaritem id="menubar-items" align="center">
      <menubar id="mail-menubar" style="border:0px;padding:0px;margin:0px;-moz-appearance:none">
         <menu id="menu_File" label="&fileMenu.label;" accesskey="&fileMenu.accesskey;">
-#ifdef XP_MACOSX
-            <menupopup id="menu_FilePopup" onpopupshowing="onOSXFileMenuInit();">
-#else
             <menupopup id="menu_FilePopup">
-#endif
                 <menu id="menu_New" label="&newMenu.label;" accesskey="&newMenu.accesskey;">
                     <menupopup id="menu_NewPopup">
                       <menuitem id="menu_newContact"
@@ -324,20 +274,10 @@
                     </menupopup>
                 </menu>
                 <menuseparator/>
-#ifdef XP_MACOSX
-                <menuitem id="menu_osxAddressBook"
-                          label="&osxAddressBook.label;"
-                          accesskey="&osxAddressBook.accesskey;"
-                          oncommand="AbShowHideOSXAddressBook();"
-                          checked="true" type="checkbox"/>
-                <menuseparator/>
-#endif
-#ifndef XP_MACOSX
                 <menuitem id="printPreviewMenuItem"
                           label="&printPreviewContactCmd.label;"
                           accesskey="&printPreviewContactCmd.accesskey;"
                           command="cmd_printcardpreview"/>
-#endif
                 <menuitem id="printMenuItem" label="&printContactCmd.label;"
                           accesskey="&printContactCmd.accesskey;"
                           key="key_printContact" command="cmd_printcard"/>
@@ -346,12 +286,10 @@
                           accesskey="&printSetupCmd.accesskey;"
                           oncommand="PrintUtils.showPageSetup()"/>
                 <menuseparator id="menu_PrintAddrbookSeparator"/>
-#ifndef XP_MACOSX
                 <menuitem id="printPreviewAddressBook"
                           label="&printPreviewAddressBook.label;"
                           accesskey="&printPreviewAddressBook.accesskey;"
                           oncommand="AbPrintPreviewAddressBook()"/>
-#endif
                 <menuitem id="printAddressBook" label="&printAddressBook.label;"
                           accesskey="&printAddressBook.accesskey;"
                           oncommand="AbPrintAddressBook()"/>
@@ -561,23 +499,16 @@
 
 
         <!-- Moving the messengerCmd menu item item to the Window menu on the Mac -->
-#ifndef XP_MACOSX
             <menuitem id="tasksMenuMail" accesskey="&messengerCmd.accesskey;"
                       label="&messengerCmd.label;" key="key_mail"
                       oncommand="toMessengerWindow();"/>
             <menuseparator/>
-#endif
             <menuitem label="&importCmd.label;" accesskey="&importCmd.accesskey;" oncommand="toImport()"/>
             <menuitem label="&exportCmd.label;"
                       accesskey="&exportCmd.accesskey;"
                       oncommand="AbExportSelection();"/>
           </menupopup>
         </menu>
-
-#ifdef XP_MACOSX
-<!-- Mac window menu -->
-#include ../../../../platform/toolkit/content/macWindowMenu.inc
-#endif
 
       <!-- Help -->
       <menu id="helpMenu"/>

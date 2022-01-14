@@ -31,10 +31,6 @@ NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(nsWindowsShellService, Init)
 #include "nsMailGNOMEIntegration.h"
 NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(nsMailGNOMEIntegration, Init)
 #endif
-#ifdef XP_MACOSX
-#include "nsMailMacIntegration.h"
-NS_GENERIC_FACTORY_CONSTRUCTOR(nsMailMacIntegration)
-#endif
 
 NS_DEFINE_NAMED_CID(NS_MAILDIRECTORYPROVIDER_CID);
 NS_DEFINE_NAMED_CID(NS_THUNDERBIRD_PROFILEIMPORT_CID);
@@ -49,10 +45,6 @@ NS_DEFINE_NAMED_CID(NS_MAILWININTEGRATION_CID);
 NS_DEFINE_NAMED_CID(NS_MAILGNOMEINTEGRATION_CID);
 #endif
 
-#ifdef XP_MACOSX
-NS_DEFINE_NAMED_CID(NS_MAILMACINTEGRATION_CID);
-#endif
-
 const mozilla::Module::CIDEntry kMailCIDs[] = {
   { &kNS_MAILDIRECTORYPROVIDER_CID, false, NULL, DirectoryProviderConstructor },
   { &kNS_THUNDERBIRD_PROFILEIMPORT_CID, false, NULL, nsProfileMigratorConstructor },
@@ -63,9 +55,6 @@ const mozilla::Module::CIDEntry kMailCIDs[] = {
 #endif // !XP_WIN32
 #ifdef MOZ_WIDGET_GTK
   { &kNS_MAILGNOMEINTEGRATION_CID, false, NULL, nsMailGNOMEIntegrationConstructor },
-#endif
-#ifdef XP_MACOSX
-  { &kNS_MAILMACINTEGRATION_CID, false, NULL, nsMailMacIntegrationConstructor },
 #endif
   { NULL }
 };
@@ -80,9 +69,6 @@ const mozilla::Module::ContractIDEntry kMailContracts[] = {
 #endif // !XP_WIN32
 #ifdef MOZ_WIDGET_GTK
   { "@mozilla.org/mail/shell-service;1", &kNS_MAILGNOMEINTEGRATION_CID },
-#endif
-#ifdef XP_MACOSX
-  { "@mozilla.org/mail/shell-service;1", &kNS_MAILMACINTEGRATION_CID },
 #endif
   { NULL }
 };

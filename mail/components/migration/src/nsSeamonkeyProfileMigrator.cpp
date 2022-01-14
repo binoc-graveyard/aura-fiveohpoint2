@@ -221,13 +221,6 @@ nsSeamonkeyProfileMigrator::FillProfileDataFromSeamonkeyRegistry()
                    getter_AddRefs(seamonkeyData));
   NS_ENSURE_TRUE(seamonkeyData, NS_ERROR_FAILURE);
 
-#elif defined(XP_MACOSX)
-#define NEW_FOLDER "SeaMonkey"
-#define EXTRA_PREPEND "Application Support"
-  fileLocator->Get(NS_MAC_USER_LIB_DIR, NS_GET_IID(nsIFile),
-                   getter_AddRefs(seamonkeyData));
-  NS_ENSURE_TRUE(seamonkeyData, NS_ERROR_FAILURE);
-
 #elif defined(XP_UNIX)
 #define NEW_FOLDER "seamonkey"
 #define EXTRA_PREPEND ".mozilla"

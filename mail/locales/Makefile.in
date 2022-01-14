@@ -31,13 +31,6 @@ L10N_PREF_JS_EXPORTS_PATH = $(FINAL_TARGET)/$(PREF_DIR)
 L10N_PREF_JS_EXPORTS_FLAGS = $(PREF_PPFLAGS) --silence-missing-directive-warnings
 PP_TARGETS += L10N_PREF_JS_EXPORTS
 
-ifeq (cocoa,$(MOZ_WIDGET_TOOLKIT))
-MOZ_PKG_MAC_DSSTORE=$(ABS_DIST)/branding/dsstore
-MOZ_PKG_MAC_BACKGROUND=$(ABS_DIST)/branding/background.png
-MOZ_PKG_MAC_ICON=$(ABS_DIST)/branding/disk.icns
-MOZ_PKG_MAC_EXTRA=--symlink '/Applications:/ '
-endif
-
 ifeq (WINNT,$(OS_ARCH))
 UNINSTALLER_PACKAGE_HOOK = $(RM) -r $(STAGEDIST)/uninstall; \
     $(NSINSTALL) -D $(STAGEDIST)/uninstall; \

@@ -8,8 +8,6 @@ XPIDL_SOURCES += ['nsIShellService.idl']
 
 if CONFIG['OS_ARCH'] == 'WINNT':
     XPIDL_SOURCES += ['nsIWindowsShellService.idl']
-elif CONFIG['MOZ_WIDGET_TOOLKIT'] == 'cocoa':
-    XPIDL_SOURCES += ['nsIMacShellService.idl']
 elif 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
     XPIDL_SOURCES += ['nsIGNOMEShellService.idl']
 

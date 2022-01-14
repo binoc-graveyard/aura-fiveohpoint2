@@ -30,16 +30,10 @@
         label="&helpMenu.label;" accesskey="&helpMenu.accesskey;">
 #endif
     <menupopup id="menu_HelpPopup" onpopupshowing="buildHelpMenu();">
-#ifdef XP_MACOSX
-      <menuitem id="menu_openHelp"
-                label="&openHelpMac.label;" key="key_openHelp"
-                oncommand="openSupportURL();"/>
-#else
       <menuitem id="menu_openHelp"
                 label="&openHelp.label;" accesskey="&openHelp.accesskey;"
                 oncommand="openSupportURL();"
                 key="key_openHelp"/>
-#endif
       <menuitem id="releaseNotes"
                 label="&releaseCmd2.label;" accesskey="&releaseCmd2.accesskey;"
                 oncommand="openFormattedURL('app.releaseNotesURL');"/>
@@ -64,16 +58,9 @@
     </menupopup>
   </menu>
   <keyset id="baseMenuKeyset">
-#ifdef XP_MACOSX
-    <key id="key_openHelp"
-         oncommand="openSupportURL();"
-         key="&openHelpMac2.commandkey;"
-         modifiers="&openHelpMac2.modifiers;"/>
-#else
     <key id="key_openHelp"
          oncommand="openSupportURL();"
          keycode="&openHelp.commandkey;"/>
-#endif
   </keyset>
   <stringbundleset id="stringbundleset">
     <stringbundle id="bundle_messenger"

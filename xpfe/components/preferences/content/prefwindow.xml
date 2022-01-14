@@ -301,7 +301,6 @@
       <method name="setPaneTitle">
         <parameter name="aPaneElement"/>
         <body>
-#ifndef XP_MACOSX
         <![CDATA[
           // show pane title, if given
           var paneHeader = document.getAnonymousElementByAttribute(this, 'anonid', 'paneHeader');
@@ -312,7 +311,6 @@
           if (!paneHeader.hidden)
             paneHeader.setAttribute('title', paneHeaderLabel);
         ]]>
-#endif
         </body>
       </method>
 

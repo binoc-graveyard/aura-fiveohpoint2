@@ -4,9 +4,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #ifdef XP_UNIX
-#ifndef XP_MACOSX
 #define XP_GNOME 1
-#endif
 #endif
 
 <?xml-stylesheet href="chrome://messenger/skin/folderMenus.css" type="text/css"?>
@@ -19,9 +17,6 @@
 <?xul-overlay href="chrome://communicator/content/utilityOverlay.xul"?>
 
 <?xul-overlay href="chrome://communicator/content/charsetOverlay.xul"?>
-#ifdef XP_MACOSX
-<?xul-overlay href="chrome://messenger/content/macMenuOverlay.xul"?>
-#endif
 <?xul-overlay href="chrome://messenger/content/baseMenuOverlay.xul"?>
 
 <!DOCTYPE overlay [
@@ -344,25 +339,13 @@
   <command id="cmd_deleteJunk" oncommand="goDoCommand('cmd_deleteJunk');" disabled="true"/>
 </commandset>
 
-#ifdef XP_MACOSX
-<commandset id="macWindowMenuItems">
-  <!-- Mac Window menu -->
-  <command id="minimizeWindow" label="&minimizeWindow.label;" oncommand="window.minimize();"/>
-  <command id="zoomWindow" label="&zoomWindow.label;" oncommand="zoomWindow();"/>
-  <command id="Tasks:Mail" oncommand="focusOnMail(1);"/>
-  <command id="Tasks:AddressBook" oncommand="toAddressBook();"/>
-</commandset>
-#endif
-
 <keyset id="mailKeys">
   <key id="space" key=" " modifiers="shift any" oncommand="SpaceHit(event);"/>
 
   <!-- File Menu -->
   <key id="key_close"/>
-#ifndef XP_MACOSX
   <key id="key_close2" keycode="VK_F4" modifiers="accel" command="cmd_close"/>
   <key id="key_renameFolder" keycode="&renameFolder.key;" oncommand="goDoCommand('cmd_renameFolder')"/>
-#endif
 #ifdef XP_UNIX
   <key id="key_quit"/>
 #endif
@@ -372,21 +355,10 @@
   <key id="key_cut"/>
   <key id="key_copy"/>
   <key id="key_paste"/>
-#ifdef XP_MACOSX
-  <key id="key_delete" keycode="VK_BACK"
-       oncommand="goDoCommand('cmd_delete');"/>
-  <key id="key_delete2" keycode="VK_DELETE"
-       oncommand="goDoCommand('cmd_delete');"/>
-  <key id="cmd_shiftDelete" keycode="VK_BACK"
-       oncommand="goDoCommand('cmd_shiftDelete');" modifiers="shift"/>
-  <key id="cmd_shiftDelete2" keycode="VK_DELETE"
-       oncommand="goDoCommand('cmd_shiftDelete');" modifiers="shift"/>
-#else
   <key id="key_delete" keycode="VK_DELETE"
        oncommand="goDoCommand('cmd_delete');"/>
   <key id="cmd_shiftDelete" keycode="VK_DELETE"
        oncommand="goDoCommand('cmd_shiftDelete');" modifiers="shift"/>
-#endif
   <key id="key_selectAll"/>
   <key id="key_selectThread" key="&selectThreadCmd.key;"             oncommand="goDoCommand('cmd_selectThread');" modifiers="accel, shift"/>
 
@@ -425,29 +397,14 @@
   <key id="key_killSubthread" key="&killSubthreadMenu.key;"          oncommand="goDoCommand('cmd_killSubthread')" modifiers="shift" />
   <key id="key_openMessage" key="&openMessageWindowCmd.key;"         oncommand="goDoCommand('cmd_openMessage')" modifiers="accel"/>
   <key id="key_openConversation" key="&openConversationCmd.key;"     oncommand="goDoCommand('cmd_openConversation')" modifiers="accel, shift"/>
-#ifdef XP_MACOSX
-  <key id="key_moveToFolderAgain" key="&moveToFolderAgainCmd.key;"   oncommand="goDoCommand('cmd_moveToFolderAgain')" modifiers="alt, accel"/>
-#else
   <key id="key_moveToFolderAgain" key="&moveToFolderAgainCmd.key;"   oncommand="goDoCommand('cmd_moveToFolderAgain')" modifiers="accel, shift"/>
-#endif
   <key id="key_print" key="&printCmd.key;"                           oncommand="goDoCommand('cmd_print')" modifiers="accel"/>
   <key id="key_saveAsFile" key="&saveAsFileCmd.key;"                 oncommand="goDoCommand('cmd_saveAsFile')" modifiers="accel"/>
   <key id="key_viewPageSource" key="&pageSourceCmd.key;"             oncommand="goDoCommand('cmd_viewPageSource')" modifiers="accel"/>
-#ifdef XP_MACOSX
-  <key id="key_getNewMessagesAlt" keycode="VK_F5"
-       oncommand="goDoCommand('cmd_getNewMessages');"/>
-  <key id="key_getAllNewMessagesAlt" keycode="VK_F5" modifiers="shift"
-       oncommand="goDoCommand('cmd_getMsgsForAuthAccounts');"/>
-  <key id="key_getNewMessages" key="&getNewMessagesCmd.key;" modifiers="accel"
-       oncommand="goDoCommand('cmd_getNewMessages');"/>
-  <key id="key_getAllNewMessages" key="&getAllNewMessagesCmd.key;" modifiers="accel, shift"
-       oncommand="goDoCommand('cmd_getMsgsForAuthAccounts');"/>
-#else
   <key id="key_getNewMessages" keycode="VK_F5"
        oncommand="goDoCommand('cmd_getNewMessages');"/>
   <key id="key_getAllNewMessages" keycode="VK_F5" modifiers="shift"
        oncommand="goDoCommand('cmd_getMsgsForAuthAccounts');"/>
-#endif
 #ifdef XP_GNOME
   <key id="key_getNewMessages2" keycode="VK_F9"
        oncommand="goDoCommand('cmd_getNewMessages');"/>
@@ -531,12 +488,6 @@
        keycode="VK_DELETE"
        oncommand="toSanitize();"
        modifiers="accel,shift"/>
-#ifdef XP_MACOSX
-  <key id="key_sanitizeHistory_mac"
-       keycode="VK_BACK"
-       oncommand="toSanitize();"
-       modifiers="accel,shift"/>
-#endif
   <key id="key_addressbook"
        key="&addressBookCmd.key;"
        modifiers="accel, shift"
@@ -561,15 +512,6 @@
 #expand    <key id="key_selectTab7" oncommand="focusOnMail(6, event);" key="7" modifiers="__NUM_SELECT_TAB_MODIFIER__"/>
 #expand    <key id="key_selectTab8" oncommand="focusOnMail(7, event);" key="8" modifiers="__NUM_SELECT_TAB_MODIFIER__"/>
 #expand    <key id="key_selectLastTab" oncommand="focusOnMail(-1, event);" key="9" modifiers="__NUM_SELECT_TAB_MODIFIER__"/>
-
-#ifdef XP_MACOSX
-  <!-- Mac Window menu keys -->
-  <key id="key_minimizeWindow" command="minimizeWindow" key="&minimizeWindow.key;" modifiers="accel"/>
-    <!-- the following 3 keys are used in the application menu on Mac OS X Cocoa widgets -->
-  <key id="key_preferencesCmdMac" key="&preferencesCmdMac.commandkey;" modifiers="&preferencesCmdMac.modifiers;"/>
-  <key id="key_hideThisAppCmdMac" key="&hideThisAppCmdMac.commandkey;" modifiers="&hideThisAppCmdMac.modifiers;"/>
-  <key id="key_hideOtherAppsCmdMac" key="&hideOtherAppsCmdMac.commandkey;" modifiers="&hideOtherAppsCmdMac.modifiers;"/>
-#endif
 
   <!-- Common keys for the base menu overlay -->
   <keyset id="baseMenuKeyset"/>
@@ -1134,11 +1076,7 @@
               <menuseparator id="appmenu_messageAfterRedoEditSeparator"/>
               <menuitem id="appmenu_delete"
                         label="&deleteCmd.label;"
-#ifdef XP_MACOSX
-                        acceltext="⌫"
-#else
                         key="key_delete"
-#endif
                         command="cmd_delete"/>
               <menuseparator id="appmenu_messageAfterDeleteEditSeparator"/>
               <menuitem id="appmenu-editmenu-selectAll"
@@ -1188,11 +1126,9 @@
                         label="&printCmd.label;"
                         key="key_print"
                         command="cmd_print"/>
-#ifndef XP_MACOSX
               <menuitem id="appmenu_printPreview"
                         label="&printPreviewCmd.label;"
                         command="cmd_printpreview"/>
-#endif
               <menuitem id="appmenu_printSetup"
                         label="&printSetupCmd.label;"
                         command="cmd_printSetup"/>
@@ -2168,15 +2104,9 @@
 
 <toolbar type="menubar" id="mail-toolbar-menubar2" class="chromeclass-menubar" customizable="true"
          toolboxid="mail-toolbox"
-#ifdef XP_MACOSX
-         defaultset="menubar-items"
-#else
          defaultset="menubar-items,spring"
-#endif
-#ifndef XP_MACOSX
          toolbarname="&menubarCmd.label;"
          accesskey="&menubarCmd.accesskey;"
-#endif
          context="toolbar-context-menu"
          mode="icons"
          insertbefore="tabs-toolbar"
@@ -2291,9 +2221,7 @@
         </menu>
         <menuseparator id="fileMenuAfterOfflineSeparator"/>
         <menuitem id="printSetupMenuItem" label="&printSetupCmd.label;" accesskey="&printSetupCmd.accesskey;" command="cmd_printSetup"/>
-#ifndef XP_MACOSX
         <menuitem id="printPreviewMenuItem" label="&printPreviewCmd.label;" accesskey="&printPreviewCmd.accesskey;" command="cmd_printpreview"/>
-#endif
         <menuitem id="printMenuItem" key="key_print" label="&printCmd.label;" accesskey="&printCmd.accesskey;" command="cmd_print"/>
       </menupopup>
     </menu>
@@ -2857,7 +2785,6 @@
   <!-- Tools -->
   <menu id="tasksMenu" label="&tasksMenu.label;" accesskey="&tasksMenu.accesskey;">
     <menupopup id="taskPopup" onpopupshowing="document.commandDispatcher.updateCommands('create-menu-tasks')">
-#ifndef XP_MACOSX
       <menuitem hidden="true" accesskey="&messengerCmd.accesskey;" label="&messengerCmd.label;"
                 key="key_mail" oncommand="toMessengerWindow();" id="tasksMenuMail" class="menuitem-iconic menu-iconic"/>
       <menuitem id="addressBook"
@@ -2866,7 +2793,6 @@
                 key="key_addressbook"
                 oncommand="toOpenWindowByType('mail:addressbook', 'chrome://messenger/content/addressbook/addressbook.xul');"/>
       <menuseparator id="devToolsSeparator"/>
-#endif
       <menuitem id="menu_openSavedFilesWnd" label="&savedFiles.label;"
                 accesskey="&savedFiles.accesskey;"
                 key="key_savedFiles"
@@ -2923,22 +2849,10 @@
                 accesskey="&clearRecentHistory.accesskey;"
                 key="key_sanitizeHistory"
                 oncommand="toSanitize();"/>
-#ifdef XP_MACOSX
-      <menuseparator id="prefSep"/>
-      <menuitem id="menu_mac_services" label="&servicesMenuMac.label;"/>
-      <menuitem id="menu_mac_hide_app" label="&hideThisAppCmdMac.label;" key="key_hideThisAppCmdMac"/>
-      <menuitem id="menu_mac_hide_others" label="&hideOtherAppsCmdMac.label;" key="key_hideOtherAppsCmdMac"/>
-      <menuitem id="menu_mac_show_all" label="&showAllAppsCmdMac.label;"/>
-#endif
      <menuseparator id="sep_switchprofile"/>
      <menuitem id="cmd_switchprofile" label="&switchProfileCmd.label;" accesskey="&switchProfileCmd.accesskey;" oncommand="toProfileManager();"/>
      </menupopup>
     </menu>
-
-#ifdef XP_MACOSX
-<!-- Mac window menu -->
-#include ../../../platform/toolkit/content/macWindowMenu.inc
-#endif
 
     <!-- Help -->
     <menu id="helpMenu"/>
@@ -3129,14 +3043,6 @@
                       oncommand="goDoCommand('button_delete')"/>
     </deck>
   </toolbaritem>
-#ifdef XP_MACOSX
-  <toolbarbutton id="button-print"
-                 class="toolbarbutton-1"
-                 label="&printButton.label;"
-                 observes="button_print"
-                 oncommand="goDoCommand('cmd_print')"
-                 tooltiptext="&printButton.tooltip;"/>
-#else
   <toolbarbutton id="button-print"
                  class="toolbarbutton-1"
                  label="&printButton.label;"
@@ -3156,7 +3062,6 @@
                 command="cmd_printpreview"/>
     </menupopup>
   </toolbarbutton>
-#endif
   <toolbarbutton id="button-mark"
                  type="menu-button"
                  class="toolbarbutton-1"

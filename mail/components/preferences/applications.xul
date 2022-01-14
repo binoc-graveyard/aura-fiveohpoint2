@@ -181,13 +181,8 @@
                          onsyncfrompreference="return gDownloadDirSection.readDownloadDirPref();"
                          onsynctopreference="return gDownloadDirSection.writeFolderList();"/>
               <button id="chooseFolder" oncommand="gDownloadDirSection.chooseFolder();"
-#ifdef XP_MACOSX
-                      accesskey="&chooseFolderMac.accesskey;"
-                      label="&chooseFolderMac.label;"
-#else
                       accesskey="&chooseFolderWin.accesskey;"
                       label="&chooseFolderWin.label;"
-#endif
                       preference="browser.download.folderList"
                       onsynctopreference="return gDownloadDirSection.writeFolderList();"/>
             </hbox>

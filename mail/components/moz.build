@@ -17,7 +17,7 @@ DIRS += [
     'steel',
 ]
 
-if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('windows', 'gtk2', 'gtk3', 'cocoa', 'qt'):
+if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('windows', 'gtk2', 'gtk3', 'qt'):
     DIRS += ['shell']
 
 DIRS += ['build']

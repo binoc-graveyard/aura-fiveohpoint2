@@ -6,9 +6,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-#ifdef XP_MACOSX
-<?xml-stylesheet href="chrome://messenger/skin/preferences/preferences.css"?>
-#endif
 
 <!DOCTYPE prefwindow SYSTEM "chrome://messenger/locale/preferences/colors.dtd" >
 
@@ -16,11 +13,7 @@
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             title="&colorsDialog.title;"
             dlgbuttons="accept,cancel"
-#ifdef XP_MACOSX
-            style="width: &window.macWidth; !important;">
-#else
             style="width: &window.width; !important;">
-#endif
 
   <script type="application/javascript" src="chrome://communicator/content/utilityOverlay.js"/>
   <prefpane id="ColorsDialogPane">

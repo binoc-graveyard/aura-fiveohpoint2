@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<blocklist lastupdate="1483471392954" xmlns="http://www.mozilla.org/2006/addons-blocklist">
+<blocklist lastupdate="1641979421060" xmlns="http://www.mozilla.org/2006/addons-blocklist">
   <emItems>
     <emItem blockID="i988" id="{b12785f5-d8d0-4530-a3ea-5c4263b85bef}">
       <prefs/>
@@ -476,10 +476,6 @@
     <emItem blockID="i762" id="/^({2d7886a0-85bb-4bf2-b684-ba92b4b21d23}|{2fab2e94-d6f9-42de-8839-3510cef6424b}|{c02397f7-75b0-446e-a8fa-6ef70cfbf12b}|{8b337819-d1e8-48d3-8178-168ae8c99c36}|firefox@neurowise.info|firefox@allgenius.info)$/">
       <prefs/>
       <versionRange minVersion="0" maxVersion="*" severity="1"/>
-    </emItem>
-    <emItem blockID="i568" id="thunder@xunlei.com" os="Darwin">
-      <prefs/>
-      <versionRange minVersion="0" maxVersion="2.0.6" severity="1"/>
     </emItem>
     <emItem blockID="i768" id="{f2548724-373f-45fe-be6a-3a85e87b7711}">
       <prefs>
@@ -2072,10 +2068,6 @@
         </targetApplication>
       </versionRange>
     </pluginItem>
-    <pluginItem blockID="p89" os="Darwin">
-      <match exp="AdobePDFViewerNPAPI\.plugin" name="filename"/>
-      <versionRange maxVersion="10.1.3" minVersion="0" severity="1"/>
-    </pluginItem>
     <pluginItem blockID="p904">
       <match exp="JavaAppletPlugin\.plugin" name="filename"/>
       <infoURL>https://java.com/</infoURL>
@@ -2293,10 +2285,6 @@
       <match exp="(NPSWF32.*\.dll)|(NPSWF64.*\.dll)|(Flash\ Player\.plugin)" name="filename"/>
       <infoURL>https://get.adobe.com/flashplayer/</infoURL>
       <versionRange maxVersion="18.0.0.333" minVersion="18.0.0.329" severity="0" vulnerabilitystatus="1"/>
-    </pluginItem>
-    <pluginItem blockID="p252" os="Darwin">
-      <match exp="AdobePDFViewerNPAPI\.plugin" name="filename"/>
-      <versionRange maxVersion="11.0.01" minVersion="11.0.0" severity="1"/>
     </pluginItem>
     <pluginItem blockID="p1253">
       <match exp="(NPSWF32.*\.dll)|(NPSWF64.*\.dll)|(Flash\ Player\.plugin)" name="filename"/>
@@ -2863,18 +2851,6 @@
       <driverVersion>10.18.10.3947</driverVersion>
       <driverVersionComparator>EQUAL</driverVersionComparator>
     </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g234">
-      <os>Darwin 12</os>
-      <vendor>0x1002</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
-    </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g204">
-      <os>Darwin 10</os>
-      <vendor>0x8086</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
-    </gfxBlacklistEntry>
     <gfxBlacklistEntry blockID="g144">
       <os>All</os>
       <vendor>0x1002</vendor>
@@ -2890,12 +2866,6 @@
       <featureStatus>BLOCKED_DRIVER_VERSION</featureStatus>
       <driverVersion>6.14.10.5218</driverVersion>
       <driverVersionComparator>LESS_THAN</driverVersionComparator>
-    </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g230">
-      <os>Darwin 10</os>
-      <vendor>0x1002</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
     </gfxBlacklistEntry>
     <gfxBlacklistEntry blockID="g1215">
       <os>WINNT 5.1</os>
@@ -3008,18 +2978,6 @@
       <driverVersion>8.982.0.0</driverVersion>
       <driverVersionComparator>EQUAL</driverVersionComparator>
     </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g232">
-      <os>Darwin 11</os>
-      <vendor>0x1002</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
-    </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g206">
-      <os>Darwin 11</os>
-      <vendor>0x8086</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
-    </gfxBlacklistEntry>
     <gfxBlacklistEntry blockID="g1069">
       <os>All</os>
       <vendor>0x8086</vendor>
@@ -3057,24 +3015,6 @@
       <driverVersion>10.18.10.3947</driverVersion>
       <driverVersionComparator>EQUAL</driverVersionComparator>
     </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g202">
-      <os>Darwin 12</os>
-      <vendor>0x10de</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
-    </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g208">
-      <os>Darwin 12</os>
-      <vendor>0x8086</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
-    </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g200">
-      <os>Darwin 11</os>
-      <vendor>0x10de</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
-    </gfxBlacklistEntry>
     <gfxBlacklistEntry blockID="g1068">
       <os>All</os>
       <vendor>0x8086</vendor>
@@ -3103,12 +3043,6 @@
         <device>0x9806</device>
         <device>0x9807</device>
       </devices>
-    </gfxBlacklistEntry>
-    <gfxBlacklistEntry blockID="g198">
-      <os>Darwin 10</os>
-      <vendor>0x10de</vendor>
-      <feature>WEBGL_MSAA</feature>
-      <featureStatus>BLOCKED_DEVICE</featureStatus>
     </gfxBlacklistEntry>
     <gfxBlacklistEntry blockID="g1071">
       <os>All</os>

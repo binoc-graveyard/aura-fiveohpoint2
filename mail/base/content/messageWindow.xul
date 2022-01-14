@@ -78,9 +78,6 @@
     <commandset id="mailEditContextMenuItems"/>
     <commandset id="tasksCommands"/>
     <commandset id="commandKeys"/>
-#ifdef XP_MACOSX
-    <commandset id="macWindowMenuItems"/>
-#endif
     <command id="cmd_close" oncommand="window.close();"/>
   </commandset>
 
@@ -110,22 +107,6 @@
 
   <!-- Panel provided by editContactOverlay.xul -->
   <panel id="editContactPanel"/>
-
-#ifdef XP_MACOSX
-  <vbox id="titlebar">
-    <hbox id="titlebar-content">
-      <spacer id="titlebar-spacer" flex="1"/>
-      <hbox id="titlebar-buttonbox-container" align="start">
-        <hbox id="titlebar-buttonbox">
-          <toolbarbutton class="titlebar-button" id="titlebar-min" oncommand="window.minimize();"/>
-          <toolbarbutton class="titlebar-button" id="titlebar-max" oncommand="onTitlebarMaxClick();"/>
-          <toolbarbutton class="titlebar-button" id="titlebar-close" oncommand="window.close()"/>
-        </hbox>
-      </hbox>
-      <hbox id="titlebar-fullscreen-button"/>
-    </hbox>
-  </vbox>
-#endif
 
   <!-- mail-toolbox children are provided by mailWindowOverlay.xul -->
   <toolbox id="mail-toolbox"

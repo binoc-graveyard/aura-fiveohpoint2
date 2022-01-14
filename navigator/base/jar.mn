@@ -35,14 +35,10 @@ navigator.jar:
   content/navigator/aboutSH.xhtml                                  (content/aboutSH.xhtml)
   content/navigator/extensionsOverlay.xul                          (content/extensionsOverlay.xul)
 
-#ifdef XP_MACOSX
-  content/navigator/platformNavigationBindings.xul                 (content/platform/mac/platformNavigationBindings.xul)
-#else
 #ifdef XP_WIN
   content/navigator/platformNavigationBindings.xul                 (content/platform/win/platformNavigationBindings.xul)
 #else
   content/navigator/platformNavigationBindings.xul                 (content/platform/unix/platformNavigationBindings.xul)
-#endif
 #endif
 
 % overlay chrome://mozapps/content/extensions/extensions.xul chrome://navigator/content/extensionsOverlay.xul

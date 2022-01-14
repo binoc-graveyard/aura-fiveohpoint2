@@ -41,8 +41,6 @@ ClassicTB2.jar:
 #  skin/ClassicTB2/global/alerts/alert.css                                              (global/alerts/alert.css)
 #ifdef XP_LINUX
   skin/ClassicTB2/global/alerts/alert.css                                              (/mozilla/toolkit/themes/linux/global/alerts/alert.css)
-#elif XP_MACOSX
-  skin/ClassicTB2/global/alerts/alert.css                                              (/mozilla/toolkit/themes/osx/global/alerts/alert.css)
 #else
   skin/ClassicTB2/global/alerts/alert.css                                              (/mozilla/toolkit/themes/windows/global/alerts/alert.css)
 #endif

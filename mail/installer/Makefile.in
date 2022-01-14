@@ -99,7 +99,7 @@ DEFINES += -DMOZ_PACKAGE_WIN_UCRT_DLLS=1
 endif
 endif
 
-ifneq (,$(filter WINNT Darwin Android,$(OS_TARGET)))
+ifneq (,$(filter WINNT Android,$(OS_TARGET)))
 DEFINES += -DMOZ_SHARED_MOZGLUE=1
 endif
 
@@ -122,13 +122,6 @@ $(MOZ_PKG_MANIFEST): $(MOZ_PKG_MANIFEST_P) $(GLOBAL_DEPS)
 	$(call py_action,preprocessor,$(DEFINES) $(ACDEFINES) $< -o $@)
 endif
 
-ifeq (cocoa,$(MOZ_WIDGET_TOOLKIT))
-MOZ_PKG_MAC_DSSTORE=branding/dsstore
-MOZ_PKG_MAC_BACKGROUND=branding/background.png
-MOZ_PKG_MAC_ICON=branding/disk.icns
-MOZ_PKG_MAC_EXTRA=--symlink '/Applications:/ '
-endif
-
 NON_OMNIJAR_FILES = defaults/messenger/mailViews.dat
 
 INSTALL_SDK = 1
@@ -140,24 +133,14 @@ ifeq (bundle, $(MOZ_FS_LAYOUT))
 BINPATH = $(_BINPATH)
 DEFINES += -DAPPNAME=$(_APPNAME)
 else
-# Every other platform just winds up in dist/bin
+# Every platform just winds up in dist/bin
 BINPATH = bin
 endif
 DEFINES += -DBINPATH=$(BINPATH)
 
-ifeq (cocoa,$(MOZ_WIDGET_TOOLKIT))
-RESPATH = $(_APPNAME)/Contents/Resources
-else
 RESPATH = $(BINPATH)
-endif
-DEFINES += -DRESPATH=$(RESPATH)
 
 LPROJ_ROOT = $(firstword $(subst -, ,$(AB_CD)))
-ifeq (cocoa,$(MOZ_WIDGET_TOOLKIT))
-ifeq (zh-TW,$(AB_CD))
-LPROJ_ROOT := $(subst -,_,$(AB_CD))
-endif
-endif
 DEFINES += -DLPROJ_ROOT=$(LPROJ_ROOT)
 
 DEFINES += -DMOZ_ICU_VERSION=$(MOZ_ICU_VERSION)
@@ -191,11 +174,7 @@ PKGCOMP_FIND_OPTS =
 else
 PKGCOMP_FIND_OPTS = -L
 endif
-ifeq (Darwin, $(OS_ARCH))
-FINDPATH = $(_APPNAME)/Contents/MacOS
-else
 FINDPATH=bin
-endif
 
 package-compare:: $(MOZ_PKG_MANIFEST)
 ifdef MOZ_PKG_MANIFEST_P
