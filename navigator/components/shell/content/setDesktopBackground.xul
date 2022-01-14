@@ -17,11 +17,7 @@
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml"
         windowtype="Shell:SetDesktopBackground"
-#ifndef XP_MACOSX
         buttons="accept,cancel"
-#else
-        buttons="accept"
-#endif
         buttonlabelaccept="&setDesktopBackground.abtn;"
         onload="gSetBackground.load();"
         ondialogaccept="gSetBackground.setDesktopBackground();"
@@ -47,7 +43,6 @@
         <image id="monitor"/>
       </stack>
     </vbox>
-#ifndef XP_MACOSX
     <vbox flex="1">
       <hbox align="center">
         <label value="&color.label;"/>
@@ -72,19 +67,7 @@
         </menulist>
       </hbox>
     </vbox>
-#endif
   </hbox>
 
   <separator class="groove"/>
-#ifdef XP_MACOSX
-  <hbox align="right">
-    <button id="setDesktopBackground"
-            label="&setDesktopBackground.title;"
-            oncommand="gSetBackground.setDesktopBackground();"/>
-    <button id="showDesktopPreferences"
-            label="&openDesktopPrefs.label;"
-            oncommand="gSetBackground.showDesktopPrefs();"
-            hidden="true"/>
-  </hbox>
-#endif
 </dialog>

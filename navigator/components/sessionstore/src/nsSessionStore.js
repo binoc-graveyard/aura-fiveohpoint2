@@ -593,9 +593,7 @@ SessionStoreService.prototype = {
 
       if (closedWindowState) {
         let newWindowState;
-#ifndef XP_MACOSX
         if (!this._doResumeSession()) {
-#endif
           // We want to split the window up into pinned tabs and unpinned tabs.
           // Pinned tabs should be restored. If there are any remaining tabs,
           // they should be added back to _closedWindows.
@@ -619,7 +617,6 @@ SessionStoreService.prototype = {
             delete normalTabsState.windows[0].__lastSessionWindowID;
             this._closedWindows[closedWindowIndex] = normalTabsState.windows[0];
           }
-#ifndef XP_MACOSX
         }
         else {
           // If we're just restoring the window, make sure it gets removed from
@@ -628,7 +625,6 @@ SessionStoreService.prototype = {
           newWindowState = closedWindowState;
           delete newWindowState.hidden;
         }
-#endif
         if (newWindowState) {
           // Ensure that the window state isn't hidden
           this._restoreCount = 1;
@@ -2145,7 +2141,6 @@ SessionStoreService.prototype = {
     // shallow copy this._closedWindows to preserve current state
     let lastClosedWindowsCopy = this._closedWindows.slice();
 
-#ifndef XP_MACOSX
     // If no non-popup browser window remains open, return the state of the last
     // closed window(s). We only want to do this when we're actually "ending"
     // the session.
@@ -2159,7 +2154,6 @@ SessionStoreService.prototype = {
         total.unshift(lastClosedWindowsCopy.shift())
       } while (total[0].isPopup)
     }
-#endif
 
     if (activeWindow) {
       this.activeWindowSSiCache = activeWindow.__SSi || "";
@@ -3774,7 +3768,6 @@ SessionStoreService.prototype = {
     if (this._closedWindows.length <= maxWindowsUndo)
       return;
     let spliceTo = maxWindowsUndo;
-#ifndef XP_MACOSX
     let normalWindowIndex = 0;
     // try to find a non-popup window in this._closedWindows
     while (normalWindowIndex < this._closedWindows.length &&
@@ -3782,7 +3775,6 @@ SessionStoreService.prototype = {
       normalWindowIndex++;
     if (normalWindowIndex >= maxWindowsUndo)
       spliceTo = normalWindowIndex + 1;
-#endif
     this._closedWindows.splice(spliceTo, this._closedWindows.length);
   },
 

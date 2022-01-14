@@ -51,14 +51,10 @@ comm.jar:
 
   content/communicator/labelsencodings.properties                  (/platform/dom/encoding/labelsencodings.properties)
 
-#ifdef XP_MACOSX
-  content/communicator/platformCommunicatorOverlay.xul             (content/platform/mac/platformCommunicatorOverlay.xul)
-#else
 #ifdef XP_WIN
   content/communicator/platformCommunicatorOverlay.xul             (content/platform/win/platformCommunicatorOverlay.xul)
 #else
   content/communicator/platformCommunicatorOverlay.xul             (content/platform/unix/platformCommunicatorOverlay.xul)
-#endif
 #endif
 
 en-US.jar:

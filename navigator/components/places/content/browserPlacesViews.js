@@ -346,10 +346,6 @@ PlacesViewBase.prototype = {
         }
         else
           popup.setAttribute("placespopup", "true");
-#ifdef XP_MACOSX
-        // No context menu on mac.
-        popup.setAttribute("context", "placesContext");
-#endif
         element.appendChild(popup);
         element.className = "menu-iconic bookmark-item";
 
@@ -871,9 +867,7 @@ PlacesToolbar.prototype = {
 
   _cbEvents: ["dragstart", "dragover", "dragexit", "dragend", "drop",
 #ifdef XP_UNIX
-#ifndef XP_MACOSX
               "mousedown", "mouseup",
-#endif
 #endif
               "mousemove", "mouseover", "mouseout"],
 
@@ -960,9 +954,7 @@ PlacesToolbar.prototype = {
         popup.setAttribute("placespopup", "true");
         button.appendChild(popup);
         popup._placesNode = PlacesUtils.asContainer(aChild);
-#ifndef XP_MACOSX
         popup.setAttribute("context", "placesContext");
-#endif
 
         this._domNodes.set(aChild, popup);
       }
@@ -1066,14 +1058,12 @@ PlacesToolbar.prototype = {
         this._onMouseOut(aEvent);
         break;
 #ifdef XP_UNIX
-#ifndef XP_MACOSX
       case "mouseup":
         this._onMouseUp(aEvent);
         break;
       case "mousedown":
         this._onMouseDown(aEvent);
         break;
-#endif
 #endif
       case "popupshowing":
         this._onPopupShowing(aEvent);
@@ -1471,12 +1461,10 @@ PlacesToolbar.prototype = {
       // If the drag gesture on a container is toward down we open instead
       // of dragging.
 #ifdef XP_UNIX
-#ifndef XP_MACOSX
       if (this._mouseDownTimer) {
         this._mouseDownTimer.cancel();
         this._mouseDownTimer = null;
       }
-#endif
 #endif
       let translateY = this._cachedMouseMoveEvent.clientY - aEvent.clientY;
       let translateX = this._cachedMouseMoveEvent.clientX - aEvent.clientX;
@@ -1651,7 +1639,6 @@ PlacesToolbar.prototype = {
   },
 
 #ifdef XP_UNIX
-#ifndef XP_MACOSX
   _onMouseDown: function PT__onMouseDown(aEvent) {
     let target = aEvent.target;
     if (aEvent.button == 0 &&
@@ -1689,7 +1676,6 @@ PlacesToolbar.prototype = {
     }
   },
 #endif
-#endif
 
   _onMouseMove: function PT__onMouseMove(aEvent) {
     // Used in dragStart to prevent dragging folders when dragging down.
@@ -1719,14 +1705,6 @@ function PlacesMenu(aPopupShowingEvent, aPlace) {
   this._viewElt._placesView = this;
   this._addEventListeners(this._rootElt, ["popupshowing", "popuphidden"], true);
   this._addEventListeners(window, ["unload"], false);
-
-#ifdef XP_MACOSX
-  if (this._viewElt.parentNode.localName == "menubar") {
-    this._nativeView = true;
-    this._rootElt._startMarker = -1;
-    this._rootElt._endMarker = -1;
-  }
-#endif
 
   PlacesViewBase.call(this, aPlace);
   this._onPopupShowing(aPopupShowingEvent);

@@ -23,17 +23,6 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
         '../official/icons/windows/html-file.ico',
         'icons/windows/main-window.ico'
     ]
-elif CONFIG['MOZ_WIDGET_TOOLKIT'] == 'cocoa':
-    BRANDING_FILES += [
-        '../official/package/mac/background.png',
-        '../official/package/mac/disk.icns',
-        '../official/package/mac/dsstore',
-    ]
-
-    BRANDING_FILES.icons += [
-        '../official/icons/mac/document.icns',
-        'icons/mac/borealis.icns',
-    ]
 elif CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3'):
     FINAL_TARGET_FILES.chrome.icons.default += [
         '../official/icons/gtk/document.png',
