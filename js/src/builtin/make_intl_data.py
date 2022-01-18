@@ -589,6 +589,11 @@ def icuTzDataVersion(icuTzDir):
     if not os.path.isfile(zoneinfo):
         raise RuntimeError("file not found: %s" % zoneinfo)
     version = searchInFile("^//\s+tz version:\s+([0-9]{4}[a-z])$", zoneinfo)
+    
+    if version is None:
+        # XXXTobin: ICU tzdata != IANA tzdata anymore and so we need to
+        # check for a trailing number because /FUCK STANDARDS/ apparently.
+        version = searchInFile("^//\s+tz version:\s+([0-9]{4}[a-z][0-9]{1})$", zoneinfo)
     if version is None:
         raise RuntimeError("%s does not contain a valid tzdata version string" % zoneinfo)
     return version
@@ -909,7 +914,10 @@ def updateTzdata(args):
     out = args.out
 
     version = icuTzDataVersion(icuTzDir)
-    url = "https://www.iana.org/time-zones/repository/releases/tzdata%s.tar.gz" % version
+    # XXXTobin: ICU likely with Mozilla's blessing has fucked us.. ICU tzdata != IANA tzdata anymore 
+    # url = "https://www.iana.org/time-zones/repository/releases/tzdata%s.tar.gz" % version
+    url = "https://github.com/unicode-org/icu-data/blob/main/tzdata/tzdata_patch/tzdata%s.tar.gz" % version
+    
 
     print("Arguments:")
     print("\ttzdata version: %s" % version)
