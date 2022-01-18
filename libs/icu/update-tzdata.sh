@@ -47,9 +47,9 @@ fi
 
 tzdata_version=$1
 
-icudata_dir=`dirname "$0"`/../libs/icu/data
-icu_dir=`dirname "$0"`/icu
-tzdata_dir=`dirname "$0"`/tzdata
+icudata_dir=`dirname "$0"`/data
+icu_dir=`dirname "$0"`/src
+tzdata_dir=`dirname "$0"`/../../system/intl/tzdata
 tzdata_files="${tzdata_dir}"/files.txt
 tzdata_url=https://github.com/unicode-org/icu-data.git
 icu_tzdata_version=`grep --only-matching --perl-regexp --regexp="tz version:\s+\K.*$" "${icu_dir}"/source/data/misc/zoneinfo64.txt`
