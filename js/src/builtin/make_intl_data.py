@@ -916,7 +916,7 @@ def updateTzdata(args):
     version = icuTzDataVersion(icuTzDir)
     # XXXTobin: ICU likely with Mozilla's blessing has fucked us.. ICU tzdata != IANA tzdata anymore 
     # url = "https://www.iana.org/time-zones/repository/releases/tzdata%s.tar.gz" % version
-    url = "https://github.com/unicode-org/icu-data/blob/main/tzdata/tzdata_patch/tzdata%s.tar.gz" % version
+    url = "https://github.com/unicode-org/icu-data/blob/main/tzdata/tzdata_patch/tzdata%s.tar.gz?raw=true" % version
     
 
     print("Arguments:")
