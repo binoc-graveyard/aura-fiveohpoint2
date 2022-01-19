@@ -7,7 +7,7 @@
 MOZ_APP_NAME=interlink
 MOZ_APP_VENDOR="Binary Outcast"
 MOZ_APP_BASENAME=Interlink
-MOZ_APP_DISPLAYNAME=$MOZ_APP_BASENAME
+MOZ_APP_DISPLAYNAME="Interlink\ Mail\ \&\ News"
 MOZ_APP_ID={3550f703-e582-4d05-9a08-453d09bdfdc6}
 MOZ_APP_STATIC_INI=1
 MOZ_APP_VERSION=`$PYTHON ${_topsrcdir}/../build/version2k.py --version ${_topsrcdir}/../mail/config/version.txt`
@@ -32,8 +32,6 @@ THUNDERBIRD_VERSION=$MOZ_APP_VERSION
 MOZ_PLACES=1
 MOZ_SEPARATE_MANIFEST_FOR_THEME_OVERRIDES=1
 MOZ_SERVICES_SYNC=
-MOZ_SERVICES_COMMON=
-MOZ_SERVICES_CLOUDSYNC=
 MOZ_JETPACK=
 MOZ_DEVTOOLS_SERVER=
 MOZ_DEVTOOLS=
@@ -41,9 +39,6 @@ MOZ_GAMEPAD=
 MOZ_NECKO_WIFI=
 MOZ_AV1=
 MOZ_WEBRTC=
-MOZ_CHROME_FILE_FORMAT=omni
-JAR_COMPRESSION=brotli
-OMNIJAR_NAME=${MOZ_APP_NAME}.res
 
 # This should usually be the same as the value MAR_CHANNEL_ID.
 # If more than one ID is needed, then you should use a comma separated list

@@ -133,8 +133,6 @@
 @BINPATH@/chrome/comm.manifest
 @BINPATH@/chrome/navigator@JAREXT@
 @BINPATH@/chrome/navigator.manifest
-@BINPATH@/chrome/recording.manifest
-@BINPATH@/chrome/recording/*
 @BINPATH@/chrome/toolkit@JAREXT@
 @BINPATH@/chrome/toolkit.manifest
 
