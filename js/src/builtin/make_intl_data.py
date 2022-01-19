@@ -473,6 +473,9 @@ def readICUTimeZonesFromTimezoneTypes(icuTzDir):
     # tables consistent with IANA.
     del links[Zone("Canada/East-Saskatchewan")]
 
+    # XXXTobin: ICU-Fuck removal
+    del links[Zone("US/Pacific-New")]
+
     validateTimeZones(zones, links)
 
     return (zones, links)
@@ -512,6 +515,9 @@ def readICUTimeZonesFromZoneInfo(icuTzDir, ignoreFactory):
     # Remove the placeholder time zone "Factory".
     if ignoreFactory:
         zones.remove(Zone("Factory"))
+
+    # XXXTobin: ICU-Fuck removal
+    del links[Zone("US/Pacific-New")]
 
     validateTimeZones(zones, links)
 
