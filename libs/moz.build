@@ -5,6 +5,7 @@
 
 DIRS += [
   'angle',
+  'bsdiff',
   'brotli',
   'expat',
   'graphite2/src',
@@ -32,7 +33,11 @@ DIRS += [
   'snappy',
   'woff2',
   'ycbcr',
+  'xz-embedded',
 ]
+
+if not CONFIG['MOZ_SYSTEM_BZ2']:
+  DIRS += ['libbz2']
 
 if CONFIG['CPU_ARCH'] == 'arm':
   DIRS += ['openmax_dl']
@@ -72,11 +77,3 @@ if CONFIG['MOZ_TREMOR']:
 
 if CONFIG['MOZ_VORBIS']:
   DIRS += ['libvorbis']
-
-if CONFIG['MOZ_UPDATER']:
-  DIRS += [
-      'bsdiff',
-      'xz-embedded'
-  ]
-  if not CONFIG['MOZ_SYSTEM_BZ2']:
-    DIRS += ['libbz2']
