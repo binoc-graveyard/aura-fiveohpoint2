@@ -78,6 +78,7 @@ LOCAL_INCLUDES += [
 USE_LIBS += [
   'mar',
   'update',
+  'xz-embedded'
 ]
 
 if CONFIG['MOZ_VERIFY_MAR_SIGNATURE']:
