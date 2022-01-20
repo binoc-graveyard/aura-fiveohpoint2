@@ -74,6 +74,9 @@ if CONFIG['MOZ_VORBIS']:
   DIRS += ['libvorbis']
 
 if CONFIG['MOZ_UPDATER']:
-  DIRS += ['bsdiff']
+  DIRS += [
+      'bsdiff',
+      'xz-embedded'
+  ]
   if not CONFIG['MOZ_SYSTEM_BZ2']:
     DIRS += ['libbz2']
