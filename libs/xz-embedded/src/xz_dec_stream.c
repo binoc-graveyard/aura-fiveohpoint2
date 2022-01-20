@@ -35,8 +35,7 @@ struct xz_dec {
 		SEQ_INDEX,
 		SEQ_INDEX_PADDING,
 		SEQ_INDEX_CRC32,
-		SEQ_STREAM_FOOTER,
-		SEQ_STREAM_PADDING
+		SEQ_STREAM_FOOTER
 	} sequence;
 
 	/* Position in variable-length integers and Check fields */
@@ -424,12 +423,12 @@ static enum xz_ret dec_stream_header(struct xz_dec *s)
 	 * check types too, but then the check won't be verified and
 	 * a warning (XZ_UNSUPPORTED_CHECK) will be given.
 	 */
-	if (s->temp.buf[HEADER_MAGIC_SIZE + 1] > XZ_CHECK_MAX)
-		return XZ_OPTIONS_ERROR;
-
 	s->check_type = s->temp.buf[HEADER_MAGIC_SIZE + 1];
 
 #ifdef XZ_DEC_ANY_CHECK
+	if (s->check_type > XZ_CHECK_MAX)
+		return XZ_OPTIONS_ERROR;
+
 	if (s->check_type > XZ_CHECK_CRC32 && !IS_CRC64(s->check_type))
 		return XZ_UNSUPPORTED_CHECK;
 #else
@@ -605,8 +604,6 @@ static enum xz_ret dec_main(struct xz_dec *s, struct xz_buf *b)
 			if (ret != XZ_OK)
 				return ret;
 
-		/* Fall through */
-
 		case SEQ_BLOCK_START:
 			/* We need one byte of input to continue. */
 			if (b->in_pos == b->in_size)
@@ -630,8 +627,6 @@ static enum xz_ret dec_main(struct xz_dec *s, struct xz_buf *b)
 			s->temp.pos = 0;
 			s->sequence = SEQ_BLOCK_HEADER;
 
-		/* Fall through */
-
 		case SEQ_BLOCK_HEADER:
 			if (!fill_temp(s, b))
 				return XZ_OK;
@@ -642,16 +637,12 @@ static enum xz_ret dec_main(struct xz_dec *s, struct xz_buf *b)
 
 			s->sequence = SEQ_BLOCK_UNCOMPRESS;
 
-		/* Fall through */
-
 		case SEQ_BLOCK_UNCOMPRESS:
 			ret = dec_block(s, b);
 			if (ret != XZ_STREAM_END)
 				return ret;
 
 			s->sequence = SEQ_BLOCK_PADDING;
-
-		/* Fall through */
 
 		case SEQ_BLOCK_PADDING:
 			/*
@@ -672,8 +663,6 @@ static enum xz_ret dec_main(struct xz_dec *s, struct xz_buf *b)
 			}
 
 			s->sequence = SEQ_BLOCK_CHECK;
-
-		/* Fall through */
 
 		case SEQ_BLOCK_CHECK:
 			if (s->check_type == XZ_CHECK_CRC32) {
@@ -702,8 +691,6 @@ static enum xz_ret dec_main(struct xz_dec *s, struct xz_buf *b)
 
 			s->sequence = SEQ_INDEX_PADDING;
 
-		/* Fall through */
-
 		case SEQ_INDEX_PADDING:
 			while ((s->index.size + (b->in_pos - s->in_start))
 					& 3) {
@@ -726,8 +713,6 @@ static enum xz_ret dec_main(struct xz_dec *s, struct xz_buf *b)
 
 			s->sequence = SEQ_INDEX_CRC32;
 
-		/* Fall through */
-
 		case SEQ_INDEX_CRC32:
 			ret = crc_validate(s, b, 32);
 			if (ret != XZ_STREAM_END)
@@ -736,17 +721,11 @@ static enum xz_ret dec_main(struct xz_dec *s, struct xz_buf *b)
 			s->temp.size = STREAM_HEADER_SIZE;
 			s->sequence = SEQ_STREAM_FOOTER;
 
-		/* Fall through */
-
 		case SEQ_STREAM_FOOTER:
 			if (!fill_temp(s, b))
 				return XZ_OK;
 
 			return dec_stream_footer(s);
-
-		case SEQ_STREAM_PADDING:
-			/* Never reached, only silencing a warning */
-			break;
 		}
 	}
 
@@ -813,79 +792,6 @@ XZ_EXTERN enum xz_ret xz_dec_run(struct xz_dec *s, struct xz_buf *b)
 
 	return ret;
 }
-
-#ifdef XZ_DEC_CONCATENATED
-XZ_EXTERN enum xz_ret xz_dec_catrun(struct xz_dec *s, struct xz_buf *b,
-				    int finish)
-{
-	enum xz_ret ret;
-
-	if (DEC_IS_SINGLE(s->mode)) {
-		xz_dec_reset(s);
-		finish = true;
-	}
-
-	while (true) {
-		if (s->sequence == SEQ_STREAM_PADDING) {
-			/*
-			 * Skip Stream Padding. Its size must be a multiple
-			 * of four bytes which is tracked with s->pos.
-			 */
-			while (true) {
-				if (b->in_pos == b->in_size) {
-					/*
-					 * Note that if we are repeatedly
-					 * given no input and finish is false,
-					 * we will keep returning XZ_OK even
-					 * though no progress is being made.
-					 * The lack of XZ_BUF_ERROR support
-					 * isn't a problem here because a
-					 * reasonable caller will eventually
-					 * provide more input or set finish
-					 * to true.
-					 */
-					if (!finish)
-						return XZ_OK;
-
-					if (s->pos != 0)
-						return XZ_DATA_ERROR;
-
-					return XZ_STREAM_END;
-				}
-
-				if (b->in[b->in_pos] != 0x00) {
-					if (s->pos != 0)
-						return XZ_DATA_ERROR;
-
-					break;
-				}
-
-				++b->in_pos;
-				s->pos = (s->pos + 1) & 3;
-			}
-
-			/*
-			 * More input remains. It should be a new Stream.
-			 *
-			 * In single-call mode xz_dec_run() will always call
-			 * xz_dec_reset(). Thus, we need to do it here only
-			 * in multi-call mode.
-			 */
-			if (DEC_IS_MULTI(s->mode))
-				xz_dec_reset(s);
-		}
-
-		ret = xz_dec_run(s, b);
-
-		if (ret != XZ_STREAM_END)
-			break;
-
-		s->sequence = SEQ_STREAM_PADDING;
-	}
-
-	return ret;
-}
-#endif
 
 XZ_EXTERN struct xz_dec *xz_dec_init(enum xz_mode mode, uint32_t dict_max)
 {

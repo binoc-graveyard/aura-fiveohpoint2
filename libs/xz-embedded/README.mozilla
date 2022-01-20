@@ -11,4 +11,4 @@ The in-tree copy is updated by running
   sh update.sh
 from within the libs/xz-embedded directory.
 
-Current version: [3f438e15109229bb14ab45f285f4bff5412a9542].
+Current version: [e75f4eb79165213a02d567940d344f5c2ff1be03].
