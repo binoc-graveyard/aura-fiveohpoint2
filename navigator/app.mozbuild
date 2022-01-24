@@ -6,5 +6,4 @@
 include('/xpfe/xpfe.mozbuild')
 
 DIRS += ['/%s' % CONFIG['MOZ_BRANDING_DIRECTORY']]
-
 DIRS += ['/navigator']
