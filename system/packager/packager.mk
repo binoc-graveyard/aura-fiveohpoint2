@@ -108,21 +108,24 @@ regenerate-chrome:
 # ---------------------------------------------------------------------------------------------------------------------
 
 # Create an en-US language pack without needing a whole custom build system codepath
-locale: $(GREPKGR_PATH)/locale-install.rdf.in
+.PHONY: locale
+locale:
 	@$(RM) -rf $(DIST)/$(PKG_XPI_L10N_STAGE_DIR) $(DIST)/$(PKG_XPI_L10N_FILENAME)
 	@test -f $(DIST)/bin/$(MOZ_APP_NAME)$(BIN_SUFFIX) || $(MAKE) regenerate-chrome
 	@echo 'Staging l10n files...'
 	@$(NSINSTALL) -D $(DIST)/$(PKG_XPI_L10N_STAGE_DIR)/chrome
 	@cp -rv $(DIST)/bin/chrome/en-US.manifest $(DIST)/bin/chrome/en-US $(DIST)/$(PKG_XPI_L10N_STAGE_DIR)/chrome
 	@echo manifest chrome/en-US.manifest > $(DIST)/$(PKG_XPI_L10N_STAGE_DIR)/chrome.manifest
-	$(call py_action,preprocessor,-Fsubstitution $(DEFINES) $(ACDEFINES) $^ -o $(DIST)/$(PKG_XPI_L10N_STAGE_DIR)/install.rdf)
+	$(call py_action,preprocessor,-Fsubstitution $(DEFINES) $(ACDEFINES) \
+		$(GREPKGR_PATH)/locale-install.rdf.in -o $(DIST)/$(PKG_XPI_L10N_STAGE_DIR)/install.rdf)
 	@echo 'Compressing l10n files...'
 	cd $(DIST)/$(PKG_XPI_L10N_STAGE_DIR); $(ZIP) -Dr9X ../../$(PKG_XPI_L10N_FILENAME) *
 
 # ---------------------------------------------------------------------------------------------------------------------
 
 # Create an os-dependent skin without needing a whole custom build system codepath
-skin: $(GREPKGR_PATH)/skin-install.rdf.in
+.PHONY: skin
+skin:
 	@$(RM) -rf $(DIST)/$(PKG_XPI_SKIN_STAGE_DIR) $(DIST)/$(PKG_XPI_SKIN_FILENAME)
 	@test -f $(DIST)/bin/$(MOZ_APP_NAME)$(BIN_SUFFIX) || $(MAKE) regenerate-chrome
 	@echo 'Staging theme files...'
@@ -130,7 +133,8 @@ skin: $(GREPKGR_PATH)/skin-install.rdf.in
 	@cp -rv $(DIST)/bin/chrome/classic.manifest $(DIST)/bin/chrome/classic $(DIST)/$(PKG_XPI_SKIN_STAGE_DIR)/chrome
 	@cp -rv $(DIST)/bin/extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}/chrome.manifest $(DIST)/$(PKG_XPI_SKIN_STAGE_DIR)
 	@echo manifest chrome/classic.manifest >> $(DIST)/$(PKG_XPI_SKIN_STAGE_DIR)/chrome.manifest
-	$(call py_action,preprocessor,-Fsubstitution $(DEFINES) $(ACDEFINES) $^ -o $(DIST)/$(PKG_XPI_SKIN_STAGE_DIR)/install.rdf)
+	$(call py_action,preprocessor,-Fsubstitution $(DEFINES) $(ACDEFINES) \
+		$(GREPKGR_PATH)/skin-install.rdf.in -o $(DIST)/$(PKG_XPI_SKIN_STAGE_DIR)/install.rdf)
 	@echo 'Compressing theme files...'
 	cd $(DIST)/$(PKG_XPI_SKIN_STAGE_DIR); $(ZIP) -Dr9X ../../$(PKG_XPI_SKIN_FILENAME) *
 
