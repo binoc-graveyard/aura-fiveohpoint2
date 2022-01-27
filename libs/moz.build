@@ -28,7 +28,6 @@ DIRS += [
   'libyuv',
   'ots/src',
   'protobuf',
-  'psshparser',
   'qcms',
   'snappy',
   'woff2',

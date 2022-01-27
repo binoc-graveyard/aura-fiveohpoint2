@@ -97,7 +97,6 @@ USE_LIBS += [
     'lgplmedia',
     'nspr',
     'nss',
-    'psshparser',
     'sqlite',
     'zlib',
 ]
