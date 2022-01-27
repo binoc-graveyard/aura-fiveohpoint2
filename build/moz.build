@@ -22,8 +22,9 @@ for var in ('GRE_MILESTONE',
             'MOZ_BUILD_APP'):
     DEFINES[var] = CONFIG[var]
 
-if CONFIG['MOZ_APP_DISPLAYNAME'] != CONFIG['MOZ_APP_BASENAME']:
-    DEFINES['MOZ_APP_DISPLAYNAME'] = CONFIG['MOZ_APP_DISPLAYNAME']
+if CONFIG['MOZ_APP_DISPLAYNAME']:
+  if CONFIG['MOZ_APP_DISPLAYNAME'] != CONFIG['MOZ_APP_BASENAME']:
+      DEFINES['MOZ_APP_DISPLAYNAME'] = CONFIG['MOZ_APP_DISPLAYNAME']
 
 if CONFIG['MOZ_PHOENIX']:
     DEFINES['MOZ_PHOENIX'] = CONFIG['MOZ_PHOENIX']
@@ -39,6 +40,14 @@ for var in ('MOZ_PROFILE_MIGRATOR',
             'MOZ_APP_STATIC_INI'):
     if CONFIG[var]:
         DEFINES[var] = True
+
+if CONFIG['MOZ_APP_BASENAME'] in ('Palemoon', 'PaleMoon'):
+    DEFINES['MOZ_APP_BASENAME'] = "Pale Moon"
+
+if CONFIG['MOZ_APP_VENDOR'] in ('Moonchild','MoonchildProductions'):
+    DEFINES['MOZ_APP_VENDOR'] = "Moonchild Productions"
+elif CONFIG['MOZ_APP_VENDOR'] in ('BinOC','Binary Outcast'):
+    DEFINES['MOZ_APP_VENDOR'] = "Binary Outcast"
 
 if CONFIG['MOZ_PHOENIX']:
     PYTHON_UNIT_TESTS += [
