@@ -247,7 +247,7 @@ PKG_INSTALLER_FILENAME = $(PKG_BASENAME).installer.exe
 PKG_GENERIC_OS = windows
 else
 # Archiver command and filename for not-windows target operating systems
-PKG_ARCHIVER_CMD = $(TAR) cfJv --owner=0 --group=0 --numeric-owner --mode=go-w --exclude=.mkdir.done
+PKG_ARCHIVER_CMD = $(TAR) cfJv
 PKG_ARCHIVE_FILENAME = $(PKG_BASENAME).tar.xz
 
 # Generic OS name when specifics aren't as important
