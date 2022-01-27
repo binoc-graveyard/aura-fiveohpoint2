@@ -145,7 +145,7 @@ endif
 endif
 endif
 
-ifneq ($(OS_ARCH),WINNT)
+ifeq ($(OS_ARCH),WINNT)
 DEFINES += -DMOZ_SHARED_MOZGLUE=1
 endif
 
@@ -247,7 +247,7 @@ PKG_INSTALLER_FILENAME = $(PKG_BASENAME).installer.exe
 PKG_GENERIC_OS = windows
 else
 # Archiver command and filename for not-windows target operating systems
-PKG_ARCHIVER_CMD = $(TAR) cfJv -owner=0 --group=0 --numeric-owner --mode=go-w --exclude=.mkdir.done
+PKG_ARCHIVER_CMD = $(TAR) cfJv --owner=0 --group=0 --numeric-owner --mode=go-w --exclude=.mkdir.done
 PKG_ARCHIVE_FILENAME = $(PKG_BASENAME).tar.xz
 
 # Generic OS name when specifics aren't as important
