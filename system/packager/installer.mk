@@ -55,7 +55,7 @@ installer:: stage-package
 	@rm -rf $(DIST)/installer-stage $(DIST)/xpt
 	@echo 'Staging installer files...'
 	@$(NSINSTALL) -D $(DIST)/installer-stage/core
-	@cp -av $(DIST)/$(PKG_STAGE_DIR)/. $(DIST)/installer-stage/core
+	@$(TOOLCHAIN_PREFIX)cp -av $(DIST)/$(PKG_STAGE_DIR)/. $(DIST)/installer-stage/core
 	$(RM) -r $(CONFIG_DIR) && mkdir $(CONFIG_DIR)
 	$(MAKE) $(CONFIG_DIR)/setup.exe
 	$(INSTALL) $(CONFIG_DIR)/setup.exe $(DIST)/installer-stage
