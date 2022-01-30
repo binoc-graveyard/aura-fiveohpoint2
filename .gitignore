@@ -36,6 +36,8 @@ ID
 old.mozconfig
 
 # External projects that might be symlinked/junction'd ini
+/browser
 /palemoon
 /other-licenses/7zstub/palemoon
 /basilisk
+/example
