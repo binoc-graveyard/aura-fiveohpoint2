@@ -3538,11 +3538,10 @@ nsLocalFile::AppendRelativeNativePath(const nsACString& aNode)
 NS_IMETHODIMP
 nsLocalFile::GetNativeLeafName(nsACString& aLeafName)
 {
-  //NS_WARNING("This API is lossy. Use GetLeafName !");
   nsAutoString tmp;
   nsresult rv = GetLeafName(tmp);
   if (NS_SUCCEEDED(rv)) {
-    rv = NS_CopyUnicodeToNative(tmp, aLeafName);
+    rv = CopyUTF16toUTF8(tmp, aLeafName);
   }
 
   return rv;
@@ -3566,7 +3565,7 @@ nsLocalFile::GetNativePath(nsACString& aResult)
 {
   // Note: As of #3057 this function is a bit of a misnomer as it ignores
   // clamped code pages and converts to UTF-8 at all times.
-  // This makes it losless but incompatible with filesystems using 
+  // This makes it lossless but incompatible with filesystems using 
   // codepage encoding; this should not be an issue on supported Win versions.
   nsAutoString tmp;
   nsresult rv = GetPath(tmp);
@@ -3580,9 +3579,8 @@ nsLocalFile::GetNativePath(nsACString& aResult)
 NS_IMETHODIMP
 nsLocalFile::GetNativeCanonicalPath(nsACString& aResult)
 {
-  NS_WARNING("This method is lossy. Use GetCanonicalPath !");
   EnsureShortPath();
-  NS_CopyUnicodeToNative(mShortWorkingPath, aResult);
+  CopyUTF16toUTF8(mShortWorkingPath, aResult);
   return NS_OK;
 }
 
@@ -3648,11 +3646,10 @@ nsLocalFile::GetNativeTarget(nsACString& aResult)
   // Check we are correctly initialized.
   CHECK_mWorkingPath();
 
-  NS_WARNING("This API is lossy. Use GetTarget !");
   nsAutoString tmp;
   nsresult rv = GetTarget(tmp);
   if (NS_SUCCEEDED(rv)) {
-    rv = NS_CopyUnicodeToNative(tmp, aResult);
+    rv = CopyUTF16toUTF8(tmp, aResult);
   }
 
   return rv;
