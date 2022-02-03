@@ -74,8 +74,6 @@ def replace_malloc(value, jemalloc, milestone, build_project):
         die('--enable-replace-malloc requires --enable-jemalloc')
     if value.origin != 'default':
         return bool(value) or None
-    if milestone.is_nightly and jemalloc and build_project != 'js':
-        return True
 
 set_config('MOZ_REPLACE_MALLOC', replace_malloc)
 set_define('MOZ_REPLACE_MALLOC', replace_malloc)
