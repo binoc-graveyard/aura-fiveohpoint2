@@ -17,21 +17,10 @@ this.EXPORTED_SYMBOLS = ["AppConstants"];
 
 // Immutable for export.
 this.AppConstants = Object.freeze({
-  // See this wiki page for more details about channel specific build
-  // defines: https://wiki.mozilla.org/Platform/Channel-specific_build_defines
-  NIGHTLY_BUILD:
-#ifdef NIGHTLY_BUILD
-  true,
-#else
-  false,
-#endif
 
-  RELEASE_OR_BETA:
-#ifdef RELEASE_OR_BETA
-  true,
-#else
-  false,
-#endif
+  // We don't use nightly or alpha channels here. Flag all as release.
+  NIGHTLY_BUILD: false
+  RELEASE_OR_BETA: true
 
   ACCESSIBILITY:
 #ifdef ACCESSIBILITY
