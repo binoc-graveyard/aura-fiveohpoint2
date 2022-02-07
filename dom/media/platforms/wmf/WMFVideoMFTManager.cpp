@@ -3,10 +3,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+#include "WMF.h"
 #include <algorithm>
 #include <winsdkver.h>
 #include <psapi.h>
 #include "WMFVideoMFTManager.h"
+#include "WMFDecoderModule.h"
 #include "MediaDecoderReader.h"
 #include "gfxPrefs.h"
 #include "WMFUtils.h"
@@ -17,6 +19,7 @@
 #include "Layers.h"
 #include "mozilla/ClearOnShutdown.h"
 #include "mozilla/layers/LayersTypes.h"
+#include "mozilla/gfx/gfxVars.h"
 #include "MediaInfo.h"
 #include "mozilla/Logging.h"
 #include "nsWindowsHelpers.h"
@@ -25,9 +28,11 @@
 #include "IMFYCbCrImage.h"
 #include "mozilla/WindowsVersion.h"
 #include "nsPrintfCString.h"
+#include "nsIFile.h"
 #include "MP4Decoder.h"
 #include "VPXDecoder.h"
 #include "mozilla/SyncRunnable.h"
+
 
 #define LOG(...) MOZ_LOG(sPDMLog, mozilla::LogLevel::Debug, (__VA_ARGS__))
 
