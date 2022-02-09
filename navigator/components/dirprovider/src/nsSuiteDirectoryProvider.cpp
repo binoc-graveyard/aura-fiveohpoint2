@@ -59,53 +59,6 @@ nsSuiteDirectoryProvider::GetFile(const char *aKey,
   return NS_OK;
 }
 
-NS_IMETHODIMP
-nsSuiteDirectoryProvider::GetFiles(const char *aKey,
-                                   nsISimpleEnumerator* *aResult)
-{
-  if (strcmp(aKey, NS_APP_SEARCH_DIR_LIST))
-    return NS_ERROR_FAILURE;
-
-  nsresult rv;
-  nsCOMPtr<nsIProperties> dirSvc(do_GetService(NS_DIRECTORY_SERVICE_CONTRACTID, &rv));
-  if (NS_FAILED(rv))
-    return rv;
-
-  nsCOMArray<nsIFile> baseFiles;
-
-  /**
-   * We want to preserve the following order, since the search service loads
-   * engines in first-loaded-wins order.
-   *   - extension search plugin locations (prepended below using
-   *     NS_NewUnionEnumerator)
-   *   - distro search plugin locations
-   *   - user search plugin locations (profile)
-   *   - app search plugin location (shipped engines)
-   */
-  AppendDistroSearchDirs(dirSvc, baseFiles);
-  AppendFileKey(NS_APP_USER_SEARCH_DIR, dirSvc, baseFiles);
-  AppendFileKey(NS_APP_SEARCH_DIR, dirSvc, baseFiles);
-
-  nsCOMPtr<nsISimpleEnumerator> baseEnum;
-  rv = NS_NewArrayEnumerator(getter_AddRefs(baseEnum), baseFiles);
-  if (NS_FAILED(rv))
-    return rv;
-
-  nsCOMPtr<nsISimpleEnumerator> list;
-  rv = dirSvc->Get(XRE_EXTENSIONS_DIR_LIST,
-                   NS_GET_IID(nsISimpleEnumerator),
-                   getter_AddRefs(list));
-  if (NS_FAILED(rv))
-    return rv;
-
-  nsCOMPtr<nsISimpleEnumerator> extEnum =
-    new AppendingEnumerator(list, "searchplugins");
-  if (!extEnum)
-    return NS_ERROR_OUT_OF_MEMORY;
-
-  return NS_NewUnionEnumerator(aResult, extEnum, baseEnum);
-}
-
 void
 nsSuiteDirectoryProvider::EnsureProfileFile(const nsACString& aLeafName,
                                             nsIFile* aParentDir,
@@ -298,4 +251,51 @@ nsSuiteDirectoryProvider::AppendDistroSearchDirs(nsIProperties* aDirSvc,
       }
     }
   }
+}
+
+NS_IMETHODIMP
+nsSuiteDirectoryProvider::GetFiles(const char *aKey,
+                                   nsISimpleEnumerator* *aResult)
+{
+  if (strcmp(aKey, NS_APP_SEARCH_DIR_LIST))
+    return NS_ERROR_FAILURE;
+
+  nsresult rv;
+  nsCOMPtr<nsIProperties> dirSvc(do_GetService(NS_DIRECTORY_SERVICE_CONTRACTID, &rv));
+  if (NS_FAILED(rv))
+    return rv;
+
+  nsCOMArray<nsIFile> baseFiles;
+
+  /**
+   * We want to preserve the following order, since the search service loads
+   * engines in first-loaded-wins order.
+   *   - extension search plugin locations (prepended below using
+   *     NS_NewUnionEnumerator)
+   *   - distro search plugin locations
+   *   - user search plugin locations (profile)
+   *   - app search plugin location (shipped engines)
+   */
+  AppendDistroSearchDirs(dirSvc, baseFiles);
+  AppendFileKey(NS_APP_USER_SEARCH_DIR, dirSvc, baseFiles);
+  AppendFileKey(NS_APP_SEARCH_DIR, dirSvc, baseFiles);
+
+  nsCOMPtr<nsISimpleEnumerator> baseEnum;
+  rv = NS_NewArrayEnumerator(getter_AddRefs(baseEnum), baseFiles);
+  if (NS_FAILED(rv))
+    return rv;
+
+  nsCOMPtr<nsISimpleEnumerator> list;
+  rv = dirSvc->Get(XRE_EXTENSIONS_DIR_LIST,
+                   NS_GET_IID(nsISimpleEnumerator),
+                   getter_AddRefs(list));
+  if (NS_FAILED(rv))
+    return rv;
+
+  nsCOMPtr<nsISimpleEnumerator> extEnum =
+    new AppendingEnumerator(list, "searchplugins");
+  if (!extEnum)
+    return NS_ERROR_OUT_OF_MEMORY;
+
+  return NS_NewUnionEnumerator(aResult, extEnum, baseEnum);
 }

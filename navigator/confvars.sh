@@ -9,30 +9,28 @@ MOZ_APP_BASENAME=Borealis
 MOZ_APP_DISPLAYNAME=$MOZ_APP_BASENAME
 BINOC_NAVIGATOR=1
 BINOC_DOWNLOADS=1
-MOZ_BRANDING_DIRECTORY=navigator/branding/unofficial
-MOZ_OFFICIAL_BRANDING_DIRECTORY=navigator/branding/official
+MOZ_BRANDING_DIRECTORY=navigator/branding
+MOZ_OFFICIAL_BRANDING_DIRECTORY=other-licenses/branding/borealis/release
 MOZ_UPDATER=
 # This should usually be the same as the value MAR_CHANNEL_ID.
 # If more than one ID is needed, then you should use a comma separated list
 # of values.
-ACCEPTED_MAR_CHANNEL_IDS=release
+ACCEPTED_MAR_CHANNEL_IDS=release,beta,trunk
 # The MAR_CHANNEL_ID must not contain the following 3 characters: ",\t "
 MAR_CHANNEL_ID=release
 
 MOZ_APP_VERSION=`$PYTHON ${_topsrcdir}/../build/version2k.py --version ${_topsrcdir}/../navigator/config/version.txt`
 MOZ_APP_VERSION_DISPLAY=$MOZ_APP_VERSION
 
-MOZ_APP_ID={a3210b97-8e8a-4737-9aa0-aa0e607640b9}
+# MOZ_APP_ID={a3210b97-8e8a-4737-9aa0-aa0e607640b9}
+MOZ_APP_ID={86c18b42-e466-4580-8b97-957ad5f8ea47}
 MOZ_PROFILE_MIGRATOR=1
 MOZ_APP_STATIC_INI=1
 MOZ_SEPARATE_MANIFEST_FOR_THEME_OVERRIDES=1
 MOZ_WEBGL_CONFORMANT=1
 MOZ_SERVICES_SYNC=
-MOZ_SERVICES_COMMON=
-MOZ_SERVICES_CLOUDSYNC=
 MOZ_JETPACK=
 MOZ_DEVTOOLS_SERVER=
 MOZ_DEVTOOLS=
 MOZ_GAMEPAD=
 MOZ_NECKO_WIFI=
-MOZ_WEBRTC=

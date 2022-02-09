@@ -7,13 +7,13 @@
 MOZ_APP_NAME=interlink
 MOZ_APP_VENDOR="Binary Outcast"
 MOZ_APP_BASENAME=Interlink
-MOZ_APP_DISPLAYNAME="Interlink\ Mail\ \&\ News"
+MOZ_APP_DISPLAYNAME=$MOZ_APP_BASENAME
 MOZ_APP_ID={3550f703-e582-4d05-9a08-453d09bdfdc6}
 MOZ_APP_STATIC_INI=1
 MOZ_APP_VERSION=`$PYTHON ${_topsrcdir}/../build/version2k.py --version ${_topsrcdir}/../mail/config/version.txt`
 MOZ_APP_VERSION_DISPLAY=$MOZ_APP_VERSION
-MOZ_BRANDING_DIRECTORY=mail/branding/unofficial
-MOZ_OFFICIAL_BRANDING_DIRECTORY=mail/branding/official
+MOZ_BRANDING_DIRECTORY=mail/branding
+MOZ_OFFICIAL_BRANDING_DIRECTORY=other-licenses/branding/interlink/release
 MOZ_PROFILE_MIGRATOR=1
 
 # Platform Conditional code for application
@@ -38,11 +38,10 @@ MOZ_DEVTOOLS=
 MOZ_GAMEPAD=
 MOZ_NECKO_WIFI=
 MOZ_AV1=
-MOZ_WEBRTC=
 
 # This should usually be the same as the value MAR_CHANNEL_ID.
 # If more than one ID is needed, then you should use a comma separated list
 # of values.
-ACCEPTED_MAR_CHANNEL_IDS=release,unstable
+ACCEPTED_MAR_CHANNEL_IDS=release,beta,trunk
 # The MAR_CHANNEL_ID must not contain the following 3 characters: ",\t "
 MAR_CHANNEL_ID=release
