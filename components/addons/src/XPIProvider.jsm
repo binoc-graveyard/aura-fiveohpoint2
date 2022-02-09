@@ -135,6 +135,10 @@ const PREFIX_NS_EM                    = "http://www.mozilla.org/2004/em-rdf#";
 
 const TOOLKIT_ID                      = "toolkit@mozilla.org";
 
+#ifdef MC_APP_ID
+#expand const ALT_APP_ID                      = "__MC_APP_ID__";
+#endif
+
 // The value for this is in Makefile.in
 #expand const DB_SCHEMA                       = __MOZ_EXTENSIONS_DB_SCHEMA__;
 XPCOMUtils.defineConstant(this, "DB_SCHEMA", DB_SCHEMA);
@@ -6403,7 +6407,11 @@ AddonInternal.prototype = {
       aPlatformVersion = Services.appinfo.greVersion;
 
     let version;
+#ifdef MC_APP_ID
+    if (app.id == ALT_APP_ID || app.id == Services.appinfo.ID) {
+#else
     if (app.id == Services.appinfo.ID) {
+#endif
       version = aAppVersion;
     }
     else if (app.id == TOOLKIT_ID) {
@@ -6429,7 +6437,11 @@ AddonInternal.prototype = {
 
       // Extremely old extensions should not be compatible by default.
       let minCompatVersion;
-      if (app.id == Services.appinfo.ID)
+#ifdef MC_APP_ID
+    if (app.id == ALT_APP_ID || app.id == Services.appinfo.ID)
+#else
+    if (app.id == Services.appinfo.ID)
+#endif
         minCompatVersion = XPIProvider.minCompatibleAppVersion;
       else if (app.id == TOOLKIT_ID)
         minCompatVersion = XPIProvider.minCompatiblePlatformVersion;
@@ -6445,15 +6457,33 @@ AddonInternal.prototype = {
            (Services.vc.compare(version, app.maxVersion) <= 0)
   },
 
-  get matchingTargetApplication() {
+ get matchingTargetApplication() {
     let app = null;
+
+#ifdef MC_APP_ID
+    // We want to prefer the Pale Moon application ID
+    // over any other for the duration of this hack.
     for (let targetApp of this.targetApplications) {
-      if (targetApp.id == Services.appinfo.ID)
+      if (targetApp.id == ALT_APP_ID) {
+        logger.warn("getMatchingTargetApplication: Add-on " + this.defaultLocale.name +
+                    " matches because Alternate Application ID " + ALT_APP_ID +
+                    " is currently preferred over the Application or Toolkit's ID.");
+
         return targetApp;
-      if (targetApp.id == TOOLKIT_ID)
-        app = targetApp;
+      }
     }
-    // Return toolkit ID if toolkit.
+#endif
+
+    for (let targetApp of this.targetApplications) {
+      if (targetApp.id == Services.appinfo.ID) {
+        return targetApp;
+      }
+
+      if (targetApp.id == TOOLKIT_ID) {
+        app = targetApp;
+      }
+    }
+
     return app;
   },
 
