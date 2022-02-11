@@ -201,6 +201,7 @@ def old_configure_options(*options):
     '--enable-nspr-build',
     '--enable-official-branding',
     '--enable-official-vendor',
+    '--enable-old-mar',
     '--enable-oom-breakpoint',
     '--enable-optimize',
     '--enable-parental-controls',
