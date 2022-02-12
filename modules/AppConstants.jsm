@@ -19,8 +19,8 @@ this.EXPORTED_SYMBOLS = ["AppConstants"];
 this.AppConstants = Object.freeze({
 
   // We don't use nightly or alpha channels here. Flag all as release.
-  NIGHTLY_BUILD: false
-  RELEASE_OR_BETA: true
+  NIGHTLY_BUILD: false,
+  RELEASE_OR_BETA: true,
 
   ACCESSIBILITY:
 #ifdef ACCESSIBILITY
