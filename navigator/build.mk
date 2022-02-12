@@ -13,6 +13,12 @@ package:
 buildsymbols:
 	@$(MAKE_INSTALLER_TARGET) symbols
 
+mar-package:
+	@$(MAKE_INSTALLER_TARGET) update
+
+mar-package-bz2:
+	@$(MAKE_INSTALLER_TARGET) update-bz2
+
 l10n-package:
 	@$(MAKE_INSTALLER_TARGET) locale
 
