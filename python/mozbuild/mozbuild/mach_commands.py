@@ -1071,21 +1071,6 @@ class Stage_Package(MachCommandBase):
         return self._run_make(directory=".", target='stage-package', ensure_exit_code=False)
 
 @CommandProvider
-class L10n_Package(MachCommandBase):
-    """Build and package l10n as a language pack xpi."""
-
-    @Command('langpack', category='post-build',
-        description='Build and package l10n as a language pack.')
-    @CommandArgument('-v', '--verbose', action='store_true',
-        help='Verbose output for what commands the packaging process is running.')
-    def l10n_package(self, verbose=False):
-        ret = self._run_make(directory=".", target='l10n-package',
-                             silent=not verbose, ensure_exit_code=False)
-        if ret == 0:
-            self.notify('Packaging complete')
-        return ret
-
-@CommandProvider
 class Package(MachCommandBase):
     """Package the built product for distribution."""
 
@@ -1095,21 +1080,6 @@ class Package(MachCommandBase):
         help='Verbose output for what commands the packaging process is running.')
     def package(self, verbose=False):
         ret = self._run_make(directory=".", target='package',
-                             silent=not verbose, ensure_exit_code=False)
-        if ret == 0:
-            self.notify('Packaging complete')
-        return ret
-
-@CommandProvider
-class Mozpackage(MachCommandBase):
-    """Package the built product for distribution."""
-
-    @Command('mozpackage', category='post-build',
-        description='Package the built product for distribution as an archive. (mozilla orginal routine)')
-    @CommandArgument('-v', '--verbose', action='store_true',
-        help='Verbose output for what commands the packaging process is running.')
-    def mozpackage(self, verbose=False):
-        ret = self._run_make(directory=".", target='mozpackage',
                              silent=not verbose, ensure_exit_code=False)
         if ret == 0:
             self.notify('Packaging complete')
@@ -1130,8 +1100,52 @@ class Mar(MachCommandBase):
 
     @Command('mar', category='post-build',
         description='Create the mar file for the built product for distribution.')
-    def mar(self):
-        return self._run_make(directory="./system/updater/package/", target='', ensure_exit_code=False)
+    @CommandArgument('--bz2', action='store_true',
+        help='Compress the mar package with old-style bz2 instead of xz')
+    def mar(self, bz2):
+        if bz2:
+          return self._run_make(directory=".", target='mar-package-bz2', ensure_exit_code=False)
+        else:
+          return self._run_make(directory=".", target='mar-package', ensure_exit_code=False)
+
+@CommandProvider
+class Installer(MachCommandBase):
+    """Create the windows installer for the built product."""
+
+    @Command('installer', category='post-build',
+        description='Create the installer for the built product for distribution.')
+    def installer(self):
+        return self._run_make(directory=".", target='installer', ensure_exit_code=False)
+
+@CommandProvider
+class L10n_Package(MachCommandBase):
+    """Build and package l10n as a pseudo-language pack."""
+
+    @Command('langpack', category='post-build',
+        description='Build and package l10n as a pseudo-language pack.')
+    @CommandArgument('-v', '--verbose', action='store_true',
+        help='Verbose output for what commands the packaging process is running.')
+    def l10n_package(self, verbose=False):
+        ret = self._run_make(directory=".", target='l10n-package',
+                             silent=not verbose, ensure_exit_code=False)
+        if ret == 0:
+            self.notify('Packaging complete')
+        return ret
+
+@CommandProvider
+class Theme_Package(MachCommandBase):
+    """Build and package skin as a pseudo-theme pack."""
+
+    @Command('theme', category='post-build',
+        description='Build and package skin as a pseudo-theme pack.')
+    @CommandArgument('-v', '--verbose', action='store_true',
+        help='Verbose output for what commands the packaging process is running.')
+    def l10n_package(self, verbose=False):
+        ret = self._run_make(directory=".", target='theme-package',
+                             silent=not verbose, ensure_exit_code=False)
+        if ret == 0:
+            self.notify('Packaging complete')
+        return ret
 
 @CommandProvider
 class Install(MachCommandBase):

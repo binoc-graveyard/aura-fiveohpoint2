@@ -255,14 +255,11 @@ PKG_GENERIC_OS = unix
 endif
 
 # We only use the complete mar patch file
-# XXXTobin: Stop caring about the complete designation
-PKG_UPDATE_FILENAME = $(PKG_BASENAME).complete.mar
+PKG_UPDATE_FILENAME = $(PKG_BASENAME).mar
 
 # This is the mozbuildinfo json file that contains a number of mozinfra build values
 # We also use this in our infra because it exists..
 PKG_JSON_FILENAME = $(PKG_BASENAME).json
-
-# ---------------------------------------------------------------------------------------------------------------------
 
 # Vars that are used in faking xpi-stage to create useful packages that are normally ONLY omnijar'd
 PKG_XPI_L10N_STAGE_DIR = xpi-stage/grepkgr-locale
