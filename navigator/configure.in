@@ -6,13 +6,19 @@ dnl file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 dnl Things we need to carry from confvars.sh
 
-AC_DEFINE(BINOC_NAVIGATOR)
 AC_SUBST(BINOC_NAVIGATOR)
-
+AC_DEFINE(BINOC_NAVIGATOR)
 AC_SUBST(BINOC_DOWNLOADS)
-
 AC_DEFINE(MOZ_SEPARATE_MANIFEST_FOR_THEME_OVERRIDES)
 
 dnl Optional parts of the build.
 
-
+dnl ========================================================
+dnl = Binary Outcast Proprietary Code
+dnl ========================================================
+case $MOZ_BRANDING_DIRECTORY in
+other-licenses*)
+	BINOC_PROPRIETARY=1
+	AC_SUBST(BINOC_PROPRIETARY)
+	AC_DEFINE(BINOC_PROPRIETARY)
+esac

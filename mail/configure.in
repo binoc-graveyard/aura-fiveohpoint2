@@ -31,3 +31,13 @@ MOZ_ARG_DISABLE_BOOL(calendar,
     MOZ_CALENDAR=1)
 
 AC_SUBST(MOZ_CALENDAR)
+
+dnl ========================================================
+dnl = Binary Outcast Proprietary Code
+dnl ========================================================
+case $MOZ_BRANDING_DIRECTORY in
+other-licenses*)
+	BINOC_PROPRIETARY=1
+	AC_SUBST(BINOC_PROPRIETARY)
+	AC_DEFINE(BINOC_PROPRIETARY)
+esac
