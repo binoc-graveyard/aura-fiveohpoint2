@@ -4,8 +4,17 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 FINAL_TARGET_FILES.searchplugins += [
-    'duckduckgo-palemoon.xml',
-    'ecosia.xml',
-    'ekoru.xml',
-    'wikipedia.xml',
+  'ecosia.xml',
+  'wikipedia.xml',
 ]
+
+if CONFIG['BINOC_PROPRIETARY']:
+  FINAL_TARGET_FILES.searchplugins += [
+    '/other-licenses/src/searchplugins/duckduckgo-palemoon.xml',
+    '/other-licenses/src/searchplugins/ekoru.xml',
+  ]
+else:
+  FINAL_TARGET_FILES.searchplugins += [
+    'duckduckgo.xml',
+    'ekoru.xml',
+  ]
