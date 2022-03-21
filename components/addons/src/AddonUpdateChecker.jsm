@@ -809,7 +809,7 @@ function matchesVersions(aUpdate, aAppVersion, aPlatformVersion,
   let result = false;
   for (let app of aUpdate.targetApplications) {
 #ifdef MC_APP_ID
-    if (app.id == ALT_APP_ID || app.id == Services.appinfo.ID) {
+    if (ALT_APP_ID == Services.appinfo.ID || app.id == Services.appinfo.ID) {
 #else
     if (app.id == Services.appinfo.ID) {
 #endif
