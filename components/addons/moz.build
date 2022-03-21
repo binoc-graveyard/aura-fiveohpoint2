@@ -7,9 +7,6 @@
 # out of sync.
 DEFINES['MOZ_EXTENSIONS_DB_SCHEMA'] = 16
 
-if CONFIG['MC_APP_ID']:
-  DEFINES['MC_APP_ID'] = CONFIG['MC_APP_ID']
-
 # Additional debugging info is exposed in debug builds
 if CONFIG['MOZ_EM_DEBUG']:
     DEFINES['MOZ_EM_DEBUG'] = 1
@@ -46,6 +43,7 @@ EXTRA_PP_JS_MODULES += [
 
 EXTRA_JS_MODULES.addons += [
     'src/AddonLogging.jsm',
+    'src/AddonRepository.jsm',
     'src/AddonRepository_SQLiteMigrator.jsm',
     'src/Content.js',
     'src/LightweightThemeImageOptimizer.jsm',
@@ -54,7 +52,6 @@ EXTRA_JS_MODULES.addons += [
 ]
 
 EXTRA_PP_JS_MODULES.addons += [
-    'src/AddonRepository.jsm',
     'src/AddonUpdateChecker.jsm',
     'src/XPIProvider.jsm',
     'src/XPIProviderUtils.js',

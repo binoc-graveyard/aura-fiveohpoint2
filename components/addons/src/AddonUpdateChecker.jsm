@@ -26,10 +26,6 @@ const XMLURI_PARSE_ERROR              = "http://www.mozilla.org/newlayout/xml/pa
 const TOOLKIT_ID                      = "toolkit@mozilla.org";
 const FIREFOX_ID                      = "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}";
 
-#ifdef MC_APP_ID
-#expand const ALT_APP_ID                      = "__MC_APP_ID__";
-#endif
-
 const PREF_UPDATE_REQUIREBUILTINCERTS = "extensions.update.requireBuiltInCerts";
 const PREF_EM_MIN_COMPAT_APP_VERSION  = "extensions.minCompatibleAppVersion";
 
@@ -808,11 +804,7 @@ function matchesVersions(aUpdate, aAppVersion, aPlatformVersion,
 
   let result = false;
   for (let app of aUpdate.targetApplications) {
-#ifdef MC_APP_ID
-    if (ALT_APP_ID == Services.appinfo.ID || app.id == Services.appinfo.ID) {
-#else
     if (app.id == Services.appinfo.ID) {
-#endif
       return (Services.vc.compare(aAppVersion, app.minVersion) >= 0) &&
              (aIgnoreMaxVersion || (Services.vc.compare(aAppVersion, app.maxVersion) <= 0));
     }
@@ -873,11 +865,7 @@ this.AddonUpdateChecker = {
         if (aIgnoreCompatibility) {
           for (let targetApp of update.targetApplications) {
             let id = targetApp.id;
-#ifdef MC_APP_ID
-            if (id == ALT_APP_ID || id == Services.appinfo.ID || id == TOOLKIT_ID)
-#else
             if (id == Services.appinfo.ID || id == TOOLKIT_ID)
-#endif
               return update;
           }
         }
