@@ -6419,7 +6419,7 @@ AddonInternal.prototype = {
            (Services.vc.compare(version, app.maxVersion) <= 0)
   },
 
-  get matchingTargetApplication() {
+ get matchingTargetApplication() {
     let app = null;
 
 #ifdef MC_APP_ID
