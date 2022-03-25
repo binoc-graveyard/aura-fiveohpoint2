@@ -100,9 +100,6 @@ if CONFIG['BUILD_CTYPES']:
 if CONFIG['MOZ_FEEDS']:
   DIRS += ['feeds']
 
-if CONFIG['MOZ_JETPACK']:
-  DIRS += ['jetpack']
-
 if CONFIG['MOZ_MAILNEWS']:
   DIRS += ['mork']
 
