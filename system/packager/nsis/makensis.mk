@@ -6,8 +6,6 @@ ifndef CONFIG_DIR
 $(error CONFIG_DIR must be set before including makensis.mk)
 endif
 
-include $(MOZILLA_DIR)/system/installer/signing.mk
-
 ABS_CONFIG_DIR := $(abspath $(CONFIG_DIR))
 
 SFX_MODULE ?= $(error SFX_MODULE is not defined)
@@ -41,17 +39,10 @@ CUSTOM_UI = \
 	$(NULL)
 
 $(CONFIG_DIR)/setup.exe::
-	$(INSTALL) $(addprefix $(MOZILLA_DIR)/system/installer/windows/nsis/,$(TOOLKIT_NSIS_FILES)) $(CONFIG_DIR)
+	$(INSTALL) $(addprefix $(MOZILLA_DIR)/system/packager/nsis/,$(TOOLKIT_NSIS_FILES)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(MOZILLA_DIR)/other-licenses/nsis/Plugins/,$(CUSTOM_NSIS_PLUGINS)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(MOZILLA_DIR)/other-licenses/nsis/,$(CUSTOM_UI)) $(CONFIG_DIR)
 	cd $(CONFIG_DIR) && $(MAKENSISU) installer.nsi
-# Support for building the uninstaller when repackaging locales
-ifeq ($(CONFIG_DIR),l10ngen)
-	cd $(CONFIG_DIR) && $(MAKENSISU) uninstaller.nsi
-endif
-ifdef MOZ_EXTERNAL_SIGNING_FORMAT
-	$(MOZ_SIGN_CMD) $(foreach f,$(MOZ_EXTERNAL_SIGNING_FORMAT),-f $(f)) "$@"
-endif
 
 $(CONFIG_DIR)/7zSD.sfx:
 	$(CYGWIN_WRAPPER) upx --best -o $(CONFIG_DIR)/7zSD.sfx $(SFX_MODULE)
@@ -63,14 +54,11 @@ installer::
 	$(NSINSTALL) -D $(DIST)/$(PKG_INST_PATH)
 	cat $(CONFIG_DIR)/7zSD.sfx $(CONFIG_DIR)/app.tag $(CONFIG_DIR)/app.7z > "$(DIST)/$(PKG_INST_PATH)$(PKG_INST_BASENAME).exe"
 	chmod 0755 "$(DIST)/$(PKG_INST_PATH)$(PKG_INST_BASENAME).exe"
-ifdef MOZ_EXTERNAL_SIGNING_FORMAT
-	$(MOZ_SIGN_CMD) $(foreach f,$(MOZ_EXTERNAL_SIGNING_FORMAT),-f $(f)) "$(DIST)/$(PKG_INST_PATH)$(PKG_INST_BASENAME).exe"
-endif
 
 # For building the uninstaller during the application build so it can be
 # included for mar file generation.
 uninstaller::
-	$(INSTALL) $(addprefix $(MOZILLA_DIR)/system/installer/windows/nsis/,$(TOOLKIT_NSIS_FILES)) $(CONFIG_DIR)
+	$(INSTALL) $(addprefix $(MOZILLA_DIR)/system/packager/nsis/,$(TOOLKIT_NSIS_FILES)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(MOZILLA_DIR)/other-licenses/nsis/Plugins/,$(CUSTOM_NSIS_PLUGINS)) $(CONFIG_DIR)
 	cd $(CONFIG_DIR) && $(MAKENSISU) uninstaller.nsi
 	$(NSINSTALL) -D $(DIST)/bin/uninstall

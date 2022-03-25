@@ -13,7 +13,7 @@ endif # GREPKGR_BASE_MK_INCLUDED
 # ---------------------------------------------------------------------------------------------------------------------
 
 # These vars are here so that if paths change the number of places that need to be changed is minimal.
-MOZINST_PATH := $(MOZILLA_DIR)/system/installer
+MOZINST_PATH := $(MOZILLA_DIR)/system/packager
 GREPKGR_PATH := $(MOZILLA_DIR)/system/packager
 
 # ---------------------------------------------------------------------------------------------------------------------

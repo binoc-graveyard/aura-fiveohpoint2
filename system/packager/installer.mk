@@ -42,7 +42,7 @@ $(CONFIG_DIR)/7zSD.sfx:
 $(CONFIG_DIR)/setup.exe::
 	$(INSTALL) $(addprefix $(srcdir)/,$(INSTALLER_FILES)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(DIST)/branding/,$(BRANDING_FILES)) $(CONFIG_DIR)
-	$(INSTALL) $(addprefix $(MOZINST_PATH)/windows/nsis/,$(TOOLKIT_NSIS_FILES)) $(CONFIG_DIR)
+	$(INSTALL) $(addprefix $(MOZINST_PATH)/nsis/,$(TOOLKIT_NSIS_FILES)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(MOZILLA_DIR)/other-licenses/nsis/Plugins/,$(CUSTOM_NSIS_PLUGINS)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(MOZILLA_DIR)/other-licenses/nsis/,$(CUSTOM_UI)) $(CONFIG_DIR)
 	$(call py_action,preprocessor,-Fsubstitution $(DEFINES) $(ACDEFINES) \
@@ -70,11 +70,11 @@ uninstaller::
 	$(RM) -r $(CONFIG_DIR) && mkdir $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(srcdir)/,$(INSTALLER_FILES)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(DIST)/branding/,$(BRANDING_FILES)) $(CONFIG_DIR)
-	$(INSTALL) $(addprefix $(MOZINST_PATH)/windows/nsis/,$(TOOLKIT_NSIS_FILES)) $(CONFIG_DIR)
+	$(INSTALL) $(addprefix $(MOZINST_PATH)/nsis/,$(TOOLKIT_NSIS_FILES)) $(CONFIG_DIR)
 	$(INSTALL) $(addprefix $(MOZILLA_DIR)/other-licenses/nsis/Plugins/,$(CUSTOM_NSIS_PLUGINS)) $(CONFIG_DIR)
 	$(call py_action,preprocessor,-Fsubstitution $(DEFINES) $(ACDEFINES) \
 	  $(srcdir)/src/defines.nsi.in -o $(CONFIG_DIR)/defines.nsi)
-	$(PYTHON) $(MOZINST_PATH)/windows/nsis/preprocess-locale.py --preprocess-locale \
+	$(PYTHON) $(MOZINST_PATH)/nsis/preprocess-locale.py --preprocess-locale \
 		$(MOZILLA_SRCDIR) $(abspath $(srcdir))/locale $(AB_CD) $(CONFIG_DIR)
 	$(NSINSTALL) -D $(DIST)/bin/uninstall
 	cd $(CONFIG_DIR) && $(MAKENSISU) uninstaller.nsi
