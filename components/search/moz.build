@@ -6,16 +6,30 @@
 EXTRA_COMPONENTS += ['src/nsSearchSuggestions.js']
 
 if CONFIG['MOZ_PHOENIX'] or CONFIG['MOZ_XULRUNNER']:
-    DEFINES['HAVE_SIDEBAR'] = True
-    EXTRA_COMPONENTS += ['src/nsSidebar.js']
+  DEFINES['HAVE_SIDEBAR'] = True
+  EXTRA_COMPONENTS += ['src/nsSidebar.js']
 
 EXTRA_PP_COMPONENTS += [
-    'src/nsSearchService.js',
-    'toolkitsearch.manifest',
+  'src/nsSearchService.js',
+  'toolkitsearch.manifest',
 ]
 
 EXTRA_JS_MODULES += [
-    'src/SearchStaticData.jsm',
-    'src/SearchSuggestionController.jsm',
+  'src/SearchStaticData.jsm',
+  'src/SearchSuggestionController.jsm',
 ]
 
+if not CONFIG['MOZ_PHOENIX']:
+  FINAL_TARGET_FILES.searchplugins += [
+    'plugins/bing.xml',
+    'plugins/dogpile.xml',
+    'plugins/duckduckgo.xml',
+    'plugins/ecosia.xml',
+    'plugins/ekoru.xml',
+    'plugins/google.xml',
+    'plugins/qwant.xml',
+    'plugins/searx.xml',
+    'plugins/wikipedia.xml',
+    'plugins/yahoo.xml',
+    'plugins/yandex.xml',
+  ]

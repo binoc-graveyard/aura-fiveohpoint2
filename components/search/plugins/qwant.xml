@@ -1,0 +1,10 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:ms="http://www.mozilla.org/2006/browser/search/">
+<ShortName>Qwant</ShortName>
+<Description>Qwant</Description>
+<InputEncoding>UTF-8</InputEncoding>
+<Image width="16" height="16">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACp0lEQVQ4jYWTW0iTARiGP2kXKm2WlYd0269uMv8N0bAYpDVIvekiCbvoysgLwS4cCJ1E9ELtoPhPhamYehfVIDPUktA/D7VwLlPLSRYr+12aLY05U7f1dmEHJou9t9/3Pu/HCx9RALlX0zM2PJmlG1tZbVtbWU2L6ydK7Cs6JtCun7beJ2Z4PiZZPAsKbC6z2HSl4/uaFg53DoS1HHxy5ZgEpy4+oNnLy/K9r5M87hkFFqeUsE0oMfxSiSe2VAwKR2FdPo5nq2dQ66z6fOVrncrPvNl/UOUbkLvW7ishPFJgdlBps4wmFfFjTFrf3CFt/7y27PG8drly9iSKhWqUOQ12vZ3b8y+9T877uhPgNbJw9ChMfCcTuvPCXvvhmHPjZ21pz8+jWKiGfslYu51+m1H5Hsjxsz0ZqGfn7AHMfxTa3MyI22/92He3A9GvhleI50XkuyMr8RnlAKcGOPWFYEVHcMY2SWc7YiZHEG3ltYRjUg6pMqCQBarVaUEBNYaiiKZmRFuf4sDEUAFBLeWgkQKnVECeMihAXGMojLjegMShIRyZtBUQNPEl0EiBXCWQmlIY9IJrDW0RlS3Qjb1D9qSgJajj0qCRYiM5FmBTpkEk+p857GJjvKSsZYUxPkTumwWXjrdvF/5NEmZ2EMEVHQWwbFMgiLi0db/4cuuI5GoHtIPTyJ0RuL9DgUjrIPJ8DgnBRoICU2yV2aLm8s0qjuGpUkREFFkxXiuu+4DwxhXEDa9DYXbp/BIEovy3FOV5EXoaFlU9rGoDrGoDzCqOISIiHS+KrVgyRd5wIrzXi908XHtHkekH6SK9rpv0cz27SjEqrfEH/IbElX/hEu+5wU7DlTwF/58gIqoknaiL9HndVMINRJabeOZmzM4dmXH1UsoUsomIfgEHkWC77VCAMgAAAABJRU5ErkJggg==</Image>
+<SearchForm>https://www.qwant.com/</SearchForm>
+<Url type="text/html" method="GET" template="https://www.qwant.com/" resultDomain="qwant.com">
+  <Param name="q" value="{searchTerms}"/>
+</Url>
+</OpenSearchDescription>

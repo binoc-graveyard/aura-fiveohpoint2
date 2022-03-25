@@ -1,0 +1,15 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:ms="http://www.mozilla.org/2006/browser/search/">
+<ShortName>Dogpile</ShortName>
+<Description>Dogpile</Description>
+<InputEncoding>UTF-8</InputEncoding>
+<Image width="16" height="16">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABuUlEQVQ4jX1TPUskQRAtLzE4MD8QwRMET7hU/EDQ4Mw0MTAQ8TgURDwTTRShd6qT8ysQQTb0NwhiZqCB7InsdHUmGAgHx+3OdFUgIoprsDO7I71zBRP0dL33+r2uBsipgNzPwDhcOb1tV1dRB1K1Tyn1Ia8/rTYAgIKVCW2lpq3UkPgHEp9rK7WA4tlcZGDjYSS+RysXBeOmMgTrSPxQX3NRXcddSNyTimUIZC8F6XI8osqV3oJ1YwAASG4VSU7QyJa2UkMrT2h44R2BKld6kbiEJMeaoqGAeEcTnyHJJVp3iFTtQ+L1VCQw/CvHiswgyXPjNJmvTsTbSE5tXFc+eWAM3WQTwLdoeCGwbg6JS01lN58bpCb+XVfiSIVRZ/p/Lfz7EYnvUuKW16kMf24m7w680xHrdF/dRF987yYazFzdkkdg3PfGfsjjPkFYHWg0GFn2BXixkY9xo76FMOpsps9FLx/LxYTgFUPu9gjqPuUyCVGyTckMPCT2Si3BAAAF68a0lddk2v4g8S5a2dck/zL5fMslAADAkKfRyqM3SCQv/31M2QrKUT8Sb2riI018hMSbiuKvrXrfAES2ocejwawMAAAAAElFTkSuQmCC</Image>
+<SearchForm>http://www.dogpile.com/</SearchForm>
+<Url type="text/html" method="GET" template="http://www.dogpile.com/search/web" resultDomain="dogpile.com">
+  <Param name="fcoid" value="417"/>
+  <Param name="fcop" value="topnav"/>
+  <Param name="fpid" value="27"/>
+  <Param name="q" value="{searchTerms}"/>
+  <Param name="ql" value=""/>
+  <Param name="topSearchSubmit" value="Go+Fetch%21"/>
+</Url>
+</OpenSearchDescription>

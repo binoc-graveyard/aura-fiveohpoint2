@@ -1,0 +1,12 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:ms="http://www.mozilla.org/2006/browser/search/">
+<ShortName>searx</ShortName>
+<Description>searx</Description>
+<InputEncoding>UTF-8</InputEncoding>
+<Image width="16" height="16">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABh0lEQVQ4jbXNPWsyQRAH8HE9iRcP8QXvZddV8QOkCVpLSGeTUrBIHzRt6qvsBT/Dk8JUil2wMjaKYiV2CtHGRg9TCPGfxoRA9BKE5w/LwOzMb4j+Y7QDvfNjw3f7mtQ0bWcYBoQQ0HUdqqq+E5Fv//98DAARXcdiMRSLRXxmu90im80iHA6DiK72c4eBYDCIcrmM3W7342UyGaiqCjfgMR6PY7VawXEcrNdrlEolbDYbOI6D5XIJXddBRMWD24yx+1QqhdlshsViASklOOfI5XKYz+eYTqcQQhy9TkR0kUgkMBqNMJlMUKvVYJom6vU6xuMxhsMhTNN0BSgSiaBSqaDb7aLf72MwGKDX66HT6SCfz0PTNHeAMfbAOYdt22g2m2i1Wmg0GigUCrAsC4ZhvADwuCKKotjRaBTJZBLpdBpSSoRCIXg8HgQCAXDOX39F9rlRFMUmostvvTe/3w/LskBEf0IOZeTz+SCEQLVaPTsV+ef1eiGEQLvd9p+K3DLGIKV8OhX4ygd9tM3Kh9sr5gAAAABJRU5ErkJggg==</Image>
+<SearchForm>https://searx.me/</SearchForm>
+<Url type="text/html" method="POST" template="https://searx.me/" resultDomain="searx.me">
+  <Param name="q" value="{searchTerms}"/>
+  <Param name="category_general" value="on"/>
+  <Param name="time_range" value=""/>
+</Url>
+</OpenSearchDescription>
