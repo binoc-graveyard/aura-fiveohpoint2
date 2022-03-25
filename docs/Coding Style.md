@@ -25,6 +25,7 @@ The following formatting rules apply to all code:
 
 ## C and C++
 Applies to `*.c`, `*.cc`, `*.cpp` and `*.h`. Potentially also `*.mm` for Mac code.
+
 ### General formatting guidelines
 - Place function return types, including modifiers like `static` on the same line as the function signature.
   ```C++
@@ -77,6 +78,7 @@ Flow control expressions should follow the following guidelines:
 - Any alternative flow control paths are generally started with an expression on the closing brace line
 - Case statements are indented by 2 on a new line with the case expression on its own line.
 - Flow control default scopes are always placed at the bottom.
+
 #### if..else
 `if..else` statements example:
 ```C++
@@ -103,6 +105,7 @@ if (case1) {
   case2_and_other_code here;
 }
 ```
+
 #### for
 `for` loop example:
 ```C++
@@ -110,6 +113,7 @@ for (i = 1; i < max; i++) {
   loop_code here;
 }
 ```
+
 #### while
 `while` loop example:
 ```C++
@@ -117,6 +121,7 @@ while (something == true) {
   loop_code here;
 }
 ```
+
 #### switch..case
 `switch..case` flow control example:
 ```C++
@@ -309,6 +314,7 @@ if (case1) {
   case2_and_other_code here;
 }
 ```
+
 #### for
 `for` loop example:
 ```JavaScript
@@ -322,6 +328,7 @@ for (let i = 0;; i++) {
    ...
 }
 ```
+
 #### while
 `while` loop example:
 ```JavaScript
@@ -334,6 +341,7 @@ do {
   ...
 } while (something == true);
 ```
+
 #### switch..case
 `switch..case` flow control example:
 ```JavaScript
@@ -405,6 +413,7 @@ try {
   always();
 }
 ```
+
 DISCOURAGED
 ```JavaScript
 try {

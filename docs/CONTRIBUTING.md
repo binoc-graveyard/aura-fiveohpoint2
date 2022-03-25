@@ -1,6 +1,6 @@
 # Code contribution guidelines
 
-To make sure code changes remain easy to organize, find and troubleshoot, please use the following guidelines when contributing code to the Pale Moon project (and GRE). These guidelines may, for some of you, sound tedious or more work than you'd prefer to put in, but keep in mind that a single paragraph of explanation with a code commit can save hours of work later on, and code comments can save your hide when trying to debug or improve code.
+To make sure code changes remain easy to organize, find and troubleshoot, please use the following guidelines when contributing code to the BinOC XUL Applications or the Aura Runtime Environment. These guidelines may, for some of you, sound tedious or more work than you'd prefer to put in, but keep in mind that a single paragraph of explanation with a code commit can save hours of work later on, and code comments can save your hide when trying to debug or improve code.
 
 ## General guideline for issues
 
@@ -39,7 +39,7 @@ For META issues it is important that discussion about specific implementation pa
 
 ## General guideline for submitting pull requests
 
-Most of our code changes will likely be submitted by collaborators from our community. This will be ported from other projects (e.g. Mozilla-based code) or new implementations, or a mix. The standard way of getting your code into Pale Moon or GRE is by way of creating a pull request against the master branch (trunk).
+Most of our code changes will likely be submitted by collaborators from our community. This will be ported from other projects (e.g. Mozilla-based code) or new implementations, or a mix. The standard way of getting your code into into the tree is by way of creating a pull request against the trunk branch.
 
 A good pull request will:
 - **Have an issue associated with it!** Even though GitHub offers very similar tools for PRs as it does for issues, any reasoning behind code commits in a PR have to be explained in an accompanying issue.
@@ -83,9 +83,10 @@ Important when editing/adding code:
     }
     ```
 3. Comment your code where prudent! Documenting what you're doing, especially in a complex piece of code, is very important to keep it easy to debug.
-4. Try not to write "as compact as possible" source code. Many languages have facilities to write very compact source code by gluing a lot of statements together on single lines, but you should avoid this to keep it readable. Other people than yourself will be looking at and trying to understand your code, and it's important to keep proper paragraphing, whitespace and above all logical names for variables and functions.
+4. Try not to write "as compact as possible" source code. Many languages have facilities to write very compact source code by gluing a lot of statements together on single lines, but you should avoid this to keep it readable. Other people than yourself will be looking at and trying to understand your code, and it's important to keep proper paragraphing, white-space and above all logical names for variables and functions.
 
 ## Commit Message Style
+**THIS SECTION NEEDS TO BE REWRITTEN SO IGNORE FOR NOW..**
 
 With rare exception, it is advisable to use the following style for commit messages. This ensures proper tracking and linking of commits to issues.
 
@@ -116,11 +117,11 @@ Sometimes developers with direct push access will commit without an issue being 
   - *`[TychoAM] Give the second <hbox> an ID so it can be targeted in extensions.xul`*
   - *`[Pale Moon] Use generic application icon for external applications in about:feeds`*
 
-Multi-part changes by definition are not trival and should have a corresponding issue.
+Multi-part changes by definition are not trivial and should have a corresponding issue.
 
 ### Additional information in commit messages
 
-It may be benefical to include supplementary information such as a longer description, caveats, specific Mozilla bug numbers, links to forum posts or other such references. If you do add additional information, you should seperate it from the main commit message by a blank line.
+It may be beneficial to include supplementary information such as a longer description, caveats, specific Mozilla bug numbers, links to forum posts or other such references. If you do add additional information, you should seperate it from the main commit message by a blank line.
 
 *Example: (This happens to also be an example of the long term multi-part exception)*
 ```

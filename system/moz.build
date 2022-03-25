@@ -24,4 +24,4 @@ if CONFIG['MOZ_UPDATER']:
 
 DIRS += ['runtime']
 
-FINAL_TARGET_PP_FILES += ['goanna.js']
+FINAL_TARGET_PP_FILES += ['platform-prefs.js']
