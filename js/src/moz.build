@@ -131,7 +131,7 @@ if not CONFIG['JS_DISABLE_SHELL']:
 if CONFIG['MOZ_VTUNE']:
     DIRS += ['vtune']
 
-UNIFIED_SOURCES += [
+js_sources = [
     'jsalloc.cpp',
     'jsapi.cpp',
     'jsbool.cpp',
@@ -169,7 +169,7 @@ SOURCES += [
 if CONFIG['CLANG_CXX'] or CONFIG['GNU_CXX']:
     SOURCES['jsdtoa.cpp'].flags += ['-Wno-implicit-fallthrough']
 
-UNIFIED_SOURCES += [
+js_sources += [
     'vm/ArgumentsObject.cpp',
     'vm/ArrayBufferObject.cpp',
     'vm/AsyncFunction.cpp',
@@ -236,7 +236,7 @@ SOURCES += [
 ]
 
 if CONFIG['JS_POSIX_NSPR']:
-    UNIFIED_SOURCES += [
+    js_sources += [
         'vm/PosixNSPR.cpp',
     ]
 
@@ -247,6 +247,16 @@ if CONFIG['ENABLE_TRACE_LOGGING']:
         'vm/TraceLoggingGraph.cpp',
         'vm/TraceLoggingTypes.cpp',
     ]
+
+# Generating the static lib with /GL is not currently possible without UNIFIED_SOURCES
+# because it is too damned massive (over 2gbs, 2.5ish to be exact).
+# We need to break JS apart into smaller libs somehow OR steal the process libevil uses
+# to get around the issue, perhaps.
+# IN THE MEANTIME.. Just build the majority with unified sources if /GL else don't.
+if CONFIG['OS_TARGET'] == 'WINNT' and 'GL' in CONFIG['MOZ_OPTIMIZE_FLAGS']:
+    UNIFIED_SOURCES += js_sources
+else:
+    SOURCES += js_sources
 
 # JavaScript must be built shared, even for static builds, as it is used by
 # other modules which are always built shared. Failure to do so results in
