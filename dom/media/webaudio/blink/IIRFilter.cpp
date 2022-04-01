@@ -5,6 +5,7 @@
 #include "IIRFilter.h"
 
 #include <complex>
+#include <cfloat>
 
 namespace blink {
 
