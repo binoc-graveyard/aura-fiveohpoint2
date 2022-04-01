@@ -2,7 +2,7 @@
 
 BINOC_MACH=real-mach
 BINOC_TARGET_OS=`uname | tr [:upper:] [:lower:]`
-BINOC_CONFIG_GUESS=`./platform/build/autoconf/config.guess 2>/dev/null`
+BINOC_CONFIG_GUESS=`./build/autoconf/config.guess 2>/dev/null`
 BINOC_PYTHON=`which python2.7 2>/dev/null`
 BINOC_GIT=`which git 2>/dev/null`
 BINOC_CURL=`which curl 2>/dev/null`
