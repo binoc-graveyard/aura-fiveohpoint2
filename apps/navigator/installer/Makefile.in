@@ -16,6 +16,7 @@ include $(MOZILLA_SRCDIR)/system/packager/packager.mk
 
 ifeq ($(OS_ARCH),WINNT)
 ifdef MAKENSISU
+
 INSTALLER_FILES += \
 	app.tag \
 	src/installer.nsi \
@@ -33,10 +34,10 @@ BRANDING_FILES += \
 	$(NULL)
 
 $(CONFIG_DIR)/setup.exe::
-	$(PYTHON) $(MOZINST_PATH)/windows/nsis/preprocess-locale.py \
+	$(PYTHON) $(MOZINST_PATH)/nsis/preprocess-locale.py \
 	  --preprocess-locale $(MOZILLA_SRCDIR) \
-	  $(topsrcdir)/navigator/installer/locale $(AB_CD) $(CONFIG_DIR)
-	$(PYTHON) $(MOZINST_PATH)/windows/nsis/preprocess-locale.py \
+	  $(topsrcdir)/apps/navigator/installer/locale $(AB_CD) $(CONFIG_DIR)
+	$(PYTHON) $(MOZINST_PATH)/nsis/preprocess-locale.py \
 	  --convert-utf8-utf16le $(DIST)/branding/license.txt $(CONFIG_DIR)/license.txt
 
 include $(MOZILLA_SRCDIR)/system/packager/installer.mk

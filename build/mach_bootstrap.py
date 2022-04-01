@@ -104,12 +104,6 @@ MACH_MODULES = [
     'tools/power/mach_commands.py',
 ]
 
-if os.path.exists('addon-sdk/mach_commands.py'):
-    MACH_MODULES += ['addon-sdk/mach_commands.py']
-
-if os.path.exists('devtools/shared/css/generated/mach_commands.py'):
-    MACH_MODULES += ['devtools/shared/css/generated/mach_commands.py']
-
 CATEGORIES = {
     'build': {
         'short': 'Build Commands',

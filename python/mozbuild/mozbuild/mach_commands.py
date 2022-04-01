@@ -555,7 +555,8 @@ class Build(MachCommandBase):
         
         if not ppcheck_script or ppcheck_result: 
             print("\nWARNING: Something has gone wrong with the check for un-preprocessed files. " +
-                  "Please manually verify that files are properly preprocessed.")
+                  "Please manually verify that files are properly preprocessed." +
+                  "\n\nNOTE: If you are building the JavaScript Engine only, then no action is required.")
 
         return status
 

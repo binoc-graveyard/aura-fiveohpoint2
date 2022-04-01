@@ -11,9 +11,9 @@ SOURCES += ['nsNavigatorApp.cpp']
 
 LOCAL_INCLUDES += [
     '!/build',
-    '/platform/system/runtime',
-    '/platform/xpcom/base',
-    '/platform/xpcom/build',
+    '/system/runtime',
+    '/xpcom/base',
+    '/xpcom/build',
 ]
 
 if CONFIG['OS_ARCH'] == 'WINNT':

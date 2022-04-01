@@ -110,7 +110,7 @@ endef
 # last line, so replace both '|| ' and '||'.
 # Also, make MOZ_PGO available to mozconfig when passed on make command line.
 # Likewise for MOZ_CURRENT_PROJECT.
-MOZCONFIG_CONTENT := $(subst ||,$(CR),$(subst || ,$(CR),$(shell $(addprefix MOZ_CURRENT_PROJECT=,$(MOZ_CURRENT_PROJECT)) MOZ_PGO=$(MOZ_PGO) $(TOPSRCDIR)/mach environment --format=client.mk | sed 's/$$/||/')))
+MOZCONFIG_CONTENT := $(subst ||,$(CR),$(subst || ,$(CR),$(shell $(addprefix MOZ_CURRENT_PROJECT=,$(MOZ_CURRENT_PROJECT)) MOZ_PGO=$(MOZ_PGO) $(TOPSRCDIR)/real-mach environment --format=client.mk | sed 's/$$/||/')))
 $(eval $(MOZCONFIG_CONTENT))
 
 export FOUND_MOZCONFIG
@@ -356,7 +356,7 @@ configure-preqs = \
   $(OBJDIR)/.mozconfig.json \
   $(NULL)
 
-CREATE_MOZCONFIG_JSON = $(shell $(TOPSRCDIR)/mach environment --format=json -o $(OBJDIR)/.mozconfig.json)
+CREATE_MOZCONFIG_JSON = $(shell $(TOPSRCDIR)/real-mach environment --format=json -o $(OBJDIR)/.mozconfig.json)
 # Force CREATE_MOZCONFIG_JSON above to be resolved, without side effects in
 # case the result is non empty, and allowing an override on the make command
 # line not running the command (using := $(shell) still runs the shell command).

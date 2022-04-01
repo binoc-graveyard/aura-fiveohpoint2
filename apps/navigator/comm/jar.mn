@@ -49,7 +49,7 @@ comm.jar:
 * content/communicator/bindings/notification.xml                   (content/bindings/notification.xml)
   content/communicator/bindings/toolbar.xml                        (content/bindings/toolbar.xml)
 
-  content/communicator/labelsencodings.properties                  (/platform/dom/encoding/labelsencodings.properties)
+  content/communicator/labelsencodings.properties                  (/dom/encoding/labelsencodings.properties)
 
 #ifdef XP_WIN
   content/communicator/platformCommunicatorOverlay.xul             (content/platform/win/platformCommunicatorOverlay.xul)

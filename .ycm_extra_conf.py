@@ -14,12 +14,12 @@ except ImportError:
 old_bytecode = sys.dont_write_bytecode
 sys.dont_write_bytecode = True
 
-path = os.path.join(os.path.dirname(__file__), 'mach')
+path = os.path.join(os.path.dirname(__file__), 'real-mach')
 
 if not os.path.exists(path):
     path = os.path.join(os.path.dirname(__file__), 'config.status')
     config = imp.load_module('_buildconfig', open(path), path, ('', 'r', imp.PY_SOURCE))
-    path = os.path.join(config.topsrcdir, 'mach')
+    path = os.path.join(config.topsrcdir, 'real-mach')
 mach_module = imp.load_module('_mach', open(path), path, ('', 'r', imp.PY_SOURCE))
 
 sys.dont_write_bytecode = old_bytecode

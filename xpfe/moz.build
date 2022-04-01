@@ -6,7 +6,6 @@
 DIRS += [
   'components',
   'modules',
-  'searchplugins'
 ]
 
 if CONFIG['BINOC_NAVIGATOR']:

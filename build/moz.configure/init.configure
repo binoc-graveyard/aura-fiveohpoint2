@@ -630,9 +630,6 @@ def build_project(project, external_source_dir, build_env, help):
 
     build_app = project[0]
 
-    if not external_source_dir and build_app not in ('js'):
-        die('Cannot find project %s', build_app)
-
     build_app_abspath = os.path.join(base_dir, build_app)
 
     if exists(build_app_abspath):
