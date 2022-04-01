@@ -33,8 +33,22 @@ export BINOC_CONFIG_GUESS=$BINOC_CONFIG_GUESS
 
 # =====================================================================================================================
 
-# We don't know what the command is but real-mach might so just pass
-# all the args to it
-$BINOC_MACH $@
+if [ "$1" == "webpatch" ] && [ -n "$BINOC_GIT" ] && [ -n "$BINOC_CURL" ]; then
+  if [ -z "$2" ]; then
+    printf "Patch with what?"
+    exit 1
+  else
+    if [[ "$2" == *"github.com"* ]] || [[ "$2" == *"repo.palemoon.org"* ]]; then
+      echo ${2}.patch
+      $BINOC_CURL -L ${2}.patch | "$BINOC_GIT" apply --reject
+    else
+      $BINOC_CURL -L ${2} | "$BINOC_GIT" apply --reject
+    fi
+  fi
+else
+  # We don't know what the command is but real-mach might so just pass
+  # all the args to it
+  $BINOC_MACH $@
+fi
 
 # =====================================================================================================================
