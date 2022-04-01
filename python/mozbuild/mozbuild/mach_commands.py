@@ -547,7 +547,7 @@ class Build(MachCommandBase):
         if not os.path.exists(ppcheck_script):
             ppcheck_script = mozpath.join(self.topsrcdir, "platform", "build", "ppCheck.py")
         else:
-            ppcheck_script = None
+            ppcheck_script = mozpath.join(self.topsrcdir, "build", "ppCheck.py")
         
         if ppcheck_script:
             ppcheck_cmd = [which.which("python2.7"), ppcheck_script, ppcheck_path]
@@ -555,8 +555,7 @@ class Build(MachCommandBase):
         
         if not ppcheck_script or ppcheck_result: 
             print("\nWARNING: Something has gone wrong with the check for un-preprocessed files. " +
-                  "Please manually verify that files are properly preprocessed." +
-                  "\n\nNOTE: If you are building the JavaScript Engine only, then no action is required.")
+                  "Please manually verify that files are properly preprocessed.")
 
         return status
 
