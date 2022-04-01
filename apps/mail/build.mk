@@ -2,18 +2,31 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+MAKE_INSTALLER_TARGET = $(MAKE) -C apps/mail/installer
+
 installer:
-	@$(MAKE) -C mail/installer installer
+	@$(MAKE_INSTALLER_TARGET) $@
+
+install:
+	@$(MAKE_INSTALLER_TARGET) $@
 
 package:
-	@$(MAKE) -C mail/installer make-archive
+	@$(MAKE_INSTALLER_TARGET) archive
 
-mozpackage:
-	@$(MAKE) -C mail/installer make-package
+buildsymbols:
+	@$(MAKE_INSTALLER_TARGET) symbols
+
+mar-package:
+	@$(MAKE_INSTALLER_TARGET) update
+
+mar-package-bz2:
+	@$(MAKE_INSTALLER_TARGET) update-bz2
+
+l10n-package:
+	@$(MAKE_INSTALLER_TARGET) locale
+
+theme-package:
+	@$(MAKE_INSTALLER_TARGET) skin
 
 stage-package:
-	@$(MAKE) -C mail/installer stage-package make-buildinfo-file
-
-install::
-	@$(MAKE) -C mail/installer install
-
+	@$(MAKE_INSTALLER_TARGET) $@

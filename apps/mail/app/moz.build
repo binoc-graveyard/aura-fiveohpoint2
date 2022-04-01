@@ -13,30 +13,14 @@ USE_LIBS += ['mozglue']
 SOURCES += ['nsMailApp.cpp']
 LOCAL_INCLUDES += [
     '!/build',
-    '/platform/system/runtime',
-    '/platform/xpcom/base',
-    '/platform/xpcom/build',
+    '/system/runtime',
+    '/xpcom/base',
+    '/xpcom/build',
 ]
 
 if CONFIG['OS_ARCH'] == 'WINNT':
     RCINCLUDE = 'splash.rc'
     DEFINES['MOZ_THUNDERBIRD'] = True
-
-if CONFIG['MOZ_SANDBOX'] and CONFIG['OS_ARCH'] == 'WINNT':
-    # For sandbox includes and the include dependencies those have
-    LOCAL_INCLUDES += [
-        '/platform/security/sandbox/chromium',
-        '/platform/security/sandbox/chromium-shim',
-    ]
-
-    USE_LIBS += [
-        'sandbox_s',
-    ]
-
-    DELAYLOAD_DLLS += [
-        'winmm.dll',
-        'user32.dll',
-    ]
 
 if CONFIG['_MSC_VER']:
     # Always enter a Windows program through wmain, whether or not we're
