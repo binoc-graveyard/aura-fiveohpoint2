@@ -220,7 +220,7 @@ if (!$mstone[2]) {
 else {
     $mstone[2] =~s/\D.*$//;
 }
-$fileversion = $productversion="$mstone[0],$mstone[1],$mstone[2],$daycount";
+$fileversion = $productversion="$mstone[0],$mstone[1],$mstone[2]";
 
 my @appver = split(/\./,$appversion);
 for ($j = 1; $j < 4; $j++)
