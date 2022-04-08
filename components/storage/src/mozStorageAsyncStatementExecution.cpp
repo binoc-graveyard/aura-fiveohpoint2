@@ -17,8 +17,10 @@
 #include "mozStoragePrivateHelpers.h"
 #include "mozStorageStatementData.h"
 #include "mozStorageAsyncStatementExecution.h"
-
+#include "mozilla/Logging.h"
 #include "mozilla/DebugOnly.h"
+
+extern mozilla::LazyLogModule gStorageLog;
 
 namespace mozilla {
 namespace storage {

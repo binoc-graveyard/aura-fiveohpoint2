@@ -6,6 +6,7 @@
 #ifndef nsPermission_h__
 #define nsPermission_h__
 
+#include "nsIPrincipal.h"
 #include "nsIPermission.h"
 #include "nsString.h"
 #include "nsCOMPtr.h"

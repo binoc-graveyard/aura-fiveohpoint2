@@ -1838,8 +1838,6 @@ CallSelfHostedNonGenericMethod(JSContext* cx, const CallArgs& args)
     if (!GlobalObject::getIntrinsicValue(cx, cx->global(), name, &selfHostedFun))
         return false;
 
-    MOZ_ASSERT(selfHostedFun.toObject().is<JSFunction>());
-
     InvokeArgs args2(cx);
     if (!args2.init(cx, args.length() - 1))
         return false;
@@ -3121,11 +3119,6 @@ JSRuntime::cloneSelfHostedValue(JSContext* cx, HandlePropertyName name, MutableH
 void
 JSRuntime::assertSelfHostedFunctionHasCanonicalName(JSContext* cx, HandlePropertyName name)
 {
-#ifdef DEBUG
-    JSFunction* selfHostedFun = getUnclonedSelfHostedFunction(cx, name);
-    MOZ_ASSERT(selfHostedFun);
-    MOZ_ASSERT(selfHostedFun->getExtendedSlot(HAS_SELFHOSTED_CANONICAL_NAME_SLOT).toBoolean());
-#endif
 }
 
 JSFunction*

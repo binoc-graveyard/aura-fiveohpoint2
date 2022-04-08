@@ -25,6 +25,7 @@ static char*    g_Spaces;
 static int      g_InitState = 0;
 static int      g_Indent = 0;
 static mozilla::LazyLogModule g_LogMod("xpclog");
+using mozilla::LogLevel;
 
 static bool Init()
 {

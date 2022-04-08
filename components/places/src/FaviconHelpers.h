@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "nsIRequest.h"
 #include "nsIFaviconService.h"
 #include "nsIChannelEventSink.h"
 #include "nsIInterfaceRequestor.h"

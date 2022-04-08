@@ -599,15 +599,14 @@ GfxInfoBase::GetFeatureStatus(int32_t aFeature, nsACString& aFailureId, int32_t*
 // aBlockedOS is describing the system(s) we are trying to block.
 // aSystemOS is describing the system we are running on.
 //
-// aSystemOS should not be "Windows" or "OSX" - it should be set to
+// aSystemOS should not be "Windows" - it should be set to
 // a particular version instead.
 // However, it is valid for aBlockedOS to be one of those generic values,
 // as we could be blocking all of the versions.
 inline bool
 MatchingOperatingSystems(OperatingSystem aBlockedOS, OperatingSystem aSystemOS)
 {
-  MOZ_ASSERT(aSystemOS != OperatingSystem::Windows &&
-             aSystemOS != OperatingSystem::OSX);
+  MOZ_ASSERT(aSystemOS != OperatingSystem::Windows);
 
   // If the block entry OS is unknown, it doesn't match
   if (aBlockedOS == OperatingSystem::Unknown) {
