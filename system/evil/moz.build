@@ -93,8 +93,8 @@ USE_LIBS += [
 ]
 
 USE_LIBS += [
-    'gremedia',
     'lgplmedia',
+    'multimedia',
     'nspr',
     'nss',
     'sqlite',

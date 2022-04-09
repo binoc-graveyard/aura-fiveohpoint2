@@ -19,7 +19,7 @@ SOURCES += [
 if CONFIG['GKMEDIAS_SHARED_LIBRARY']:
     NO_VISIBILITY_FLAGS = True
 
-FINAL_LIBRARY = 'gremedia'
+FINAL_LIBRARY = 'multimedia'
 
 if CONFIG['GNU_CC']:
     CFLAGS += ['-Wno-missing-field-initializers']

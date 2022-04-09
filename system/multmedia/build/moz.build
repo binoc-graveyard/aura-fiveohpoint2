@@ -4,10 +4,10 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 if CONFIG['GKMEDIAS_SHARED_LIBRARY']:
-  GeckoSharedLibrary('gremedia', linkage=None)
+  GeckoSharedLibrary('multimedia', linkage=None)
   USE_LIBS += ['nspr']
 else:
-  Library('gremedia')
+  Library('multimedia')
 
 if CONFIG['OS_TARGET'] == 'WINNT':
   DEFFILE = 'symbols.def'
