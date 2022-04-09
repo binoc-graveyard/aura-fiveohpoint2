@@ -1,6 +1,0 @@
-repo: 9949429068caa6bb8827a8ceeaa7c605d722f47f
-node: 1911de31ad9cda0f9c5a80cdab7eb3ef38429582
-branch: NSS_3_64_BRANCH
-latesttag: NSS_3_64_RTM
-latesttagdistance: 1
-changessincelatesttag: 1
