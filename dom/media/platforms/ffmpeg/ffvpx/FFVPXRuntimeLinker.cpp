@@ -76,7 +76,7 @@ FFVPXRuntimeLinker::Init()
     return false;
   }
   nsAutoCString rootPath;
-  if (NS_FAILED(rootDir->GetPersistentDescriptor(rootPath))) {
+  if (NS_FAILED(rootDir->GetNativePath(rootPath))) {
     return false;
   }
 
