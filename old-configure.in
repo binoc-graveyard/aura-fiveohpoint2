@@ -1913,9 +1913,6 @@ MOZ_EXCLUDE_HYPHENATION_DICTIONARIES=
 ACCESSIBILITY=1
 MOZ_TIME_MANAGER=
 MOZ_AUDIO_CHANNEL_MANAGER=
-MOZ_JETPACK=1
-MOZ_DEVTOOLS_SERVER=1
-MOZ_DEVTOOLS=
 MOZ_PLACES=1
 MOZ_SERVICES_SYNC=1
 MOZ_USERINFO=1
@@ -3748,7 +3745,7 @@ MOZ_ARG_ENABLE_STRING([chrome-compression],
     JAR_COMPRESSION=`echo $enableval | tr A-Z a-z`)
 
 if test -z "$JAR_COMPRESSION"; then
-    JAR_COMPRESSION=brotli
+    JAR_COMPRESSION=deflate
 fi
 
 if test "$JAR_COMPRESSION" != "none" &&
@@ -3780,7 +3777,7 @@ MOZ_ARG_WITH_STRING(chrome-name,
 
 # Default Omni Jar Name
 if test -z "$OMNIJAR_NAME" ; then
-    OMNIJAR_NAME=`echo -en "\x67\x72\x65\x2e\x64\x61\x74"`
+    OMNIJAR_NAME=omni.ja
 fi
 
 MOZ_PACKAGER_FORMAT="$MOZ_CHROME_FILE_FORMAT"
@@ -3795,58 +3792,6 @@ AC_SUBST(OMNIJAR_NAME)
 AC_SUBST(MOZ_OMNIJAR)
 AC_SUBST(MOZ_PACKAGER_FORMAT)
 AC_SUBST(MOZ_CHROME_FILE_FORMAT)
-
-dnl ========================================================
-dnl = Disable Jetpack
-dnl ========================================================
-MOZ_ARG_DISABLE_BOOL(jetpack,
-[  --disable-jetpack         Disable Jetpack Support Code],
-    MOZ_JETPACK=,
-    MOZ_JETPACK=1)
-
-if test -n "$MOZ_JETPACK"; then
-    AC_DEFINE(MOZ_JETPACK)
-fi
-
-AC_SUBST(MOZ_JETPACK)
-
-dnl ========================================================
-dnl = Disable Mozilla Developer Tools (server)
-dnl ========================================================
-MOZ_ARG_DISABLE_BOOL(devtools-server,
-[  --disable-devtools-server         Disable Mozilla Developer Tools (server)],
-    MOZ_DEVTOOLS_SERVER=,
-    MOZ_DEVTOOLS_SERVER=1)
-
-
-
-if test -n "$MOZ_DEVTOOLS_SERVER"; then
-    if test ! -n "$MOZ_JETPACK"; then
-        AC_MSG_ERROR("Jetpack is required to include the Developer Tools Server")
-    fi
-
-    AC_DEFINE(MOZ_DEVTOOLS_SERVER)
-fi
-
-AC_SUBST(MOZ_DEVTOOLS_SERVER)
-
-dnl ========================================================
-dnl = Disable Mozilla Developer Tools (client)
-dnl ========================================================
-MOZ_ARG_ENABLE_BOOL(devtools,
-[  --enable-devtools           Enable Mozilla Developer Tools (client)],
-    MOZ_DEVTOOLS=1,
-    MOZ_DEVTOOLS=)
-
-if test -n "$MOZ_DEVTOOLS"; then
-    if test ! -n "$MOZ_DEVTOOLS_SERVER"; then
-        AC_MSG_ERROR("The Developer Tools Server is required to include the client")
-    fi
-
-    AC_DEFINE(MOZ_DEVTOOLS)
-fi
-
-AC_SUBST(MOZ_DEVTOOLS)
 
 dnl ========================================================
 dnl = Disable nsUserInfo
