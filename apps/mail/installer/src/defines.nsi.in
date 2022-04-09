@@ -16,9 +16,9 @@
 !define AppRegNameMail        "Interlink"
 !define AppRegNameNews        "Interlink (News)"
 
-!define ClientsRegName        "Binary Outcast Interlink"
+!define ClientsRegName        "${BrandFullNameInternal}"
 
-!define BrandShortName        "@MOZ_APP_DISPLAYNAME@"
+!define BrandShortName        "${BrandFullNameInternal}"
 !define BrandFullName         "${BrandFullNameInternal}"
 
 !define CERTIFICATE_NAME            "Mozilla Corporation"
