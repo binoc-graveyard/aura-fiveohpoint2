@@ -3564,15 +3564,13 @@ nsLocalFile::SetNativeLeafName(const nsACString& aLeafName)
 NS_IMETHODIMP
 nsLocalFile::GetNativePath(nsACString& aResult)
 {
-  // Note: As of #3057 this function is a bit of a misnomer as it ignores
-  // clamped code pages and converts to UTF-8 at all times.
-  // This makes it losless but incompatible with filesystems using 
-  // codepage encoding; this should not be an issue on supported Win versions.
+  //NS_WARNING("This API is lossy. Use GetPath !");
   nsAutoString tmp;
   nsresult rv = GetPath(tmp);
   if (NS_SUCCEEDED(rv)) {
-    CopyUTF16toUTF8(tmp, aResult);
+    rv = NS_CopyUnicodeToNative(tmp, aResult);
   }
+
   return rv;
 }
 
