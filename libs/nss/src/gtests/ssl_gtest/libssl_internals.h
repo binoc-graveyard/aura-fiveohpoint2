@@ -49,5 +49,7 @@ SECStatus SSLInt_SetDCAdvertisedSigSchemes(PRFileDesc *fd,
                                            const SSLSignatureScheme *schemes,
                                            uint32_t num_sig_schemes);
 SECStatus SSLInt_RemoveServerCertificates(PRFileDesc *fd);
-
-#endif  // ndef libssl_internals_h_
+SECStatus SSLInt_SetRawEchConfigForRetry(PRFileDesc *fd, const uint8_t *buf,
+                                         size_t len);
+SECStatus SSLInt_ZeroEchConfigIds(PRFileDesc *fd);
+#endif  // ifndef libssl_internals_h_
