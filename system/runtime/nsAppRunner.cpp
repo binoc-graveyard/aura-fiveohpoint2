@@ -1982,13 +1982,8 @@ SelectProfile(nsIProfileLock* *aResult, nsIToolkitProfileService* aProfileSvc, n
     profile->GetRootDir(getter_AddRefs(prefsJSFile));
     prefsJSFile->AppendNative(NS_LITERAL_CSTRING("prefs.js"));
     nsAutoCString pathStr;
-#ifdef XP_WIN
-    prefsJSFile->GetPersistentDescriptor(pathStr);
-#else
     prefsJSFile->GetNativePath(pathStr);
-#endif
     PR_fprintf(PR_STDERR, "Success: created profile '%s' at '%s'\n", arg, pathStr.get());
-
     bool exists;
     prefsJSFile->Exists(&exists);
     if (!exists) {
