@@ -21,6 +21,7 @@
 #include "sslerr.h"
 #include "ssl3ext.h"
 #include "ssl3exthandle.h"
+#include "tls13psk.h"
 #include "tls13subcerts.h"
 #include "prtime.h"
 #include "prinrval.h"
@@ -518,7 +519,7 @@ ssl3_DecodeContentType(int msgType)
             rv = "application_data (23)";
             break;
         case ssl_ct_ack:
-            rv = "ack (25)";
+            rv = "ack (26)";
             break;
         default:
             sprintf(line, "*UNKNOWN* record type! (%d)", msgType);
@@ -783,15 +784,19 @@ ssl_HasCert(const sslSocket *ss, PRUint16 maxVersion, SSLAuthType authType)
  * Both by policy and by having a token that supports it. */
 static PRBool
 ssl_SignatureSchemeAccepted(PRUint16 minVersion,
-                            SSLSignatureScheme scheme)
+                            SSLSignatureScheme scheme,
+                            PRBool forCert)
 {
     /* Disable RSA-PSS schemes if there are no tokens to verify them. */
     if (ssl_IsRsaPssSignatureScheme(scheme)) {
         if (!PK11_TokenExists(auth_alg_defs[ssl_auth_rsa_pss])) {
             return PR_FALSE;
         }
-    } else if (ssl_IsRsaPkcs1SignatureScheme(scheme)) {
-        /* Disable PKCS#1 signatures if we are limited to TLS 1.3. */
+    } else if (!forCert && ssl_IsRsaPkcs1SignatureScheme(scheme)) {
+        /* Disable PKCS#1 signatures if we are limited to TLS 1.3.
+         * We still need to advertise PKCS#1 signatures in CH and CR
+         * for certificate signatures.
+         */
         if (minVersion >= SSL_LIBRARY_VERSION_TLS_1_3) {
             return PR_FALSE;
         }
@@ -850,7 +855,8 @@ ssl_CheckSignatureSchemes(sslSocket *ss)
     /* Ensure that there is a signature scheme that can be accepted.*/
     for (unsigned int i = 0; i < ss->ssl3.signatureSchemeCount; ++i) {
         if (ssl_SignatureSchemeAccepted(ss->vrange.min,
-                                        ss->ssl3.signatureSchemes[i])) {
+                                        ss->ssl3.signatureSchemes[i],
+                                        PR_FALSE /* forCert */)) {
             return SECSuccess;
         }
     }
@@ -879,7 +885,7 @@ ssl_HasSignatureScheme(const sslSocket *ss, SSLAuthType authType)
         PRBool acceptable = authType == schemeAuthType ||
                             (schemeAuthType == ssl_auth_rsa_pss &&
                              authType == ssl_auth_rsa_sign);
-        if (acceptable && ssl_SignatureSchemeAccepted(ss->version, scheme)) {
+        if (acceptable && ssl_SignatureSchemeAccepted(ss->version, scheme, PR_FALSE /* forCert */)) {
             return PR_TRUE;
         }
     }
@@ -910,6 +916,13 @@ ssl3_config_match_init(sslSocket *ss)
         return 0;
     }
     if (SSL_ALL_VERSIONS_DISABLED(&ss->vrange)) {
+        return 0;
+    }
+    if (ss->sec.isServer && ss->psk &&
+        PR_CLIST_IS_EMPTY(&ss->serverCerts) &&
+        (ss->opt.requestCertificate || ss->opt.requireCertificate)) {
+        /* PSK and certificate auth cannot be combined. */
+        PORT_SetError(SSL_ERROR_NO_CERTIFICATE);
         return 0;
     }
     if (ssl_CheckSignatureSchemes(ss) != SECSuccess) {
@@ -1007,6 +1020,16 @@ ssl3_config_match(const ssl3CipherSuiteCfg *suite, PRUint8 policy,
 
     if (ss->sec.isServer && !ssl_HasCert(ss, vrange->max, kea_def->authKeyType)) {
         return PR_FALSE;
+    }
+
+    /* If a PSK is selected, disable suites that use a different hash than
+     * the PSK. We advertise non-PSK-compatible suites in the CH, as we could
+     * fallback to certificate auth. The client handler will check hash
+     * compatibility before committing to use the PSK. */
+    if (ss->xtnData.selectedPsk) {
+        if (ss->xtnData.selectedPsk->hash != cipher_def->prf_hash) {
+            return PR_FALSE;
+        }
     }
 
     return ssl3_CipherSuiteAllowedForVersionRange(suite->cipher_suite, vrange);
@@ -5333,10 +5356,11 @@ ssl3_SendClientHello(sslSocket *ss, sslClientHelloType type)
     }
 
     if (extensionBuf.len) {
-        /* If we are sending a PSK binder, replace the dummy value.  Note that
-         * we only set statelessResume on the client in TLS 1.3. */
-        if (ss->statelessResume &&
-            ss->xtnData.sentSessionTicketInClientHello) {
+        /* If we are sending a PSK binder, replace the dummy value. */
+        if (ssl3_ExtensionAdvertised(ss, ssl_tls13_pre_shared_key_xtn)) {
+            PORT_Assert(ss->psk ||
+                        (ss->statelessResume && ss->xtnData.sentSessionTicketInClientHello));
+            PORT_Assert(!PR_CLIST_IS_EMPTY(&ss->ssl3.hs.psks));
             rv = tls13_WriteExtensionsWithBinder(ss, &extensionBuf);
         } else {
             rv = ssl3_AppendBufferToHandshakeVariable(ss, &extensionBuf, 2);
@@ -6599,7 +6623,7 @@ ssl_CheckServerSessionIdCorrectness(sslSocket *ss, SECItem *sidBytes)
      * fake. Check for the real value. */
     if (sentRealSid) {
         sidMatch = (sidBytes->len == sid->u.ssl3.sessionIDLength) &&
-                   PORT_Memcmp(sid->u.ssl3.sessionID, sidBytes->data, sidBytes->len) == 0;
+                   (!sidBytes->len || PORT_Memcmp(sid->u.ssl3.sessionID, sidBytes->data, sidBytes->len) == 0);
     } else {
         /* Otherwise, the session ID was a fake if TLS 1.3 compat mode is
          * enabled.  If so, check for the fake value. */
@@ -7629,16 +7653,6 @@ ssl3_CompleteHandleCertificateRequest(sslSocket *ss,
             /* check what the callback function returned */
             if ((!ss->ssl3.clientCertificate) || (!ss->ssl3.clientPrivateKey)) {
                 /* we are missing either the key or cert */
-                if (ss->ssl3.clientCertificate) {
-                    /* got a cert, but no key - free it */
-                    CERT_DestroyCertificate(ss->ssl3.clientCertificate);
-                    ss->ssl3.clientCertificate = NULL;
-                }
-                if (ss->ssl3.clientPrivateKey) {
-                    /* got a key, but no cert - free it */
-                    SECKEY_DestroyPrivateKey(ss->ssl3.clientPrivateKey);
-                    ss->ssl3.clientPrivateKey = NULL;
-                }
                 goto send_no_certificate;
             }
             /* Setting ssl3.clientCertChain non-NULL will cause
@@ -7648,22 +7662,33 @@ ssl3_CompleteHandleCertificateRequest(sslSocket *ss,
                 ss->ssl3.clientCertificate,
                 certUsageSSLClient, PR_FALSE);
             if (ss->ssl3.clientCertChain == NULL) {
-                CERT_DestroyCertificate(ss->ssl3.clientCertificate);
-                ss->ssl3.clientCertificate = NULL;
-                SECKEY_DestroyPrivateKey(ss->ssl3.clientPrivateKey);
-                ss->ssl3.clientPrivateKey = NULL;
                 goto send_no_certificate;
             }
             if (ss->ssl3.hs.hashType == handshake_hash_record ||
                 ss->ssl3.hs.hashType == handshake_hash_single) {
                 rv = ssl_PickClientSignatureScheme(ss, signatureSchemes,
                                                    signatureSchemeCount);
+                if (rv != SECSuccess) {
+                    /* This should only happen if our schemes changed or
+                     * if an RSA-PSS cert was selected, but the token
+                     * does not support PSS schemes. */
+                    goto send_no_certificate;
+                }
             }
             break; /* not an error */
 
         case SECFailure:
         default:
         send_no_certificate:
+            CERT_DestroyCertificate(ss->ssl3.clientCertificate);
+            SECKEY_DestroyPrivateKey(ss->ssl3.clientPrivateKey);
+            ss->ssl3.clientCertificate = NULL;
+            ss->ssl3.clientPrivateKey = NULL;
+            if (ss->ssl3.clientCertChain) {
+                CERT_DestroyCertificateList(ss->ssl3.clientCertChain);
+                ss->ssl3.clientCertChain = NULL;
+            }
+
             if (ss->version > SSL_LIBRARY_VERSION_3_0) {
                 ss->ssl3.sendEmptyCert = PR_TRUE;
             } else {
@@ -8105,26 +8130,53 @@ ssl3_KEASupportsTickets(const ssl3KEADef *kea_def)
     return PR_TRUE;
 }
 
+static PRBool
+ssl3_PeerSupportsCipherSuite(const SECItem *peerSuites, uint16_t suite)
+{
+    for (unsigned int i = 0; i + 1 < peerSuites->len; i += 2) {
+        PRUint16 suite_i = (peerSuites->data[i] << 8) | peerSuites->data[i + 1];
+        if (suite_i == suite) {
+            return PR_TRUE;
+        }
+    }
+    return PR_FALSE;
+}
+
 SECStatus
 ssl3_NegotiateCipherSuiteInner(sslSocket *ss, const SECItem *suites,
                                PRUint16 version, PRUint16 *suitep)
 {
-    unsigned int j;
     unsigned int i;
+    SSLVersionRange vrange = { version, version };
 
-    for (j = 0; j < ssl_V3_SUITES_IMPLEMENTED; j++) {
-        ssl3CipherSuiteCfg *suite = &ss->cipherSuites[j];
-        SSLVersionRange vrange = { version, version };
+    /* If we negotiated an External PSK and that PSK has a ciphersuite
+     * configured, we need to constrain our choice. If the client does
+     * not support it, negotiate a certificate auth suite and fall back.
+     */
+    if (ss->version >= SSL_LIBRARY_VERSION_TLS_1_3 &&
+        ss->xtnData.selectedPsk &&
+        ss->xtnData.selectedPsk->type == ssl_psk_external &&
+        ss->xtnData.selectedPsk->zeroRttSuite != TLS_NULL_WITH_NULL_NULL) {
+        PRUint16 pskSuite = ss->xtnData.selectedPsk->zeroRttSuite;
+        ssl3CipherSuiteCfg *pskSuiteCfg = ssl_LookupCipherSuiteCfgMutable(pskSuite,
+                                                                          ss->cipherSuites);
+        if (ssl3_config_match(pskSuiteCfg, ss->ssl3.policy, &vrange, ss) &&
+            ssl3_PeerSupportsCipherSuite(suites, pskSuite)) {
+            *suitep = pskSuite;
+            return SECSuccess;
+        }
+    }
+
+    for (i = 0; i < ssl_V3_SUITES_IMPLEMENTED; i++) {
+        ssl3CipherSuiteCfg *suite = &ss->cipherSuites[i];
         if (!ssl3_config_match(suite, ss->ssl3.policy, &vrange, ss)) {
             continue;
         }
-        for (i = 0; i + 1 < suites->len; i += 2) {
-            PRUint16 suite_i = (suites->data[i] << 8) | suites->data[i + 1];
-            if (suite_i == suite->cipher_suite) {
-                *suitep = suite_i;
-                return SECSuccess;
-            }
+        if (!ssl3_PeerSupportsCipherSuite(suites, suite->cipher_suite)) {
+            continue;
         }
+        *suitep = suite->cipher_suite;
+        return SECSuccess;
     }
     PORT_SetError(SSL_ERROR_NO_CYPHER_OVERLAP);
     return SECFailure;
@@ -9757,12 +9809,13 @@ ssl3_SendServerKeyExchange(sslSocket *ss)
 }
 
 SECStatus
-ssl3_EncodeSigAlgs(const sslSocket *ss, PRUint16 minVersion, sslBuffer *buf)
+ssl3_EncodeSigAlgs(const sslSocket *ss, PRUint16 minVersion, PRBool forCert,
+                   sslBuffer *buf)
 {
     SSLSignatureScheme filtered[MAX_SIGNATURE_SCHEMES] = { 0 };
     unsigned int filteredCount = 0;
 
-    SECStatus rv = ssl3_FilterSigAlgs(ss, minVersion, PR_FALSE,
+    SECStatus rv = ssl3_FilterSigAlgs(ss, minVersion, PR_FALSE, forCert,
                                       PR_ARRAY_SIZE(filtered),
                                       filtered, &filteredCount);
     if (rv != SECSuccess) {
@@ -9797,8 +9850,21 @@ ssl3_EncodeFilteredSigAlgs(const sslSocket *ss, const SSLSignatureScheme *scheme
     return sslBuffer_InsertLength(buf, lengthOffset, 2);
 }
 
+/*
+ * In TLS 1.3 we are permitted to advertise support for PKCS#1
+ * schemes. This doesn't affect the signatures in TLS itself, just
+ * those on certificates. Not advertising PKCS#1 signatures creates a
+ * serious compatibility risk as it excludes many certificate chains
+ * that include PKCS#1. Hence, forCert is used to enable advertising
+ * PKCS#1 support. Note that we include these in signature_algorithms
+ * because we don't yet support signature_algorithms_cert. TLS 1.3
+ * requires that PKCS#1 schemes are placed last in the list if they
+ * are present. This sorting can be removed once we support
+ * signature_algorithms_cert.
+ */
 SECStatus
 ssl3_FilterSigAlgs(const sslSocket *ss, PRUint16 minVersion, PRBool disableRsae,
+                   PRBool forCert,
                    unsigned int maxSchemes, SSLSignatureScheme *filteredSchemes,
                    unsigned int *numFilteredSchemes)
 {
@@ -9810,13 +9876,30 @@ ssl3_FilterSigAlgs(const sslSocket *ss, PRUint16 minVersion, PRBool disableRsae,
     }
 
     *numFilteredSchemes = 0;
+    PRBool allowUnsortedPkcs1 = forCert && minVersion < SSL_LIBRARY_VERSION_TLS_1_3;
     for (unsigned int i = 0; i < ss->ssl3.signatureSchemeCount; ++i) {
         if (disableRsae && ssl_IsRsaeSignatureScheme(ss->ssl3.signatureSchemes[i])) {
             continue;
         }
         if (ssl_SignatureSchemeAccepted(minVersion,
-                                        ss->ssl3.signatureSchemes[i])) {
+                                        ss->ssl3.signatureSchemes[i],
+                                        allowUnsortedPkcs1)) {
             filteredSchemes[(*numFilteredSchemes)++] = ss->ssl3.signatureSchemes[i];
+        }
+    }
+    if (forCert && !allowUnsortedPkcs1) {
+        for (unsigned int i = 0; i < ss->ssl3.signatureSchemeCount; ++i) {
+            if (disableRsae && ssl_IsRsaeSignatureScheme(ss->ssl3.signatureSchemes[i])) {
+                continue;
+            }
+            if (!ssl_SignatureSchemeAccepted(minVersion,
+                                             ss->ssl3.signatureSchemes[i],
+                                             PR_FALSE) &&
+                ssl_SignatureSchemeAccepted(minVersion,
+                                            ss->ssl3.signatureSchemes[i],
+                                            PR_TRUE)) {
+                filteredSchemes[(*numFilteredSchemes)++] = ss->ssl3.signatureSchemes[i];
+            }
         }
     }
     return SECSuccess;
@@ -9855,7 +9938,7 @@ ssl3_SendCertificateRequest(sslSocket *ss)
 
     length = 1 + certTypesLength + 2 + calen;
     if (isTLS12) {
-        rv = ssl3_EncodeSigAlgs(ss, ss->version, &sigAlgsBuf);
+        rv = ssl3_EncodeSigAlgs(ss, ss->version, PR_TRUE /* forCert */, &sigAlgsBuf);
         if (rv != SECSuccess) {
             return rv;
         }
@@ -11216,6 +11299,8 @@ static SECStatus ssl3_FinishHandshake(sslSocket *ss);
 static SECStatus
 ssl3_AlwaysFail(sslSocket *ss)
 {
+    /* The caller should have cleared the callback. */
+    ss->ssl3.hs.restartTarget = ssl3_AlwaysFail;
     PORT_SetError(PR_INVALID_STATE_ERROR);
     return SECFailure;
 }
@@ -11651,7 +11736,6 @@ ssl3_CacheWrappedSecret(sslSocket *ss, sslSessionID *sid,
 static SECStatus
 ssl3_HandleFinished(sslSocket *ss, PRUint8 *b, PRUint32 length)
 {
-    sslSessionID *sid = ss->sec.ci.sid;
     SECStatus rv = SECSuccess;
     PRBool isServer = ss->sec.isServer;
     PRBool isTLS;
@@ -11795,15 +11879,6 @@ xmit_loser:
         return rv;
     }
 
-    if (sid->cached == never_cached && !ss->opt.noCache) {
-        rv = ssl3_FillInCachedSID(ss, sid, ss->ssl3.crSpec->masterSecret);
-
-        /* If the wrap failed, we don't cache the sid.
-         * The connection continues normally however.
-         */
-        ss->ssl3.hs.cacheSID = rv == SECSuccess;
-    }
-
     if (ss->ssl3.hs.authCertificatePending) {
         if (ss->ssl3.hs.restartTarget) {
             PR_NOT_REACHED("ssl3_HandleFinished: unexpected restartTarget");
@@ -11868,33 +11943,45 @@ ssl3_FinishHandshake(sslSocket *ss)
     PORT_Assert(ss->opt.noLocks || ssl_HaveRecvBufLock(ss));
     PORT_Assert(ss->opt.noLocks || ssl_HaveSSL3HandshakeLock(ss));
     PORT_Assert(ss->ssl3.hs.restartTarget == NULL);
+    sslSessionID *sid = ss->sec.ci.sid;
+    SECStatus sidRv = SECFailure;
 
     /* The first handshake is now completed. */
     ss->handshake = NULL;
 
+    if (sid->cached == never_cached && !ss->opt.noCache) {
+        /* If the wrap fails, don't cache the sid. The connection proceeds
+         * normally, so the rv is only used to determine whether we cache. */
+        sidRv = ssl3_FillInCachedSID(ss, sid, ss->ssl3.crSpec->masterSecret);
+    }
+
     /* RFC 5077 Section 3.3: "The client MUST NOT treat the ticket as valid
-     * until it has verified the server's Finished message." When the server
-     * sends a NewSessionTicket in a resumption handshake, we must wait until
-     * the handshake is finished (we have verified the server's Finished
-     * AND the server's certificate) before we update the ticket in the sid.
-     *
-     * This must be done before we call ssl_CacheSessionID(ss)
-     * because CacheSID requires the session ticket to already be set, and also
-     * because of the lazy lock creation scheme used by CacheSID and
-     * ssl3_SetSIDSessionTicket.
-     */
+    * until it has verified the server's Finished message." When the server
+    * sends a NewSessionTicket in a resumption handshake, we must wait until
+    * the handshake is finished (we have verified the server's Finished
+    * AND the server's certificate) before we update the ticket in the sid.
+    *
+    * This must be done before we call ssl_CacheSessionID(ss)
+    * because CacheSID requires the session ticket to already be set, and also
+    * because of the lazy lock creation scheme used by CacheSID and
+    * ssl3_SetSIDSessionTicket. */
     if (ss->ssl3.hs.receivedNewSessionTicket) {
         PORT_Assert(!ss->sec.isServer);
-        ssl3_SetSIDSessionTicket(ss->sec.ci.sid, &ss->ssl3.hs.newSessionTicket);
-        /* The sid took over the ticket data */
+        if (sidRv == SECSuccess) {
+            /* The sid takes over the ticket data */
+            ssl3_SetSIDSessionTicket(ss->sec.ci.sid,
+                                     &ss->ssl3.hs.newSessionTicket);
+        } else {
+            PORT_Assert(ss->ssl3.hs.newSessionTicket.ticket.data);
+            SECITEM_FreeItem(&ss->ssl3.hs.newSessionTicket.ticket,
+                             PR_FALSE);
+        }
         PORT_Assert(!ss->ssl3.hs.newSessionTicket.ticket.data);
         ss->ssl3.hs.receivedNewSessionTicket = PR_FALSE;
     }
-
-    if (ss->ssl3.hs.cacheSID) {
+    if (sidRv == SECSuccess) {
         PORT_Assert(ss->sec.ci.sid->cached == never_cached);
         ssl_CacheSessionID(ss);
-        ss->ssl3.hs.cacheSID = PR_FALSE;
     }
 
     ss->ssl3.hs.canFalseStart = PR_FALSE; /* False Start phase is complete */
@@ -12974,12 +13061,18 @@ ssl3_HandleRecord(sslSocket *ss, SSL3Ciphertext *cText)
             ss->ssl3.hs.ws != idle_handshake &&
             cText->buf->len == 1 &&
             cText->buf->buf[0] == change_cipher_spec_choice) {
-            /* Ignore the CCS. */
-            return SECSuccess;
+            if (!ss->ssl3.hs.rejectCcs) {
+                /* Allow only the first CCS. */
+                ss->ssl3.hs.rejectCcs = PR_TRUE;
+                return SECSuccess;
+            } else {
+                alert = unexpected_message;
+                PORT_SetError(SSL_ERROR_RX_MALFORMED_CHANGE_CIPHER);
+            }
         }
 
-        if (IS_DTLS(ss) ||
-            (ss->sec.isServer &&
+        if ((IS_DTLS(ss) && !dtls13_AeadLimitReached(spec)) ||
+            (!IS_DTLS(ss) && ss->sec.isServer &&
              ss->ssl3.hs.zeroRttIgnore == ssl_0rtt_ignore_trial)) {
             /* Silently drop the packet unless we sent a fatal alert. */
             if (ss->ssl3.fatalAlertSent) {
@@ -13102,7 +13195,6 @@ ssl3_InitState(sslSocket *ss)
     ss->ssl3.hs.currentSecret = NULL;
     ss->ssl3.hs.resumptionMasterSecret = NULL;
     ss->ssl3.hs.dheSecret = NULL;
-    ss->ssl3.hs.pskBinderKey = NULL;
     ss->ssl3.hs.clientEarlyTrafficSecret = NULL;
     ss->ssl3.hs.clientHsTrafficSecret = NULL;
     ss->ssl3.hs.serverHsTrafficSecret = NULL;
@@ -13476,8 +13568,6 @@ ssl3_DestroySSL3Info(sslSocket *ss)
         PK11_FreeSymKey(ss->ssl3.hs.resumptionMasterSecret);
     if (ss->ssl3.hs.dheSecret)
         PK11_FreeSymKey(ss->ssl3.hs.dheSecret);
-    if (ss->ssl3.hs.pskBinderKey)
-        PK11_FreeSymKey(ss->ssl3.hs.pskBinderKey);
     if (ss->ssl3.hs.clientEarlyTrafficSecret)
         PK11_FreeSymKey(ss->ssl3.hs.clientEarlyTrafficSecret);
     if (ss->ssl3.hs.clientHsTrafficSecret)
@@ -13496,6 +13586,63 @@ ssl3_DestroySSL3Info(sslSocket *ss)
     ss->ssl3.hs.zeroRttState = ssl_0rtt_none;
     /* Destroy TLS 1.3 buffered early data. */
     tls13_DestroyEarlyData(&ss->ssl3.hs.bufferedEarlyData);
+    /* Destroy TLS 1.3 PSKs */
+    tls13_DestroyPskList(&ss->ssl3.hs.psks);
+}
+
+/*
+ * parse the policy value for a single algorithm in a cipher_suite,
+ *   return TRUE if we disallow by the cipher suite by policy
+ *   (we don't have to parse any more algorithm policies on this cipher suite),
+ *  otherwise return FALSE.
+ *   1. If we don't have the required policy, disable by default, disallow by
+ *      policy and return TRUE (no more processing needed).
+ *   2. If we have the required policy, and we are disabled, return FALSE,
+ *      (if we are disabled, we only need to parse policy, not default).
+ *   3. If we have the required policy, and we aren't adjusting the defaults
+ *      return FALSE. (only parsing the policy, not default).
+ *   4. We have the required policy and we are adjusting the defaults.
+ *      If we are setting default = FALSE, set isDisabled to true so that
+ *      we don't try to re-enable the cipher suite based on a different
+ *      algorithm.
+ */
+PRBool
+ssl_HandlePolicy(int cipher_suite, SECOidTag policyOid,
+                 PRUint32 requiredPolicy, PRBool *isDisabled)
+{
+    PRUint32 policy;
+    SECStatus rv;
+
+    /* first fetch the policy for this algorithm */
+    rv = NSS_GetAlgorithmPolicy(policyOid, &policy);
+    if (rv != SECSuccess) {
+        return PR_FALSE; /* no policy value, continue to the next algorithm */
+    }
+    /* first, are we allowed by policy, if not turn off allow and disable */
+    if (!(policy & requiredPolicy)) {
+        ssl_CipherPrefSetDefault(cipher_suite, PR_FALSE);
+        ssl_CipherPolicySet(cipher_suite, SSL_NOT_ALLOWED);
+        return PR_TRUE;
+    }
+    /* If we are already disabled, or the policy isn't setting a default
+     * we are done processing this algorithm */
+    if (*isDisabled || (policy & NSS_USE_DEFAULT_NOT_VALID)) {
+        return PR_FALSE;
+    }
+    /* set the default value for the cipher suite. If we disable the cipher
+     * suite, remember that so we don't process the next default. This has
+     * the effect of disabling the whole cipher suite if any of the
+     * algorithms it uses are disabled by default. We still have to
+     * process the upper level because the cipher suite is still allowed
+     * by policy, and we may still have to disallow it based on other
+     * algorithms in the cipher suite. */
+    if (policy & NSS_USE_DEFAULT_SSL_ENABLE) {
+        ssl_CipherPrefSetDefault(cipher_suite, PR_TRUE);
+    } else {
+        *isDisabled = PR_TRUE;
+        ssl_CipherPrefSetDefault(cipher_suite, PR_FALSE);
+    }
+    return PR_FALSE;
 }
 
 #define MAP_NULL(x) (((x) != 0) ? (x) : SEC_OID_NULL_CIPHER)
@@ -13516,30 +13663,30 @@ ssl3_ApplyNSSPolicy(void)
     for (i = 1; i < PR_ARRAY_SIZE(cipher_suite_defs); ++i) {
         const ssl3CipherSuiteDef *suite = &cipher_suite_defs[i];
         SECOidTag policyOid;
+        PRBool isDisabled = PR_FALSE;
 
+        /* if we haven't explicitly disabled it below enable by policy */
+        ssl_CipherPolicySet(suite->cipher_suite, SSL_ALLOWED);
+
+        /* now check the various key exchange, ciphers and macs and
+         * if we ever disallow by policy, we are done, go to the next cipher
+         */
         policyOid = MAP_NULL(kea_defs[suite->key_exchange_alg].oid);
-        rv = NSS_GetAlgorithmPolicy(policyOid, &policy);
-        if (rv == SECSuccess && !(policy & NSS_USE_ALG_IN_SSL_KX)) {
-            ssl_CipherPrefSetDefault(suite->cipher_suite, PR_FALSE);
-            ssl_CipherPolicySet(suite->cipher_suite, SSL_NOT_ALLOWED);
+        if (ssl_HandlePolicy(suite->cipher_suite, policyOid,
+                             NSS_USE_ALG_IN_SSL_KX, &isDisabled)) {
             continue;
         }
 
         policyOid = MAP_NULL(ssl_GetBulkCipherDef(suite)->oid);
-        rv = NSS_GetAlgorithmPolicy(policyOid, &policy);
-        if (rv == SECSuccess && !(policy & NSS_USE_ALG_IN_SSL)) {
-            ssl_CipherPrefSetDefault(suite->cipher_suite, PR_FALSE);
-            ssl_CipherPolicySet(suite->cipher_suite, SSL_NOT_ALLOWED);
+        if (ssl_HandlePolicy(suite->cipher_suite, policyOid,
+                             NSS_USE_ALG_IN_SSL, &isDisabled)) {
             continue;
         }
 
         if (ssl_GetBulkCipherDef(suite)->type != type_aead) {
             policyOid = MAP_NULL(ssl_GetMacDefByAlg(suite->mac_alg)->oid);
-            rv = NSS_GetAlgorithmPolicy(policyOid, &policy);
-            if (rv == SECSuccess && !(policy & NSS_USE_ALG_IN_SSL)) {
-                ssl_CipherPrefSetDefault(suite->cipher_suite, PR_FALSE);
-                ssl_CipherPolicySet(suite->cipher_suite,
-                                    SSL_NOT_ALLOWED);
+            if (ssl_HandlePolicy(suite->cipher_suite, policyOid,
+                                 NSS_USE_ALG_IN_SSL, &isDisabled)) {
                 continue;
             }
         }
