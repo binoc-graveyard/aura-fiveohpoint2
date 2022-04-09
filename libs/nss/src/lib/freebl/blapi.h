@@ -380,6 +380,9 @@ extern SECStatus KEA_Derive(SECItem *prime,
  */
 extern PRBool KEA_Verify(SECItem *Y, SECItem *prime, SECItem *subPrime);
 
+/* verify a value is prime */
+PRBool KEA_PrimeCheck(SECItem *prime);
+
 /****************************************
  * J-PAKE key transport
  */
@@ -1037,6 +1040,26 @@ extern SECStatus
 Camellia_Decrypt(CamelliaContext *cx, unsigned char *output,
                  unsigned int *outputLen, unsigned int maxOutputLen,
                  const unsigned char *input, unsigned int inputLen);
+
+/******************************************/
+/*
+** ChaCha20 block cipher
+*/
+
+extern SECStatus ChaCha20_InitContext(ChaCha20Context *ctx,
+                                      const unsigned char *key,
+                                      unsigned int keyLen,
+                                      const unsigned char *nonce,
+                                      unsigned int nonceLen,
+                                      PRUint32 ctr);
+
+extern ChaCha20Context *ChaCha20_CreateContext(const unsigned char *key,
+                                               unsigned int keyLen,
+                                               const unsigned char *nonce,
+                                               unsigned int nonceLen,
+                                               PRUint32 ctr);
+
+extern void ChaCha20_DestroyContext(ChaCha20Context *ctx, PRBool freeit);
 
 /******************************************/
 /*

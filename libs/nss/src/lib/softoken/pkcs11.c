@@ -392,15 +392,17 @@ static const struct mechanismList mechanisms[] = {
     { CKM_CAMELLIA_MAC, { 16, 32, CKF_SN_VR }, PR_TRUE },
     { CKM_CAMELLIA_MAC_GENERAL, { 16, 32, CKF_SN_VR }, PR_TRUE },
     { CKM_CAMELLIA_CBC_PAD, { 16, 32, CKF_EN_DE_WR_UN }, PR_TRUE },
-    /* ------------------------- SEED Operations --------------------------- */
+/* ------------------------- SEED Operations --------------------------- */
+#ifndef NSS_DISABLE_DEPRECATED_SEED
     { CKM_SEED_KEY_GEN, { 16, 16, CKF_GENERATE }, PR_TRUE },
     { CKM_SEED_ECB, { 16, 16, CKF_EN_DE_WR_UN }, PR_TRUE },
     { CKM_SEED_CBC, { 16, 16, CKF_EN_DE_WR_UN }, PR_TRUE },
     { CKM_SEED_MAC, { 16, 16, CKF_SN_VR }, PR_TRUE },
     { CKM_SEED_MAC_GENERAL, { 16, 16, CKF_SN_VR }, PR_TRUE },
     { CKM_SEED_CBC_PAD, { 16, 16, CKF_EN_DE_WR_UN }, PR_TRUE },
+#endif
+/* ------------------------- ChaCha20 Operations ---------------------- */
 #ifndef NSS_DISABLE_CHACHAPOLY
-    /* ------------------------- ChaCha20 Operations ---------------------- */
     { CKM_NSS_CHACHA20_KEY_GEN, { 32, 32, CKF_GENERATE }, PR_TRUE },
     { CKM_NSS_CHACHA20_POLY1305, { 32, 32, CKF_EN_DE }, PR_TRUE },
     { CKM_NSS_CHACHA20_CTR, { 32, 32, CKF_EN_DE }, PR_TRUE },
@@ -495,9 +497,10 @@ static const struct mechanismList mechanisms[] = {
     { CKM_AES_CBC_ENCRYPT_DATA, { 1, 32, CKF_DERIVE }, PR_FALSE },
     { CKM_CAMELLIA_ECB_ENCRYPT_DATA, { 1, 32, CKF_DERIVE }, PR_FALSE },
     { CKM_CAMELLIA_CBC_ENCRYPT_DATA, { 1, 32, CKF_DERIVE }, PR_FALSE },
+#ifndef NSS_DISABLE_DEPRECATED_SEED
     { CKM_SEED_ECB_ENCRYPT_DATA, { 1, 32, CKF_DERIVE }, PR_FALSE },
     { CKM_SEED_CBC_ENCRYPT_DATA, { 1, 32, CKF_DERIVE }, PR_FALSE },
-
+#endif
     /* ---------------------- SSL Key Derivations ------------------------- */
     { CKM_SSL3_PRE_MASTER_KEY_GEN, { 48, 48, CKF_GENERATE }, PR_FALSE },
     { CKM_SSL3_MASTER_KEY_DERIVE, { 48, 48, CKF_DERIVE }, PR_FALSE },
@@ -1192,6 +1195,11 @@ sftk_handlePrivateKeyObject(SFTKSession *session, SFTKObject *object, CK_KEY_TYP
             }
             if (!sftk_hasAttribute(object, CKA_VALUE)) {
                 return CKR_TEMPLATE_INCOMPLETE;
+            }
+            /* allow subprime to be set after the fact */
+            crv = sftk_defaultAttribute(object, CKA_SUBPRIME, NULL, 0);
+            if (crv != CKR_OK) {
+                return crv;
             }
             encrypt = CK_FALSE;
             recover = CK_FALSE;
@@ -2605,7 +2613,7 @@ SFTKSlot *
 sftk_SlotFromID(CK_SLOT_ID slotID, PRBool all)
 {
     SFTKSlot *slot;
-    int index = sftk_GetModuleIndex(slotID);
+    unsigned int index = sftk_GetModuleIndex(slotID);
 
     if (nscSlotHashTable[index] == NULL)
         return NULL;
@@ -2636,7 +2644,7 @@ sftk_SlotFromSessionHandle(CK_SESSION_HANDLE handle)
 }
 
 static CK_RV
-sftk_RegisterSlot(SFTKSlot *slot, int moduleIndex)
+sftk_RegisterSlot(SFTKSlot *slot, unsigned int moduleIndex)
 {
     PLHashEntry *entry;
     unsigned int index;
@@ -2712,7 +2720,8 @@ sftk_RegisterSlot(SFTKSlot *slot, int moduleIndex)
  */
 CK_RV
 SFTK_SlotReInit(SFTKSlot *slot, char *configdir, char *updatedir,
-                char *updateID, sftk_token_parameters *params, int moduleIndex)
+                char *updateID, sftk_token_parameters *params,
+                unsigned int moduleIndex)
 {
     PRBool needLogin = !params->noKeyDB;
     CK_RV crv;
@@ -2788,7 +2797,7 @@ loser:
  */
 CK_RV
 SFTK_SlotInit(char *configdir, char *updatedir, char *updateID,
-              sftk_token_parameters *params, int moduleIndex)
+              sftk_token_parameters *params, unsigned int moduleIndex)
 {
     unsigned int i;
     CK_SLOT_ID slotID = params->slotID;
@@ -3169,7 +3178,7 @@ loser:
 }
 
 static void
-nscFreeAllSlots(int moduleIndex)
+nscFreeAllSlots(unsigned int moduleIndex)
 {
     /* free all the slots */
     SFTKSlot *slot = NULL;
@@ -3213,7 +3222,7 @@ sftk_closePeer(PRBool isFIPS)
 {
     CK_SLOT_ID slotID = isFIPS ? PRIVATE_KEY_SLOT_ID : FIPS_SLOT_ID;
     SFTKSlot *slot;
-    int moduleIndex = isFIPS ? NSC_NON_FIPS_MODULE : NSC_FIPS_MODULE;
+    unsigned int moduleIndex = isFIPS ? NSC_NON_FIPS_MODULE : NSC_FIPS_MODULE;
     PLHashTable *tmpSlotHashTable = nscSlotHashTable[moduleIndex];
 
     slot = (SFTKSlot *)PL_HashTableLookup(tmpSlotHashTable, (void *)slotID);
@@ -3235,7 +3244,7 @@ nsc_CommonInitialize(CK_VOID_PTR pReserved, PRBool isFIPS)
     SECStatus rv;
     CK_C_INITIALIZE_ARGS *init_args = (CK_C_INITIALIZE_ARGS *)pReserved;
     int i;
-    int moduleIndex = isFIPS ? NSC_FIPS_MODULE : NSC_NON_FIPS_MODULE;
+    unsigned int moduleIndex = isFIPS ? NSC_FIPS_MODULE : NSC_NON_FIPS_MODULE;
 
     if (isFIPS) {
         loginWaitTime = PR_SecondsToInterval(1);
@@ -3539,7 +3548,8 @@ NSC_GetInfoV2(CK_INFO_PTR pInfo)
 /* NSC_GetSlotList obtains a list of slots in the system. */
 CK_RV
 nsc_CommonGetSlotList(CK_BBOOL tokenPresent,
-                      CK_SLOT_ID_PTR pSlotList, CK_ULONG_PTR pulCount, int moduleIndex)
+                      CK_SLOT_ID_PTR pSlotList, CK_ULONG_PTR pulCount,
+                      unsigned int moduleIndex)
 {
     *pulCount = nscSlotCount[moduleIndex];
     if (pSlotList != NULL) {
@@ -3657,11 +3667,11 @@ NSC_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
     PORT_Memcpy(pInfo->serialNumber, "0000000000000000", 16);
     PORT_Memcpy(pInfo->utcTime, "0000000000000000", 16);
     pInfo->ulMaxSessionCount = 0;   /* arbitrarily large */
-    pInfo->ulMaxRwSessionCount = 0; /* arbitrarily large */
+    pInfo->ulMaxRwSessionCount = 0; /* arbitarily large */
     PZ_Lock(slot->slotLock);        /* Protect sessionCount / rwSessioncount */
     pInfo->ulSessionCount = slot->sessionCount;
     pInfo->ulRwSessionCount = slot->rwSessionCount;
-    PZ_Unlock(slot->slotLock);      /* Unlock before sftk_getKeyDB */
+    PZ_Unlock(slot->slotLock); /* Unlock before sftk_getKeyDB */
     pInfo->firmwareVersion.major = 0;
     pInfo->firmwareVersion.minor = 0;
     PORT_Memcpy(pInfo->label, slot->tokDescription, sizeof(pInfo->label));
@@ -4481,7 +4491,7 @@ sftk_CreateNewSlot(SFTKSlot *slot, CK_OBJECT_CLASS class,
     PRBool isValidFIPSUserSlot = PR_FALSE;
     PRBool isValidSlot = PR_FALSE;
     PRBool isFIPS = PR_FALSE;
-    unsigned long moduleIndex = NSC_NON_FIPS_MODULE;
+    unsigned int moduleIndex = NSC_NON_FIPS_MODULE;
     SFTKAttribute *attribute;
     sftk_parameters paramStrings;
     char *paramString;

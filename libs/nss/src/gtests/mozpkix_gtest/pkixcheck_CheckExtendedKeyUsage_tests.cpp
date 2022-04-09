@@ -474,7 +474,7 @@ static const EKUTestcase EKU_TESTCASES[] =
   DOUBLE_EKU_FAILURE(tlv_unknownOID, tlv_anyExtendedKeyUsage, KeyPurposeId::id_kp_OCSPSigning),
 };
 
-INSTANTIATE_TEST_CASE_P(pkixcheck_CheckExtendedKeyUsage,
+INSTANTIATE_TEST_SUITE_P(pkixcheck_CheckExtendedKeyUsage,
                         CheckExtendedKeyUsageTest,
                         ::testing::ValuesIn(EKU_TESTCASES));
 
@@ -558,8 +558,8 @@ private:
     return checker.Check(derCert, nullptr, keepGoing);
   }
 
-  Result CheckRevocation(EndEntityOrCA, const CertID&, Time, Time, Duration,
-                         const Input*, const Input*) override
+  Result CheckRevocation(EndEntityOrCA, const CertID&, Time, Duration,
+                         const Input*, const Input*, const Input*) override
   {
     return Success;
   }
@@ -717,6 +717,6 @@ static const EKUChainTestcase EKU_CHAIN_TESTCASES[] =
   },
 };
 
-INSTANTIATE_TEST_CASE_P(pkixcheck_CheckExtendedKeyUsage,
+INSTANTIATE_TEST_SUITE_P(pkixcheck_CheckExtendedKeyUsage,
                         CheckExtendedKeyUsageChainTest,
                         ::testing::ValuesIn(EKU_CHAIN_TESTCASES));

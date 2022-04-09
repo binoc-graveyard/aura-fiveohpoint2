@@ -4,6 +4,9 @@
 /*
  * Deal with PKCS #11 Slots.
  */
+
+#include <stddef.h>
+
 #include "seccomon.h"
 #include "secmod.h"
 #include "nssilock.h"
@@ -1102,16 +1105,16 @@ PK11_MakeString(PLArenaPool *arena, char *space,
  */
 PRBool
 pk11_MatchString(const char *string,
-                 const char *staticString, int staticStringLen)
+                 const char *staticString, size_t staticStringLen)
 {
-    int i;
+    size_t i = staticStringLen;
 
-    for (i = (staticStringLen - 1); i >= 0; i--) {
-        if (staticString[i] != ' ')
-            break;
-    }
     /* move i to point to the last space */
-    i++;
+    while (i > 0) {
+        if (staticString[i - 1] != ' ')
+            break;
+        i--;
+    }
 
     if (strlen(string) == i && memcmp(string, staticString, i) == 0) {
         return PR_TRUE;
@@ -1182,7 +1185,7 @@ pk11_ReadProfileList(PK11SlotInfo *slot)
     CK_ATTRIBUTE *attrs;
     CK_BBOOL cktrue = CK_TRUE;
     CK_OBJECT_CLASS oclass = CKO_PROFILE;
-    int tsize;
+    size_t tsize;
     int objCount;
     CK_OBJECT_HANDLE *handles = NULL;
     int i;
@@ -1366,10 +1369,9 @@ PK11_InitToken(PK11SlotInfo *slot, PRBool loadCerts)
     if (status != PR_SUCCESS)
         return SECFailure;
 
-    rv = pk11_ReadProfileList(slot);
-    if (rv != SECSuccess) {
-        return SECFailure;
-    }
+    /* Not all tokens have profile objects or even recognize what profile
+     * objects are it's OK for pk11_ReadProfileList to fail */
+    (void)pk11_ReadProfileList(slot);
 
     if (!(slot->isInternal) && (slot->hasRandom)) {
         /* if this slot has a random number generater, use it to add entropy
@@ -1484,7 +1486,7 @@ pk11_isRootSlot(PK11SlotInfo *slot)
     CK_ATTRIBUTE findTemp[1];
     CK_ATTRIBUTE *attrs;
     CK_OBJECT_CLASS oclass = CKO_NSS_BUILTIN_ROOT_LIST;
-    int tsize;
+    size_t tsize;
     CK_OBJECT_HANDLE handle;
 
     attrs = findTemp;
@@ -2613,7 +2615,7 @@ SECStatus
 PK11_ResetToken(PK11SlotInfo *slot, char *sso_pwd)
 {
     unsigned char tokenName[32];
-    int tokenNameLen;
+    size_t tokenNameLen;
     CK_RV crv;
 
     /* reconstruct the token name */
@@ -2647,8 +2649,12 @@ PK11_ResetToken(PK11SlotInfo *slot, char *sso_pwd)
         PORT_SetError(PK11_MapError(crv));
         return SECFailure;
     }
-    nssTrustDomain_UpdateCachedTokenCerts(slot->nssToken->trustDomain,
-                                          slot->nssToken);
+    if (slot->nssToken) {
+        NSSToken *token = nssToken_AddRef(slot->nssToken);
+        nssTrustDomain_UpdateCachedTokenCerts(token->trustDomain,
+                                              token);
+        nssToken_Destroy(token);
+    }
     return SECSuccess;
 }
 void

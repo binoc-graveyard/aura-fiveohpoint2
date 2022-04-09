@@ -112,6 +112,7 @@ CERT_GetCertChainFromCert
 CERT_GetCertEmailAddress
 CERT_GetCertificateDer
 CERT_GetCertificateRequestExtensions
+CERT_GetCertIsPerm
 CERT_GetCertKeyType
 CERT_GetCertTimes
 CERT_GetCertTrust
@@ -158,6 +159,7 @@ CERT_TimeChoiceTemplate @DATA@
 CERT_VerifyCertificate
 CERT_VerifySignedDataWithPublicKeyInfo
 DER_AsciiToTime_Util
+DER_DecodeTimeChoice
 DER_DecodeTimeChoice_Util
 DER_Encode
 DER_EncodeTimeChoice_Util
@@ -257,6 +259,7 @@ NSS_Get_SEC_IA5StringTemplate_Util
 NSS_Get_SEC_IntegerTemplate
 NSS_Get_SEC_IntegerTemplate_Util
 NSS_Get_SECKEY_RSAPSSParamsTemplate
+NSS_Get_SECKEY_EncryptedPrivateKeyInfoTemplate
 NSS_Get_SEC_NullTemplate_Util
 NSS_Get_SEC_ObjectIDTemplate_Util
 NSS_Get_SEC_OctetStringTemplate
@@ -268,7 +271,9 @@ NSS_Get_SEC_UTF8StringTemplate
 NSS_Get_SEC_UTF8StringTemplate_Util
 NSS_GetVersion
 NSS_Init
+NSS_InitContext
 NSS_Initialize
+NSS_InitReadWrite
 NSS_InitWithMerge
 NSS_IsInitialized
 NSS_OptionGet
@@ -278,6 +283,7 @@ NSS_SecureMemcmp
 NSS_SetAlgorithmPolicy
 NSS_SetDomesticPolicy
 NSS_Shutdown
+NSS_ShutdownContext
 NSSSMIME_GetVersion
 NSS_SMIMESignerInfo_SaveSMIMEProfile
 NSS_SMIMEUtil_FindBulkAlgForRecipients
@@ -285,6 +291,7 @@ NSSSSL_GetVersion
 #ifdef XP_WIN
 _NSSUTIL_Access
 #endif
+NSSUTIL_AddNSSFlagToModuleSpec
 NSSUTIL_ArgDecodeNumber
 NSSUTIL_ArgFetchValue
 NSSUTIL_ArgGetLabel
@@ -309,12 +316,14 @@ NSSUTIL_Quote
 #ifdef XP_WIN
 _NSSUTIL_UTF8ToWide
 #endif
+PK11_AEADOp
 PK11_AlgtagToMechanism
 PK11_Authenticate
 PK11_ChangePW
 PK11_CheckUserPassword
 PK11_CipherOp
 PK11_ConfigurePKCS11
+PK11_ConvertSessionSymKeyToTokenSymKey
 PK11_CreateContextBySymKey
 PK11_CreateDigestContext
 PK11_CreateGenericObject
@@ -324,8 +333,10 @@ PK11_Decrypt
 PK11_DeleteTokenCertAndKey
 PK11_DeleteTokenPrivateKey
 PK11_DeleteTokenPublicKey
+PK11_DeleteTokenSymKey
 PK11_DEREncodePublicKey
 PK11_Derive
+PK11_DeriveWithFlags
 PK11_DeriveWithTemplate
 PK11_DestroyContext
 PK11_DestroyGenericObject
@@ -344,6 +355,7 @@ PK11_FindCertFromNickname
 PK11_FindCertInSlot
 PK11_FindCertsFromEmailAddress
 PK11_FindCertsFromNickname
+PK11_FindEncodedCertInSlot
 PK11_FindKeyByAnyCert
 PK11_FindKeyByDERCert
 PK11_FindKeyByKeyID
@@ -398,10 +410,23 @@ PK11_GetTokenURI
 PK11_HasAttributeSet
 PK11_HashBuf
 PK11_HasRootCerts
+PK11_HPKE_DestroyContext
+PK11_HPKE_Deserialize
+PK11_HPKE_ExportSecret
+PK11_HPKE_GetEncapPubKey
+PK11_HPKE_NewContext
+PK11_HPKE_Open
+PK11_HPKE_Seal
+PK11_HPKE_Serialize
+PK11_HPKE_SetupS
+PK11_HPKE_SetupR
+PK11_HPKE_ValidateParameters
 PK11_ImportCert
 PK11_ImportCertForKey
 PK11_ImportCRL
+PK11_ImportDataKey
 PK11_ImportDERPrivateKeyInfoAndReturnKey
+PK11_ImportEncryptedPrivateKeyInfoAndReturnKey
 PK11_ImportPublicKey
 PK11_ImportSymKey
 PK11_InitPin
@@ -410,6 +435,7 @@ PK11_IsFIPS
 PK11_IsFriendly
 PK11_IsHW
 PK11_IsInternal
+PK11_IsInternalKeySlot
 PK11_IsLoggedIn
 PK11_IsPresent
 PK11_IsReadOnly
@@ -444,6 +470,7 @@ PK11_PubWrapSymKey
 PK11_RandomUpdate
 PK11_ReadRawAttribute
 PK11_ReferenceSlot
+PK11_ReferenceSymKey
 PK11_ResetToken
 PK11SDR_Decrypt
 PK11SDR_Encrypt
@@ -459,6 +486,7 @@ PK11_UnwrapSymKey
 PK11_UpdateSlotAttribute
 PK11_UserDisableSlot
 PK11_UserEnableSlot
+PK11_Verify
 PK11_VerifyWithMechanism
 PK11_WrapPrivKey
 PK11_WrapSymKey
@@ -590,6 +618,7 @@ SECMOD_ReferenceModule
 SECMOD_ReleaseReadLock
 SECMOD_UnloadUserModule
 SECMOD_UpdateModule
+SECMOD_UpdateSlotList
 SECMOD_WaitForAnyTokenEvent
 SEC_NullTemplate_Util @DATA@
 SEC_ObjectIDTemplate_Util @DATA@
@@ -668,6 +697,7 @@ SGN_DestroyDigestInfo_Util
 SGN_End
 SGN_NewContext
 SGN_Update
+SSL_AlertSentCallback
 SSL_AuthCertificateComplete
 SSL_AuthCertificateHook
 SSL_CipherPrefGet
@@ -676,15 +706,18 @@ SSL_CipherPrefSetDefault
 SSL_ClearSessionCache
 SSL_ConfigSecureServer
 SSL_ConfigSecureServerWithCertChain
+SSL_ConfigServerCert
 SSL_ConfigServerSessionIDCache
 SSL_ExportKeyingMaterial
 SSL_ForceHandshake
 SSL_GetChannelInfo
 SSL_GetCipherSuiteInfo
 SSL_GetClientAuthDataHook
+SSL_GetExperimentalAPI
 SSL_GetImplementedCiphers
 SSL_GetNextProto
 SSL_GetNumImplementedCiphers
+SSL_GetPreliminaryChannelInfo
 SSL_GetSRTPCipher
 SSL_GetStatistics
 SSL_HandshakeCallback
@@ -693,7 +726,9 @@ SSL_ImplementedCiphers @DATA@
 SSL_ImportFD
 SSL_NamedGroupConfig
 SSL_NumImplementedCiphers @DATA@
+SSL_OptionGet
 SSL_OptionSet
+SSL_OptionGetDefault
 SSL_OptionSetDefault
 SSL_PeerCertificate
 SSL_PeerCertificateChain
