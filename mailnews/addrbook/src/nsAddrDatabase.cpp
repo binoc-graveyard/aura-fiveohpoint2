@@ -482,11 +482,7 @@ NS_IMETHODIMP nsAddrDatabase::OpenMDB(nsIFile *dbName, bool create)
     nsIMdbThumb *thumb = nullptr;
     nsAutoCString filePath;
 
-#ifdef XP_WIN
-    ret = dbName->GetPersistentDescriptor(filePath);
-#else
     ret = dbName->GetNativePath(filePath);
-#endif
     NS_ENSURE_SUCCESS(ret, ret);
 
     nsIMdbHeap* dbHeap = nullptr;

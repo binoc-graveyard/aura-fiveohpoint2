@@ -561,23 +561,8 @@ GeckoChildProcessHost::PerformAsyncLaunchInternal(std::vector<std::string>& aExt
     // Make sure that child processes can find the omnijar
     // See XRE_InitCommandLine in nsAppRunner.cpp
     newEnvVars["UXP_CUSTOM_OMNI"] = 1;
-    nsCOMPtr<nsIFile> file = Omnijar::GetPath(Omnijar::GRE);
-#ifdef XP_WIN
-    nsString path;
-    nsAutoCString childPath;
-    if (file && NS_SUCCEEDED(file->GetPath(path))) {
-      CopyUTF16toUTF8(path, childPath);
-      childArgv.push_back("-greomni");
-      childArgv.push_back(childPath.get());
-    }
-    file = Omnijar::GetPath(Omnijar::APP);
-    if (file && NS_SUCCEEDED(file->GetPath(path))) {
-      CopyUTF16toUTF8(path, childPath);
-      childArgv.push_back("-appomni");
-      childArgv.push_back(childPath.get());
-    }
-#else
     nsAutoCString path;
+    nsCOMPtr<nsIFile> file = Omnijar::GetPath(Omnijar::GRE);
     if (file && NS_SUCCEEDED(file->GetNativePath(path))) {
       childArgv.push_back("-greomni");
       childArgv.push_back(path.get());
@@ -587,7 +572,6 @@ GeckoChildProcessHost::PerformAsyncLaunchInternal(std::vector<std::string>& aExt
       childArgv.push_back("-appomni");
       childArgv.push_back(path.get());
     }
-#endif
   }
 
   // Add the application directory path (-appdir path)

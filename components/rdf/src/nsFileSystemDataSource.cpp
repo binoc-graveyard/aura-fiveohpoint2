@@ -186,7 +186,7 @@ FileSystemDataSource::Init()
         NS_NewFileURI(getter_AddRefs(furi), file);
         NS_ENSURE_TRUE(furi, NS_ERROR_FAILURE);
 
-        file->GetPersistentDescriptor(ieFavoritesDir);
+        file->GetNativePath(ieFavoritesDir);
     }
 #endif
 

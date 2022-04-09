@@ -266,11 +266,7 @@ nsCommandLine::ResolveFile(const nsAString& aArgument, nsIFile* *aResult)
   NS_CopyUnicodeToNative(aArgument, nativeArg);
 
   nsAutoCString newpath;
-#ifdef XP_WIN
-  mWorkingDir->GetPersistentDescriptor(newpath);
-#else
   mWorkingDir->GetNativePath(newpath);
-#endif
 
   newpath.Append('/');
   newpath.Append(nativeArg);

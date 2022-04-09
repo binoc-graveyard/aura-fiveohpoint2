@@ -3096,11 +3096,7 @@ nsresult
 CacheFileIOManager::TrashDirectory(nsIFile *aFile)
 {
   nsAutoCString path;
-#ifdef XP_WIN
-  aFile->GetPersistentDescriptor(path);
-#else
   aFile->GetNativePath(path);
-#endif
   LOG(("CacheFileIOManager::TrashDirectory() [file=%s]", path.get()));
 
   nsresult rv;
@@ -3344,7 +3340,7 @@ CacheFileIOManager::RemoveTrashInternal()
                    "recursively, but this can block IO thread for a while!");
         if (LOG_ENABLED()) {
           nsAutoCString path;
-          file->GetPersistentDescriptor(path);
+          file->GetNativePath(path);
           LOG(("CacheFileIOManager::RemoveTrashInternal() - Found a directory in a trash "
               "directory! It will be removed recursively, but this can block IO "
               "thread for a while! [file=%s]", path.get()));
@@ -3877,7 +3873,7 @@ CacheFileIOManager::SyncRemoveDir(nsIFile *aFile, const char *aDir)
 
   if (LOG_ENABLED()) {
     nsAutoCString path;
-    file->GetPersistentDescriptor(path);
+    file->GetNativePath(path);
     LOG(("CacheFileIOManager::SyncRemoveDir() - Removing directory %s",
          path.get()));
   }
