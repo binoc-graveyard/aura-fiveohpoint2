@@ -305,11 +305,7 @@ nsMIMEInfoBase::LaunchWithFile(nsIFile* aFile)
     NS_ENSURE_SUCCESS(rv, rv);
 
     nsAutoCString path;
-#ifdef XP_WIN
-    aFile->GetPersistentDescriptor(path);
-#else
     aFile->GetNativePath(path);
-#endif
     return LaunchWithIProcess(executable, path);
   }
 
@@ -427,11 +423,7 @@ nsMIMEInfoImpl::LaunchDefaultWithFile(nsIFile* aFile)
     return NS_ERROR_FILE_NOT_FOUND;
 
   nsAutoCString nativePath;
-#ifdef XP_WIN
-  aFile->GetPersistentDescriptor(nativePath);
-#else
   aFile->GetNativePath(nativePath);
-#endif
   
   return LaunchWithIProcess(mDefaultApplication, nativePath);
 }

@@ -49,7 +49,7 @@ LOCAL_INCLUDES += [
     '../xul',
     '/dom/base',
     '/dom/html',
-    '/system/editor/txmgr',
+    '/editor/txmgr',
 ]
 
 if CONFIG['GNU_CXX']:

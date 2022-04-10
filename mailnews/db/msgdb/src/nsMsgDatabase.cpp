@@ -939,11 +939,7 @@ NS_IMETHODIMP nsMsgDatabase::NotifyAnnouncerGoingAway(void)
 bool nsMsgDatabase::MatchDbName(nsIFile *dbName)  // returns true if they match
 {
   nsCString dbPath;
-#ifdef XP_WIN
-  dbName->GetPersistentDescriptor(dbPath);
-#else
   dbName->GetNativePath(dbPath);
-#endif
   return dbPath.Equals(m_dbName);
 }
 
@@ -1201,11 +1197,7 @@ nsresult nsMsgDatabase::OpenInternal(nsMsgDBService *aDBService,
                                      bool aLeaveInvalidDB, bool sync)
 {
   nsAutoCString summaryFilePath;
-#ifdef XP_WIN
-  summaryFile->GetPersistentDescriptor(summaryFilePath);
-#else
   summaryFile->GetNativePath(summaryFilePath);
-#endif
 
   MOZ_LOG(DBLog, LogLevel::Info, ("nsMsgDatabase::Open(%s, %s, %p, %s)\n",
     (const char*)summaryFilePath.get(), aCreate ? "TRUE":"FALSE",

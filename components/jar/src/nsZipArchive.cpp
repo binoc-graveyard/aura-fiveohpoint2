@@ -486,7 +486,7 @@ MOZ_WIN_MEM_TRY_CATCH(return nullptr)
 // On extraction error(s) it removes the file.
 // When needed, it also resolves the symlink.
 //---------------------------------------------
-nsresult nsZipArchive::ExtractFile(nsZipItem *item, nsIFile* outFile,
+nsresult nsZipArchive::ExtractFile(nsZipItem *item, const char *outname,
                                    PRFileDesc* aFd)
 {
   if (!item)
@@ -524,16 +524,11 @@ nsresult nsZipArchive::ExtractFile(nsZipItem *item, nsIFile* outFile,
   //-- delete the file on errors, or resolve symlink if needed
   if (aFd) {
     PR_Close(aFd);
-    if (NS_FAILED(rv) && outFile) {
-      outFile->Remove(false);
-    }
+    if (rv != NS_OK)
+      PR_Delete(outname);
 #ifdef XP_UNIX
-    else if (item->IsSymlink()) {
-      nsAutoCString path;
-      rv = outFile->GetNativePath(path);
-      if (NS_FAILED(rv)) return rv;
-      rv = ResolveSymlink(path.get());
-    }
+    else if (item->IsSymlink())
+      rv = ResolveSymlink(outname);
 #endif
   }
 

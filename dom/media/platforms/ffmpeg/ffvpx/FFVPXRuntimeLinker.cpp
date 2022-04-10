@@ -76,11 +76,7 @@ FFVPXRuntimeLinker::Init()
     return false;
   }
   nsAutoCString rootPath;
-#ifdef XP_WIN
-  if (NS_FAILED(rootDir->GetPersistentDescriptor(rootPath))) {
-#else
   if (NS_FAILED(rootDir->GetNativePath(rootPath))) {
-#endif
     return false;
   }
 

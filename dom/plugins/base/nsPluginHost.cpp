@@ -2022,14 +2022,10 @@ nsresult nsPluginHost::ScanPluginsDirectory(nsIFile *pluginsDir,
 
 #ifdef PLUGIN_LOGGING
   nsAutoCString dirPath;
-#ifdef XP_WIN
-  pluginsDir->GetPersistentDescriptor(dirPath);
-#else
   pluginsDir->GetNativePath(dirPath);
-#endif
   PLUGIN_LOG(PLUGIN_LOG_BASIC,
   ("nsPluginHost::ScanPluginsDirectory dir=%s\n", dirPath.get()));
-#endif // PLUGIN_LOGGING
+#endif
 
   nsCOMPtr<nsISimpleEnumerator> iter;
   rv = pluginsDir->GetDirectoryEntries(getter_AddRefs(iter));
@@ -3604,11 +3600,7 @@ nsPluginHost::CreateTempFileToPost(const char *aPostDataURL, nsIFile **aTmpFile)
   }
   rv = inFile->GetFileSize(&fileSize);
   if (NS_FAILED(rv)) return rv;
-#ifdef XP_WIN
-  rv = inFile->GetPersistentDescriptor(filename);
-#else
   rv = inFile->GetNativePath(filename);
-#endif
   if (NS_FAILED(rv)) return rv;
 
   if (fileSize != 0) {

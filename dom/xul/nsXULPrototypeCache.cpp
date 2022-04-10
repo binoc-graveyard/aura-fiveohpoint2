@@ -466,11 +466,7 @@ nsXULPrototypeCache::BeginCaching(nsIURI* aURI)
     if (NS_FAILED(rv))
         return rv;
     nsAutoCString chromePath;
-#ifdef XP_WIN
-    rv = chromeDir->GetPersistentDescriptor(chromePath);
-#else
     rv = chromeDir->GetNativePath(chromePath);
-#endif
     if (NS_FAILED(rv))
         return rv;
 

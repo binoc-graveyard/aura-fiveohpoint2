@@ -324,11 +324,7 @@ FifoWatcher::OpenFd()
   }
 
   nsAutoCString path;
-#ifdef XP_WIN
-  rv = file->GetPersistentDescriptor(path);
-#else
   rv = file->GetNativePath(path);
-#endif
   if (NS_WARN_IF(NS_FAILED(rv))) {
     return -1;
   }

@@ -1265,11 +1265,7 @@ nsPluginStreamListenerPeer::OnFileAvailable(nsIFile* aFile)
     return NS_ERROR_FAILURE;
 
   nsAutoCString path;
-#ifdef XP_WIN
-  rv = aFile->GetPersistentDescriptor(path);
-#else
   rv = aFile->GetNativePath(path);
-#endif
   if (NS_FAILED(rv)) return rv;
 
   if (path.IsEmpty()) {

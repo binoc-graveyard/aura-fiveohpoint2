@@ -192,11 +192,7 @@ nsresult nsProfileLock::LockWithFcntl(nsIFile *aLockFile)
     nsresult rv = NS_OK;
 
     nsAutoCString lockFilePath;
-#ifdef XP_WIN
-    rv = aLockFile->GetPersistentDescriptor(lockFilePath);
-#else
     rv = aLockFile->GetNativePath(lockFilePath);
-#endif
     if (NS_FAILED(rv)) {
         NS_ERROR("Could not get native path");
         return rv;
@@ -302,11 +298,7 @@ nsresult nsProfileLock::LockWithSymlink(nsIFile *aLockFile, bool aHaveFcntlLock)
 {
     nsresult rv;
     nsAutoCString lockFilePath;
-#ifdef XP_WIN
-    rv = aLockFile->GetPersistentDescriptor(lockFilePath);
-#else
     rv = aLockFile->GetNativePath(lockFilePath);
-#endif
     if (NS_FAILED(rv)) {
         NS_ERROR("Could not get native path");
         return rv;

@@ -269,11 +269,7 @@ CacheFileContextEvictor::PersistEvictionInfoToDisk(
   }
 
   nsAutoCString path;
-#ifdef XP_WIN
-  file->GetPersistentDescriptor(path);
-#else
   file->GetNativePath(path);
-#endif
 
   PRFileDesc *fd;
   rv = file->OpenNSPRFileDesc(PR_RDWR | PR_CREATE_FILE | PR_TRUNCATE, 0600,
@@ -310,11 +306,7 @@ CacheFileContextEvictor::RemoveEvictInfoFromDisk(
   }
 
   nsAutoCString path;
-#ifdef XP_WIN
-  file->GetPersistentDescriptor(path);
-#else
   file->GetNativePath(path);
-#endif
 
   rv = file->Remove(false);
   if (NS_WARN_IF(NS_FAILED(rv))) {
