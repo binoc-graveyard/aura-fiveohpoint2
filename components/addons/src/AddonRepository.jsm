@@ -1545,7 +1545,7 @@ this.AddonRepository = {
 
       let appVersion = null;
       if (override.appID == TOOLKIT_ID)
-        appVersion = aPlatformVersion || Services.appinfo.greVersion;
+        appVersion = aPlatformVersion || Services.appinfo.platformVersion;
       else
         appVersion = aAppVersion || Services.appinfo.version;
 

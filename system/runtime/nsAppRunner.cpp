@@ -175,8 +175,7 @@ extern void InstallSignalHandlers(const char *ProgramName);
 int    gArgc;
 char **gArgv;
 
-static const char gGoannaVersion[] = NS_STRINGIFY(GRE_MILESTONE);
-static const char gToolkitVersion[] = "52.9.0";
+static const char gToolkitVersion[] = NS_STRINGIFY(GRE_MILESTONE);
 static const char gToolkitBuildID[] = NS_STRINGIFY(MOZ_BUILDID);
 
 static nsIProfileLock* gProfileLock;
@@ -680,14 +679,6 @@ nsXULAppInfo::GetVersion(nsACString& aResult)
     return NS_OK;
   }
   aResult.Assign(gAppData->version);
-
-  return NS_OK;
-}
-
-NS_IMETHODIMP
-nsXULAppInfo::GetGreVersion(nsACString& aResult)
-{
-  aResult.Assign(gGoannaVersion);
 
   return NS_OK;
 }
@@ -2808,11 +2799,11 @@ XREMain::XRE_mainInit(bool* aExitFlag)
       SetAllocatedString(mAppData->maxVersion, "1.*");
     }
 
-    if (mozilla::Version(mAppData->minVersion) > gGoannaVersion ||
-        mozilla::Version(mAppData->maxVersion) < gGoannaVersion) {
+    if (mozilla::Version(mAppData->minVersion) > gToolkitVersion ||
+        mozilla::Version(mAppData->maxVersion) < gToolkitVersion) {
       Output(true, "Error: Platform version '%s' is not compatible with\n"
              "minVersion >= %s\nmaxVersion <= %s\n",
-             gGoannaVersion,
+             gToolkitVersion,
              mAppData->minVersion, mAppData->maxVersion);
       return 1;
     }
