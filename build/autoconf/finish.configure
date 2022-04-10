@@ -1,0 +1,194 @@
+dnl Spit out some output
+dnl ========================================================
+
+dnl The following defines are used by xpcom
+_NON_GLOBAL_ACDEFINES="$_NON_GLOBAL_ACDEFINES
+CPP_THROW_NEW
+HAVE_CPP_AMBIGUITY_RESOLVING_USING
+HAVE_CPP_DYNAMIC_CAST_TO_VOID_PTR
+HAVE_CPP_PARTIAL_SPECIALIZATION
+HAVE_GETPAGESIZE
+HAVE_ICONV
+HAVE_ICONV_WITH_CONST_INPUT
+HAVE_MBRTOWC
+HAVE_WCRTOMB
+HAVE_STATVFS64
+HAVE_STATVFS
+HAVE_STATFS64
+HAVE_STATFS
+HAVE_SYS_STATVFS_H
+HAVE_SYS_STATFS_H
+HAVE_SYS_VFS_H
+HAVE_SYS_MOUNT_H
+"
+
+dnl ========================================================
+dnl Determine options to use for running the preprocessor.
+dnl ========================================================
+
+if test -z "$GNU_CC" -a "$OS_ARCH" = "WINNT"; then
+    PREPROCESS_OPTION="-P -Fi"
+else
+    PREPROCESS_OPTION="-E -o "
+fi
+
+AC_SUBST(PREPROCESS_OPTION)
+
+# Avoid using obsolete NSPR features
+AC_DEFINE(NO_NSPR_10_SUPPORT)
+
+# Don't build NSS libpkix
+NSS_DISABLE_LIBPKIX=1
+AC_SUBST(NSS_DISABLE_LIBPKIX)
+
+MOZ_CREATE_CONFIG_STATUS()
+
+# Run freetype configure script
+
+if test "$MOZ_TREE_FREETYPE"; then
+   export CFLAGS="$CFLAGS $MOZ_DEBUG_FLAGS -std=c99"
+   export CPPFLAGS="$CPPFLAGS $MOZ_DEBUG_FLAGS"
+   export CXXFLAGS="$CXXFLAGS $MOZ_DEBUG_FLAGS"
+   export LDFLAGS="$LDFLAGS $MOZ_DEBUG_LDFLAGS"
+   # Spaces in the *_CFLAGS and *_LIBS variables are intentionally placed
+   # to force freetype to use our settings rather than autodetecting
+   if test -n "$MOZ_SYSTEM_PNG"; then
+     export LIBPNG_CFLAGS="$MOZ_PNG_CFLAGS "
+   else
+     export LIBPNG_CFLAGS="-I$_objdir/dist/include"
+   fi
+   export LIBPNG_LIBS="$MOZ_PNG_LIBS "
+   export ZLIB_CFLAGS="$MOZ_ZLIB_CFLAGS "
+   export ZLIB_LIBS="$MOZ_ZLIB_LIBS "
+   export CONFIG_FILES="unix-cc.mk:unix-cc.in unix-def.mk:unix-def.in freetype-config freetype2.pc:freetype2.in"
+   ac_configure_args="$ac_configure_args --host=$target --disable-shared --with-pic=yes --with-zlib=yes --without-bzip2 --with-png=yes --without-harfbuzz"
+
+   if ! test -e modules; then
+     mkdir modules
+   fi
+   # Only export CC, CXX and RANLIB for the subconfigure, and avoid spilling
+   # that further down the road.
+   (export CC CXX RANLIB;
+    AC_OUTPUT_SUBDIRS(modules/freetype2)
+   ) || exit 1
+fi
+
+if test -z "$direct_nspr_config"; then
+    dnl ========================================================
+    dnl = Setup a nice relatively clean build environment for
+    dnl = sub-configures.
+    dnl ========================================================
+    CC="$_SUBDIR_CC"
+    CXX="$_SUBDIR_CXX"
+    CFLAGS="$_SUBDIR_CFLAGS"
+    CPPFLAGS="$_SUBDIR_CPPFLAGS"
+    CXXFLAGS="$_SUBDIR_CXXFLAGS"
+    LDFLAGS="$_SUBDIR_LDFLAGS"
+    HOST_CC="$_SUBDIR_HOST_CC"
+    HOST_CFLAGS="$_SUBDIR_HOST_CFLAGS"
+    HOST_CXXFLAGS="$_SUBDIR_HOST_CXXFLAGS"
+    HOST_LDFLAGS="$_SUBDIR_HOST_LDFLAGS"
+    RC=
+fi
+
+unset MAKEFILES
+unset CONFIG_FILES
+
+# Run all configure scripts specified by a subconfigure
+if test -n "$_subconfigure_subdir"; then
+  _save_srcdir="$srcdir"
+  srcdir="$srcdir/.."
+  _save_ac_configure_args="$ac_configure_args"
+  ac_configure_args="$_subconfigure_config_args"
+  AC_OUTPUT_SUBDIRS_NOW("$_subconfigure_subdir",$cache_file)
+  ac_configure_args="$_save_ac_configure_args"
+  srcdir="$_save_srcdir"
+fi
+
+if test "$COMPILE_ENVIRONMENT"; then
+
+export WRAP_LDFLAGS
+
+dnl ========================================================
+dnl = Setup a nice relatively clean build environment for
+dnl = sub-configures.
+dnl ========================================================
+CC="$_SUBDIR_CC"
+CXX="$_SUBDIR_CXX"
+CFLAGS="$_SUBDIR_CFLAGS"
+CPPFLAGS="$_SUBDIR_CPPFLAGS"
+CXXFLAGS="$_SUBDIR_CXXFLAGS"
+LDFLAGS="$_SUBDIR_LDFLAGS"
+HOST_CC="$_SUBDIR_HOST_CC"
+HOST_CFLAGS="$_SUBDIR_HOST_CFLAGS"
+HOST_CXXFLAGS="$_SUBDIR_HOST_CXXFLAGS"
+HOST_LDFLAGS="$_SUBDIR_HOST_LDFLAGS"
+RC=
+
+# Run the SpiderMonkey 'configure' script.
+dist=$MOZ_BUILD_ROOT/dist
+ac_configure_args="$_SUBDIR_CONFIG_ARGS"
+
+# --with-system-nspr will have been converted into the relevant $NSPR_CFLAGS
+# and $NSPR_LIBS.
+ac_configure_args="`echo $ac_configure_args | sed -e 's/--with-system-nspr\S* *//'`"
+
+if test "$_INTL_API" = no; then
+    ac_configure_args="$ac_configure_args --without-intl-api"
+fi
+
+if test -n "$NSPR_CFLAGS" -o -n "$NSPR_LIBS"; then
+    ac_configure_args="$ac_configure_args --with-nspr-cflags='$NSPR_CFLAGS'"
+    ac_configure_args="$ac_configure_args --with-nspr-libs='$NSPR_LIBS'"
+fi
+ac_configure_args="$ac_configure_args --prefix=$dist"
+if test -n "$ZLIB_IN_MOZGLUE"; then
+   MOZ_ZLIB_LIBS=
+fi
+export MOZ_SYSTEM_ZLIB
+export MOZ_ZLIB_CFLAGS
+export MOZ_ZLIB_LIBS
+export MOZ_APP_NAME
+export MOZ_APP_REMOTINGNAME
+export MOZILLA_CENTRAL_PATH=$_topsrcdir
+export STLPORT_CPPFLAGS
+export STLPORT_LIBS
+unset MOZ_BUILD_APP
+export DIST
+export ZLIB_IN_MOZGLUE
+export AR
+export RANLIB
+export CPP
+export CC
+export CXX
+export LD
+export ARFLAGS
+export CPPFLAGS
+export CFLAGS
+export CXXFLAGS
+export LDFLAGS
+export HOST_CC
+export HOST_CXX
+export HOST_CFLAGS
+export HOST_CPPFLAGS
+export HOST_CXXFLAGS
+export HOST_LDFLAGS
+
+if ! test -e js; then
+    mkdir js
+fi
+
+ac_configure_args="$ac_configure_args JS_STANDALONE="
+AC_OUTPUT_SUBDIRS(js/src,$cache_file)
+ac_configure_args="$_SUBDIR_CONFIG_ARGS"
+
+fi # COMPILE_ENVIRONMENT
+
+dnl we need to run config.status after js/src subconfigure because we're
+dnl traversing its moz.build and we need its config.status for that.
+dnl However, writing our own config.status needs to happen before
+dnl subconfigures because the setup surrounding subconfigures alters
+dnl many AC_SUBSTed variables.
+MOZ_RUN_ALL_SUBCONFIGURES()
+
+rm -fr confdefs* $ac_clean_files
