@@ -21,7 +21,7 @@ fi
 if [[ "$BINOC_TARGET_OS" == "mingw32_nt-"* ]]; then
   BINOC_TARGET_OS=windows
   
-  if [ "$BINOC_CONFIG_GUESS" == "x86_64-pc-mingw32" ]; then
+  if [[ "$BINOC_CONFIG_GUESS" == "x86_64-pc-mingw32" ]]; then
     BINOC_CONFIG_GUESS=win64
   else
     BINOC_CONFIG_GUESS=win32
@@ -33,7 +33,7 @@ export BINOC_CONFIG_GUESS=$BINOC_CONFIG_GUESS
 
 # =====================================================================================================================
 
-if [ "$1" == "webpatch" ] && [ -n "$BINOC_GIT" ] && [ -n "$BINOC_CURL" ]; then
+if [[ "$1" == "webpatch" ]] && [[ -n "$BINOC_GIT" ]] && [[ -n "$BINOC_CURL" ]]; then
   if [ -z "$2" ]; then
     printf "Patch with what?"
     exit 1
