@@ -14,7 +14,7 @@ SOURCES += [
 LOCAL_INCLUDES += [
     '../base',
     '../prefetch',
-    '../shistory',
+    '/components/shistory/src',
     '/components/uriloader',
     '/system/network/exthandler',
 ]

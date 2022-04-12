@@ -66,6 +66,7 @@ DIRS += [
   'reflect',
   'satchel',
   'scache',
+  'shistory',
   'startup',
   'statusfilter',
   'storage',
