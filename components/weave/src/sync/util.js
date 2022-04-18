@@ -9,7 +9,7 @@ var {classes: Cc, interfaces: Ci, results: Cr, utils: Cu} = Components;
 Cu.import("resource://gre/modules/Log.jsm");
 Cu.import("resource://services-common/observers.js");
 Cu.import("resource://services-common/stringbundle.js");
-Cu.import("resource://services-common/utils.js");
+Cu.import("resource://gre/CommonUtils.jsm");
 Cu.import("resource://gre/modules/Async.jsm", this);
 Cu.import("resource://services-crypto/utils.js");
 Cu.import("resource://services-sync/constants.js");

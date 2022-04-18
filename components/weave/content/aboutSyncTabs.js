@@ -4,7 +4,7 @@
 
 var Cu = Components.utils;
 
-Cu.import("resource://services-common/utils.js");
+Cu.import("resource://gre/CommonUtils.jsm");
 Cu.import("resource://services-sync/main.js");
 Cu.import("resource:///modules/PlacesUIUtils.jsm");
 Cu.import("resource://gre/modules/PlacesUtils.jsm", this);

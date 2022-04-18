@@ -14,7 +14,7 @@ Cu.import("resource://services-sync/engines.js");
 Cu.import("resource://services-sync/record.js");
 Cu.import("resource://services-sync/util.js");
 Cu.import("resource://services-sync/constants.js");
-Cu.import("resource://services-common/utils.js");
+Cu.import("resource://gre/CommonUtils.jsm");
 Cu.import("resource://gre/modules/LightweightThemeManager.jsm");
 Cu.import("resource://gre/modules/Preferences.jsm");
 

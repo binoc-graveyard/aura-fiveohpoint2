@@ -15,7 +15,7 @@ XPCOMUtils.defineLazyModuleGetter(this, "Log",
 XPCOMUtils.defineLazyModuleGetter(this, "OS",
   "resource://gre/modules/osfile.jsm");
 XPCOMUtils.defineLazyModuleGetter(this, "CommonUtils",
-  "resource://services-common/utils.js");
+  "resource://gre/CommonUtils.jsm");
 
 Cu.import("resource://gre/modules/Preferences.jsm");
 Cu.import("resource://gre/modules/Task.jsm");

@@ -13,7 +13,7 @@ const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 Cu.import("resource://gre/modules/Preferences.jsm");
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import("resource://gre/modules/Log.jsm");
-Cu.import("resource://services-common/utils.js");
+Cu.import("resource://gre/CommonUtils.jsm");
 
 // We automatically prune sessions older than this.
 const MAX_SESSION_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days.

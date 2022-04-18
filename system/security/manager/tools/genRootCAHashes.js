@@ -20,7 +20,7 @@ const CertDb = Components.classes[nsX509CertDB].getService(Ci.nsIX509CertDB);
 Cu.import("resource://gre/modules/Services.jsm");
 Cu.import("resource://gre/modules/FileUtils.jsm");
 Cu.import("resource://gre/modules/NetUtil.jsm");
-const { CommonUtils } = Cu.import("resource://services-common/utils.js", {});
+const { CommonUtils } = Cu.import("resource://gre/CommonUtils.jsm", {});
 
 const FILENAME_OUTPUT = "RootHashes.inc";
 const FILENAME_TRUST_ANCHORS = "KnownRootHashes.json";

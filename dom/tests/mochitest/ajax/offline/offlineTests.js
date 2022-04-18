@@ -3,7 +3,7 @@ var Cc = SpecialPowers.Cc;
 var Ci = SpecialPowers.Ci;
 var Cu = SpecialPowers.Cu;
 var LoadContextInfo = Cc["@mozilla.org/load-context-info-factory;1"].getService(Ci.nsILoadContextInfoFactory);
-var CommonUtils = Cu.import("resource://services-common/utils.js", {}).CommonUtils;
+var CommonUtils = Cu.import("resource://gre/CommonUtils.jsm", {}).CommonUtils;
 
 const kNetBase = 2152398848; // 0x804B0000
 var NS_ERROR_CACHE_KEY_NOT_FOUND = kNetBase + 61;

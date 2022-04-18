@@ -28,7 +28,7 @@ Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
 Cu.importGlobalProperties(["XMLHttpRequest"]);
 
-XPCOMUtils.defineLazyModuleGetter(this, "CommonUtils", "resource://services-common/utils.js");
+XPCOMUtils.defineLazyModuleGetter(this, "CommonUtils", "resource://gre/CommonUtils.jsm");
 XPCOMUtils.defineLazyModuleGetter(this, "EventDispatcher", "resource://gre/modules/Messaging.jsm");
 XPCOMUtils.defineLazyModuleGetter(this, "OS", "resource://gre/modules/osfile.jsm");
 XPCOMUtils.defineLazyModuleGetter(this, "ReaderWorker", "resource://gre/modules/reader/ReaderWorker.jsm");

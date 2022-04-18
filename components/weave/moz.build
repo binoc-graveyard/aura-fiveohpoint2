@@ -25,7 +25,6 @@ EXTRA_JS_MODULES['services-common'] += [
   'src/common/rest.js',
   'src/common/stringbundle.js',
   'src/common/tokenserverclient.js',
-  'src/common/utils.js',
 ]
 
 EXTRA_JS_MODULES['services-crypto'] += [

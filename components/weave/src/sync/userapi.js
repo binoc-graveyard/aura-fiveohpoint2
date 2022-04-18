@@ -12,7 +12,7 @@ var {utils: Cu} = Components;
 
 Cu.import("resource://gre/modules/Log.jsm");
 Cu.import("resource://services-common/rest.js");
-Cu.import("resource://services-common/utils.js");
+Cu.import("resource://gre/CommonUtils.jsm");
 Cu.import("resource://services-sync/identity.js");
 Cu.import("resource://services-sync/util.js");
 
