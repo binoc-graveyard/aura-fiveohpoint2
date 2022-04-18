@@ -33,7 +33,12 @@ export BINOC_CONFIG_GUESS=$BINOC_CONFIG_GUESS
 
 # =====================================================================================================================
 
-if [[ "$1" == "webpatch" ]] && [[ -n "$BINOC_GIT" ]] && [[ -n "$BINOC_CURL" ]]; then
+if [[ "$1" == "build-release" ]]; then
+  $BINOC_MACH build && $BINOC_MACH package && $BINOC_MACH mar --bz2 && $BINOC_MACH langpack && $BINOC_MACH theme
+  if [[ "$BINOC_TARGET_OS" == "windows" ]]; then
+    $BINOC_MACH installer
+  fi
+elif [[ "$1" == "webpatch" ]] && [[ -n "$BINOC_GIT" ]] && [[ -n "$BINOC_CURL" ]]; then
   if [ -z "$2" ]; then
     printf "Patch with what?"
     exit 1
@@ -45,6 +50,12 @@ if [[ "$1" == "webpatch" ]] && [[ -n "$BINOC_GIT" ]] && [[ -n "$BINOC_CURL" ]]; 
       $BINOC_CURL -L ${2} | "$BINOC_GIT" apply --reject
     fi
   fi
+elif [[ "$1" == "amend-author" ]]; then
+  if [[ -z "$2" ]]; then
+    printf "Amend author on commit with what? (First Last <email@domain.tld>"
+    exit 1
+  fi
+  "$BINOC_GIT" commit --amend --no-edit --author "$(echo ${@:2})"
 else
   # We don't know what the command is but real-mach might so just pass
   # all the args to it
