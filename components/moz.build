@@ -23,6 +23,7 @@ DIRS += [
   'contentprefs',
   'permissions',
   'crashmonitor',
+  'docshell',
   'downloads',
   'directory',
   'exthelper',

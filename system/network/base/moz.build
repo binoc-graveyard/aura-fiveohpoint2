@@ -281,8 +281,8 @@ include('/ipc/chromium/chromium-config.mozbuild')
 FINAL_LIBRARY = 'xul'
 
 LOCAL_INCLUDES += [
+    '/components/docshell/src',
     '/dom/base',
-    '/system/docshell/base',
     '/system/network/protocol/http',
     '/system/network/socket',
     '/system/security/pkix/include',

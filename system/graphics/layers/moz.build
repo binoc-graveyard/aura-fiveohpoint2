@@ -366,10 +366,10 @@ IPDL_SOURCES = [
 include('/ipc/chromium/chromium-config.mozbuild')
 
 LOCAL_INCLUDES += [
+    '/components/docshell/src',  # for nsDocShell.h
     '/layout/base',    # for TouchManager.h
     '/layout/generic', # for nsTextFrame.h
     '/libs/libyuv/include', # for libyuv.h
-    '/system/docshell/base',  # for nsDocShell.h
 ]
 
 FINAL_LIBRARY = 'xul'

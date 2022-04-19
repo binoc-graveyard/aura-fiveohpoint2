@@ -39,6 +39,7 @@ SOURCES += [
 ]
 
 LOCAL_INCLUDES += [
+    '/components/docshell/src',
     '/dom/base',
     '/dom/html',
     '/dom/xbl',
@@ -48,7 +49,6 @@ LOCAL_INCLUDES += [
     '/layout/generic',
     '/layout/style',
     '/layout/xul',
-    '/system/docshell/base',
 ]
 
 FINAL_LIBRARY = 'xul'

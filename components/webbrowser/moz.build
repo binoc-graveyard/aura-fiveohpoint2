@@ -32,10 +32,10 @@ SOURCES += [
 ]
 
 LOCAL_INCLUDES += [
+  '/components/docshell/src',
   '/dom/base',
   '/dom/svg',
   '/layout/style',
-  '/system/docshell/base',
   'src',
 ]
 

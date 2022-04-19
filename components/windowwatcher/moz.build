@@ -28,8 +28,8 @@ SOURCES += [
 
 # For nsJSUtils
 LOCAL_INCLUDES += [
+  '/components/docshell/src',
   '/dom/base',
-  '/system/docshell/base',
 ]
 
 if CONFIG['GNU_CXX']:

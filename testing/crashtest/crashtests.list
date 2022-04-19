@@ -5,8 +5,6 @@ include ../../testing/crashtest/sanity/crashtests.list
 
 include ../../accessible/tests/crashtests/crashtests.list
 
-include ../../system/docshell/base/crashtests/crashtests.list
-
 include ../../dom/animation/test/crashtests/crashtests.list
 include ../../dom/audiochannel/crashtests/crashtests.list
 include ../../dom/base/crashtests/crashtests.list

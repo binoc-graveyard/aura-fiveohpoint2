@@ -100,6 +100,7 @@ if CONFIG['MOZ_SANDBOX'] and CONFIG['OS_TARGET'] == 'Darwin':
     ]
 
 LOCAL_INCLUDES += [
+    '/components/docshell/src',
     '/components/permissions/src',
     '/components/printing/src',
     '/components/registry/src',
@@ -111,7 +112,6 @@ LOCAL_INCLUDES += [
     '/dom/storage',
     '/dom/workers',
     '/layout/base',
-    '/system/docshell/base',
     '/system/graphics/2d',
     '/system/hardware/sandbox',
     '/system/interface',

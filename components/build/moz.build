@@ -6,12 +6,14 @@
 include('/ipc/chromium/chromium-config.mozbuild')
 
 EXPORTS += [
+  'nsDocShellCID.h',
   'nsEmbedCID.h',
   'nsRDFCID.h',
   'nsToolkitCompsCID.h'
 ]
 
 SOURCES += [
+  'nsDocShellModule.cpp',
   'nsEmbeddingModule.cpp',
   'nsRDFModule.cpp',
   'nsToolkitCompsModule.cpp',
@@ -20,19 +22,24 @@ SOURCES += [
 LOCAL_INCLUDES += [
   '../alerts/src',
   '../directory/src',
+  '../docshell/src',
   '../downloads/src',
   '../feeds',
   '../find/src',
   '../jsdownloads/src',
   '../perfmonitoring',
+  '../prefetch',
   '../printing/src',
   '../rdf/src',
+  '../shistory/src',
   '../startup/src',
   '../statusfilter',
   '../typeaheadfind',
+  '../uriloader',
   '../windowwatcher/src',
   '/dom/commandhandler',
   '/dom/webbrowserpersist',
+  '/system/network/exthandler',
   '/system/runtime',
 ]
 
