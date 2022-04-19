@@ -53,6 +53,7 @@ DIRS += [
   'places',
   'pluginproblem',
   'preferences',
+  'prefetch',
   'printing',
   'privatebrowsing',
   'processsingleton',

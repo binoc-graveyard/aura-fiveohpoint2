@@ -6,7 +6,6 @@
 DIRS += [
     'base',
     'build',
-    'prefetch',
     'resources/content',
 ]
 
