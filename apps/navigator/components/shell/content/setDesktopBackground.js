@@ -23,7 +23,6 @@ var gSetBackground = {
     this._canvas = document.getElementById("screen");
     this._screenWidth = screen.width;
     this._screenHeight = screen.height;
-    document.documentElement.getButton("accept").hidden = true;
     if (this._screenWidth / this._screenHeight >= 1.6)
       document.getElementById("monitor").setAttribute("aspectratio", "16:10");
 
