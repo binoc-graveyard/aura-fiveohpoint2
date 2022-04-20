@@ -34,6 +34,9 @@ CrashService.prototype = Object.freeze({
     case Ci.nsICrashService.PROCESS_TYPE_PLUGIN:
       processType = Services.crashmanager.PROCESS_TYPE_PLUGIN;
       break;
+    case Ci.nsICrashService.PROCESS_TYPE_GMPLUGIN:
+      processType = Services.crashmanager.PROCESS_TYPE_GMPLUGIN;
+      break;
     case Ci.nsICrashService.PROCESS_TYPE_GPU:
       processType = Services.crashmanager.PROCESS_TYPE_GPU;
       break;

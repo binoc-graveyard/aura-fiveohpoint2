@@ -29,8 +29,12 @@ SOURCES += [
 ]
 
 DIRS += [
+    'agnostic/gmp',
     'omx'
 ]
+
+if CONFIG['MOZ_EME']:
+    DIRS += ['agnostic/eme']
 
 if CONFIG['MOZ_WMF']:
     DIRS += [ 'wmf' ];

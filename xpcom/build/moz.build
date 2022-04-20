@@ -9,6 +9,7 @@ EXPORTS += [
     'nsXPCOMCIDInternal.h',
     'nsXREAppData.h',
     'nsXULAppAPI.h',
+    'XREChildData.h',
     'xrecore.h',
 ]
 

@@ -1,6 +1,8 @@
 toolkit.jar:
 % content global %content/global/ contentaccessible=yes
 % content global-platform %content/global-platform/ platform
+  content/global/gmp-sources/openh264.json        (content/gmp-sources/openh264.json)
+  content/global/gmp-sources/widevinecdm.json     (content/gmp-sources/widevinecdm.json)
   content/global/XPCNativeWrapper.js              (content/XPCNativeWrapper.js)
   content/global/minimal-xul.css                  (content/minimal-xul.css)
 * content/global/xul.css                          (content/xul.css)
