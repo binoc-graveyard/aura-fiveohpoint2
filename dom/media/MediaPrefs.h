@@ -35,6 +35,7 @@ static StripAtomic<Type> Get##Name##PrefDefault() { return Default; }         \
 PrefTemplate<Type, Get##Name##PrefDefault, Get##Name##PrefName> mPref##Name
 
 // Custom Definitions.
+#define GMP_DEFAULT_ASYNC_SHUTDOWN_TIMEOUT 3000
 #define SUSPEND_BACKGROUND_VIDEO_DELAY_MS 10000
 #define TEST_PREFERENCE_FAKE_RECOGNITION_SERVICE "media.webspeech.test.fake_recognition_service"
 

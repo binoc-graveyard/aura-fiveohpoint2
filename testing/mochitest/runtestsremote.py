@@ -256,6 +256,10 @@ class MochiRemote(MochitestDesktop):
         except mozdevice.DMError:
             self.log.warning("Error getting device information")
 
+    def getGMPPluginPath(self, options):
+        # TODO: bug 1149374
+        return None
+
     def buildBrowserEnv(self, options, debugger=False):
         browserEnv = MochitestDesktop.buildBrowserEnv(
             self,
