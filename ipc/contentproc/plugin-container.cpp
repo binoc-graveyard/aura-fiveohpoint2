@@ -29,6 +29,8 @@ content_process_main(int argc, char* argv[])
       return 3;
     }
 
+    XREChildData childData;
+
     XRE_SetProcessType(argv[--argc]);
 
 #ifdef XP_WIN
@@ -40,7 +42,7 @@ content_process_main(int argc, char* argv[])
         SetDllDirectoryW(L"");
     }
 #endif
-    nsresult rv = XRE_InitChildProcess(argc, argv);
+    nsresult rv = XRE_InitChildProcess(argc, argv, &childData);
     NS_ENSURE_SUCCESS(rv, 1);
 
     return 0;
