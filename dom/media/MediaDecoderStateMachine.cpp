@@ -1,4 +1,5 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
+/* vim:set ts=2 sw=2 sts=2 et cindent: */
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -1227,7 +1228,33 @@ DecodeMetadataState::OnMetadataRead(MetadataHolder* aMetadata)
          mMaster->GetAmpleVideoFrames());
   }
 
-  SetState<DecodingFirstFrameState>(SeekJob{});
+  // In general, we wait until we know the duration before notifying the decoder.
+  // However, we notify  unconditionally in this case without waiting for the start
+  // time, since the caller might be waiting on metadataloaded to be fired before
+  // feeding in the CDM, which we need to decode the first frame (and
+  // thus get the metadata). We could fix this if we could compute the start
+  // time by demuxing without necessaring decoding.
+  bool waitingForCDM = 
+#ifdef MOZ_EME
+    mMaster->Info().IsEncrypted() && !mMaster->mCDMProxy;
+#else
+    false;
+#endif
+
+  mMaster->mNotifyMetadataBeforeFirstFrame =
+    mMaster->mDuration.Ref().isSome() || waitingForCDM;
+
+  if (mMaster->mNotifyMetadataBeforeFirstFrame) {
+    mMaster->EnqueueLoadedMetadataEvent();
+  }
+
+  if (waitingForCDM) {
+    // Metadata parsing was successful but we're still waiting for CDM caps
+    // to become available so that we can build the correct decryptor/decoder.
+    SetState<WaitForCDMState>();
+  } else {
+    SetState<DecodingFirstFrameState>(SeekJob{});
+  }
 }
 
 void
@@ -1236,6 +1263,9 @@ DormantState::HandlePlayStateChanged(MediaDecoder::PlayState aPlayState)
 {
   if (aPlayState == MediaDecoder::PLAY_STATE_PLAYING) {
     // Exit dormant when the user wants to play.
+#ifdef MOZ_EME
+    MOZ_ASSERT(!Info().IsEncrypted() || mMaster->mCDMProxy);
+#endif
     MOZ_ASSERT(mMaster->mSentFirstFrameLoadedEvent);
     SetState<SeekingState>(Move(mPendingSeek), EventVisibility::Suppressed);
   }
@@ -1547,6 +1577,10 @@ ShutdownState::Enter()
   // Shutdown happens while decode timer is active, we need to disconnect and
   // dispose of the timer.
   master->mVideoDecodeSuspendTimer.Reset();
+
+#ifdef MOZ_EME
+  master->mCDMProxyPromise.DisconnectIfExists();
+#endif
 
   if (master->IsPlaying()) {
     master->StopPlayback();
@@ -2099,6 +2133,13 @@ nsresult MediaDecoderStateMachine::Init(MediaDecoder* aDecoder)
     OwnerThread(), this, &MediaDecoderStateMachine::SetMediaNotSeekable);
 
   mMediaSink = CreateMediaSink(mAudioCaptured);
+
+#ifdef MOZ_EME
+  mCDMProxyPromise.Begin(aDecoder->RequestCDMProxy()->Then(
+    OwnerThread(), __func__, this,
+    &MediaDecoderStateMachine::OnCDMProxyReady,
+    &MediaDecoderStateMachine::OnCDMProxyNotReady));
+#endif
 
   nsresult rv = mReader->Init();
   NS_ENSURE_SUCCESS(rv, rv);
@@ -3073,6 +3114,25 @@ void MediaDecoderStateMachine::OnMediaSinkAudioError(nsresult aResult)
   // no sense to play an audio-only file without sound output.
   DecodeError(MediaResult(NS_ERROR_DOM_MEDIA_MEDIASINK_ERR, __func__));
 }
+
+#ifdef MOZ_EME
+void
+MediaDecoderStateMachine::OnCDMProxyReady(RefPtr<CDMProxy> aProxy)
+{
+  MOZ_ASSERT(OnTaskQueue());
+  mCDMProxyPromise.Complete();
+  mCDMProxy = aProxy;
+  mReader->SetCDMProxy(aProxy);
+  mStateObj->HandleCDMProxyReady();
+}
+
+void
+MediaDecoderStateMachine::OnCDMProxyNotReady()
+{
+  MOZ_ASSERT(OnTaskQueue());
+  mCDMProxyPromise.Complete();
+}
+#endif
 
 void
 MediaDecoderStateMachine::SetAudioCaptured(bool aCaptured)

@@ -31,6 +31,9 @@ DIRS += [
 if CONFIG['MOZ_FMP4']:
     DIRS += ['fmp4']
 
+if CONFIG['MOZ_EME']:
+    DIRS += ['eme']
+
 TEST_DIRS += [
     'gtest',
 ]
