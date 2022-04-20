@@ -242,6 +242,8 @@ public:
   // Must be called before Shutdown().
   bool OwnerHasError() const;
 
+  already_AddRefed<GMPCrashHelper> GetCrashHelper() override;
+
 protected:
   // Updates the media duration. This is called while the media is being
   // played, calls before the media has reached loaded metadata are ignored.

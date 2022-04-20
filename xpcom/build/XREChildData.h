@@ -8,6 +8,12 @@
 
 #include "mozilla/UniquePtr.h"
 
+namespace mozilla {
+namespace gmp {
+class GMPLoader;
+}
+}
+
 /**
  * Data needed to start a child process.
  */
@@ -16,6 +22,7 @@ struct XREChildData
   /**
    * Used to load the GMP binary.
    */
+  mozilla::UniquePtr<mozilla::gmp::GMPLoader> gmpLoader;
 };
 
 #endif // XREChildData_h

@@ -61,6 +61,7 @@ private:
 
   bool mWMFFailedToLoad = false;
   bool mFFmpegFailedToLoad = false;
+  bool mGMPPDMFailedToStartup = false;
 
   void EnsureInit() const;
   template<class T> friend class StaticAutoPtr;

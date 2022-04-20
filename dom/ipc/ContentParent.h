@@ -237,6 +237,8 @@ public:
 
   virtual bool RecvBridgeToChildProcess(const ContentParentId& aCpId) override;
 
+  virtual bool RecvCreateGMPService() override;
+
   virtual bool RecvLoadPlugin(const uint32_t& aPluginId, nsresult* aRv,
                               uint32_t* aRunID) override;
 
@@ -667,6 +669,10 @@ private:
   static bool AllocateLayerTreeId(ContentParent* aContent,
                                   TabParent* aTopLevel, const TabId& aTabId,
                                   uint64_t* aId);
+
+  PGMPServiceParent*
+  AllocPGMPServiceParent(mozilla::ipc::Transport* aTransport,
+                         base::ProcessId aOtherProcess) override;
 
   PBackgroundParent*
   AllocPBackgroundParent(Transport* aTransport, ProcessId aOtherProcess)
