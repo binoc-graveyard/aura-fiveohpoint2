@@ -10,8 +10,6 @@ DIRS += [
     'encoder',
     'flac',
     'gmp',
-    'gmp-plugin',
-    'gmp-plugin-openh264',
     'imagecapture',
     'ipc',
     'mediasink',
