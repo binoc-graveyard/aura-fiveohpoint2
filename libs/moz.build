@@ -44,9 +44,6 @@ if CONFIG['CPU_ARCH'] == 'arm':
 if CONFIG['MOZ_AV1']:
   DIRS += ['libaom']
 
-if CONFIG['MOZ_EME']:
-  DIRS += ['gmp-clearkey/0.1']
-
 if CONFIG['MOZ_ENABLE_SKIA']:
   DIRS += ['skia']
 
