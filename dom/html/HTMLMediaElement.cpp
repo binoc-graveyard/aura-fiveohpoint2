@@ -1067,7 +1067,6 @@ void HTMLMediaElement::ShutdownDecoder()
 {
   RemoveMediaElementFromURITable();
   NS_ASSERTION(mDecoder, "Must have decoder to shut down");
-  mWaitingForKeyListener.DisconnectIfExists();
   for (OutputMediaStream& out : mOutputStreams) {
     if (!out.mCapturingDecoder) {
       continue;
@@ -1151,7 +1150,6 @@ void HTMLMediaElement::AbortExistingLoads()
   mDownloadSuspendedByCache = false;
   mMediaInfo = MediaInfo();
   mIsEncrypted = false;
-  mWaitingForKey = NOT_WAITING_FOR_KEY;
   mSourcePointer = nullptr;
 
   mTags = nullptr;
@@ -3149,7 +3147,6 @@ HTMLMediaElement::HTMLMediaElement(already_AddRefed<mozilla::dom::NodeInfo>& aNo
     mMediaSecurityVerified(false),
     mCORSMode(CORS_NONE),
     mIsEncrypted(false),
-    mWaitingForKey(NOT_WAITING_FOR_KEY),
     mDownloadSuspendedByCache(false, "HTMLMediaElement::mDownloadSuspendedByCache"),
     mAudioChannelVolume(1.0),
     mPlayingThroughTheAudioChannel(false),
@@ -4467,8 +4464,8 @@ void HTMLMediaElement::MetadataLoaded(const MediaInfo* aInfo,
 
 void HTMLMediaElement::FirstFrameLoaded()
 {
-  LOG(LogLevel::Debug, ("%p, FirstFrameLoaded() mFirstFrameLoaded=%d mWaitingForKey=%d",
-      this, mFirstFrameLoaded, mWaitingForKey));
+  LOG(LogLevel::Debug, ("%p, FirstFrameLoaded() mFirstFrameLoaded=%d",
+      this, mFirstFrameLoaded));
 
   NS_ASSERTION(!mSuspendedAfterFirstFrame, "Should not have already suspended");
 
@@ -4813,28 +4810,8 @@ HTMLMediaElement::UpdateReadyStateInternal()
   }
 
   enum NextFrameStatus nextFrameStatus = NextFrameStatus();
-  if (nextFrameStatus == NEXT_FRAME_UNAVAILABLE ||
-      (nextFrameStatus == NEXT_FRAME_UNAVAILABLE_BUFFERING &&
-       mWaitingForKey == WAITING_FOR_KEY)) {
-    if (mWaitingForKey != NOT_WAITING_FOR_KEY) {
-      // http://w3c.github.io/encrypted-media/#wait-for-key
-      // Continuing 7.3.4 Queue a "waitingforkey" Event
-      // 4. Queue a task to fire a simple event named waitingforkey
-      // at the media element.
-      if (mWaitingForKey == WAITING_FOR_KEY) {
-        mWaitingForKey = WAITING_FOR_KEY_DISPATCHED;
-        DispatchAsyncEvent(NS_LITERAL_STRING("waitingforkey"));
-      }
-      // 5. Set the readyState of media element to HAVE_METADATA.
-      // NOTE: We'll change to HAVE_CURRENT_DATA or HAVE_METADATA
-      // depending on whether we've loaded the first frame or not
-      // below.
-      // 6. Suspend playback.
-      // Note: Playback will already be stalled, as the next frame is
-      // unavailable.
-    } else if (mDecoder) {
-      nextFrameStatus = mDecoder->NextFrameBufferedStatus();
-    }
+  if (nextFrameStatus == NEXT_FRAME_UNAVAILABLE || nextFrameStatus == NEXT_FRAME_UNAVAILABLE_BUFFERING) {
+    nextFrameStatus = mDecoder->NextFrameBufferedStatus();
   }
 
   if (nextFrameStatus == MediaDecoderOwner::NEXT_FRAME_UNAVAILABLE_SEEKING) {
@@ -4914,7 +4891,7 @@ HTMLMediaElement::UpdateReadyStateInternal()
   // autoplay elements for live streams will never play. Otherwise we
   // move to HAVE_ENOUGH_DATA if we can play through the entire media
   // without stopping to buffer.
-  if (mWaitingForKey == NOT_WAITING_FOR_KEY && mDecoder->CanPlayThrough()) {
+  if (mDecoder->CanPlayThrough()) {
     LOG(LogLevel::Debug, ("MediaElement %p UpdateReadyStateInternal() "
                           "Decoder can play through", this));
     ChangeReadyState(nsIDOMHTMLMediaElement::HAVE_ENOUGH_DATA);
@@ -4979,7 +4956,6 @@ void HTMLMediaElement::ChangeReadyState(nsMediaReadyState aState)
       mReadyState >= nsIDOMHTMLMediaElement::HAVE_FUTURE_DATA) {
     DispatchAsyncEvent(NS_LITERAL_STRING("canplay"));
     if (!mPaused) {
-      mWaitingForKey = NOT_WAITING_FOR_KEY;
       NotifyAboutPlaying();
     }
   }

@@ -613,8 +613,6 @@ public:
 
   // XPCOM MozPreservesPitch() is OK
 
-  void CannotDecryptWaitingForKey();
-
   bool MozAutoplayEnabled() const
   {
     return mAutoplayEnabled;
@@ -1585,20 +1583,6 @@ protected:
 
   // True if the media has encryption information.
   bool mIsEncrypted;
-
-  enum WaitingForKeyState {
-    NOT_WAITING_FOR_KEY = 0,
-    WAITING_FOR_KEY = 1,
-    WAITING_FOR_KEY_DISPATCHED = 2
-  };
-
-  // True when the CDM cannot decrypt the current block due to lacking a key.
-  // Note: the "waitingforkey" event is not dispatched until all decoded data
-  // has been rendered.
-  WaitingForKeyState mWaitingForKey;
-
-  // Listens for waitingForKey events from the owned decoder.
-  MediaEventListener mWaitingForKeyListener;
 
   // True if the media's channel's download has been suspended.
   Watchable<bool> mDownloadSuspendedByCache;
