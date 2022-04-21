@@ -43,7 +43,9 @@ elif [[ "$1" == "webpatch" ]] && [[ -n "$BINOC_GIT" ]] && [[ -n "$BINOC_CURL" ]]
     printf "Patch with what?"
     exit 1
   else
-    if [[ "$2" == *"github.com"* ]] || [[ "$2" == *"repo.palemoon.org"* ]]; then
+    if [[ "$2" == *"github.com"* ]] ||
+       [[ "$2" == *"code.binaryoutcast.com"* ]] ||
+       [[ "$2" == *"repo.palemoon.org"* ]]; then
       echo ${2}.patch
       $BINOC_CURL -L ${2}.patch | "$BINOC_GIT" apply --reject
     else
