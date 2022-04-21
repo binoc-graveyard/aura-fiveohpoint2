@@ -156,7 +156,6 @@ public:
   // Enumeration for the valid decoding states
   enum State {
     DECODER_STATE_DECODING_METADATA,
-    DECODER_STATE_WAIT_FOR_CDM,
     DECODER_STATE_DORMANT,
     DECODER_STATE_DECODING_FIRSTFRAME,
     DECODER_STATE_DECODING,
@@ -264,7 +263,6 @@ public:
 private:
   class StateObject;
   class DecodeMetadataState;
-  class WaitForCDMState;
   class DormantState;
   class DecodingFirstFrameState;
   class DecodingState;

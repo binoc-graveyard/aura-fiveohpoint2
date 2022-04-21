@@ -189,7 +189,6 @@ public:
   virtual State GetState() const = 0;
 
   // Event handlers for various events.
-  virtual void HandleCDMProxyReady() {}
   virtual void HandleAudioDecoded(MediaData* aAudio) {}
   virtual void HandleVideoDecoded(MediaData* aVideo, TimeStamp aDecodeStart) {}
   virtual void HandleEndOfStream() {}
@@ -268,7 +267,6 @@ protected:
  *
  * Transition to other states when decoding metadata is done:
  *   SHUTDOWN if failing to decode metadata.
- *   WAIT_FOR_CDM if the media is encrypted and CDM is not available.
  *   DECODING_FIRSTFRAME otherwise.
  */
 class MediaDecoderStateMachine::DecodeMetadataState
@@ -336,60 +334,6 @@ private:
   }
 
   MozPromiseRequestHolder<MediaDecoderReader::MetadataPromise> mMetadataRequest;
-};
-
-/**
- * Purpose: wait for the CDM to start decoding.
- *
- * Transition to other states when CDM is ready:
- *   DECODING_FIRSTFRAME otherwise.
- */
-class MediaDecoderStateMachine::WaitForCDMState
-  : public MediaDecoderStateMachine::StateObject
-{
-public:
-  explicit WaitForCDMState(Master* aPtr) : StateObject(aPtr) {}
-
-  void Enter()
-  {
-    MOZ_ASSERT(!mMaster->mVideoDecodeSuspended);
-  }
-
-  void Exit() override
-  {
-    // mPendingSeek is either moved in HandleCDMProxyReady() or should be
-    // rejected here before transition to SHUTDOWN.
-    mPendingSeek.RejectIfExists(__func__);
-  }
-
-  State GetState() const override
-  {
-    return DECODER_STATE_WAIT_FOR_CDM;
-  }
-
-  void HandleCDMProxyReady() override;
-
-  RefPtr<MediaDecoder::SeekPromise> HandleSeek(SeekTarget aTarget) override
-  {
-    SLOG("Not Enough Data to seek at this stage, queuing seek");
-    mPendingSeek.RejectIfExists(__func__);
-    mPendingSeek.mTarget = aTarget;
-    return mPendingSeek.mPromise.Ensure(__func__);
-  }
-
-  void HandleVideoSuspendTimeout() override
-  {
-    // Do nothing since no decoders are created yet.
-  }
-
-  void HandleResumeVideoDecoding() override
-  {
-    // We never suspend video decoding in this state.
-    MOZ_ASSERT(false, "Shouldn't have suspended video decoding.");
-  }
-
-private:
-  SeekJob mPendingSeek;
 };
 
 /**
@@ -1228,28 +1172,13 @@ DecodeMetadataState::OnMetadataRead(MetadataHolder* aMetadata)
          mMaster->GetAmpleVideoFrames());
   }
 
-  // In general, we wait until we know the duration before notifying the decoder.
-  // However, we notify  unconditionally in this case without waiting for the start
-  // time, since the caller might be waiting on metadataloaded to be fired before
-  // feeding in the CDM, which we need to decode the first frame (and
-  // thus get the metadata). We could fix this if we could compute the start
-  // time by demuxing without necessaring decoding.
-  bool waitingForCDM = false;
-
-  mMaster->mNotifyMetadataBeforeFirstFrame =
-    mMaster->mDuration.Ref().isSome() || waitingForCDM;
+  mMaster->mNotifyMetadataBeforeFirstFrame = mMaster->mDuration.Ref().isSome();
 
   if (mMaster->mNotifyMetadataBeforeFirstFrame) {
     mMaster->EnqueueLoadedMetadataEvent();
   }
 
-  if (waitingForCDM) {
-    // Metadata parsing was successful but we're still waiting for CDM caps
-    // to become available so that we can build the correct decryptor/decoder.
-    SetState<WaitForCDMState>();
-  } else {
-    SetState<DecodingFirstFrameState>(SeekJob{});
-  }
+  SetState<DecodingFirstFrameState>(SeekJob{});
 }
 
 void
@@ -1261,13 +1190,6 @@ DormantState::HandlePlayStateChanged(MediaDecoder::PlayState aPlayState)
     MOZ_ASSERT(mMaster->mSentFirstFrameLoadedEvent);
     SetState<SeekingState>(Move(mPendingSeek), EventVisibility::Suppressed);
   }
-}
-
-void
-MediaDecoderStateMachine::
-WaitForCDMState::HandleCDMProxyReady()
-{
-  SetState<DecodingFirstFrameState>(Move(mPendingSeek));
 }
 
 void
@@ -2245,7 +2167,6 @@ MediaDecoderStateMachine::ToStateStr(State aState)
 {
   switch (aState) {
     case DECODER_STATE_DECODING_METADATA:   return "DECODING_METADATA";
-    case DECODER_STATE_WAIT_FOR_CDM:        return "WAIT_FOR_CDM";
     case DECODER_STATE_DORMANT:             return "DORMANT";
     case DECODER_STATE_DECODING_FIRSTFRAME: return "DECODING_FIRSTFRAME";
     case DECODER_STATE_DECODING:            return "DECODING";

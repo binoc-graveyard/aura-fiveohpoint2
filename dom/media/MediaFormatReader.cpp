@@ -577,12 +577,6 @@ MediaFormatReader::InitInternal()
   return NS_OK;
 }
 
-bool
-MediaFormatReader::IsWaitingOnCDMResource() {
-  MOZ_ASSERT(OnTaskQueue());
-  return false;
-}
-
 RefPtr<MediaDecoderReader::MetadataPromise>
 MediaFormatReader::AsyncReadMetadata()
 {
@@ -618,9 +612,7 @@ MediaFormatReader::OnDemuxerInitDone(nsresult)
   UniquePtr<MetadataTags> tags(MakeUnique<MetadataTags>());
 
   RefPtr<PDMFactory> platform;
-  if (!IsWaitingOnCDMResource()) {
-    platform = new PDMFactory();
-  }
+  platform = new PDMFactory();
 
   // To decode, we need valid video and a place to put it.
   bool videoActive = !!mDemuxer->GetNumberTracks(TrackInfo::kVideoTrack) &&
