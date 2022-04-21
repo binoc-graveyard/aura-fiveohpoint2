@@ -232,17 +232,11 @@ SetTaskbarGroupId(const nsString& aId)
 
 nsresult
 XRE_InitChildProcess(int aArgc,
-                     char* aArgv[],
-                     const XREChildData* aChildData)
+                     char* aArgv[])
 {
   NS_ENSURE_ARG_MIN(aArgc, 2);
   NS_ENSURE_ARG_POINTER(aArgv);
   NS_ENSURE_ARG_POINTER(aArgv[0]);
-  MOZ_ASSERT(aChildData);
-
-  // On non-Fennec Gecko, the GMPLoader code resides in plugin-container,
-  // and we must forward it through to the GMP code here.
-  GMPProcessChild::SetGMPLoader(aChildData->gmpLoader.get());
 
 #if defined(XP_WIN)
   // From the --attach-console support in nsNativeAppSupportWin.cpp, but
