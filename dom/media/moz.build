@@ -9,7 +9,6 @@ with Files('*'):
 DIRS += [
     'encoder',
     'flac',
-    'gmp',
     'imagecapture',
     'ipc',
     'mediasink',

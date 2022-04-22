@@ -63,8 +63,6 @@
 #include "mozilla/ipc/XPCShellEnvironment.h"
 #include "mozilla/WindowsDllBlocklist.h"
 
-#include "GMPProcessChild.h"
-#include "GMPLoader.h"
 #include "mozilla/gfx/GPUProcessImpl.h"
 
 #include "GeckoProfiler.h"
@@ -88,10 +86,6 @@ using mozilla::plugins::PluginProcessChild;
 using mozilla::dom::ContentProcess;
 using mozilla::dom::ContentParent;
 using mozilla::dom::ContentChild;
-
-using mozilla::gmp::GMPLoader;
-using mozilla::gmp::CreateGMPLoader;
-using mozilla::gmp::GMPProcessChild;
 
 using mozilla::ipc::TestShellParent;
 using mozilla::ipc::TestShellCommandParent;
@@ -351,9 +345,6 @@ XRE_InitChildProcess(int aArgc,
       // Content processes need the XPCOM/chromium frankenventloop
       uiLoopType = MessageLoop::TYPE_MOZILLA_CHILD;
       break;
-  case GeckoProcessType_GMPlugin:
-      uiLoopType = MessageLoop::TYPE_DEFAULT;
-      break;
   default:
       uiLoopType = MessageLoop::TYPE_UI;
       break;
@@ -413,10 +404,6 @@ XRE_InitChildProcess(int aArgc,
 #else 
         NS_RUNTIMEABORT("rebuild with --enable-ipdl-tests");
 #endif
-        break;
-
-      case GeckoProcessType_GMPlugin:
-        process = new gmp::GMPProcessChild(parentPID);
         break;
 
       case GeckoProcessType_GPU:

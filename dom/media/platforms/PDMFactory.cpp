@@ -16,7 +16,6 @@
 #ifdef MOZ_FFMPEG
 #include "FFmpegRuntimeLinker.h"
 #endif
-#include "GMPDecoderModule.h"
 
 #include "mozilla/ClearOnShutdown.h"
 #include "mozilla/SharedThreadPool.h"
@@ -210,9 +209,6 @@ PDMFactory::CreateDecoder(const CreateDecoderParams& aParams)
     if (mFFmpegFailedToLoad) {
       diagnostics->SetFFmpegFailedToLoad();
     }
-    if (mGMPPDMFailedToStartup) {
-      diagnostics->SetGMPPDMFailedToStartup();
-    }
   }
 
   for (auto& current : mCurrentPDMs) {
@@ -368,13 +364,6 @@ PDMFactory::CreatePDMs()
 
   m = new AgnosticDecoderModule();
   StartupPDM(m);
-
-  if (MediaPrefs::PDMGMPEnabled()) {
-    m = new GMPDecoderModule();
-    mGMPPDMFailedToStartup = !StartupPDM(m);
-  } else {
-    mGMPPDMFailedToStartup = false;
-  }
 }
 
 void
@@ -406,9 +395,6 @@ PDMFactory::GetDecoder(const TrackInfo& aTrackInfo,
     }
     if (mFFmpegFailedToLoad) {
       aDiagnostics->SetFFmpegFailedToLoad();
-    }
-    if (mGMPPDMFailedToStartup) {
-      aDiagnostics->SetGMPPDMFailedToStartup();
     }
   }
 

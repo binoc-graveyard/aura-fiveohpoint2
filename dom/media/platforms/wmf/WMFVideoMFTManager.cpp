@@ -29,7 +29,6 @@
 #include "mozilla/WindowsVersion.h"
 #include "nsPrintfCString.h"
 #include "nsIFile.h"
-#include "GMPUtils.h" // For SplitAt. TODO: Move SplitAt to a central place.
 #include "MP4Decoder.h"
 #include "VPXDecoder.h"
 #include "mozilla/SyncRunnable.h"
@@ -70,6 +69,21 @@ const CLSID CLSID_WebmMfVpxDec =
 };
 
 namespace mozilla {
+
+// Utility function only used here.
+// XXX: Perhaps make this available globally?
+void
+SplitAt(const char* aDelims,
+        const nsACString& aInput,
+        nsTArray<nsCString>& aOutTokens)
+{
+  nsAutoCString str(aInput);
+  char* end = str.BeginWriting();
+  const char* start = nullptr;
+  while (!!(start = NS_strtok(aDelims, &end))) {
+    aOutTokens.AppendElement(nsCString(start));
+  }
+}
 
 LayersBackend
 GetCompositorBackendType(layers::KnowsCompositor* aKnowsCompositor)

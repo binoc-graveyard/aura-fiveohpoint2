@@ -29,7 +29,6 @@ SOURCES += [
 ]
 
 DIRS += [
-    'agnostic/gmp',
     'omx'
 ]
 

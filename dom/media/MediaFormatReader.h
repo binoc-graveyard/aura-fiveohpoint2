@@ -570,8 +570,6 @@ private:
   RefPtr<VideoFrameContainer> mVideoFrameContainer;
   layers::ImageContainer* GetImageContainer();
 
-  RefPtr<GMPCrashHelper> mCrashHelper;
-
   void SetBlankDecode(TrackType aTrack, bool aIsBlankDecode);
 
   class DecoderFactory;
