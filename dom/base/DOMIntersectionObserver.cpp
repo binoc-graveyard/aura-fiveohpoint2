@@ -118,7 +118,14 @@ DOMIntersectionObserver::SetRootMargin(const nsAString& aString)
   // mode so that pixel/percent and unit-less values will be differentiated.
   nsCSSParser parser(nullptr);
   nsCSSValue value;
-  if (!parser.ParseMarginString(aString, nullptr, 0, value, true)) {
+
+  // Use a zero margin if the input string is empty after trimming whitespace
+  const nsAString& stringNoWS =
+    nsContentUtils::TrimWhitespace<nsContentUtils::IsHTMLWhitespaceOrNBSP>(aString, true);
+  if (stringNoWS.IsEmpty()) {
+    nsCSSRect& zeroRootMargin = value.SetRectValue();
+    zeroRootMargin.SetAllSidesTo(nsCSSValue(0.0f, eCSSUnit_Pixel));
+  } else if (!parser.ParseMarginString(aString, nullptr, 0, value, true)) {
     return false;
   }
 
