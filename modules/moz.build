@@ -58,7 +58,6 @@ EXTRA_JS_MODULES += [
   'Finder.jsm',
   'FinderHighlighter.jsm',
   'FinderIterator.jsm',
-  'ForgetAboutSite.jsm',
   'FormLikeFactory.jsm',
   'Geometry.jsm',
   'Http.jsm',
