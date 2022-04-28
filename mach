@@ -61,7 +61,7 @@ elif [[ "$1" == "amend-author" ]]; then
 else
   # We don't know what the command is but real-mach might so just pass
   # all the args to it
-  $BINOC_MACH $@
+  ./$BINOC_MACH $@
 fi
 
 # =====================================================================================================================
