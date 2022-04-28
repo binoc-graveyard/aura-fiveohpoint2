@@ -76,6 +76,7 @@ LOCAL_INCLUDES += [
   '/layout/xul',
   '/system/network/protocol/viewsource',
   '/tools/profiler',
+  'src',
 ]
 
 if CONFIG['MOZ_TOOLKIT_SEARCH']:
