@@ -20,7 +20,7 @@
 #   LIGHTNING_VERSION = 2.2  # Will be used to replace the Thunderbird version
 #   						 # in POST_UPLOAD_CMD
 
-include $(MOZILLA_SRCDIR)/system/installer/package-name.mk
+include $(MOZILLA_SRCDIR)/calendar/installer/package-name.mk
 
 # Set the univeral path only if we are building a univeral binary and it was
 # not restricted by the calling makefile

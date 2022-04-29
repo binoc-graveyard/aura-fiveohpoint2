@@ -186,8 +186,6 @@ run-tests-deps: $(install_manifest_depends)
 install-test-files:
 	$(call py_action,process_install_manifest,--no-remove _tests _build_manifests/install/_test_files)
 
-include $(topsrcdir)/build/moz-automation.mk
-
 # dist and _tests should be purged during cleaning. However, we don't want them
 # purged during PGO builds because they contain some auto-generated files.
 ifneq ($(filter-out maybe_clobber_profiledbuild,$(MAKECMDGOALS)),)
@@ -228,7 +226,7 @@ endif
 endif
 
 default all::
-	$(call BUILDSTATUS,TIERS $(TIERS) $(if $(MOZ_AUTOMATION),$(MOZ_AUTOMATION_TIERS)))
+	$(call BUILDSTATUS,TIERS $(TIERS))
 
 include $(topsrcdir)/config/rules.mk
 
