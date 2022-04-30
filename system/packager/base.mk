@@ -180,7 +180,7 @@ endif
 # The Mozilla default is $(TARGET_OS)-$(TARGET_CPU) but also prettifies it for windows and linux. BinOC wants it to
 # match the XPCOM info.
 ifndef PKG_BUILD_TARGET
-PKG_BUILD_TARGET := $(OS_TARGET)-$(TARGET_XPCOM_ABI)
+PKG_BUILD_TARGET := $(OS_TARGET)_$(TARGET_XPCOM_ABI)
 endif # PKG_BUILD_TARGET
 
 # ---------------------------------------------------------------------------------------------------------------------
