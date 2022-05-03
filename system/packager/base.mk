@@ -220,7 +220,7 @@ ifdef MAKENSISU
 DEFINES += -DHAVE_MAKENSISU=1
 CONFIG_DIR = instgen
 ifndef SFX_MODULE
-SFX_MODULE = $(MOZILLA_SRCDIR)/other-licenses/7zstub/gre/7zSD.sfx
+SFX_MODULE = $(MOZILLA_SRCDIR)/other-licenses/7zstub/default/7zSD.sfx
 endif # SFX_MODULE
 endif # MAKENSISU
 
