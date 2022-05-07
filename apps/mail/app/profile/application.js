@@ -636,8 +636,7 @@ pref("plugins.crash.supportUrl", "https://live.mozillamessaging.com/%APP%/plugin
 // The default plugin state should be changed to "ask to activate" when this
 // has been done.
 pref("plugins.click_to_play", false);
-// Disable by default.
-pref("plugin.disable", true);
+
 pref("plugin.default.state", 0);
 
 // Plugins bundled in XPIs are enabled by default.
