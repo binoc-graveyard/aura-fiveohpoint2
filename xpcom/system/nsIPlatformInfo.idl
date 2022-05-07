@@ -4,11 +4,17 @@
 
 #include "nsISupports.idl"
 
-[scriptable, uuid(ab6650cf-0806-4aea-b8f2-40fdae74f1cc)]
+[scriptable, uuid(4700f5a9-0a54-4ba7-8642-5410eca17785)]
 interface nsIPlatformInfo : nsISupports
 {
   /**
-   * The version of the XULRunner platform.
+   * The TRUE version of the runtime.
+   */
+  readonly attribute ACString runtimeVersion;
+
+  /**
+   * Deprecated: The version of the XULRunner platform.
+   * Always returns "52.9.0"
    */
   readonly attribute ACString platformVersion;
 

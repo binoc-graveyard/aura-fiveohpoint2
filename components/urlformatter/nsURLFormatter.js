@@ -97,7 +97,7 @@ nsURLFormatterService.prototype = {
     VERSION:          function() { return this.appInfo.version; },
     MAJOR_VERSION:    function() { return this.appInfo.version.replace(/^([^\.]+\.[0-9]+[a-z]*).*/gi, "$1"); },
     APPBUILDID:       function() { return this.appInfo.appBuildID; },
-    PLATFORMVERSION:  function() { return this.appInfo.platformVersion; },
+    PLATFORMVERSION:  function() { return this.appInfo.runtimeVersion; },
     PLATFORMBUILDID:  function() { return this.appInfo.platformBuildID; },
     APP:              function() { return this.appInfo.name.toLowerCase().replace(/ /, ""); },
     OS:               function() { return this.appInfo.OS; },

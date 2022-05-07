@@ -779,7 +779,7 @@ var AddonManagerInternal = {
         Services.prefs.setCharPref(PREF_EM_LAST_APP_VERSION,
                                    Services.appinfo.version);
         Services.prefs.setCharPref(PREF_EM_LAST_PLATFORM_VERSION,
-                                   Services.appinfo.platformVersion);
+                                   Services.appinfo.runtimeVersion);
         Services.prefs.setIntPref(PREF_BLOCKLIST_PINGCOUNTVERSION,
                                   (appChanged === undefined ? 0 : -1));
         this.validateBlocklist();
