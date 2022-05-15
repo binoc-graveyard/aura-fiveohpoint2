@@ -6,10 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #include "ia2AccessibleHypertext.h"
-
 #include "AccessibleHypertext_i.c"
-
 #include "HyperTextAccessibleWrap.h"
+#include "ProxyWrappers.h"
 #include "IUnknownImpl.h"
 
 using namespace mozilla::a11y;

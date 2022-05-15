@@ -8,7 +8,8 @@
 #include "Accessible2.h"
 #include "AccessibleHyperlink.h"
 #include "AccessibleHyperlink_i.c"
-
+#include "HyperTextAccessibleWrap.h"
+#include "ProxyWrappers.h"
 #include "AccessibleWrap.h"
 #include "IUnknownImpl.h"
 #include "nsIURI.h"
