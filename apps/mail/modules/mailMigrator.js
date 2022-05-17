@@ -102,7 +102,7 @@ var MailMigrator = {
   _migrateUI: function() {
     // The code for this was ported from
     // mozilla/browser/components/nsBrowserGlue.js
-    const UI_VERSION = 17;
+    const UI_VERSION = 19;
     const MESSENGER_DOCURL = "chrome://messenger/content/messenger.xul";
     const UI_VERSION_PREF = "mail.ui-rdf.version";
     let currentUIVersion = 0;
@@ -411,6 +411,11 @@ var MailMigrator = {
         }
         Services.prefs.clearUserPref("layers.acceleration.disabled");
         Services.prefs.clearUserPref("layers.acceleration.force-enabled");
+      }
+
+      if (currentUIVersion < 19) {
+        // Clear hardware decoding failure flag to re-test.
+        Services.prefs.clearUserPref("media.hardware-video-decoding.failed");
       }
 
       // Update the migration version.

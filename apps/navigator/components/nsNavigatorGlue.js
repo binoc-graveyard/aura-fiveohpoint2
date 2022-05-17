@@ -366,26 +366,25 @@ NavigatorGlue.prototype = {
 
   _migrateUI: function()
   {
-    const UI_VERSION = 8;
+    const PREF_REVISION = "app.ui.revision";
+    const UI_REVISION = 1;
 
-    // If the pref is not set this is a new or pre SeaMonkey 2.49 profile.
-    // We can't tell so we just run migration with version 0.
-    let currentUIVersion = 0;
+    let currentRevision = Services.prefs.getIntPref(PREF_REVISION, 0);
 
-    if (Services.prefs.prefHasUserValue("suite.migration.version")) {
-      currentUIVersion = Services.prefs.getIntPref("suite.migration.version");
+    if (currentRevision >= UI_REVISION) {
+      return;
     }
 
-    if (currentUIVersion >= UI_VERSION)
-      return;
+    if (currentRevision < 1) {
+      // Clear obsolete preference
+      Services.prefs.clearUserPref("suite.migration.version");
 
-    // Migration of disabled safebrowsing-phishing setting after pref renaming.
-    if (currentUIVersion < 8) {
-      // Shit to do
+      // Clear hardware decoding failure flag to re-test.
+      Services.prefs.clearUserPref("media.hardware-video-decoding.failed");
     }
 
     // Update the migration version.
-    Services.prefs.setIntPref("suite.migration.version", UI_VERSION);
+    Services.prefs.setIntPref(PREF_REVISION, UI_REVISION);
   },
 
   // Copies additional profile files from the default profile tho the current profile.
