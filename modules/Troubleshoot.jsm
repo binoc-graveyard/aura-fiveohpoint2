@@ -302,13 +302,6 @@ var dataProviders = {
     }
     catch (e) {}
 
-    let promises = [];
-    // done will be called upon all pending promises being resolved.
-    // add your pending promise to promises when adding new ones.
-    function completed() {
-      Promise.all(promises).then(() => done(data));
-    }
-
     data.numTotalWindows = 0;
     data.numAcceleratedWindows = 0;
     let winEnumer = Services.ww.getWindowEnumerator();
@@ -324,6 +317,7 @@ var dataProviders = {
         data.numTotalWindows++;
         data.windowLayerManagerType = winUtils.layerManagerType;
         data.windowLayerManagerRemote = winUtils.layerManagerRemote;
+        data.supportsHardwareH264 = winUtils.supportsHardwareH264Decoding;
       }
       catch (e) {
         continue;
@@ -331,17 +325,6 @@ var dataProviders = {
       if (data.windowLayerManagerType != "Basic")
         data.numAcceleratedWindows++;
     }
-
-    data.supportsHardwareH264 = "Unknown";
-    try {
-      // After restart - data may not be available
-      let promise = winUtils.supportsHardwareH264Decoding;
-      promise.then(function(v) {
-        data.supportsHardwareH264 = v;
-      });
-      promises.push(promise);
-    } catch (e) {}
-
 
     if (!data.numAcceleratedWindows && gfxInfo) {
 #ifdef XP_WIN
@@ -353,7 +336,7 @@ var dataProviders = {
     }
 
     if (!gfxInfo) {
-      completed();
+      done(data);
       return;
     }
 
@@ -485,7 +468,7 @@ var dataProviders = {
     data.featureLog = gfxInfo.getFeatureLog();
     data.crashGuards = gfxInfo.getActiveCrashGuards();
 
-    completed();
+    done(data);
   },
 
   media: function media(done) {

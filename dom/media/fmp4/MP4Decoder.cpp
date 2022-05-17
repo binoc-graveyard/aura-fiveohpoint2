@@ -248,58 +248,18 @@ CreateTestH264Decoder(layers::KnowsCompositor* aKnowsCompositor,
   return decoder.forget();
 }
 
-/* static */ already_AddRefed<dom::Promise>
-MP4Decoder::IsVideoAccelerated(layers::KnowsCompositor* aKnowsCompositor, nsIGlobalObject* aParent)
+/* static */ bool
+MP4Decoder::IsVideoAccelerated(layers::KnowsCompositor* aKnowsCompositor, nsACString& aFailureReason)
 {
-  MOZ_ASSERT(NS_IsMainThread());
-
-  ErrorResult rv;
-  RefPtr<dom::Promise> promise;
-  promise = dom::Promise::Create(aParent, rv);
-  if (rv.Failed()) {
-    rv.SuppressException();
-    return nullptr;
-  }
-
-  RefPtr<TaskQueue> taskQueue =
-    new TaskQueue(GetMediaThreadPool(MediaThreadType::PLATFORM_DECODER));
   VideoInfo config;
-  RefPtr<MediaDataDecoder> decoder(CreateTestH264Decoder(aKnowsCompositor, config, taskQueue));
+  RefPtr<MediaDataDecoder> decoder(CreateTestH264Decoder(aKnowsCompositor, config, nullptr));
   if (!decoder) {
-    taskQueue->BeginShutdown();
-    taskQueue->AwaitShutdownAndIdle();
-    promise->MaybeResolve(NS_LITERAL_STRING("No; Failed to create H264 decoder"));
-    return promise.forget();
+    aFailureReason.AssignLiteral("Failed to create H264 decoder");
+    return false;
   }
-
-  decoder->Init()
-    ->Then(AbstractThread::MainThread(), __func__,
-           [promise, decoder, taskQueue] (TrackInfo::TrackType aTrack) {
-             nsCString failureReason;
-             bool ok = decoder->IsHardwareAccelerated(failureReason);
-             nsAutoString result;
-             if (ok) {
-               result.AssignLiteral("Yes");
-             } else {
-               result.AssignLiteral("No");
-             }
-             if (failureReason.Length()) {
-               result.AppendLiteral("; ");
-               AppendUTF8toUTF16(failureReason, result);
-             }
-             decoder->Shutdown();
-             taskQueue->BeginShutdown();
-             taskQueue->AwaitShutdownAndIdle();
-             promise->MaybeResolve(result);
-           },
-           [promise, decoder, taskQueue] (MediaResult aError) {
-             decoder->Shutdown();
-             taskQueue->BeginShutdown();
-             taskQueue->AwaitShutdownAndIdle();
-             promise->MaybeResolve(NS_LITERAL_STRING("No; Failed to initialize H264 decoder"));
-           });
-
-  return promise.forget();
+  bool result = decoder->IsHardwareAccelerated(aFailureReason);
+  decoder->Shutdown();
+  return result;
 }
 
 void
