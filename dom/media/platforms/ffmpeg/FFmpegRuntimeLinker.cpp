@@ -26,7 +26,9 @@ public:
 static FFmpegLibWrapper sLibAV;
 
 static const char* sLibs[] = {
+  "libavcodec.so.59",
   "libavcodec.so.58",
+  "libavcodec-ffmpeg.so.59",
   "libavcodec-ffmpeg.so.58",
   "libavcodec-ffmpeg.so.57",
   "libavcodec-ffmpeg.so.56",
@@ -129,6 +131,7 @@ FFmpegRuntimeLinker::CreateDecoderModule()
     case 56: module = FFmpegDecoderModule<55>::Create(&sLibAV); break;
     case 57: module = FFmpegDecoderModule<57>::Create(&sLibAV); break;
     case 58: module = FFmpegDecoderModule<58>::Create(&sLibAV); break;
+    case 59: module = FFmpegDecoderModule<59>::Create(&sLibAV); break;
     default: module = nullptr;
   }
   return module.forget();
