@@ -106,7 +106,6 @@
 #include "nsCSSPseudoElements.h"            // for CSSPseudoElementType
 #include "nsNetUtil.h"
 #include "mozilla/layers/APZCTreeManager.h" // for layers::ZoomToRectBehavior
-#include "mozilla/dom/Promise.h"
 #include "mozilla/StyleSheetInlines.h"
 #include "mozilla/gfx/GPUProcessManager.h"
 
@@ -2333,33 +2332,30 @@ nsDOMWindowUtils::GetLayerManagerRemote(bool* retval)
 }
 
 NS_IMETHODIMP
-nsDOMWindowUtils::GetSupportsHardwareH264Decoding(JS::MutableHandle<JS::Value> aPromise)
+nsDOMWindowUtils::GetSupportsHardwareH264Decoding(nsAString& aRetval)
 {
-  nsCOMPtr<nsPIDOMWindowOuter> window = do_QueryReferent(mWindow);
-  NS_ENSURE_STATE(window);
-  nsCOMPtr<nsIGlobalObject> parentObject =
-    do_QueryInterface(window->GetCurrentInnerWindow());
-  NS_ENSURE_STATE(parentObject);
 #ifdef MOZ_FMP4
   nsCOMPtr<nsIWidget> widget = GetWidget();
-  NS_ENSURE_STATE(widget);
+  if (!widget)
+    return NS_ERROR_FAILURE;
+
   LayerManager *mgr = widget->GetLayerManager();
-  NS_ENSURE_STATE(mgr);
-  RefPtr<Promise> promise =
-    MP4Decoder::IsVideoAccelerated(mgr->AsShadowForwarder(), parentObject);
-  NS_ENSURE_STATE(promise);
-  aPromise.setObject(*promise->PromiseObj());
-#else
-  ErrorResult rv;
-  RefPtr<Promise> promise = Promise::Create(parentObject, rv);
-  if (rv.Failed()) {
-    return rv.StealNSResult();
+  if (!mgr)
+    return NS_ERROR_FAILURE;
+
+  nsCString failureReason;
+  if (MP4Decoder::IsVideoAccelerated(mgr->AsShadowForwarder(), failureReason)) {
+    aRetval.AssignLiteral("Yes");
+  } else {
+    aRetval.AssignLiteral("No; ");
+    AppendUTF8toUTF16(failureReason, aRetval);
   }
-  promise->MaybeResolve(NS_LITERAL_STRING("No; Compiled without MP4 support."));
-  aPromise.setObject(*promise->PromiseObj());
+#else
+  aRetval.AssignLiteral("No; Compiled without MP4 support.");
 #endif
   return NS_OK;
 }
+
 
 NS_IMETHODIMP
 nsDOMWindowUtils::GetCurrentAudioBackend(nsAString& aBackend)

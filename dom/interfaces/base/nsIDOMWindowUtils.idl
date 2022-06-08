@@ -50,7 +50,7 @@ interface nsIJSRAIIHelper;
 interface nsIContentPermissionRequest;
 interface nsIObserver;
 
-[scriptable, uuid(7fcc7958-77d9-45ff-8c81-277bde5f0dc8)]
+[scriptable, uuid(e23b3d3a-aa0c-4433-acab-07d4d25c1cc7)]
 interface nsIDOMWindowUtils : nsISupports {
 
   /**
@@ -1414,12 +1414,11 @@ interface nsIDOMWindowUtils : nsISupports {
   readonly attribute boolean layerManagerRemote;
 
   /**
-   * Returns a Promise that will be resolved with a string once the capabilities
-   * of the h264 decoder have been determined.
-   * Success does not mean that all h264 video decoding will be done
+   * True if we can initialize a hardware-backed h264 decoder for a simple
+   * test video, does not mean that all h264 video decoding will be done
    * in hardware.
    */
-  readonly attribute jsval supportsHardwareH264Decoding;
+  readonly attribute AString supportsHardwareH264Decoding;
 
   /**
    * Returns the current audio backend as a free-form string.

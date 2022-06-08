@@ -48,8 +48,7 @@ public:
   // Returns true if the MP4 backend is preffed on.
   static bool IsEnabled();
 
-  static already_AddRefed<dom::Promise>
-  IsVideoAccelerated(layers::KnowsCompositor* aKnowsCompositor, nsIGlobalObject* aParent);
+  static bool IsVideoAccelerated(layers::KnowsCompositor* aKnowsCompositor, nsACString& aFailureReason);
 
   void GetMozDebugReaderData(nsAString& aString) override;
 
