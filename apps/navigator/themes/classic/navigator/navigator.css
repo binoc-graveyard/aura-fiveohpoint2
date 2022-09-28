@@ -591,11 +591,7 @@ toolbar[mode="icons"] #search-button > .button-box > .button-text {
 /* ::::: personal toolbar ::::: */
 
 #bookmarks-button {
-  list-style-image: url("chrome://communicator/skin/bookmarks/bookmark-folder-closed.png");
-}
-
-#bookmarks-button[open="true"] {
-  list-style-image: url("chrome://communicator/skin/bookmarks/bookmark-folder-open.png");
+  list-style-image: url("chrome://communicator/skin/bookmarks/allBookmarks.png");
 }
 
 toolbarbutton.chevron {
@@ -721,6 +717,10 @@ toolbar[mode="text"] toolbarbutton.chevron > .toolbarbutton-icon {
   -moz-box-align: stretch;
   -moz-appearance: statusbarpanel;
   max-height: 25px;
+}
+
+#component-bar:empty:not([customizing]) {
+  display: none;
 }
 
 #component-bar > toolbarbutton {

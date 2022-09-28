@@ -190,10 +190,10 @@
              toolbarname="&navbarCmd.label;" accesskey="&navbarCmd.accesskey;"
              defaultset="back-button,forward-button,reload-button,stop-button,nav-bar-inner,search-container,throbber-box,window-controls"
              mode="full"
-             iconsize="large"
+             iconsize="small"
              labelalign="end"
              defaultmode="full"
-             defaulticonsize="large"
+             defaulticonsize="small"
              defaultlabelalign="end"
              context="toolbar-context-menu">
 
@@ -510,18 +510,6 @@
   <panel id="customizeToolbarSheetPopup"/>
 
   <statusbar id="status-bar" class="chromeclass-status">
-    <toolbar id="component-bar"
-             toolboxid="navigator-toolbox"
-             mode="icons"
-             iconsize="small"
-             labelalign="end"
-             defaultset=""
-             defaultmode="icons"
-             defaulticonsize="small"
-             defaultlabelalign="end"
-             xpfe="false"
-             customizable="true"
-             persist="collapsed"/>
     <statusbarpanel id="statusbar-display" label="&statusText.label;" flex="1"/>
     <statusbarpanel class="statusbarpanel-progress" id="statusbar-progresspanel" collapsed="true">
       <progressmeter class="progressmeter-statusbar" id="statusbar-icon" mode="normal" value="0"/>
@@ -535,5 +523,18 @@
                     class="statusbarpanel-backgroundbox"
                     context="security-context-menu"
                     oncommand="BrowserPageInfo(null, 'securityTab')"/>
+    <toolbar id="component-bar"
+             toolboxid="navigator-toolbox"
+             mode="icons"
+             iconsize="small"
+             labelalign="end"
+             defaultset=""
+             defaultmode="icons"
+             defaulticonsize="small"
+             defaultlabelalign="end"
+             xpfe="false"
+             customizable="true"
+             ordinal="999"
+             persist="collapsed"/>
   </statusbar>
 </window>

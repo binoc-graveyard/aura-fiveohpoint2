@@ -10,7 +10,7 @@ MOZ_APP_DISPLAYNAME=$MOZ_APP_BASENAME
 BINOC_NAVIGATOR=1
 BINOC_DOWNLOADS=1
 MOZ_BRANDING_DIRECTORY=apps/navigator/branding
-MOZ_OFFICIAL_BRANDING_DIRECTORY=other-licenses/branding/borealis/release
+MOZ_OFFICIAL_BRANDING_DIRECTORY=other-licenses/branding/borealis
 MOZ_UPDATER=
 # This should usually be the same as the value MAR_CHANNEL_ID.
 # If more than one ID is needed, then you should use a comma separated list

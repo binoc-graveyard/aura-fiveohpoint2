@@ -16,10 +16,6 @@
 
 /* ::::: toolbar-primary ::::: */
 
-.toolbar-primary {
-  -moz-binding: url("chrome://communicator/content/bindings/toolbar.xml#grippytoolbar-primary");
-}
-
 /* ::::: autocomplete ::::: */
 
 .autocomplete-history-popup {

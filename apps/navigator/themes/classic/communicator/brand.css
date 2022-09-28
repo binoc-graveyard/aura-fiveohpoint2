@@ -35,8 +35,14 @@ toolbar[mode="text"] #wrapper-throbber-box > #throbber-box > #navigator-throbber
 toolbar[iconsize="small"] #wrapper-throbber-box > #throbber-box > #navigator-throbber,
 toolbar[mode="text"] #navigator-throbber,
 toolbar[iconsize="small"] #navigator-throbber {
-  margin: 0 5px;
+  margin: 0px;
+  margin-right: 4px;
   list-style-image: url("chrome://branding/content/throbber16-single.png");
+}
+
+toolbar[mode="text"]:last-child #navigator-throbber,
+toolbar[iconsize="small"]:last-child #navigator-throbber {
+  margin-right: 5px;
 }
 
 window[chromehidden~="toolbar"] #navigator-throbber[busy="true"],
