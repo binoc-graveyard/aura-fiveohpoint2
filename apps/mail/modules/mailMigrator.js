@@ -378,25 +378,6 @@ var MailMigrator = {
         }
       }
 
-      // Interlink doesn't support langpacks so we need to reset the UI lang pref
-      if (currentUIVersion < 16) {
-        Services.prefs.clearUserPref("general.useragent.locale");
-
-        var disableLangPacks16 = function() {
-          Cu.import("resource://gre/modules/AddonManager.jsm");
-
-          function disableAddons(aAddons) {
-            for each(let addon in aAddons) {
-              addon.userDisabled = true;
-            }
-          }
-
-          AddonManager.getAddonsByTypes(['locale'], disableAddons);
-        }
-
-        disableLangPacks16();
-      }
-
       // UXP Milestone NOT-29 changed the prefs regarding HWA so in true comm style
       // steal the UI migration code from the defacto browser and proofread it for
       // god damned fucking typos that kill the everything
@@ -416,6 +397,27 @@ var MailMigrator = {
       if (currentUIVersion < 19) {
         // Clear hardware decoding failure flag to re-test.
         Services.prefs.clearUserPref("media.hardware-video-decoding.failed");
+      }
+
+      // Interlink doesn't support the original Thunderbird locales (the strings don't match
+      // so the result would be entity errors all over the place. Luckily this is a runonce
+      // that won't impact the future.
+      if (currentUIVersion < 20) {
+        Services.prefs.clearUserPref("general.useragent.locale");
+
+        var disableLocales20 = function() {
+          Cu.import("resource://gre/modules/AddonManager.jsm");
+
+          function disableAddons(aAddons) {
+            for each(let addon in aAddons) {
+              addon.userDisabled = true;
+            }
+          }
+
+          AddonManager.getAddonsByTypes(['locale'], disableAddons);
+        }
+
+        disableLocales20();
       }
 
       // Update the migration version.
