@@ -9,7 +9,7 @@ mach.pth:python/mach
 mozbuild.pth:python/mozbuild
 mozversioncontrol.pth:python/mozversioncontrol
 mozlint.pth:python/mozlint
-pymake.pth:build/pymake
+pymake.pth:python/pymake
 optional:setup.py:python/psutil:build_ext:--inplace
 optional:psutil.pth:python/psutil
 which.pth:python/which
