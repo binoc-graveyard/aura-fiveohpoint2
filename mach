@@ -2,7 +2,6 @@
 
 BINOC_MACH=real-mach
 BINOC_TARGET_OS=`uname | tr [:upper:] [:lower:]`
-BINOC_CONFIG_GUESS=`./build/autoconf/config.guess 2>/dev/null`
 BINOC_PYTHON=`which python2.7 2>/dev/null`
 BINOC_GIT=`which git 2>/dev/null`
 BINOC_CURL=`which curl 2>/dev/null`
@@ -19,30 +18,23 @@ fi
 # Determine the current OS
 # This will also be exported so it can be picked up by .mozconfig
 if [[ "$BINOC_TARGET_OS" == "mingw32_nt-"* ]]; then
-  BINOC_TARGET_OS=windows
-  
-  if [[ "$BINOC_CONFIG_GUESS" == "x86_64-pc-mingw32" ]]; then
-    BINOC_CONFIG_GUESS=win64
-  else
-    BINOC_CONFIG_GUESS=win32
-  fi
+  BINOC_TARGET_OS=winnt
 fi
 
-export BINOC_TARGET_OS=$BINOC_TARGET_OS
-export BINOC_CONFIG_GUESS=$BINOC_CONFIG_GUESS
+export _BUILD_TARGET_OS=$BINOC_TARGET_OS
 
 # =====================================================================================================================
 
 if [[ "$1" == "build-release" ]]; then
   $BINOC_MACH build && $BINOC_MACH package && $BINOC_MACH mar --bz2 && $BINOC_MACH langpack && $BINOC_MACH theme
-  if [[ "$BINOC_TARGET_OS" == "windows" ]]; then
+  if [[ "$BINOC_TARGET_OS" == "winnt" ]]; then
     $BINOC_MACH installer
   fi
 elif [ "$1" == "localbuild" ]; then
   # This builds and stages the application in dist/MOZ_APP_NAME but does not
   # actually generate an archive or any of the other stuff
   $BINOC_MACH build
-  if [[ "$BINOC_TARGET_OS" == "windows" ]]; then
+  if [[ "$BINOC_TARGET_OS" == "winnt" ]]; then
     $BINOC_MACH installer && $BINOC_MACH install
   else
     $BINOC_MACH stage
