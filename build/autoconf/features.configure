@@ -45,6 +45,7 @@ ACCESSIBILITY=1
 MOZ_TIME_MANAGER=
 MOZ_AUDIO_CHANNEL_MANAGER=
 MOZ_PLACES=1
+MOZ_SERVICES_SYNC=1
 MOZ_USERINFO=1
 MOZ_MAILNEWS=
 MOZ_MAILNEWS_OAUTH2=
@@ -2357,6 +2358,13 @@ AC_SUBST(MOZ_PLACES)
 if test "$MOZ_PLACES"; then
   AC_DEFINE(MOZ_PLACES)
 fi
+
+dnl Build Sync Services if required
+AC_SUBST(MOZ_SERVICES_SYNC)
+if test -n "$MOZ_SERVICES_SYNC"; then
+  AC_DEFINE(MOZ_SERVICES_SYNC)
+fi
+
 
 dnl ========================================================
 if test "$MOZ_DEBUG"; then

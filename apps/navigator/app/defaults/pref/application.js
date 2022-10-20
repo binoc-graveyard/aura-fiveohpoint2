@@ -23,3 +23,7 @@
 #include places-prefs.inc.js
 
 #include secpriv-prefs.inc.js
+
+#ifdef MOZ_SERVICES_SYNC
+#include secpriv-prefs.inc.js
+#endif
