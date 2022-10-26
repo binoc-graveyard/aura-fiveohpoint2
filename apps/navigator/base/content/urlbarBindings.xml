@@ -39,6 +39,7 @@
 
       <xul:dropmarker anonid="historydropmarker"
                       class="autocomplete-history-dropmarker"
+                      context="ubhist-popup"
                       allowevents="true"
                       xbl:inherits="open,enablehistory,parentfocused=focused" />
 

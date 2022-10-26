@@ -89,6 +89,13 @@
            onclick="checkForMiddleClick(this, event);"/>
     <tooltip id="aHTMLTooltip"
              onpopupshowing="return FillInHTMLTooltip(document.tooltipNode);"/>
+
+    <menupopup id="ubhist-popup" class="autocomplete-history-popup"
+               style="max-width: 360px;"
+               popupalign="topright" popupanchor="bottomright"
+               onpopupshowing="createUBHistoryMenu(event.target);"
+               oncommand="executeUrlBarHistoryCommand(event.target);"/>
+
     <menupopup id="sidebarPopup"/>
 
     <tooltip id="home-button-tooltip" noautohide="true">
@@ -293,8 +300,7 @@
                    class="chromeclass-location nav-bar-class"
                    title="&locationBar.title;">
         <textbox id="urlbar" class="chromeclass-location uri-element" flex="1"
-                 type="autocomplete"
-                 autocompletesearch="history file"
+                 type="autocomplete" autocompletesearch="history file"
                  timeout="50" maxrows="6"
                  enablehistory="true" accesskey="&locationBar.accesskey;"
                  defaultSearchEngine="true" tabscrolling="true"

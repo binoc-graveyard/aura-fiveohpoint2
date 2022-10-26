@@ -83,7 +83,7 @@ function createUBHistoryMenu( aParent )
       try {
         if (connection.tableExists("urlbarhistory")) {
           var statement = connection.createStatement(
-              "SELECT url FROM urlbarhistory ORDER BY ROWID DESC");
+              "SELECT url FROM urlbarhistory ORDER BY ROWID DESC LIMIT 15");
           while (statement.executeStep())
             aParent.appendChild(document.createElement("menuitem"))
                    .setAttribute("label", statement.getString(0));
