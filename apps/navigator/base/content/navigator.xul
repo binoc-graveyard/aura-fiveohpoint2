@@ -293,7 +293,8 @@
                    class="chromeclass-location nav-bar-class"
                    title="&locationBar.title;">
         <textbox id="urlbar" class="chromeclass-location uri-element" flex="1"
-                 type="autocomplete" autocompletesearch="history file"
+                 type="autocomplete"
+                 autocompletesearch="history file"
                  timeout="50" maxrows="6"
                  enablehistory="true" accesskey="&locationBar.accesskey;"
                  defaultSearchEngine="true" tabscrolling="true"
@@ -337,10 +338,6 @@
             <image id="star-button"
                    onclick="PlacesStarButton.onClick(event);"/>
           </hbox>
-          <menupopup id="ubhist-popup" class="autocomplete-history-popup"
-                     popupalign="topleft" popupanchor="bottomleft"
-                     onpopupshowing="createUBHistoryMenu(event.target);"
-                     oncommand="executeUrlBarHistoryCommand(event.target);"/>
         </textbox>
       </toolbaritem>
 
