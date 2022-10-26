@@ -304,7 +304,7 @@
                  aria-label="&locationBar.title;"
                  oninput="gBrowser.userTypedValue = this.value;"
                  ontextentered="return handleURLBarCommand(eventParam, domEvent);"
-                 ontextreverted="return handleURLBarRevert();"
+                 ontextreverted="return this.handleRevert();"
                  onfocus="URLBarFocusHandler(event);"
                  onmousedown="URLBarMouseDownHandler(event);"
                  onclick="URLBarClickHandler(event);">
