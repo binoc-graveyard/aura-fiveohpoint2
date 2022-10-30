@@ -2,8 +2,10 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+#ifdef BINOC_NAVIGATOR
 toolkit.jar:
-    content/global/autocomplete.xml                             (resources/content/autocomplete.xml)
+  content/global/autocomplete.xml                             (content/xpfe-autocomplete.xml)
 
 comm.jar:
-    content/communicator/autocomplete.css                       (resources/content/autocomplete.css)
+  content/communicator/autocomplete.css                       (content/xpfe-autocomplete.css)
+#endif

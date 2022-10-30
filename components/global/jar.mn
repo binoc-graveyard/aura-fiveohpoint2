@@ -1,3 +1,8 @@
+#ifdef BINOC_NAVIGATOR
+comm.jar:
+* content/communicator/communicator.css                            (content/communicator.css)
+#endif
+
 toolkit.jar:
 % content global %content/global/ contentaccessible=yes
 % content global-platform %content/global-platform/ platform

@@ -119,6 +119,7 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
 
 EXTRA_PP_JS_MODULES += [
   'AppConstants.jsm',
+  'Communicator.jsm',
   'ResetProfile.jsm',
   'Services.jsm',
   'Troubleshoot.jsm',

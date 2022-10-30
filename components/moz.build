@@ -27,6 +27,7 @@ DIRS += [
   'downloads',
   'directory',
   'exthelper',
+  'eula',
   'filewatcher',
   'finalizationwitness',
   'formautofill',
@@ -88,6 +89,7 @@ DIRS += [
   'windowwatcher',
   'workerloader',
   'xmlparser',
+  'xpprofile',
   'xulstore'
 ]
 
@@ -99,6 +101,15 @@ if CONFIG['MOZ_PREF_EXTENSIONS']:
 
 if CONFIG['BUILD_CTYPES']:
   DIRS += ['ctypes']
+
+if CONFIG['BINOC_DOWNLOADS']:
+  DIRS += ['xpdownloads']
+
+if CONFIG['BINOC_NAVIGATOR']:
+  DIRS += [
+    'xpdevtools',
+    'xpprefwindow'
+  ]
 
 if CONFIG['MOZ_FEEDS']:
   DIRS += ['feeds']

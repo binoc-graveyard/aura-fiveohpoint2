@@ -4,19 +4,20 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 XPIDL_SOURCES += [
-    'nsIAutoCompleteController.idl',
-    'nsIAutoCompleteInput.idl',
-    'nsIAutoCompletePopup.idl',
-    'nsIAutoCompleteResult.idl',
-    'nsIAutoCompleteSearch.idl',
-    'nsIAutoCompleteSimpleResult.idl',
+  'public/nsIAutoCompleteController.idl',
+  'public/nsIAutoCompleteInput.idl',
+  'public/nsIAutoCompletePopup.idl',
+  'public/nsIAutoCompleteResult.idl',
+  'public/nsIAutoCompleteSearch.idl',
+  'public/nsIAutoCompleteSimpleResult.idl',
 ]
 
 XPIDL_MODULE = 'autocomplete'
 
 SOURCES += [
-    'nsAutoCompleteController.cpp',
-    'nsAutoCompleteSimpleResult.cpp',
+    'src/nsAutoCompleteController.cpp',
+    'src/nsAutoCompleteSimpleResult.cpp',
 ]
 
 FINAL_LIBRARY = 'xul'
+JAR_MANIFESTS += ['jar.mn']

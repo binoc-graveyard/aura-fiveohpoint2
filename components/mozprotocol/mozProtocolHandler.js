@@ -3,24 +3,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
+Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+Components.utils.import("resource://gre/modules/Services.jsm");
+Components.utils.import("resource://gre/modules/NetUtil.jsm");
 
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://gre/modules/Services.jsm");
-Cu.import("resource://gre/modules/NetUtil.jsm");
-
-function mozProtocolHandler() {
-  XPCOMUtils.defineLazyPreferenceGetter(this, "urlToLoad", "toolkit.mozprotocol.url",
-                                        "http://thereisonlyxul.org/");
-}
-
+function mozProtocolHandler() {}
 mozProtocolHandler.prototype = {
   scheme: "moz",
   defaultPort: -1,
-  protocolFlags: Ci.nsIProtocolHandler.URI_DANGEROUS_TO_LOAD,
+  protocolFlags: Components.interfaces.nsIProtocolHandler.URI_DANGEROUS_TO_LOAD,
 
   newURI(spec, charset, base) {
-    let uri = Cc["@mozilla.org/network/simple-uri;1"].createInstance(Ci.nsIURI);
+    let uri = Components.classes["@mozilla.org/network/simple-uri;1"].createInstance(Components.interfaces.nsIURI);
     if (base) {
       uri.spec = base.resolve(spec);
     } else {
@@ -30,9 +24,9 @@ mozProtocolHandler.prototype = {
   },
 
   newChannel2(uri, loadInfo) {
-    let realURL = NetUtil.newURI(this.urlToLoad);
+    let realURL = NetUtil.newURI("about:mozilla");
     let channel = Services.io.newChannelFromURIWithLoadInfo(realURL, loadInfo)
-    channel.loadFlags |= Ci.nsIChannel.LOAD_REPLACE;
+    channel.loadFlags |= Components.interfaces.nsIChannel.LOAD_REPLACE;
     return channel;
   },
 
@@ -42,7 +36,7 @@ mozProtocolHandler.prototype = {
 
   classID: Components.ID("{47a45e5f-691e-4799-8686-14f8d3fc0f8c}"),
 
-  QueryInterface: XPCOMUtils.generateQI([Ci.nsIProtocolHandler]),
+  QueryInterface: XPCOMUtils.generateQI([Components.interfaces.nsIProtocolHandler]),
 };
 
 this.NSGetFactory = XPCOMUtils.generateNSGetFactory([mozProtocolHandler]);
