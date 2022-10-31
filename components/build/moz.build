@@ -39,8 +39,8 @@ LOCAL_INCLUDES += [
   '../windowwatcher/src',
   '/dom/commandhandler',
   '/dom/webbrowserpersist',
+  '/runtime/bootstrap',
   '/system/netwerk/exthandler',
-  '/system/runtime',
 ]
 
 if not CONFIG['MOZ_DISABLE_PARENTAL_CONTROLS']:

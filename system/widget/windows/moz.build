@@ -97,7 +97,7 @@ LOCAL_INCLUDES += [
     '..',
     '/layout/generic',
     '/layout/xul',
-    '/system/runtime',
+    '/runtime/bootstrap',
     '/xpcom/base',
 ]
 

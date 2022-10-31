@@ -17,7 +17,7 @@ SOURCES += [
 include('/ipc/chromium/chromium-config.mozbuild')
 
 LOCAL_INCLUDES += [
-    '/system/runtime',
+    '/runtime/bootstrap',
 ]
 
 if CONFIG['_MSC_VER']:

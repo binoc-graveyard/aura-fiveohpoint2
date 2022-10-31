@@ -18,7 +18,7 @@ SOURCES += [
 if CONFIG['OS_ARCH'] == 'WINNT':
     SOURCES += ['src/ProfileUnlockerWin.cpp']
 
-LOCAL_INCLUDES += ['/system/runtime']
+LOCAL_INCLUDES += ['/runtime/bootstrap']
 
 FINAL_TARGET_FILES.defaults.profile += ['mimeTypes.rdf']
 
