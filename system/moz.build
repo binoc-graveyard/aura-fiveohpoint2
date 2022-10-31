@@ -5,7 +5,7 @@
 
 DIRS += [
   'fonts',
-  'graphics',
+  'gfx',
   'hardware',
   'image',
   'interface',

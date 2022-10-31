@@ -29,7 +29,7 @@ include('/ipc/chromium/chromium-config.mozbuild')
 
 LOCAL_INCLUDES += [
     # Access to Skia headers for Downscaler.
-    '/system/graphics/2d',
+    '/system/gfx/2d',
     # Decoders need ImageLib headers.
     '/system/image',
 ]

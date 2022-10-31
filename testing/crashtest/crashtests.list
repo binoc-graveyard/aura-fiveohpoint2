@@ -34,7 +34,7 @@ include ../../editor/composer/crashtests/crashtests.list
 include ../../editor/libeditor/crashtests/crashtests.list
 include ../../editor/txmgr/tests/crashtests/crashtests.list
 
-include ../../system/graphics/tests/crashtests/crashtests.list
+include ../../system/gfx/tests/crashtests/crashtests.list
 
 include ../../system/image/test/crashtests/crashtests.list
 

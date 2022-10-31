@@ -422,7 +422,7 @@ LOCAL_INCLUDES += [
     '/layout/style',
     '/layout/svg',
     '/layout/xul',
-    '/system/graphics/2d',
+    '/system/gfx/2d',
     '/system/image',
     '/system/interface',
     '/system/network/base',
