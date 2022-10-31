@@ -20,8 +20,8 @@ SOURCES += [
 LOCAL_INCLUDES += [
   '!/xpcom',
   '/dom/base',
-  '/system/network/base',
-  '/system/network/protocol/res',
+  '/system/netwerk/base',
+  '/system/netwerk/protocol/res',
   '/xpcom/components'
 ]
 

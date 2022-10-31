@@ -54,8 +54,8 @@ LOCAL_INCLUDES += [
     '/editor/txtsvc',
     '/js/xpconnect/loader',
     '/js/xpconnect/src',
-    '/system/network/base',
-    '/system/network/cookie',
+    '/system/netwerk/base',
+    '/system/netwerk/cookie',
     '/system/security/script',
 ]
 

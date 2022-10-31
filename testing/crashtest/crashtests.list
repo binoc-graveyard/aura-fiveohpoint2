@@ -57,7 +57,7 @@ include ../../layout/xul/tree/crashtests/crashtests.list
 
 include ../../libs/libpng/crashtests/crashtests.list
 
-include ../../system/network/test/crashtests/crashtests.list
+include ../../system/netwerk/test/crashtests/crashtests.list
 
 include ../../system/security/manager/ssl/crashtests/crashtests.list
 

@@ -251,7 +251,7 @@ include margin-collapsing/reftest.list
 include native-theme/reftest.list
 
 # netwerk/
-include ../../system/network/test/reftest/reftest.list
+include ../../system/netwerk/test/reftest/reftest.list
 
 include outline/reftest.list
 

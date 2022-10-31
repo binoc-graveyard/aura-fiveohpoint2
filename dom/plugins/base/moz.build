@@ -75,7 +75,7 @@ LOCAL_INCLUDES += [
     '/dom/plugins/ipc',
     '/layout/generic',
     '/layout/xul',
-    '/system/network/base',
+    '/system/netwerk/base',
     '/system/widget',
     '/xpcom/base',
 ]

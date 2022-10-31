@@ -3,21 +3,21 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-EXPORTS += [
-    'nsJSProtocolHandler.h',
+EXPORTS.mozilla.net += [
+    'DataChannelParent.h',
 ]
 
 SOURCES += [
-    'nsJSProtocolHandler.cpp',
+    'DataChannelChild.cpp',
+    'DataChannelParent.cpp',
+    'nsDataChannel.cpp',
+    'nsDataHandler.cpp',
 ]
-
-LOCAL_INCLUDES += [
-    "/dom/base",
-    "/system/netwerk/base",
-]
-
-FINAL_LIBRARY = 'xul'
 
 include('/ipc/chromium/chromium-config.mozbuild')
 
-MOCHITEST_MANIFESTS += ['test/mochitest.ini']
+FINAL_LIBRARY = 'xul'
+LOCAL_INCLUDES += [
+    '/system/netwerk/base',
+]
+

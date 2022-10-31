@@ -232,7 +232,7 @@ LOCAL_INCLUDES += [
     '/layout/tables',
     '/layout/xul',
     '/system/image',
-    '/system/network/base',
+    '/system/netwerk/base',
     '/system/security/script',
 ]
 

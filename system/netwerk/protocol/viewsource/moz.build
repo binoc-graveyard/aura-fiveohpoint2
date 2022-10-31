@@ -3,23 +3,18 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-DIRS += [
-  'fonts',
-  'gfx',
-  'hal',
-  'image',
-  'intl',
-  'locales',
-  'multmedia',
-  'netwerk',
-  'security',
-  'themes',
-  'widget',
+XPIDL_SOURCES += [
+    'nsIViewSourceChannel.idl',
 ]
 
-if CONFIG['MOZ_UPDATER']:
-  DIRS += ['updater']
+XPIDL_MODULE = 'necko_viewsource'
 
-DIRS += ['runtime']
+SOURCES += [
+    'nsViewSourceChannel.cpp',
+    'nsViewSourceHandler.cpp',
+]
 
-FINAL_TARGET_PP_FILES += ['platform-prefs.js']
+FINAL_LIBRARY = 'xul'
+LOCAL_INCLUDES += [
+    '/system/netwerk/base',
+]

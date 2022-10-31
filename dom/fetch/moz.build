@@ -44,11 +44,11 @@ IPDL_SOURCES += [
 LOCAL_INCLUDES += [
     '../workers',
     # For HttpBaseChannel.h dependencies
-    '/system/network/base',
+    '/system/netwerk/base',
     # For nsDataHandler.h
-    '/system/network/protocol/data',
+    '/system/netwerk/protocol/data',
     # For HttpBaseChannel.h
-    '/system/network/protocol/http',
+    '/system/netwerk/protocol/http',
 ]
 
 FINAL_LIBRARY = 'xul'

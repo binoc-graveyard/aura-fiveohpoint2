@@ -39,7 +39,7 @@ LOCAL_INCLUDES += [
   '../windowwatcher/src',
   '/dom/commandhandler',
   '/dom/webbrowserpersist',
-  '/system/network/exthandler',
+  '/system/netwerk/exthandler',
   '/system/runtime',
 ]
 

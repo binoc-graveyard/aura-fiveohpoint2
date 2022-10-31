@@ -102,7 +102,7 @@ LOCAL_INCLUDES += [
     # We need to instantiate the decoders
     '/system/image/decoders',
     # For URI-related functionality
-    '/system/network/base',
+    '/system/netwerk/base',
     # DecodePool uses thread-related facilities.
     '/xpcom/threads',
 ]

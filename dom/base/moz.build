@@ -424,7 +424,7 @@ LOCAL_INCLUDES += [
     '/layout/xul',
     '/system/gfx/2d',
     '/system/image',
-    '/system/network/base',
+    '/system/netwerk/base',
     '/system/security/manager/ssl',
     '/system/security/script',
     '/system/widget',
