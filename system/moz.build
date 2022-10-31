@@ -17,6 +17,12 @@ DIRS += [
   'widget',
 ]
 
+if CONFIG['MOZ_MAILNEWS']:
+  DIRS += [
+    'ldap',
+    'mork',
+  ]
+
 if CONFIG['MOZ_UPDATER']:
   DIRS += ['updater']
 

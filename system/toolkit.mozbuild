@@ -41,6 +41,7 @@ DIRS += [
   '/system/library',
 ]
 
+'''
 if CONFIG['FUZZING']:
   DIRS += ['/tools/fuzzing']
 
@@ -60,3 +61,4 @@ if CONFIG['ENABLE_TESTS']:
 
   if CONFIG['MOZ_MEMORY']:
     DIRS += ['/memory/gtest']
+'''
