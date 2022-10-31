@@ -20,7 +20,7 @@ DIRS += [
   'libs/nspr/build',
   'libs/zlib',
   'system/memory',
-  'system/framework',
+  'system/mfbt',
   'system/utils',
 ]
 
