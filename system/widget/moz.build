@@ -231,7 +231,7 @@ LOCAL_INCLUDES += [
     '/layout/generic',
     '/layout/view',
     '/layout/xul',
-    '/system/interface',
+    '/system/widget',
 ]
 
 if toolkit == 'windows':
@@ -256,7 +256,7 @@ if widget_dir in ('gtk3', 'gtk2'):
     widget_dir = 'gtk'
 
 LOCAL_INCLUDES += [
-    '/system/interface/%s' % widget_dir,
+    '/system/widget/%s' % widget_dir,
 ]
 FINAL_LIBRARY = 'xul'
 

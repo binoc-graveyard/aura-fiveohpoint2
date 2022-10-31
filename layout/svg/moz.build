@@ -67,7 +67,7 @@ LOCAL_INCLUDES += [
     '../xul',
     '/dom/base',
     '/dom/svg',
-    '/system/interface',
+    '/system/widget',
 ]
 
 RESOURCE_FILES += [

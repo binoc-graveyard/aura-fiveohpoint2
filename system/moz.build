@@ -8,13 +8,13 @@ DIRS += [
   'gfx',
   'hal',
   'image',
-  'interface',
   'intl',
   'locales',
   'multmedia',
   'network',
   'security',
   'themes',
+  'widget',
 ]
 
 if CONFIG['MOZ_UPDATER']:

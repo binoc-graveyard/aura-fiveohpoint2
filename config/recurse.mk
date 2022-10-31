@@ -155,7 +155,7 @@ endif
 # Interdependencies that moz.build world don't know about yet for compilation.
 # Note some others are hardcoded or "guessed" in recursivemake.py and emitter.py
 ifeq ($(MOZ_WIDGET_TOOLKIT),gtk3)
-system/evil/target: system/interface/gtk/mozgtk/gtk3/target
+system/evil/target: system/widget/gtk/mozgtk/gtk3/target
 endif
 ifdef MOZ_LDAP_XPCOM
 modules/ldap/target: libs/nss/target system/utils/build/target

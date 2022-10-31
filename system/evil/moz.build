@@ -34,7 +34,7 @@ def Libxul(name):
 
     if CONFIG['OS_ARCH'] == 'WINNT' and not CONFIG['GNU_CC']:
         LOCAL_INCLUDES += [
-            '/system/interface/windows',
+            '/system/widget/windows',
             '/xpcom/base',
         ]
         # config/version.mk says $(srcdir)/$(RCINCLUDE), and this needs to
@@ -76,7 +76,7 @@ if CONFIG['OS_ARCH'] == 'WINNT':
 LOCAL_INCLUDES += [
     '/config',
     # need widget/windows for resource.h (included from widget.rc)
-    '/system/interface/windows',
+    '/system/widget/windows',
 ]
 
 if CONFIG['OS_ARCH'] == 'WINNT' and not CONFIG['GNU_CC']:
