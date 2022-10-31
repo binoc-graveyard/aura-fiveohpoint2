@@ -5,13 +5,11 @@
 
 DIRS += [
   'editor',
-  'fonts',
   'gfx',
   'hal',
   'image',
   'intl',
   'locales',
-  'multmedia',
   'netwerk',
   'security',
   'themes',
