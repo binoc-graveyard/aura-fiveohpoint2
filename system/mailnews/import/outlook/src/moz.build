@@ -19,6 +19,6 @@ FINAL_LIBRARY = 'import'
 
 LOCAL_INCLUDES += [
     '../../src',
-    '/mailnews/mapi/include'
+    '/system/mailnews/mapi/include'
 ]
 

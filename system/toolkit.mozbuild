@@ -33,9 +33,6 @@ if CONFIG['ACCESSIBILITY']:
 else:
   DIRS += ['/accessible/ipc']
 
-if CONFIG['MOZ_MAILNEWS']:
-  DIRS += ['/mailnews']
-
 DIRS += [
   '/system/library/StaticXULComponentsEnd',
   '/system/library',

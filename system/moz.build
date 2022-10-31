@@ -19,8 +19,9 @@ DIRS += [
 
 if CONFIG['MOZ_MAILNEWS']:
   DIRS += [
+    'db/mork',
     'ldap',
-    'mork',
+    'mailnews',
   ]
 
 if CONFIG['MOZ_UPDATER']:
