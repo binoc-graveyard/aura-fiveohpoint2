@@ -114,9 +114,9 @@
   locale/@AB_CD@/mozapps/profile/createProfileWizard.dtd          (/components/profile/locale/createProfileWizard.dtd)
   locale/@AB_CD@/mozapps/profile/profileSelection.properties      (/components/profile/locale/profileSelection.properties)
   locale/@AB_CD@/mozapps/profile/profileSelection.dtd             (/components/profile/locale/profileSelection.dtd)
-  locale/@AB_CD@/mozapps/update/updates.dtd                       (/system/updater/locale/updates.dtd)
-  locale/@AB_CD@/mozapps/update/updates.properties                (/system/updater/locale/updates.properties)
-  locale/@AB_CD@/mozapps/update/history.dtd                       (/system/updater/locale/history.dtd)
+  locale/@AB_CD@/mozapps/update/updates.dtd                       (/runtime/updater/locale/updates.dtd)
+  locale/@AB_CD@/mozapps/update/updates.properties                (/runtime/updater/locale/updates.properties)
+  locale/@AB_CD@/mozapps/update/history.dtd                       (/runtime/updater/locale/history.dtd)
   locale/@AB_CD@/mozapps/xpinstall/xpinstallConfirm.dtd           (/components/addons/locale/xpinstallConfirm.dtd)
   locale/@AB_CD@/mozapps/xpinstall/xpinstallConfirm.properties    (/components/addons/locale/xpinstallConfirm.properties)
 
