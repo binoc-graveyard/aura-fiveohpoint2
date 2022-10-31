@@ -6,6 +6,7 @@
 DIRS += [
   'fonts',
   'library/multimedia',
+  'modules',
 ]
 
 if CONFIG['MOZ_UPDATER']:
