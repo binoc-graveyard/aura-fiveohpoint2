@@ -158,11 +158,11 @@ ifeq ($(MOZ_WIDGET_TOOLKIT),gtk3)
 system/evil/target: system/widget/gtk/mozgtk/gtk3/target
 endif
 ifdef MOZ_LDAP_XPCOM
-modules/ldap/target: libs/nss/target system/utils/build/target
+modules/ldap/target: libs/nss/target system/mozglue/build/target
 system/evil/target: modules/ldap/target
 endif
 ifeq ($(MOZ_REPLACE_MALLOC_LINKAGE),dummy library)
-system/utils/build/target system/memory/replace/logalloc/replay/target: system/memory/replace/dummy/target
+system/mozglue/build/target system/memory/replace/logalloc/replay/target: system/memory/replace/dummy/target
 endif
 endif
 ifeq (,$(MOZ_FOLD_LIBS))

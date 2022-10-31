@@ -21,7 +21,7 @@ DIRS += [
   'libs/zlib',
   'system/memory',
   'system/mfbt',
-  'system/utils',
+  'system/mozglue',
 ]
 
 if not CONFIG['JS_STANDALONE']:
