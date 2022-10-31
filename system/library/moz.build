@@ -38,10 +38,10 @@ def Libxul(name):
             '/xpcom/base',
         ]
         # config/version.mk says $(srcdir)/$(RCINCLUDE), and this needs to
-        # be valid in both system/evil and system/evil/gtest.
+        # be valid in both system/library and system/library/gtest.
         # Eventually, the make backend would do its own path canonicalization
         # and config/version.mk would lift the $(srcdir)
-        RCINCLUDE = '$(DEPTH)/system/evil/xulrunner.rc'
+        RCINCLUDE = '$(DEPTH)/system/library/xulrunner.rc'
 
     Libxul_defines()
 

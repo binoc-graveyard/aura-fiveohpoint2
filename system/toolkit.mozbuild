@@ -37,8 +37,8 @@ if CONFIG['MOZ_MAILNEWS']:
   DIRS += ['/mailnews']
 
 DIRS += [
-  '/system/evil/StaticXULComponentsEnd',
-  '/system/evil',
+  '/system/library/StaticXULComponentsEnd',
+  '/system/library',
 ]
 
 if CONFIG['FUZZING']:

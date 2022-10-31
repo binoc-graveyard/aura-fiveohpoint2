@@ -155,11 +155,11 @@ endif
 # Interdependencies that moz.build world don't know about yet for compilation.
 # Note some others are hardcoded or "guessed" in recursivemake.py and emitter.py
 ifeq ($(MOZ_WIDGET_TOOLKIT),gtk3)
-system/evil/target: system/widget/gtk/mozgtk/gtk3/target
+system/library/target: system/widget/gtk/mozgtk/gtk3/target
 endif
 ifdef MOZ_LDAP_XPCOM
 modules/ldap/target: libs/nss/target system/mozglue/build/target
-system/evil/target: modules/ldap/target
+system/library/target: modules/ldap/target
 endif
 ifeq ($(MOZ_REPLACE_MALLOC_LINKAGE),dummy library)
 system/mozglue/build/target system/memory/replace/logalloc/replay/target: system/memory/replace/dummy/target
