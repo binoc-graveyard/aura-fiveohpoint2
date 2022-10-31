@@ -177,7 +177,7 @@ LOCAL_INCLUDES += [
     '/layout/style',
     '/layout/xul',
     '/libs/libyuv/include',
-    '/system/graphics/gl',
+    '/system/gfx/gl',
     '/system/image',
 ]
 

@@ -17,7 +17,7 @@ LOCAL_INCLUDES += [
     '/dom/base',
     '/layout/generic',
     '/layout/xul',
-    '/system/network/base',
+    '/system/netwerk/base',
     '/system/security/script',
 ]
 

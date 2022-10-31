@@ -49,13 +49,13 @@ LOCAL_INCLUDES += [
     '/dom/xslt/xslt',
     '/dom/xul',
     '/dom/xul/templates',
-    '/editor/composer',
-    '/editor/txmgr',
-    '/editor/txtsvc',
     '/js/xpconnect/loader',
     '/js/xpconnect/src',
-    '/system/network/base',
-    '/system/network/cookie',
+    '/system/editor/composer',
+    '/system/editor/txmgr',
+    '/system/editor/txtsvc',
+    '/system/netwerk/base',
+    '/system/netwerk/cookie',
     '/system/security/script',
 ]
 
@@ -65,7 +65,7 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
     ]
 elif 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:
     LOCAL_INCLUDES += [
-        '/system/interface/gtk',
+        '/system/widget/gtk',
     ]
 
 if CONFIG['MOZ_WEBSPEECH']:

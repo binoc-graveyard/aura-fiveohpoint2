@@ -10,9 +10,6 @@ DIRS += [
   'subprocess',
 ]
 
-if CONFIG['MOZ_MAILNEWS']:
-  DIRS += ['ldap']
-
 for var in ('MOZ_APP_NAME',
             'MOZ_APP_VERSION',
             'MOZ_APP_VERSION_DISPLAY',

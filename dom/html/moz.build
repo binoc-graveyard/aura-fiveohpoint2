@@ -225,14 +225,14 @@ LOCAL_INCLUDES += [
     '/dom/media/',
     '/dom/xbl',
     '/dom/xul',
-    '/editor/txmgr',
     '/layout/forms',
     '/layout/generic',
     '/layout/style',
     '/layout/tables',
     '/layout/xul',
+    '/system/editor/txmgr',
     '/system/image',
-    '/system/network/base',
+    '/system/netwerk/base',
     '/system/security/script',
 ]
 

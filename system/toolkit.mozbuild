@@ -12,7 +12,6 @@ DIRS += [
 DIRS += [
   '/components',
   '/dom',
-  '/editor',
   '/ipc',
   '/js/ipc',
   '/js/xpconnect',
@@ -33,14 +32,12 @@ if CONFIG['ACCESSIBILITY']:
 else:
   DIRS += ['/accessible/ipc']
 
-if CONFIG['MOZ_MAILNEWS']:
-  DIRS += ['/mailnews']
-
 DIRS += [
-  '/system/evil/StaticXULComponentsEnd',
-  '/system/evil',
+  '/system/library/StaticXULComponentsEnd',
+  '/system/library',
 ]
 
+'''
 if CONFIG['FUZZING']:
   DIRS += ['/tools/fuzzing']
 
@@ -60,3 +57,4 @@ if CONFIG['ENABLE_TESTS']:
 
   if CONFIG['MOZ_MEMORY']:
     DIRS += ['/memory/gtest']
+'''

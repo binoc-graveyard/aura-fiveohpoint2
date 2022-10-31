@@ -4,18 +4,33 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 DIRS += [
+  'editor',
   'fonts',
-  'graphics',
-  'hardware',
+  'gfx',
+  'hal',
   'image',
-  'interface',
   'intl',
   'locales',
   'multmedia',
-  'network',
+  'netwerk',
   'security',
   'themes',
+  'widget',
 ]
+
+if CONFIG['MOZ_CALENDAR']:
+  DIRS += [
+    'calendar/libical',
+    'calendar/lightning',
+    'calendar/timezones'
+  ]
+
+if CONFIG['MOZ_MAILNEWS']:
+  DIRS += [
+    'db/mork',
+    'ldap',
+    'mailnews',
+  ]
 
 if CONFIG['MOZ_UPDATER']:
   DIRS += ['updater']

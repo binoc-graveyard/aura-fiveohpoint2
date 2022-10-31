@@ -114,9 +114,6 @@ if CONFIG['BINOC_NAVIGATOR']:
 if CONFIG['MOZ_FEEDS']:
   DIRS += ['feeds']
 
-if CONFIG['MOZ_MAILNEWS']:
-  DIRS += ['mork']
-
 if CONFIG['MOZ_ENABLE_XREMOTE']:
   DIRS += ['remote']
 

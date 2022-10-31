@@ -422,12 +422,12 @@ LOCAL_INCLUDES += [
     '/layout/style',
     '/layout/svg',
     '/layout/xul',
-    '/system/graphics/2d',
+    '/system/gfx/2d',
     '/system/image',
-    '/system/interface',
-    '/system/network/base',
+    '/system/netwerk/base',
     '/system/security/manager/ssl',
     '/system/security/script',
+    '/system/widget',
     '/xpcom/ds',
 ]
 
