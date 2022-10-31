@@ -113,7 +113,7 @@ LOCAL_INCLUDES += [
     '/dom/workers',
     '/layout/base',
     '/system/gfx/2d',
-    '/system/hardware/sandbox',
+    '/system/hal/sandbox',
     '/system/interface',
     '/system/intl/spellcheck/src',
     '/system/network/base',
