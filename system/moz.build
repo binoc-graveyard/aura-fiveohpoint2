@@ -30,7 +30,4 @@ if CONFIG['MOZ_MAILNEWS']:
     'mailnews',
   ]
 
-if CONFIG['MOZ_UPDATER']:
-  DIRS += ['updater']
-
 FINAL_TARGET_PP_FILES += ['platform-prefs.js']

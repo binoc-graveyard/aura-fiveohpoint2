@@ -25,7 +25,7 @@ DIRS += [
 ]
 
 if not CONFIG['JS_STANDALONE']:
-  CONFIGURE_SUBST_FILES += ['system/updater/package/Makefile']
+  CONFIGURE_SUBST_FILES += ['runtime/updater/package/Makefile']
   CONFIGURE_DEFINE_FILES += ['mozilla-config.h']
   EXPORTS += ['!buildid.h', '!mozilla-config.h', '!source-repo.h']
   GENERATED_FILES += ['buildid.h', 'source-repo.h']

@@ -8,6 +8,9 @@ DIRS += [
   'library/multimedia',
 ]
 
+if CONFIG['MOZ_UPDATER']:
+  DIRS += ['updater']
+
 # Keep this dir last
 DIRS += ['bootstrap']
 
