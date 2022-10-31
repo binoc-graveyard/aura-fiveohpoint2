@@ -15,9 +15,9 @@ stage-extension:
 	grep -v em:targetPlatform $(FINAL_TARGET)/install.rdf > $(PKG_STAGE)/extensions/$(XPI_EM_ID)/install.rdf
 
 # stage mozmill tests and shared modules. Cross your fingers that there are no
-# name conflicts between calendar/ and mail/
+# name conflicts between system/calendar/ and mail/
 stage-mozmill:
 	$(NSINSTALL) -D $(PKG_STAGE)/mozmill/shared-modules
-	(cd $(topsrcdir)/calendar/test/mozmill && tar $(TAR_CREATE_FLAGS) - `cat $(topsrcdir)/calendar/test/mozmill/mozmilltests.list`) | (cd $(PKG_STAGE)/mozmill && tar -xf -)
-	(cd $(topsrcdir)/calendar/test/mozmill/shared-modules && tar $(TAR_CREATE_FLAGS) - *) | (cd $(PKG_STAGE)/mozmill/shared-modules && tar -xf -)
-	$(call py_action,buildlist,$(PKG_STAGE)/mozmill/mozmilltests.list $(shell cat $(topsrcdir)/calendar/test/mozmill/mozmilltests.list))
+	(cd $(topsrcdir)/system/calendar/test/mozmill && tar $(TAR_CREATE_FLAGS) - `cat $(topsrcdir)/system/calendar/test/mozmill/mozmilltests.list`) | (cd $(PKG_STAGE)/mozmill && tar -xf -)
+	(cd $(topsrcdir)/system/calendar/test/mozmill/shared-modules && tar $(TAR_CREATE_FLAGS) - *) | (cd $(PKG_STAGE)/mozmill/shared-modules && tar -xf -)
+	$(call py_action,buildlist,$(PKG_STAGE)/mozmill/mozmilltests.list $(shell cat $(topsrcdir)/system/calendar/test/mozmill/mozmilltests.list))

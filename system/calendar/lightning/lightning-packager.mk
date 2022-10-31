@@ -2,9 +2,9 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# NOTE: The packager is not only used in calendar/lightning but should be
+# NOTE: The packager is not only used in system/calendar/lightning but should be
 # general enough to be able to repackage other sub-extensions like
-# calendar/providers/gdata. This means no lightning-specific files, no version
+# system/calendar/providers/gdata. This means no lightning-specific files, no version
 # numbers directly from lightning and be careful with relative paths.
 
 # This packager can be used to repackage extensions. To use it, set the
@@ -20,7 +20,7 @@
 #   LIGHTNING_VERSION = 2.2  # Will be used to replace the Thunderbird version
 #   						 # in POST_UPLOAD_CMD
 
-include $(MOZILLA_SRCDIR)/calendar/installer/package-name.mk
+include $(MOZILLA_SRCDIR)/system/calendar/installer/package-name.mk
 
 # Set the univeral path only if we are building a univeral binary and it was
 # not restricted by the calling makefile
@@ -44,7 +44,7 @@ ifdef DOWNLOAD_HOST
 # we have
 BUILD_NR=$(shell echo $(POST_UPLOAD_CMD) | sed -n -e 's/.*-n \([0-9]*\).*/\1/p')
 CANDIDATE_NR=$(if $(LIGHTNING_VERSION),$(LIGHTNING_VERSION),$(XPI_VERSION))
-EN_US_BINARY_URL=http://$(DOWNLOAD_HOST)/pub/calendar/lightning/candidates/$(CANDIDATE_NR)-candidates/build$(BUILD_NR)/$(MOZ_PKG_PLATFORM)
+EN_US_BINARY_URL=http://$(DOWNLOAD_HOST)/pub/system/calendar/lightning/candidates/$(CANDIDATE_NR)-candidates/build$(BUILD_NR)/$(MOZ_PKG_PLATFORM)
 endif
 endif
 
@@ -75,9 +75,9 @@ print_ltnconfig = $(shell $(PYTHON) $(MOZILLA_SRCDIR)/config/printconfigsetting.
 
 wget-en-US:
 ifeq (thunderbird,$(MOZ_APP_NAME))
-FINAL_BINARY_URL = $(subst thunderbird,calendar/lightning,$(EN_US_BINARY_URL))
+FINAL_BINARY_URL = $(subst thunderbird,system/calendar/lightning,$(EN_US_BINARY_URL))
 else
-FINAL_BINARY_URL = $(subst seamonkey,calendar/lightning,$(subst latest-comm-central-trunk,latest-comm-central,$(EN_US_BINARY_URL)))
+FINAL_BINARY_URL = $(subst seamonkey,system/calendar/lightning,$(subst latest-comm-central-trunk,latest-comm-central,$(EN_US_BINARY_URL)))
 endif
 wget-en-US: $(XPI_STAGE_PATH)
 	(cd $(XPI_STAGE_PATH) && $(WGET) -nv -N $(FINAL_BINARY_URL)/$(ENUS_PKGNAME).xpi)
@@ -103,7 +103,7 @@ ifdef LOCALE_MERGEDIR
 	$(RM) -rf $(LOCALE_MERGEDIR)/calendar
 	$(MOZILLA_SRCDIR)/mach compare-locales \
 	    --merge-dir $(LOCALE_MERGEDIR) \
-	    --l10n-ini $(topsrcdir)/calendar/locales/l10n.ini \
+	    --l10n-ini $(topsrcdir)/system/calendar/locales/l10n.ini \
 	    $*
 
 	# This file requires a bugfix with string changes, see bug 1154448
@@ -173,7 +173,7 @@ recreate-platformini: $(DIST)/bin/platform.ini
 # Lightning uses Thunderbird's build machinery, so we need to hack the post
 # upload command to use Lightning's directories and version.
 upload: upload-$(AB_CD)
-upload-%: LTN_UPLOAD_CMD := $(patsubst $(THUNDERBIRD_VERSION)%,$(LIGHTNING_VERSION),$(subst thunderbird,calendar/lightning,$(POST_UPLOAD_CMD)))
+upload-%: LTN_UPLOAD_CMD := $(patsubst $(THUNDERBIRD_VERSION)%,$(LIGHTNING_VERSION),$(subst thunderbird,system/calendar/lightning,$(POST_UPLOAD_CMD)))
 upload-%: stage_upload
 	POST_UPLOAD_CMD="$(LTN_UPLOAD_CMD)" \
 	  $(PYTHON) $(MOZILLA_DIR)/build/upload.py --base-path $(DIST) \

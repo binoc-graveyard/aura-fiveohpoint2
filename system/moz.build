@@ -18,6 +18,13 @@ DIRS += [
   'widget',
 ]
 
+if CONFIG['MOZ_CALENDAR']:
+  DIRS += [
+    'calendar/libical',
+    'calendar/lightning',
+    'calendar/timezones'
+  ]
+
 if CONFIG['MOZ_MAILNEWS']:
   DIRS += [
     'db/mork',
