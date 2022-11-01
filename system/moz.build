@@ -5,13 +5,11 @@
 
 DIRS += [
   'editor',
-  'fonts',
   'gfx',
   'hal',
   'image',
   'intl',
   'locales',
-  'multmedia',
   'netwerk',
   'security',
   'themes',
@@ -31,10 +29,5 @@ if CONFIG['MOZ_MAILNEWS']:
     'ldap',
     'mailnews',
   ]
-
-if CONFIG['MOZ_UPDATER']:
-  DIRS += ['updater']
-
-DIRS += ['runtime']
 
 FINAL_TARGET_PP_FILES += ['platform-prefs.js']

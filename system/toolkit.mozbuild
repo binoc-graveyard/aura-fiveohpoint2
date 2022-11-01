@@ -4,19 +4,19 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 DIRS += [
-  '/libs',
+  '/third_party',
   '/config/external/freetype2',
   '/xpcom',
 ]
 
 DIRS += [
-  '/components',
   '/dom',
   '/ipc',
   '/js/ipc',
   '/js/xpconnect',
   '/layout',
   '/modules',
+  '/runtime',
   '/system',
 ]
 
@@ -37,7 +37,6 @@ DIRS += [
   '/system/library',
 ]
 
-'''
 if CONFIG['FUZZING']:
   DIRS += ['/tools/fuzzing']
 
@@ -57,4 +56,3 @@ if CONFIG['ENABLE_TESTS']:
 
   if CONFIG['MOZ_MEMORY']:
     DIRS += ['/memory/gtest']
-'''

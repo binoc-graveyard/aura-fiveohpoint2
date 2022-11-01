@@ -3,17 +3,16 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-Library('plugin-container')
-
-SOURCES += [
-    'plugin-container.cpp',
+DIRS += [
+  'components',
+  'fonts',
+  'library/multimedia',
+  'modules',
 ]
 
-include('/ipc/chromium/chromium-config.mozbuild')
+if CONFIG['MOZ_UPDATER']:
+  DIRS += ['updater']
 
-if CONFIG['OS_ARCH'] == 'WINNT':
-    LOCAL_INCLUDES += [
-        '/runtime/bootstrap',
-        '/xpcom/base',
-    ]
+# Keep this dir last
+DIRS += ['bootstrap']
 

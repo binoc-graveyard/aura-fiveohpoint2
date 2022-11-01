@@ -304,7 +304,7 @@ uploadsymbols:
 
 .PHONY: update-packaging
 update-packaging:
-	$(MAKE) -C system/updater/package
+	$(MAKE) -C runtime/updater/package
 
 .PHONY: pretty-package
 pretty-package:
@@ -320,7 +320,7 @@ pretty-l10n-check:
 
 .PHONY: pretty-update-packaging
 pretty-update-packaging:
-	unset MOZ_SIGN_CMD && $(MAKE) -C system/updater/package MOZ_PKG_PRETTYNAMES=1
+	unset MOZ_SIGN_CMD && $(MAKE) -C runtime/updater/package MOZ_PKG_PRETTYNAMES=1
 
 .PHONY: pretty-installer
 pretty-installer:

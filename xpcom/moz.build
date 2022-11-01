@@ -21,7 +21,7 @@ DIRS += [
     'threads',
     'reflect',
     'system',
-    '/components/registry',
+    '/runtime/components/registry',
     'build',
 ]
 

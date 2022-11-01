@@ -32,7 +32,7 @@ include('/ipc/chromium/chromium-config.mozbuild')
 FINAL_LIBRARY = 'xul'
 
 LOCAL_INCLUDES += [
-    '/components/jar/src',
+    '/runtime/components/jar/src',
     '/system/netwerk/base',
     '/system/netwerk/protocol/http',
     '/system/security/script',

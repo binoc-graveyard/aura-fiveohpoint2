@@ -99,10 +99,10 @@ if CONFIG['MOZ_PHOENIX']:
     DEFINES['MOZ_BUILD_APP_IS_BROWSER'] = True
 
 LOCAL_INCLUDES += [
-    '/components/profile/src',
     '/config',
     '/dom/base',
     '/dom/ipc',
+    '/runtime/components/profile/src',
     '/testing/gtest/mozilla',
     '/xpcom/build',
 ]
