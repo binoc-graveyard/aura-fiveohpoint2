@@ -40,8 +40,8 @@ LOCAL_INCLUDES += [
     '../build',
     '../ds',
     '../reflect/xptinfo',
-    '/components/jar/src',
-    '/components/registry/src',
+    '/runtime/components/jar/src',
+    '/runtime/components/registry/src',
 ]
 
 if 'gtk' in CONFIG['MOZ_WIDGET_TOOLKIT']:

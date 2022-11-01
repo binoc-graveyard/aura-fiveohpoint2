@@ -74,8 +74,8 @@ LOCAL_INCLUDES += [
     '../io',
     '../reflect/xptinfo',
     '../threads',
-    '/components/docshell/src',
-    '/components/registry/src',
+    '/runtime/components/docshell/src',
+    '/runtime/components/registry/src',
 ]
 
 if CONFIG['MOZ_VPX']:

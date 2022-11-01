@@ -44,9 +44,9 @@ SOURCES += [
 ]
 
 LOCAL_INCLUDES += [
-    '/components/docshell/src',
     '/dom/base',
     '/js/xpconnect/src',
+    '/runtime/components/docshell/src',
 ]
 
 if CONFIG['ENABLE_TESTS']:

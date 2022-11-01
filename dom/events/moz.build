@@ -129,7 +129,6 @@ include('/ipc/chromium/chromium-config.mozbuild')
 
 FINAL_LIBRARY = 'xul'
 LOCAL_INCLUDES += [
-    '/components/docshell/src',
     '/dom/base',
     '/dom/html',
     '/dom/settings',
@@ -142,6 +141,7 @@ LOCAL_INCLUDES += [
     '/layout/generic',
     '/layout/xul',
     '/layout/xul/tree/',
+    '/runtime/components/docshell/src',
 ]
 
 if CONFIG['GNU_CXX']:

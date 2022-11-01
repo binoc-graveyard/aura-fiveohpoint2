@@ -219,7 +219,6 @@ EXTRA_COMPONENTS += [
 include('/ipc/chromium/chromium-config.mozbuild')
 
 LOCAL_INCLUDES += [
-    '/components/docshell/src',
     '/dom/base',
     '/dom/canvas',
     '/dom/media/',
@@ -230,6 +229,7 @@ LOCAL_INCLUDES += [
     '/layout/style',
     '/layout/tables',
     '/layout/xul',
+    '/runtime/components/docshell/src',
     '/system/editor/txmgr',
     '/system/image',
     '/system/netwerk/base',
