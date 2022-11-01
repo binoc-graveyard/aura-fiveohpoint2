@@ -5,6 +5,13 @@
 
 # =====================================================================================================================
 
+BINOC_PYTHON=`which python2.7 2>/dev/null`
+
+if [ -z "$BINOC_PYTHON" ]; then
+  printf "We could not find Python 2.7 which is required for just about everything!\n"
+  exit 1
+fi
+
 BINOC_TARGET_OS=`uname | tr [:upper:] [:lower:]`
 BINOC_GIT=`which git 2>/dev/null`
 BINOC_CURL=`which curl 2>/dev/null`
@@ -22,18 +29,18 @@ export _BUILD_TARGET_OS=$BINOC_TARGET_OS
 case $1 in
   "build-release" | "localbuild" | "superclobber" | "version" | "webpatch" | "amend-author")
     if [[ "$1" == "build-release" ]]; then
-      $BINOC_PYTHON "$0" build && $BINOC_PYTHON "$0" package && $BINOC_PYTHON "$0" mar --bz2 && $BINOC_PYTHON "$0" langpack && $BINOC_PYTHON "$0" theme
+      $BINOC_PYTHON mach build && $BINOC_PYTHON mach package && $BINOC_PYTHON mach mar --bz2 && $BINOC_PYTHON mach langpack && $BINOC_PYTHON mach theme
       if [[ "$BINOC_TARGET_OS" == "winnt" ]]; then
-        $BINOC_PYTHON "$0" installer
+        $BINOC_PYTHON mach installer
       fi
     elif [ "$1" == "localbuild" ]; then
       # This builds and stages the application in dist/MOZ_APP_NAME but does not
       # actually generate an archive or any of the other stuff
-      $BINOC_PYTHON "$0" build
+      $BINOC_PYTHON mach build
       if [[ "$BINOC_TARGET_OS" == "winnt" ]]; then
-        $BINOC_PYTHON "$0" installer && $BINOC_PYTHON "$0" install
+        $BINOC_PYTHON mach installer && $BINOC_PYTHON mach install
       else
-        $BINOC_PYTHON "$0" stage
+        $BINOC_PYTHON mach stage
       fi
     elif [[ "$1" == "superclobber" && -d "../.obj" ]]; then
       printf "Removing all object directories in ../.obj"
