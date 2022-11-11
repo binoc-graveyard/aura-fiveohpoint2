@@ -3,6 +3,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+Components.utils.import("resource://gre/modules/Async.jsm");
+
 function FillHistoryMenu(aParent, aMenu)
 {
   // Remove old entries if any
@@ -82,11 +84,33 @@ function createUBHistoryMenu( aParent )
       var connection = Services.storage.openDatabase(file);
       try {
         if (connection.tableExists("urlbarhistory")) {
-          var statement = connection.createStatement(
-              "SELECT url FROM urlbarhistory ORDER BY ROWID DESC");
-          while (statement.executeStep())
-            aParent.appendChild(document.createElement("menuitem"))
-                   .setAttribute("label", statement.getString(0));
+          var statement = connection.createStatement("SELECT url FROM urlbarhistory" + " " +
+                                                     "ORDER BY ROWID DESC LIMIT 15");
+          while (statement.executeStep()) {
+            var menuLabel = statement.getString(0);
+            var menuURI = null;
+            var menuImage = null;
+            var menuitem = document.createElement("menuitem");
+            menuitem.className = "menuitem-iconic bookmark-item menuitem-with-favicon";
+            menuitem.setAttribute("label", menuLabel);
+            
+            try {
+              menuURI = Services.uriFixup.getFixupURIInfo(menuLabel, Services.uriFixup.FIXUP_FLAG_NONE);
+              menuURI = Services.io.newURI(menuURI.fixedURI.spec, null, null);
+
+              cb = Async.makeSyncCallback();
+              PlacesUtils.favicons.getFaviconURLForPage(menuURI, cb);
+              menuImage = Async.waitForSyncCallback(cb);
+              menuImage = PlacesUtils.favicons.getFaviconLinkForIcon(menuImage).spec;
+
+              if (menuImage) {
+                menuitem.setAttribute("image", menuImage);
+              }
+            } catch (e) {}
+
+            aParent.appendChild(menuitem);
+          }
+
           statement.reset();
           statement.finalize();
           return;

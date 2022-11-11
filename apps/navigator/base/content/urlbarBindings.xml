@@ -17,7 +17,7 @@
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
           xmlns:xbl="http://www.mozilla.org/xbl">
 
-  <binding id="urlbar" extends="chrome://global/content/autocomplete.xml#autocomplete">
+  <binding id="urlbar" extends="chrome://global/content/bindings/autocomplete.xml#autocomplete">
     <content sizetopopup="pref">
       <xul:hbox class="autocomplete-textbox-container" flex="1">
         <xul:hbox class="urlbar-security-level" flex="1" align="center" xbl:inherits="level">
@@ -37,16 +37,14 @@
         </xul:hbox>
       </xul:hbox>
 
-      <xul:dropmarker class="autocomplete-history-dropmarker" allowevents="true"
-                      xbl:inherits="open" anonid="historydropmarker"/>
+      <xul:dropmarker anonid="historydropmarker"
+                      class="autocomplete-history-dropmarker"
+                      context="ubhist-popup"
+                      allowevents="true"
+                      xbl:inherits="open,enablehistory,parentfocused=focused" />
 
-      <xul:popupset>
-        <xul:panel type="autocomplete" anonid="popup"
-                   ignorekeys="true" noautofocus="true" level="top"
-                   xbl:inherits="for=id,nomatch"/>
-      </xul:popupset>
-
-      <children includes="menupopup"/>
+      <xul:popupset anonid="popupset"
+                    class="autocomplete-result-popupset"/>
     </content>
 
     <implementation implements="nsIDOMEventListener">
@@ -55,7 +53,6 @@
 
         this.updatePref("browser.urlbar.showPopup");
         this.updatePref("browser.urlbar.autoFill");
-        this.updatePref("browser.urlbar.showSearch");
         this.updatePref("browser.urlbar.formatting.enabled");
         this.inputField.controllers.insertControllerAt(0, this._editItemsController);
         this.inputField.addEventListener("overflow", this, false);
@@ -93,8 +90,6 @@
             this.showPopup = this.mPrefs.getBoolPref(aPref);
           } else if (aPref == "browser.urlbar.autoFill") {
             this.autoFill = this.mPrefs.getBoolPref(aPref);
-          } else if (aPref == "browser.urlbar.showSearch") {
-            this.minResultsForPopup = this.mPrefs.getBoolPref(aPref) ?  0 : 1;
           } else if (aPref == "browser.urlbar.formatting.enabled") {
             this._formattingEnabled = this.mPrefs.getBoolPref(aPref);
             this._formatValue(this._formattingEnabled && !this.focused);
@@ -115,6 +110,28 @@
               this._overflowing = false;
               break;
           }
+        ]]></body>
+      </method>
+
+      <method name="handleRevert">
+        <body><![CDATA[
+          var isScrolling = this.open;
+
+          gBrowser.userTypedValue = null;
+
+          // don't revert to last valid url unless page is NOT loading
+          // and user is NOT key-scrolling through autocomplete list
+          if (!XULBrowserWindow.isBusy && !isScrolling) {
+            URLBarSetURI();
+
+            // If the value isn't empty and the urlbar has focus, select the value.
+            if (this.value && this.hasAttribute("focused"))
+              this.select();
+          }
+
+          // tell widget to revert to last typed text only if the user
+          // was scrolling when they hit escape
+          return !isScrolling;
         ]]></body>
       </method>
 
@@ -332,357 +349,6 @@
       <handler event="focus"><![CDATA[
         this._formatValue(false);
       ]]></handler>
-    </handlers>
-  </binding>
-
-  <binding id="autocomplete-result-popup" extends="chrome://global/content/autocomplete.xml#autocomplete-result-popup">
-    <content>
-      <xul:tree anonid="tree" class="autocomplete-tree plain" flex="1">
-        <xul:treecols anonid="treecols">
-          <xul:treecol class="autocomplete-treecol" id="treecolAutoCompleteValue" flex="2"/>
-          <xul:treecol class="autocomplete-treecol" id="treecolAutoCompleteComment" flex="1" hidden="true"/>
-        </xul:treecols>
-        <xul:treechildren anonid="treebody" class="autocomplete-treebody" flex="1"/>
-      </xul:tree>
-      <xul:box role="search-box" class="autocomplete-search-box"/>
-    </content>
-
-    <implementation>
-      <constructor><![CDATA[
-        // listen for changes to default search engine
-        this.mPrefs.addObserver("browser.search", this.mObserver, false);
-        this.mPrefs.addObserver("browser.urlbar", this.mObserver, false);
-        this.mObSvc.addObserver(this.mObserver,
-                                "browser-search-engine-modified", false);
-        this.updateEngines();
-      ]]></constructor>
-
-      <destructor><![CDATA[
-        this.mPrefs.removeObserver("browser.search", this.mObserver);
-        this.mPrefs.removeObserver("browser.urlbar", this.mObserver);
-        this.mObSvc.removeObserver(this.mObserver,
-                                   "browser-search-engine-modified");
-      ]]></destructor>
-
-      <property name="showSearch" onget="return this.mShowSearch;">
-        <setter><![CDATA[
-          this.mShowSearch = val;
-          if (val) {
-            this.updateEngines();
-            this.mSearchBox.removeAttribute("hidden");
-          } else {
-            this.clearEngines();
-            this.mSearchBox.setAttribute("hidden", "true");
-          }
-        ]]></setter>
-      </property>
-
-      <property name="defaultSearchEngine"
-                onget="return this.textbox.getAttribute('defaultSearchEngine') == 'true';"
-                onset="this.textbox.setAttribute('defaultSearchEngine', val); return val;"/>
-
-      <field name="mSearchBox">
-         document.getAnonymousElementByAttribute(this, "role", "search-box");
-      </field>
-
-      <field name="mPrefs">
-        Components.classes["@mozilla.org/preferences-service;1"]
-                  .getService(Components.interfaces.nsIPrefService)
-                  .getBranch(null);
-      </field>
-
-      <field name="mObSvc">
-        Components.classes["@mozilla.org/observer-service;1"]
-                  .getService(Components.interfaces.nsIObserverService);
-      </field>
-
-      <field name="mSearchService">
-        Components.classes["@mozilla.org/browser/search-service;1"]
-                  .getService(Components.interfaces.nsIBrowserSearchService);
-      </field>
-
-      <field name="mObserver"><![CDATA[
-        ({
-          resultsPopup: this,
-
-          observe: function(aSubject, aTopic, aData) {
-            switch (aTopic) {
-              case "browser-search-engine-modified":
-                if (aData == "engine-current") {
-                  this.resultsPopup.updateEngines();
-                }
-                break;
-              case "nsPref:changed":
-                if (/^browser\.search\./.test(aData))
-                  this.resultsPopup.updateEngines();
-                else if (/^browser\.urlbar\./.test(aData))
-                  this.resultsPopup.updatePref(aData);
-                break;
-              default:
-            }
-          }
-        });
-      ]]></field>
-
-      <field name="mInputListener"><![CDATA[
-        (function(aEvent) {
-          // "this" is the textbox, not the popup
-          if (this.mSearchInputTO)
-            window.clearTimeout(this.mSearchInputTO);
-          this.mSearchInputTO = window.setTimeout(this.popup.mInputTimeout, this.timeout, this);
-        });
-      ]]></field>
-
-      <field name="mInputTimeout"><![CDATA[
-        (function(me) {
-          me.popup.mSearchBox.searchValue = me.value;
-          me.mSearchInputTO = 0;
-        });
-      ]]></field>
-
-      <field name="mEnginesReady">false</field>
-
-      <property name="overrideValue" readonly="true">
-        <getter><![CDATA[
-          if (this.mSearchBox.selectedIndex != -1) {
-            return this.mSearchBox.overrideValue;
-          }
-          return null;
-        ]]></getter>
-      </property>
-
-      <method name="updatePref">
-        <parameter name="aPref"/>
-        <body><![CDATA[
-          if (aPref == "browser.urlbar.showSearch")
-            this.showSearch = this.mPrefs.getBoolPref("browser.urlbar.showSearch");
-        ]]></body>
-      </method>
-
-      <method name="addEngine">
-        <parameter name="aName"/>
-        <parameter name="aIcon"/>
-        <parameter name="aSearchBarUrl"/>
-        <body><![CDATA[
-          var box = document.createElement("box");
-          box.setAttribute("class", "autocomplete-search-engine");
-          box.setAttribute("name", aName);
-          if (aIcon)
-            box.setAttribute("icon", aIcon.spec);
-          box.setAttribute("searchBarUrl", aSearchBarUrl);
-          box.setAttribute("engineIndex", this.childNodes.length);
-          this.mSearchBox.appendChild(box);
-        ]]></body>
-      </method>
-
-      <method name="clearEngines">
-        <body><![CDATA[
-          while (this.mSearchBox.hasChildNodes())
-            this.mSearchBox.lastChild.remove();
-        ]]></body>
-      </method>
-
-      <method name="updateEngines">
-        <body><![CDATA[
-          var defaultEngine = this.mSearchService.defaultEngine;
-          if (defaultEngine) {
-            this.clearEngines();
-            this.addEngine(defaultEngine.name, defaultEngine.iconURI,
-                           defaultEngine.searchForm);
-          }
-
-          this.mEnginesReady = true;
-        ]]></body>
-      </method>
-
-      <method name="readRDFString">
-        <parameter name="aDS"/>
-        <parameter name="aRes"/>
-        <parameter name="aProp"/>
-        <body><![CDATA[
-          var n = aDS.GetTarget(aRes, aProp, true);
-          return n ? n.QueryInterface(Components.interfaces.nsIRDFLiteral).Value : null;
-        ]]></body>
-      </method>
-
-      <method name="clearSelection">
-        <body>
-          this.view.selection.clearSelection();
-          this.mSearchBox.selectedIndex = -1;
-        </body>
-      </method>
-
-      <method name="selectBy">
-        <parameter name="aReverse"/>
-        <parameter name="aPage"/>
-        <body><![CDATA[
-          var sel;
-          if (this.selectedIndex == -1 && aReverse ||
-              this.mSearchBox.selectedIndex != -1) {
-            sel = this.mSearchBox.selectBy(aReverse, aPage);
-            if (sel != -1 || !aReverse)
-              return -1;
-          }
-
-          sel = this.getNextIndex(aReverse, aPage, this.selectedIndex, this.view.rowCount - 1);
-          this.selectedIndex = sel;
-          if (sel == -1 && !aReverse)
-            this.mSearchBox.selectBy(aReverse, aPage);
-          else if (this.mSearchBox.selectedIndex != -1)
-            this.mSearchBox.selectedIndex = -1;
-          return sel;
-        ]]></body>
-      </method>
-    </implementation>
-
-    <handlers>
-      <handler event="popupshowing"><![CDATA[
-        // sync up with prefs about showing search in the URL bar if
-        // the URL bar hasn't finished initializing the default engine info
-        //   -or-
-        // the search sidebar tab was displayed already triggering a change
-        // notification to the browser.search pref branch listener here which
-        // calls updateEngines but doesn't cause the ``Search for ...''
-        // display string to be updated
-        if ( (!this.mEnginesReady && this.defaultSearchEngine) ||
-             !("mShowSearch" in this) )
-          this.updatePref("browser.urlbar.showSearch");
-
-        if (this.mShowSearch) {
-          this.textbox.mSearchInputTO = 0;
-          this.textbox.addEventListener("input", this.mInputListener, false);
-          if ("searchValue" in this.mSearchBox)
-            this.mSearchBox.searchValue = this.textbox.currentSearchString;
-          else
-            this.mSearchBox.setAttribute("searchvalue", this.textbox.currentSearchString);
-        }
-      ]]></handler>
-
-      <handler event="popuphiding"><![CDATA[
-        if (this.mShowSearch)
-          this.textbox.removeEventListener("input", this.mInputListener, false);
-      ]]></handler>
-    </handlers>
-  </binding>
-
-  <binding id="autocomplete-search-box">
-    <content orient="vertical"/>
-
-    <implementation>
-      <constructor><![CDATA[
-        this.navigatorBundle =
-          Components.classes["@mozilla.org/intl/stringbundle;1"]
-                    .getService(Components.interfaces.nsIStringBundleService)
-                    .createBundle("chrome://navigator/locale/navigator.properties");
-
-        var text = this.getAttribute("searchvalue");
-        if (text)
-          this.searchValue = text;
-      ]]></constructor>
-
-      <field name="mSelectedIndex">
-        -1
-      </field>
-
-      <field name="mSearchService">
-        Components.classes["@mozilla.org/browser/search-service;1"]
-                  .getService(Components.interfaces.nsIBrowserSearchService);
-      </field>
-
-      <property name="activeChild"
-                onget="return this.childNodes[this.mSelectedIndex]"/>
-
-      <property name="selectedIndex">
-        <getter>return this.mSelectedIndex;</getter>
-
-        <setter><![CDATA[
-          if (this.mSelectedIndex != -1)
-            this.activeChild.removeAttribute("menuactive");
-
-          this.mSelectedIndex = val;
-
-          if (val != -1)
-            this.activeChild.setAttribute("menuactive", "true");
-          return val;
-        ]]></setter>
-
-      </property>
-
-      <property name="searchValue">
-        <getter><![CDATA[
-          return this.mSearchValue;
-        ]]></getter>
-        <setter><![CDATA[
-          this.mSearchValue = val;
-
-          const kids = this.childNodes;
-          for (var i = 0; i < kids.length; ++i) {
-            kids[i].setAttribute("label",
-              this.navigatorBundle.formatStringFromName(
-                "searchFor", [kids[i].getAttribute("name"), val], 2));
-          }
-        ]]></setter>
-      </property>
-
-      <method name="selectBy">
-        <parameter name="aReverse"/>
-        <parameter name="aPage"/>
-        <body><![CDATA[
-          return this.selectedIndex = this.parentNode.getNextIndex(aReverse, aPage, this.selectedIndex, this.childNodes.length - 1);
-        ]]></body>
-      </method>
-
-      <property name="overrideValue" readonly="true">
-        <getter><![CDATA[
-          var item = this.activeChild;
-          if (item) {
-            // XXXsearch: using default engine for now, this ignores the following values:
-            //            item.getAttribute("searchEngine") and item.getAttribute("searchBarUrl")
-            var engine = this.mSearchService.defaultEngine;
-
-            var submission = engine.getSubmission(this.mSearchValue); // HTML response
-
-            // getSubmission can return null if the engine doesn't have a URL
-            // with a text/html response type.  This is unlikely (since
-            // SearchService._addEngineToStore() should fail for such an engine),
-            // but let's be on the safe side.
-            if (!submission)
-              return null;
-
-            // XXXsearch: the submission object may have postData but .overrideValue can't deal with that
-            //            see http://mxr.mozilla.org/comm-central/source/mozilla/netwerk/base/public/nsIBrowserSearchService.idl#47
-            //            we need to figure out what to do with that case here
-
-            return submission.uri.spec;
-          }
-          return null;
-        ]]></getter>
-      </property>
-
-    </implementation>
-
-    <handlers>
-      <handler event="mouseup">
-        this.parentNode.textbox.onResultClick();
-      </handler>
-    </handlers>
-
-  </binding>
-
-  <binding id="autocomplete-search-engine">
-    <content>
-      <xul:image class="autocomplete-search-engine-img" xbl:inherits="src=icon"/>
-      <xul:label class="autocomplete-search-engine-text" xbl:inherits="value=label" crop="right" flex="1"/>
-    </content>
-
-    <handlers>
-      <handler event="mousemove">
-        this.parentNode.selectedIndex = Number(this.getAttribute("engineIndex"));
-      </handler>
-
-      <handler event="mouseout">
-        this.parentNode.selectedIndex = -1;
-      </handler>
     </handlers>
   </binding>
 

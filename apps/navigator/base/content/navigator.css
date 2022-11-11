@@ -67,19 +67,6 @@ tabbrowser {
   -moz-binding: url("chrome://navigator/content/urlbarBindings.xml#input-box-paste");
 }
 
-panel[for="urlbar"] {
-  -moz-binding: url("chrome://navigator/content/urlbarBindings.xml#autocomplete-result-popup") !important;
-}
-
-.autocomplete-search-box {
-  -moz-binding: url("chrome://navigator/content/urlbarBindings.xml#autocomplete-search-box");
-}
-
-.autocomplete-search-engine {
-  -moz-binding: url("chrome://navigator/content/urlbarBindings.xml#autocomplete-search-engine");
-  -moz-box-align: center;
-}
-
 /* ::::: search bar ::::: */
 searchbar {
   -moz-binding: url("chrome://communicator/content/search/search.xml#searchbar");

@@ -451,7 +451,7 @@ set_config('MOZ_IPDL_TESTS',
 @imports('os')
 @imports(_from='__builtin__', _import='sorted')
 def all_necko_protocols(build_env, _):
-    basedir = os.path.join(build_env.topsrcdir, 'system', 'network', 'protocol')
+    basedir = os.path.join(build_env.topsrcdir, 'system', 'netwerk', 'protocol')
     return tuple(sorted(p for p in os.listdir(basedir)
                         if os.path.isdir(os.path.join(basedir, p))))
 

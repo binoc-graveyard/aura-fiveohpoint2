@@ -2193,30 +2193,6 @@ function ShowAndSelectContentsOfURLBar()
     gURLBar.focus();
 }
 
-// If "ESC" is pressed in the url bar, we replace the urlbar's value with the url of the page
-// and highlight it, unless it is about:blank, where we reset it to "".
-function handleURLBarRevert()
-{
-  var url = getWebNavigation().currentURI.spec;
-  var throbberElement = document.getElementById("navigator-throbber");
-
-  var isScrolling = gURLBar.userAction == "scrolling";
-
-  // don't revert to last valid url unless page is NOT loading
-  // and user is NOT key-scrolling through autocomplete list
-  if (!throbberElement.hasAttribute("busy") && !isScrolling) {
-    URLBarSetURI();
-
-    // If the value isn't empty, select it.
-    if (gURLBar.value)
-      gURLBar.select();
-  }
-
-  // tell widget to revert to last typed text only if the user
-  // was scrolling when they hit escape
-  return isScrolling;
-}
-
 function UpdatePageProxyState()
 {
   if (gURLBar.value != gLastValidURLStr)

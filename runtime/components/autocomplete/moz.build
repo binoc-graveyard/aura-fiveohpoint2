@@ -1,0 +1,23 @@
+# -*- Mode: python; indent-tabs-mode: nil; tab-width: 40 -*-
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+XPIDL_SOURCES += [
+  'public/nsIAutoCompleteController.idl',
+  'public/nsIAutoCompleteInput.idl',
+  'public/nsIAutoCompletePopup.idl',
+  'public/nsIAutoCompleteResult.idl',
+  'public/nsIAutoCompleteSearch.idl',
+  'public/nsIAutoCompleteSimpleResult.idl',
+]
+
+XPIDL_MODULE = 'autocomplete'
+
+SOURCES += [
+    'src/nsAutoCompleteController.cpp',
+    'src/nsAutoCompleteSimpleResult.cpp',
+]
+
+FINAL_LIBRARY = 'xul'
+JAR_MANIFESTS += ['jar.mn']

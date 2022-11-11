@@ -1,0 +1,59 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+SOURCES += [
+    'nsMailModule.cpp',
+]
+
+USE_LIBS += [
+    'nspr',
+]
+
+if CONFIG['MOZ_INCOMPLETE_EXTERNAL_LINKAGE']:
+    XPCOMBinaryComponent('mail')
+    USE_LIBS += [
+        'rdfutil_external_s',
+        'unicharutil_external_s',
+        'xpcomglue_s',
+        'xul',
+    ]
+else:
+    Library('mail')
+    FINAL_LIBRARY = 'xul'
+
+# js needs to come after xul for now, because it is an archive and its content
+# is discarded when it comes first.
+USE_LIBS += [
+    'js',
+]
+
+if CONFIG['OS_ARCH'] == 'WINNT':
+    OS_LIBS += [
+        'shell32',
+    ]
+else:
+    OS_LIBS += CONFIG['MOZ_ZLIB_LIBS']
+
+LOCAL_INCLUDES += [
+    '/system/mailnews/addrbook/src',
+    '/system/mailnews/base/search/src',
+    '/system/mailnews/base/src',
+    '/system/mailnews/base/util',
+    '/system/mailnews/compose/src',
+    '/system/mailnews/extensions/bayesian-spam-filter/src',
+    '/system/mailnews/extensions/fts3/src',
+    '/system/mailnews/extensions/mailviews/src',
+    '/system/mailnews/extensions/mdn/src',
+    '/system/mailnews/extensions/smime/src',
+    '/system/mailnews/imap/src',
+    '/system/mailnews/intl',
+    '/system/mailnews/local/src',
+    '/system/mailnews/mapi/include',
+    '/system/mailnews/mime/emitters',
+    '/system/mailnews/mime/src',
+    '/system/mailnews/news/src',
+]
+
+if CONFIG['MOZ_LDAP_XPCOM']:
+    DEFINES['MOZ_LDAP_XPCOM'] = True

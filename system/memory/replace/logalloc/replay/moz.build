@@ -7,7 +7,7 @@ Program('logalloc-replay')
 
 SOURCES += [
     '../FdPrintf.cpp',
-    '/system/framework/Assertions.cpp',
+    '/system/mfbt/Assertions.cpp',
     'Replay.cpp',
 ]
 

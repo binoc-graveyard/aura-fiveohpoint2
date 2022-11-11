@@ -100,10 +100,6 @@ if CONFIG['MOZ_SANDBOX'] and CONFIG['OS_TARGET'] == 'Darwin':
     ]
 
 LOCAL_INCLUDES += [
-    '/components/docshell/src',
-    '/components/permissions/src',
-    '/components/printing/src',
-    '/components/registry/src',
     '/dom/base',
     '/dom/events',
     '/dom/filesystem',
@@ -112,21 +108,25 @@ LOCAL_INCLUDES += [
     '/dom/storage',
     '/dom/workers',
     '/layout/base',
-    '/system/graphics/2d',
-    '/system/hardware/sandbox',
-    '/system/interface',
+    '/runtime/bootstrap',
+    '/runtime/components/docshell/src',
+    '/runtime/components/permissions/src',
+    '/runtime/components/printing/src',
+    '/runtime/components/registry/src',
+    '/system/gfx/2d',
+    '/system/hal/sandbox',
     '/system/intl/spellcheck/src',
-    '/system/network/base',
-    '/system/network/exthandler',
-    '/system/runtime',
+    '/system/netwerk/base',
+    '/system/netwerk/exthandler',
     '/system/security/content',
     '/system/security/script',
+    '/system/widget',
     '/xpcom/base',
     '/xpcom/threads',
 ]
 
 if CONFIG['OS_ARCH'] != 'WINNT':
-    LOCAL_INCLUDES += ['/components/jar/src']
+    LOCAL_INCLUDES += ['/runtime/components/jar/src']
 
 DEFINES['BIN_SUFFIX'] = '"%s"' % CONFIG['BIN_SUFFIX']
 

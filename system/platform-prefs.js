@@ -19,7 +19,7 @@
  *  - Computed values (e.g. 50 * 1024) don't work.
  */
 
-#include network/base/security-prefs.js
+#include netwerk/base/security-prefs.js
 
 pref("keyword.enabled", false);
 pref("general.useragent.locale", "chrome://global/locale/intl.properties");

@@ -20,18 +20,18 @@ DIRS += [
   'libs/nspr/build',
   'libs/zlib',
   'system/memory',
-  'system/framework',
-  'system/utils',
+  'system/mfbt',
+  'system/mozglue',
 ]
 
 if not CONFIG['JS_STANDALONE']:
-  CONFIGURE_SUBST_FILES += ['system/updater/package/Makefile']
+  CONFIGURE_SUBST_FILES += ['runtime/updater/package/Makefile']
   CONFIGURE_DEFINE_FILES += ['mozilla-config.h']
   EXPORTS += ['!buildid.h', '!mozilla-config.h', '!source-repo.h']
   GENERATED_FILES += ['buildid.h', 'source-repo.h']
   GENERATED_FILES['buildid.h'].script = 'build/variables.py:buildid_header'
   GENERATED_FILES['source-repo.h'].script = 'build/variables.py:source_repo_header'
-  DIRS += ['build', 'system/dtrace', 'xpcom/xpidl']
+  DIRS += ['build', 'system/probes', 'xpcom/xpidl']
 
 if CONFIG['USE_ICU']:
   DIRS += ['libs/icu']

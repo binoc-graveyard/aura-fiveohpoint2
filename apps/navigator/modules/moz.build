@@ -5,7 +5,6 @@
 
 EXTRA_JS_MODULES += [
     'PlacesUIUtils.jsm',
-    'PolyGHL.jsm',
     'Sanitizer.jsm',
     'WindowsPreviewPerTab.jsm',
 ]

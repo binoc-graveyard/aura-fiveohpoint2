@@ -4,22 +4,30 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 DIRS += [
-  'fonts',
-  'graphics',
-  'hardware',
+  'editor',
+  'gfx',
+  'hal',
   'image',
-  'interface',
   'intl',
   'locales',
-  'multmedia',
-  'network',
+  'netwerk',
   'security',
   'themes',
+  'widget',
 ]
 
-if CONFIG['MOZ_UPDATER']:
-  DIRS += ['updater']
+if CONFIG['MOZ_CALENDAR']:
+  DIRS += [
+    'calendar/libical',
+    'calendar/lightning',
+    'calendar/timezones'
+  ]
 
-DIRS += ['runtime']
+if CONFIG['MOZ_MAILNEWS']:
+  DIRS += [
+    'db/mork',
+    'ldap',
+    'mailnews',
+  ]
 
 FINAL_TARGET_PP_FILES += ['platform-prefs.js']

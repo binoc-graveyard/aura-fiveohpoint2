@@ -4,20 +4,19 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 DIRS += [
-  '/libs',
+  '/third_party',
   '/config/external/freetype2',
   '/xpcom',
 ]
 
 DIRS += [
-  '/components',
   '/dom',
-  '/editor',
   '/ipc',
   '/js/ipc',
   '/js/xpconnect',
   '/layout',
   '/modules',
+  '/runtime',
   '/system',
 ]
 
@@ -33,12 +32,9 @@ if CONFIG['ACCESSIBILITY']:
 else:
   DIRS += ['/accessible/ipc']
 
-if CONFIG['MOZ_MAILNEWS']:
-  DIRS += ['/mailnews']
-
 DIRS += [
-  '/system/evil/StaticXULComponentsEnd',
-  '/system/evil',
+  '/system/library/StaticXULComponentsEnd',
+  '/system/library',
 ]
 
 if CONFIG['FUZZING']:
