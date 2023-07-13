@@ -1,16 +1,4 @@
 # Aura Runtime Environment
-ARE is a platform codebase and rendering engine that focuses on maintaining classical Mozilla technologies and continuing them into the future. Sources for such continuation are independently developed but also sourced from many different places including Mozilla (for what little remains useful), *a certain other platform codebase*, as well as similar efforts around the global internet.
+Is a semi-failed experiment due to continued complications in attempting to be both aligned and not. Also, it is the current (and only working) platform for Interlink Mail & News for the moment.
 
-This repository also includes the Binary Outcast XUL-based applications.
-
-## Additional documentation
-
-Additional documentation relevant to this source code can be found in the `/docs` directory. This will contain relevant documentation regarding contributing, using and distributing this code and its binaries.
-
-## A note about trademarks and branding
-
-Although this repository is licensed under Mozilla Public License v2.0 and other more permissive open source licenses, the trademarks and brands contained herein remain the property of their respective owners. For more details, please see the notifications in the respective directories.
-
-## The bottom line
-
-We .. ARE!
+This repo is no longer getting primary development but will get applicable UXP security fixes and minor application fixes and enhancements until we switch over to the next phase in Interlink that should help foster it's continued existance regardless of other BinOC Projects.
